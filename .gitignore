@@ -19,3 +19,6 @@ bun-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Local Netlify folder
+.netlify

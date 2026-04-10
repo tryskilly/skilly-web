@@ -49,13 +49,19 @@ if (form) {
     submitBtn.textContent = 'Joining...';
 
     try {
-      // TODO: replace with the real waitlist endpoint
-      // await fetch('https://api.tryskilly.app/waitlist', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email: emailInput.value, platform: platformInput.value }),
-      // });
-      await new Promise((r) => setTimeout(r, 700));
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value.trim(),
+          platform: platformInput.value,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? `Request failed with status ${res.status}`);
+      }
 
       // Track waitlist submission in PostHog
       window.posthog?.capture('web_waitlist_submitted', {
