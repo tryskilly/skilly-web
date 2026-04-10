@@ -1,0 +1,47 @@
+---
+// src/components/Nav.astro
+import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
+---
+<header
+  data-nav
+  class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-transparent transition-all duration-300"
+>
+  <div class="max-w-site mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <Logo size={26} variant="amber" alt="Skilly" />
+      <Wordmark size="md" />
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#how" data-ph-event="web_nav_link_clicked" data-ph-prop-link="how" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">How it works</a>
+      <a href="#features" data-ph-event="web_nav_link_clicked" data-ph-prop-link="features" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Features</a>
+      <a href="#pricing" data-ph-event="web_nav_link_clicked" data-ph-prop-link="pricing" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Pricing</a>
+      <a href="#waitlist" data-ph-event="web_nav_link_clicked" data-ph-prop-link="waitlist" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Waitlist</a>
+      <a
+        href="#download"
+        data-ph-event="web_cta_download_clicked"
+        data-ph-prop-location="nav"
+        class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-md px-5 py-2 text-sm font-semibold transition-all"
+      >
+        Download
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12L12 4M12 4H5M12 4V11"/>
+        </svg>
+      </a>
+    </nav>
+
+    <a
+      href="#download"
+      data-ph-event="web_cta_download_clicked"
+      data-ph-prop-location="nav_mobile"
+      class="md:hidden inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-md px-4 py-2 text-sm font-semibold"
+    >
+      Download
+    </a>
+  </div>
+</header>
+
+<script>
+  import '../scripts/nav-scroll.ts';
+</script>
