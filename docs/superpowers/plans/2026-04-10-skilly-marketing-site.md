@@ -152,7 +152,7 @@ bun-debug.log*
 .DS_Store
 ```
 
-Note: `bun.lockb` is **committed** (it's the Bun lockfile and should be in version control), so it is not in `.gitignore`.
+Note: `bun.lock` is **committed** (it's the Bun lockfile and should be in version control), so it is not in `.gitignore`.
 
 - [ ] **Step 1.5: Create a placeholder `src/pages/index.astro`** so the build can run:
 
@@ -173,7 +173,7 @@ Note: `bun.lockb` is **committed** (it's the Bun lockfile and should be in versi
 - [ ] **Step 1.6: Install dependencies with Bun**
 
 Run: `cd /Users/engmsaleh/Repos/skilly-web && bun install`
-Expected: packages installed, `bun.lockb` and `node_modules/` created. May print warnings — those are fine.
+Expected: packages installed, `bun.lock` and `node_modules/` created. May print warnings — those are fine.
 
 - [ ] **Step 1.7: Verify the build works**
 
@@ -184,7 +184,7 @@ Expected: build succeeds, `dist/index.html` exists.
 
 ```bash
 cd /Users/engmsaleh/Repos/skilly-web
-git add package.json bun.lockb astro.config.mjs tsconfig.json .gitignore src/pages/index.astro
+git add package.json bun.lock astro.config.mjs tsconfig.json .gitignore src/pages/index.astro
 git commit -m "chore: scaffold Astro project with Tailwind and Bun"
 ```
 
@@ -447,6 +447,10 @@ git commit -m "chore: add logo assets and favicon to public/"
 //
 // All data-ph-prop-* attributes become event properties (with the prefix stripped
 // and the camelCase preserved as lowercase).
+
+// Make this file an ES module so the global Window augmentation below is allowed
+// in strict TypeScript mode.
+export {};
 
 declare global {
   interface Window {
