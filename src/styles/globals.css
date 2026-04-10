@@ -26,6 +26,17 @@
   }
 }
 
+@layer base {
+  /* Visible focus rings for keyboard navigation */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #F59E0B;
+    outline-offset: 2px;
+  }
+}
+
 @layer utilities {
   /* Fade-up reveal-on-scroll: starts hidden, animates in when .is-visible is added */
   .reveal {
