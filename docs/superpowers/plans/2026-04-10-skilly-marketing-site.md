@@ -2195,7 +2195,7 @@ git commit -m "chore: final Lighthouse pass and acceptance walkthrough" --allow-
 
 ### Inputs (from user)
 
-- **Resend API key (full access):** `re_xxxxxxxxxxxxxxxxxxxxxxxx` — goes in `.env`, NEVER commit
+- **Resend API key (full access):** `re_xxxxxxxxxxxxxxxxxxxxxxxx` — goes in `.env`, NEVER commit. The real key is given to the implementer out-of-band (chat / secrets manager) and never embedded in plan files.
 - **Audience ID:** `2b2eecf7-56f0-4d30-8cd6-e844b8883ad6` — Skilly Waitlist
 - **Sending domain:** `send.tryskilly.app` (verified subdomain)
 - **From:** `Skilly <hello@send.tryskilly.app>`
@@ -2237,6 +2237,8 @@ export default defineConfig({
 
 - [ ] **Step 19.4: Create `.env` with the real secrets** (NOT committed)
 
+**Important:** The real `RESEND_API_KEY` is provided out-of-band by the user in the chat session. **Do NOT** paste the real key into this plan, into any commit, or into any tool output. The placeholder `re_xxxxxxxxxxxxxxxxxxxxxxxx` below is the literal placeholder — substitute the real value at runtime only.
+
 ```bash
 cat > /Users/engmsaleh/Repos/skilly-web/.env <<'EOF'
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
@@ -2244,7 +2246,9 @@ RESEND_AUDIENCE_ID=2b2eecf7-56f0-4d30-8cd6-e844b8883ad6
 EOF
 ```
 
-Verify the file was created and `.env` IS gitignored: `git check-ignore .env` should print `.env`.
+Then edit `.env` directly (with `Edit` or `Write`, NEVER with a `cat <<EOF` block in Bash that would echo the key into command history) and replace the placeholder with the real key. The real audience ID is fine to keep in the plan because audience IDs are non-secret identifiers.
+
+Verify: `git check-ignore .env` should print `.env` (proving the file is ignored).
 
 - [ ] **Step 19.5: Create `.env.example` (committed) with placeholder values**
 
