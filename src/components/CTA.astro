@@ -1,0 +1,29 @@
+---
+// src/components/CTA.astro
+import Logo from './Logo.astro';
+---
+<section id="download" class="py-24 lg:py-32 px-6 text-center">
+  <div class="max-w-[600px] mx-auto">
+    <div class="flex justify-center mb-6">
+      <Logo size={56} variant="amber" alt="Skilly" />
+    </div>
+    <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mb-4 text-gray-50">
+      Stop watching tutorials.<br />
+      <span class="text-amber-500">Start doing.</span>
+    </h2>
+    <p class="text-lg text-gray-400 mb-9 leading-relaxed">
+      Download Skilly, load a skill, and let the cursor show you the way.
+    </p>
+    <a
+      href="#"
+      data-ph-event="web_cta_download_clicked"
+      data-ph-prop-location="bottom"
+      class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-10 py-4 text-lg font-semibold transition-all"
+    >
+      Download for Mac — Free
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12L12 4M12 4H5M12 4V11"/>
+      </svg>
+    </a>
+  </div>
+</section>
