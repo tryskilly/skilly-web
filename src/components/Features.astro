@@ -1,0 +1,65 @@
+---
+// src/components/Features.astro
+import { features } from '../data/features.ts';
+---
+<section id="features" class="py-24 lg:py-32 px-6">
+  <div class="max-w-site mx-auto">
+    <div class="text-center mb-16 lg:mb-20">
+      <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">Features</span>
+      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 text-gray-50">
+        Not a chatbot. A companion.
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((f, i) => (
+        <div
+          data-reveal
+          class={`reveal reveal-delay-${(i % 3) + 1} bg-gray-900 rounded-2xl p-8 border border-gray-800 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/25`}
+        >
+          <div class="w-11 h-11 rounded-[10px] bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-5 text-amber-500">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              {f.icon === 'cursor' && (
+                <path d="M5 3L5 19L9 15L14 21L17 19L12 13L17 12L5 3Z" />
+              )}
+              {f.icon === 'voice' && (
+                <>
+                  <path d="M12 3v10M8 8a4 4 0 008 0" />
+                  <path d="M6 13a6 6 0 0012 0M12 17v4M9 21h6" />
+                </>
+              )}
+              {f.icon === 'brain' && (
+                <>
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 3v18M3 12h18" stroke-opacity="0.4" stroke-width="0.8" />
+                </>
+              )}
+              {f.icon === 'path' && (
+                <>
+                  <path d="M4 19L8 15L12 17L16 11L20 5" />
+                  <circle cx="8" cy="15" r="2" fill="currentColor" fill-opacity="0.3" stroke="none" />
+                  <circle cx="16" cy="11" r="2" fill="currentColor" fill-opacity="0.3" stroke="none" />
+                </>
+              )}
+              {f.icon === 'plug' && (
+                <>
+                  <rect x="5" y="3" width="14" height="18" rx="2" />
+                  <path d="M9 7h6M9 10h4" />
+                </>
+              )}
+              {f.icon === 'key' && (
+                <>
+                  <circle cx="8" cy="8" r="5" />
+                  <path d="M12 11l6 6M15 14l3 3" />
+                </>
+              )}
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-gray-50">{f.title}</h3>
+          <p class="text-[15px] leading-relaxed text-gray-400">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
