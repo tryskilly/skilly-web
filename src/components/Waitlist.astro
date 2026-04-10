@@ -1,0 +1,117 @@
+---
+// src/components/Waitlist.astro
+const platforms = [
+  { id: 'windows', label: 'Windows' },
+  { id: 'linux', label: 'Linux' },
+  { id: 'ios', label: 'iOS / iPad' },
+];
+
+const platformStatus = [
+  { label: 'macOS', status: 'Available now', color: 'bg-green-500' },
+  { label: 'Windows', status: 'In development', color: 'bg-amber-500' },
+  { label: 'Linux', status: 'Planned', color: 'bg-gray-500' },
+  { label: 'iOS / iPad', status: 'Exploring', color: 'bg-gray-500' },
+];
+---
+<section id="waitlist" class="relative py-24 lg:py-32 px-6">
+  <div
+    aria-hidden="true"
+    class="absolute left-0 right-0 top-0 h-px"
+    style="background: linear-gradient(90deg, transparent, #27272A, transparent);"
+  ></div>
+
+  <div class="max-w-[560px] mx-auto text-center">
+    <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">Coming soon</span>
+    <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[40px] font-bold tracking-tight mt-3 mb-4 text-gray-50">
+      Not on Mac?
+    </h2>
+    <p data-reveal class="reveal reveal-delay-1 text-[17px] leading-relaxed text-gray-400 mb-10">
+      Skilly is Mac-first, but Windows and Linux are on the roadmap. Join the waitlist and we'll email you when your platform launches.
+    </p>
+
+    <div data-waitlist-wrapper data-reveal class="reveal reveal-delay-2 bg-gray-900 rounded-[20px] border border-gray-800 p-9 text-left">
+      <form data-waitlist-form>
+        <input type="hidden" name="platform" value="" />
+
+        <label class="text-sm font-medium text-gray-300 block mb-2">Choose your platform</label>
+        <div class="flex gap-2.5 mb-6">
+          {platforms.map((p) => (
+            <button
+              type="button"
+              data-platform={p.id}
+              data-selected="false"
+              class="flex-1 flex flex-col items-center gap-2 px-3 py-4 rounded-xl border border-gray-700 bg-transparent transition-all hover:border-gray-500"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500" aria-hidden="true">
+                {p.id === 'windows' && (
+                  <>
+                    <rect x="2" y="3" width="9" height="9" rx="1" />
+                    <rect x="13" y="3" width="9" height="9" rx="1" />
+                    <rect x="2" y="14" width="9" height="9" rx="1" />
+                    <rect x="13" y="14" width="9" height="9" rx="1" />
+                  </>
+                )}
+                {p.id === 'linux' && (
+                  <path d="M12 2C9 2 7 5 7 8c0 2-2 3-3 5s0 4 1 5c2 2 5 2 7 2s5 0 7-2c1-1 2-3 1-5s-3-3-3-5c0-3-2-6-5-6z" />
+                )}
+                {p.id === 'ios' && (
+                  <>
+                    <rect x="6" y="2" width="12" height="20" rx="2" />
+                    <circle cx="12" cy="19" r="0.5" fill="currentColor" />
+                  </>
+                )}
+              </svg>
+              <span class="text-[13px] font-medium text-gray-400">{p.label}</span>
+            </button>
+          ))}
+        </div>
+
+        <label class="text-sm font-medium text-gray-300 block mb-2" for="waitlist-email">Email address</label>
+        <div class="flex gap-2.5">
+          <input
+            id="waitlist-email"
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            class="flex-1 px-4 py-3 rounded-lg text-[15px] bg-gray-950 border border-gray-700 text-gray-200 placeholder-gray-600 outline-none focus:border-amber-500 transition-colors"
+          />
+          <button
+            type="submit"
+            disabled
+            class="bg-amber-500 hover:bg-amber-600 text-gray-950 border-none rounded-lg px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-all opacity-50 cursor-not-allowed"
+          >
+            Join waitlist
+          </button>
+        </div>
+        <p class="text-xs text-gray-600 mt-3">No spam. One email when your platform launches. That's it.</p>
+      </form>
+    </div>
+
+    <div data-waitlist-success hidden class="bg-gray-900 rounded-[20px] border border-amber-500/25 p-12 text-center">
+      <div class="w-14 h-14 rounded-full bg-amber-500/10 border-2 border-amber-500/25 flex items-center justify-center mx-auto mb-5">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12l5 5L20 7" />
+        </svg>
+      </div>
+      <h3 class="text-[22px] font-semibold text-gray-50 mb-2">You're on the list!</h3>
+      <p class="text-[15px] text-gray-400 leading-relaxed">
+        We'll email <span data-success-email class="text-amber-300"></span> when Skilly launches on <span data-success-platform class="text-amber-300"></span>.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8">
+      {platformStatus.map((p) => (
+        <div class="flex items-center gap-1.5">
+          <span class={`block w-1.5 h-1.5 rounded-full ${p.color}`}></span>
+          <span class="text-[13px] text-gray-400">{p.label}</span>
+          <span class="text-[11px] text-gray-600">— {p.status}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/waitlist.ts';
+</script>
