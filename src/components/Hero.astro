@@ -1,0 +1,110 @@
+---
+// src/components/Hero.astro
+import Logo from './Logo.astro';
+import { apps } from '../data/apps.ts';
+const firstApp = apps[0];
+---
+<section
+  id="top"
+  class="relative min-h-screen flex items-center overflow-hidden"
+>
+  <!-- Ambient amber glow -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+    style="background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);"
+  ></div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-0 right-0 w-2/5 h-full"
+    style="background: linear-gradient(180deg, rgba(245,158,11,0.03) 0%, transparent 60%);"
+  ></div>
+
+  <div class="max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-20 w-full">
+    <div class="grid lg:grid-cols-[1fr,auto] gap-12 items-center">
+      <!-- LEFT: copy -->
+      <div class="max-w-[720px]">
+        <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full pl-2.5 pr-4 py-1.5 mb-8">
+          <span class="block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-soft"></span>
+          <span class="text-[13px] font-medium text-amber-300">Now in beta — Blender skill available</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-gray-50 mb-6">
+          Your AI companion<br />
+          for learning{' '}
+          <span class="relative inline-block">
+            <span
+              data-hero-app
+              class="text-amber-500 inline-block transition-opacity duration-200"
+            >{firstApp}</span>
+            <span
+              aria-hidden="true"
+              class="absolute -bottom-1 left-0 right-0 h-[3px] rounded-sm opacity-60"
+              style="background: linear-gradient(90deg, #F59E0B, #FCD34D);"
+            ></span>
+          </span>
+        </h1>
+
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-400 mb-10 max-w-[540px]">
+          Skilly sees your screen, hears your question, and points at exactly what you need. Like having an expert sitting next to you.
+        </p>
+
+        <div class="flex flex-wrap gap-3 items-center">
+          <a
+            href="#download"
+            data-ph-event="web_cta_download_clicked"
+            data-ph-prop-location="hero"
+            class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+          >
+            Download for Mac — Free
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 12L12 4M12 4H5M12 4V11"/>
+            </svg>
+          </a>
+          <span class="text-[13px] text-gray-500">macOS 14+ · Apple Silicon</span>
+        </div>
+        <a
+          href="#waitlist"
+          class="text-sm text-gray-500 hover:text-gray-300 mt-3 inline-block border-b border-dashed border-gray-700"
+        >
+          Not on Mac? Join the waitlist for Windows, Linux & iOS →
+        </a>
+      </div>
+
+      <!-- RIGHT: floating cursor mockup -->
+      <div class="hidden lg:flex flex-col items-center">
+        <div class="relative w-[320px] h-[320px]">
+          <div class="absolute top-10 left-5 w-[280px] h-[200px] bg-gray-900 rounded-xl border border-gray-800 p-4">
+            <div class="flex gap-1.5 mb-3">
+              <span class="block w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="block w-2 h-2 rounded-full bg-amber-500"></span>
+              <span class="block w-2 h-2 rounded-full bg-green-500"></span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 80%"></div>
+              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 60%"></div>
+              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 100%"></div>
+              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 45%"></div>
+              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 75%"></div>
+            </div>
+            <div class="mt-4 flex gap-1.5">
+              <div class="h-5 w-10 rounded bg-gray-800"></div>
+              <div class="h-5 w-14 rounded bg-gray-800"></div>
+              <div class="h-5 w-9 rounded bg-gray-800"></div>
+            </div>
+          </div>
+          <div class="absolute bottom-16 right-5 animate-float">
+            <Logo size={56} variant="amber" alt="Skilly cursor" />
+            <div class="absolute -top-2 -right-20 bg-gray-900 border border-amber-500/25 rounded-lg px-3 py-1.5 whitespace-nowrap text-xs font-medium text-amber-300">
+              UV Unwrap
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/hero-rotate.ts';
+</script>
