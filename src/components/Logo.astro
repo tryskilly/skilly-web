@@ -1,0 +1,27 @@
+---
+// src/components/Logo.astro
+interface Props {
+  size?: number;
+  variant?: 'amber' | 'white';
+  alt?: string;
+  class?: string;
+}
+
+const {
+  size = 32,
+  variant = 'amber',
+  alt = 'Skilly',
+  class: className = '',
+} = Astro.props;
+
+const src = variant === 'amber' ? '/skilly-mark.png' : '/skilly-mark-white.png';
+---
+<img
+  src={src}
+  width={size}
+  height={size}
+  alt={alt}
+  class={className}
+  loading="eager"
+  decoding="async"
+/>

@@ -1,0 +1,19 @@
+---
+// src/components/Wordmark.astro
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  withDot?: boolean;
+  class?: string;
+}
+
+const { size = 'md', withDot = false, class: className = '' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-base',
+  md: 'text-xl',
+  lg: 'text-3xl',
+};
+---
+<span class={`font-sans font-bold tracking-tight text-gray-50 ${sizeClasses[size]} ${className}`}>
+  skill{withDot ? <span class="text-amber-500">y</span> : 'y'}
+</span>
