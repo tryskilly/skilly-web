@@ -6,7 +6,7 @@
 
 **Architecture:** Astro static site, component-per-section (`src/components/*.astro`), section data extracted to `src/data/*.ts`, interactivity via small vanilla TypeScript scripts loaded only where needed (no React/Vue/Svelte islands), Tailwind for styling with design system tokens. Each section component is self-contained: it imports its data, renders markup, and includes its own `<script>` if interactive.
 
-**Tech Stack:** Astro 4+, Tailwind CSS via `@astrojs/tailwind`, TypeScript, `@fontsource/dm-sans`, `@fontsource/jetbrains-mono`. No test framework (this is a static marketing site — verification is via `astro build` succeeding, dev server visual check, and Lighthouse).
+**Tech Stack:** Astro 5+, Tailwind CSS via `@astrojs/tailwind`, TypeScript, `@fontsource/dm-sans`, `@fontsource/jetbrains-mono`. **Package manager and runtime: Bun.** No test framework (this is a static marketing site — verification is via `bun run build` succeeding, dev server visual check, and Lighthouse).
 
 **Spec:** `docs/superpowers/specs/2026-04-10-skilly-marketing-site-design.md`
 **Reference design:** `skilly-landing.jsx` (do not modify — read-only source of copy and visual decisions)
@@ -51,6 +51,7 @@ skilly-web/
     │   ├── CTA.astro                   Task 14
     │   └── Footer.astro                Task 14
     ├── scripts/
+    │   ├── posthog-events.ts           Task 5
     │   ├── nav-scroll.ts               Task 7
     │   ├── hero-rotate.ts              Task 8
     │   ├── reveal-on-scroll.ts         Task 9
@@ -68,7 +69,7 @@ skilly-web/
 
 - [ ] **Step 1.1: Initialize the Astro project non-interactively**
 
-The repo already contains files (the design system markdown, the JSX reference, the docs folder). We can't use `npm create astro` in a non-empty directory, so we set up the files manually.
+The repo already contains files (the design system markdown, the JSX reference, the docs folder). We can't use `bun create astro` in a non-empty directory, so we set up the files manually.
 
 Create `/Users/engmsaleh/Repos/skilly-web/package.json`:
 
@@ -93,6 +94,9 @@ Create `/Users/engmsaleh/Repos/skilly-web/package.json`:
     "astro": "^5.0.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
   }
 }
 ```
@@ -137,14 +141,18 @@ npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+bun-debug.log*
 
 # environment variables
 .env
 .env.production
+.env.local
 
 # macOS-specific files
 .DS_Store
 ```
+
+Note: `bun.lockb` is **committed** (it's the Bun lockfile and should be in version control), so it is not in `.gitignore`.
 
 - [ ] **Step 1.5: Create a placeholder `src/pages/index.astro`** so the build can run:
 
@@ -162,22 +170,22 @@ yarn-error.log*
 </html>
 ```
 
-- [ ] **Step 1.6: Install dependencies**
+- [ ] **Step 1.6: Install dependencies with Bun**
 
-Run: `cd /Users/engmsaleh/Repos/skilly-web && npm install`
-Expected: `added N packages`, no errors. May print warnings — those are fine.
+Run: `cd /Users/engmsaleh/Repos/skilly-web && bun install`
+Expected: packages installed, `bun.lockb` and `node_modules/` created. May print warnings — those are fine.
 
-- [ ] **Step 1.7: Verify the dev build works**
+- [ ] **Step 1.7: Verify the build works**
 
-Run: `cd /Users/engmsaleh/Repos/skilly-web && npm run build`
+Run: `cd /Users/engmsaleh/Repos/skilly-web && bun run build`
 Expected: build succeeds, `dist/index.html` exists.
 
 - [ ] **Step 1.8: Commit**
 
 ```bash
 cd /Users/engmsaleh/Repos/skilly-web
-git add package.json package-lock.json astro.config.mjs tsconfig.json .gitignore src/pages/index.astro
-git commit -m "chore: scaffold Astro project with Tailwind and TypeScript"
+git add package.json bun.lockb astro.config.mjs tsconfig.json .gitignore src/pages/index.astro
+git commit -m "chore: scaffold Astro project with Tailwind and Bun"
 ```
 
 ---
@@ -265,7 +273,7 @@ export default {
 
 - [ ] **Step 2.2: Verify the build still works**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 2.3: Commit**
@@ -366,7 +374,7 @@ git commit -m "chore: configure Tailwind with Skilly design system tokens"
 
 - [ ] **Step 3.2: Verify build still works**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds with no warnings about missing fonts.
 
 - [ ] **Step 3.3: Commit**
@@ -422,12 +430,57 @@ git commit -m "chore: add logo assets and favicon to public/"
 
 ---
 
-## Task 5: Create the base Layout with meta tags and OG
+## Task 5: Create the base Layout with meta tags, OG, and PostHog
 
 **Files:**
-- Create: `src/layouts/Layout.astro`
+- Create: `src/layouts/Layout.astro`, `src/scripts/posthog-events.ts`
 
-- [ ] **Step 5.1: Create `src/layouts/Layout.astro`**
+- [ ] **Step 5.1: Create `src/scripts/posthog-events.ts`** — a small delegated click listener that reads `data-ph-event` attributes and forwards them to PostHog. This keeps section components declarative.
+
+```ts
+// src/scripts/posthog-events.ts
+// Delegated click handler that reads data-ph-event and data-ph-prop-* attributes
+// and forwards them as PostHog capture() calls.
+//
+// Usage in markup:
+//   <a data-ph-event="web_cta_download_clicked" data-ph-prop-location="nav">Download</a>
+//
+// All data-ph-prop-* attributes become event properties (with the prefix stripped
+// and the camelCase preserved as lowercase).
+
+declare global {
+  interface Window {
+    posthog?: {
+      capture: (event: string, props?: Record<string, unknown>) => void;
+      register: (props: Record<string, unknown>) => void;
+      init: (key: string, config: Record<string, unknown>) => void;
+    };
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement | null;
+  if (!target) return;
+  const el = target.closest<HTMLElement>('[data-ph-event]');
+  if (!el) return;
+
+  const eventName = el.dataset.phEvent;
+  if (!eventName) return;
+
+  const props: Record<string, string> = {};
+  for (const [key, value] of Object.entries(el.dataset)) {
+    if (key.startsWith('phProp') && value !== undefined) {
+      // phPropLocation -> location
+      const propKey = key.slice('phProp'.length).toLowerCase();
+      props[propKey] = value;
+    }
+  }
+
+  window.posthog?.capture(eventName, props);
+});
+```
+
+- [ ] **Step 5.2: Create `src/layouts/Layout.astro`**
 
 ```astro
 ---
@@ -449,6 +502,11 @@ const {
 const siteUrl = 'https://tryskilly.app';
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = new URL(ogImage, siteUrl).toString();
+
+// PostHog public project key — same project as the Skilly macOS app.
+// Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
+const POSTHOG_KEY = 'phc_D46KQXyPXhmRabFDiL3KUZTWJcmjyqhpGJfpH7H48Sso';
+const POSTHOG_HOST = 'https://us.i.posthog.com';
 ---
 <!doctype html>
 <html lang="en">
@@ -481,15 +539,34 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- PostHog: anonymous mode (no cookies, no localStorage, no consent banner) -->
+    <script is:inline define:vars={{ POSTHOG_KEY, POSTHOG_HOST }}>
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      window.posthog.init(POSTHOG_KEY, {
+        api_host: POSTHOG_HOST,
+        persistence: 'memory',
+        autocapture: false,
+        capture_pageview: true,
+        disable_session_recording: true,
+        loaded: function (ph) {
+          ph.register({ source: 'web' });
+        },
+      });
+    </script>
   </head>
   <body class="bg-gray-950 text-gray-200 font-sans antialiased overflow-x-hidden">
     <div class="grain" aria-hidden="true"></div>
     <slot />
+
+    <script>
+      import '../scripts/posthog-events.ts';
+    </script>
   </body>
 </html>
 ```
 
-- [ ] **Step 5.2: Update the placeholder `src/pages/index.astro` to use the layout**
+- [ ] **Step 5.3: Update the placeholder `src/pages/index.astro` to use the layout**
 
 ```astro
 ---
@@ -503,20 +580,20 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 ```
 
-- [ ] **Step 5.3: Verify the build**
+- [ ] **Step 5.4: Verify the build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
-- [ ] **Step 5.4: Visual check** — start dev server and confirm the placeholder renders with dark background and amber heading.
+- [ ] **Step 5.5: Visual check** — start dev server and confirm the placeholder renders with dark background and amber heading. Open browser devtools → Network tab and confirm a request to `us-assets.i.posthog.com/static/array.js` is made (proves PostHog snippet is firing). Check the Application tab → Cookies and confirm **no cookies are set** (proves anonymous mode works).
 
-Run: `npm run dev` (in background or another terminal), open `http://localhost:4321`, then stop the server.
+Run: `bun run dev` (in background or another terminal), open `http://localhost:4321`, verify, then stop the server.
 
-- [ ] **Step 5.5: Commit**
+- [ ] **Step 5.6: Commit**
 
 ```bash
-git add src/layouts/Layout.astro src/pages/index.astro
-git commit -m "feat: add base Layout with meta tags, OG, and favicon"
+git add src/layouts/Layout.astro src/scripts/posthog-events.ts src/pages/index.astro
+git commit -m "feat: add base Layout with meta tags, OG, favicon, and PostHog analytics"
 ```
 
 ---
@@ -586,7 +663,7 @@ const sizeClasses = {
 
 - [ ] **Step 6.3: Verify the build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 6.4: Commit**
@@ -637,12 +714,14 @@ import Wordmark from './Wordmark.astro';
     </a>
 
     <nav class="hidden md:flex items-center gap-8">
-      <a href="#how" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">How it works</a>
-      <a href="#features" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Features</a>
-      <a href="#pricing" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Pricing</a>
-      <a href="#waitlist" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Waitlist</a>
+      <a href="#how" data-ph-event="web_nav_link_clicked" data-ph-prop-link="how" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">How it works</a>
+      <a href="#features" data-ph-event="web_nav_link_clicked" data-ph-prop-link="features" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Features</a>
+      <a href="#pricing" data-ph-event="web_nav_link_clicked" data-ph-prop-link="pricing" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Pricing</a>
+      <a href="#waitlist" data-ph-event="web_nav_link_clicked" data-ph-prop-link="waitlist" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Waitlist</a>
       <a
         href="#download"
+        data-ph-event="web_cta_download_clicked"
+        data-ph-prop-location="nav"
         class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-md px-5 py-2 text-sm font-semibold transition-all"
       >
         Download
@@ -654,6 +733,8 @@ import Wordmark from './Wordmark.astro';
 
     <a
       href="#download"
+      data-ph-event="web_cta_download_clicked"
+      data-ph-prop-location="nav_mobile"
       class="md:hidden inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-md px-4 py-2 text-sm font-semibold"
     >
       Download
@@ -685,12 +766,12 @@ import Nav from '../components/Nav.astro';
 
 - [ ] **Step 7.4: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 7.5: Visual check**
 
-Run: `npm run dev`, open `http://localhost:4321`, scroll the page, and confirm:
+Run: `bun run dev`, open `http://localhost:4321`, scroll the page, and confirm:
 - Nav starts transparent
 - Nav background fades to dark gray-950 with a thin border once scrolled past 40px
 - Logo + wordmark appear on the left, links + Download CTA on the right
@@ -803,6 +884,8 @@ const firstApp = apps[0];
         <div class="flex flex-wrap gap-3 items-center">
           <a
             href="#download"
+            data-ph-event="web_cta_download_clicked"
+            data-ph-prop-location="hero"
             class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
           >
             Download for Mac — Free
@@ -880,12 +963,12 @@ import Hero from '../components/Hero.astro';
 
 - [ ] **Step 8.5: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 8.6: Visual check**
 
-Run `npm run dev`, open `http://localhost:4321`. Confirm:
+Run `bun run dev`, open `http://localhost:4321`. Confirm:
 - Hero copy renders with the "Now in beta" badge, headline, subhead, primary CTA, OS line, and waitlist link
 - The amber app name in the headline rotates every ~2.4 seconds through the 5 apps
 - The floating cursor mockup is visible on desktop (≥1024px), hidden on mobile/tablet
@@ -1018,12 +1101,12 @@ import HowItWorks from '../components/HowItWorks.astro';
 
 - [ ] **Step 9.5: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 9.6: Visual check**
 
-Run `npm run dev`, scroll past the hero into How It Works. Confirm:
+Run `bun run dev`, scroll past the hero into How It Works. Confirm:
 - The 3 numbered cards fade up with a stagger when they enter the viewport
 - The big amber numbers (01, 02, 03) render at low opacity
 - The titles and descriptions match the data
@@ -1164,12 +1247,12 @@ import Features from '../components/Features.astro';
 
 - [ ] **Step 10.4: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 10.5: Visual check**
 
-Run `npm run dev`, scroll into Features. Confirm 6 cards in 3 columns (desktop) / 2 columns (tablet) / 1 column (mobile), each with an amber icon, title, description, and hover lift.
+Run `bun run dev`, scroll into Features. Confirm 6 cards in 3 columns (desktop) / 2 columns (tablet) / 1 column (mobile), each with an amber icon, title, description, and hover lift.
 
 Stop dev server.
 
@@ -1318,12 +1401,12 @@ import SkillFormat from '../components/SkillFormat.astro';
 
 - [ ] **Step 11.4: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 11.5: Visual check**
 
-Run `npm run dev`, scroll to the Skill Format section. Confirm:
+Run `bun run dev`, scroll to the Skill Format section. Confirm:
 - Two-column layout on desktop, stacked on mobile
 - Code window with macOS traffic-light dots and the filename
 - YAML lines render with the color highlighting (amber for `##`, `###`, `key:`, gray-500 for `---`)
@@ -1454,6 +1537,9 @@ import { tiers } from '../data/tiers.ts';
           </div>
           <a
             href="#download"
+            data-ph-event={tier.name === 'Free' ? 'web_cta_download_clicked' : 'web_pricing_cta_clicked'}
+            data-ph-prop-location={tier.name === 'Free' ? 'pricing_free' : undefined}
+            data-ph-prop-tier={tier.name.toLowerCase()}
             class={`block w-full text-center px-6 py-3 rounded-lg text-[15px] font-semibold mb-7 transition-all ${
               tier.highlight
                 ? 'bg-amber-500 hover:bg-amber-600 text-gray-950'
@@ -1508,12 +1594,12 @@ import Pricing from '../components/Pricing.astro';
 
 - [ ] **Step 12.4: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 12.5: Visual check**
 
-Run `npm run dev`, scroll to Pricing. Confirm:
+Run `bun run dev`, scroll to Pricing. Confirm:
 - 3 cards: Free / Learner / BYOK
 - Learner card has the amber border and "Recommended" pill
 - Each card lists features with amber check icons
@@ -1539,6 +1625,7 @@ git commit -m "feat: add Pricing section with 3 tiers"
 
 ```ts
 // src/scripts/waitlist.ts
+// Note: window.posthog is declared globally in posthog-events.ts.
 const form = document.querySelector<HTMLFormElement>('[data-waitlist-form]');
 if (form) {
   const platformBtns = form.querySelectorAll<HTMLButtonElement>('[data-platform]');
@@ -1595,6 +1682,11 @@ if (form) {
       //   body: JSON.stringify({ email: emailInput.value, platform: platformInput.value }),
       // });
       await new Promise((r) => setTimeout(r, 700));
+
+      // Track waitlist submission in PostHog
+      window.posthog?.capture('web_waitlist_submitted', {
+        platform: platformInput.value,
+      });
 
       if (successEmail) successEmail.textContent = emailInput.value;
       if (successPlatform) successPlatform.textContent = platformLabels[platformInput.value] ?? platformInput.value;
@@ -1763,12 +1855,12 @@ import Waitlist from '../components/Waitlist.astro';
 
 - [ ] **Step 13.4: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 13.5: Visual check + interaction**
 
-Run `npm run dev`, scroll to Waitlist. Confirm:
+Run `bun run dev`, scroll to Waitlist. Confirm:
 - The 3 platform buttons render
 - Clicking one highlights it amber and stores the value in the hidden input
 - Submit button is disabled until both an email and a platform are chosen
@@ -1812,6 +1904,8 @@ import Logo from './Logo.astro';
     </p>
     <a
       href="#"
+      data-ph-event="web_cta_download_clicked"
+      data-ph-prop-location="bottom"
       class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-10 py-4 text-lg font-semibold transition-all"
     >
       Download for Mac — Free
@@ -1849,7 +1943,7 @@ import Wordmark from './Wordmark.astro';
 
 - [ ] **Step 14.3: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 14.4: Commit**
@@ -1899,12 +1993,12 @@ import Footer from '../components/Footer.astro';
 
 - [ ] **Step 15.2: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds. `dist/index.html` exists and is non-empty.
 
 - [ ] **Step 15.3: Full visual check**
 
-Run `npm run dev`, open `http://localhost:4321`. Walk through the entire page top to bottom and confirm every section from the spec §13 acceptance criteria renders. Stop dev server.
+Run `bun run dev`, open `http://localhost:4321`. Walk through the entire page top to bottom and confirm every section from the spec §13 acceptance criteria renders. Stop dev server.
 
 - [ ] **Step 15.4: Commit**
 
@@ -1922,7 +2016,7 @@ git commit -m "feat: compose full landing page with all 9 sections"
 
 - [ ] **Step 16.1: Run dev server and test at three widths**
 
-Run: `npm run dev`, then test at:
+Run: `bun run dev`, then test at:
 - 375px (iPhone)
 - 768px (iPad)
 - 1440px (desktop)
@@ -1952,7 +2046,7 @@ If any issue is found, edit the relevant component file and re-test. Common fixe
 
 - [ ] **Step 16.4: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 16.5: Commit (if any fixes were made)**
@@ -1993,7 +2087,7 @@ Expected: no matches (we only use vanilla scripts, not inline handlers).
 
 - [ ] **Step 17.4: Verify the form is keyboard-accessible**
 
-Run `npm run dev`, tab through the Waitlist form. Confirm:
+Run `bun run dev`, tab through the Waitlist form. Confirm:
 - Each platform button is reachable via Tab
 - Email input is reachable
 - Submit button is reachable
@@ -2014,7 +2108,7 @@ In devtools → Rendering → "Emulate CSS media feature prefers-reduced-motion:
 
 - [ ] **Step 17.7: Verify build**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds.
 
 - [ ] **Step 17.8: Commit (if any fixes were made)**
@@ -2032,12 +2126,12 @@ git commit -m "fix: accessibility pass — focus styles, alt text, semantic HTML
 
 - [ ] **Step 18.1: Build the production bundle**
 
-Run: `npm run build`
+Run: `bun run build`
 Expected: build succeeds. Note the file sizes printed.
 
 - [ ] **Step 18.2: Serve the production build**
 
-Run: `npm run preview`
+Run: `bun run preview`
 Expected: preview server running at `http://localhost:4321/`.
 
 - [ ] **Step 18.3: Run Lighthouse manually**
@@ -2084,6 +2178,6 @@ The marketing site is built, mobile-responsive, accessible, and Lighthouse-clean
 
 - **Vercel:** `npx vercel` from the project root
 - **Netlify:** drag the `dist/` folder to Netlify
-- **Cloudflare Pages:** connect the repo, set build command `npm run build` and output directory `dist`
+- **Cloudflare Pages:** connect the repo, set build command `bun run build` and output directory `dist`
 
 Future work captured in spec §12: real waitlist endpoint, mobile hamburger menu, real demo video, real app screenshots, real OG image, analytics integration.

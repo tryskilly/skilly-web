@@ -16,12 +16,12 @@ The reference JSX already contains the final copy, color usage, and section stru
 ## 2. Non-Goals
 
 - No CMS integration
-- No analytics wiring (placeholder slot only)
 - No i18n / RTL — Arabic support is a future task
 - No real waitlist backend — the form posts to a TODO stub
 - No demo video — placeholder section, real video to be shot later
 - No app screenshots — styled mockup placeholder remains
 - No blog, no docs site, no auth
+- No cookie consent banner (we use PostHog anonymous/memory mode — no cookies, no localStorage, no banner required)
 
 ## 3. Technical Decisions
 
@@ -48,7 +48,30 @@ No React, no Vue, no Svelte — just `<script>` tags in Astro components.
 
 `@fontsource/dm-sans` and `@fontsource/jetbrains-mono` packages, self-hosted to avoid Google Fonts request. Loaded once in `Layout.astro`.
 
-### 3.5 Logo Assets
+### 3.5 Analytics: PostHog
+
+The site reports to the **same PostHog project as the macOS app** (US Cloud). One project = one funnel for "landed → downloaded → installed → used" conversion analysis.
+
+**Setup:**
+- The PostHog public project key is hardcoded in `Layout.astro` (PostHog `phc_*` keys are explicitly public-safe per their docs)
+- Init is in **anonymous/memory mode** — `persistence: 'memory'`, no cookies, no localStorage, no consent banner needed
+- Autocapture disabled — we fire explicit, named events from declarative `data-ph-event` attributes on CTAs
+- Every web event is auto-tagged with `source: 'web'` via `posthog.register()` so it's distinguishable from app events in the same project
+- Pageview is captured automatically on init
+
+**Events tracked (all prefixed with `web_`):**
+
+| Event | Trigger | Properties |
+|---|---|---|
+| `$pageview` | Page load (auto) | url, referrer (PostHog defaults) |
+| `web_cta_download_clicked` | Any "Download for Mac" button | `location`: `nav` / `hero` / `bottom` / `pricing_free` |
+| `web_pricing_cta_clicked` | Learner / BYOK pricing buttons | `tier`: `learner` / `byok` |
+| `web_waitlist_submitted` | Successful waitlist form submit | `platform`: `windows` / `linux` / `ios` |
+| `web_nav_link_clicked` | Top nav anchor links | `link`: `how` / `features` / `pricing` / `waitlist` |
+
+**Implementation pattern:** A single small script (`src/scripts/posthog-events.ts`) attaches one delegated click listener that reads `data-ph-event` and any `data-ph-prop-*` attributes on the clicked element (or its closest ancestor) and forwards them to `posthog.capture()`. This keeps the section components declarative — they just sprinkle `data-ph-event="..."` on the right elements. The waitlist form submission is the one exception: it fires `posthog.capture('web_waitlist_submitted', ...)` directly from inside `waitlist.ts` because the success state is post-async.
+
+### 3.6 Logo Assets
 
 The user has provided:
 - `skilly-logo-mark-512.png` — amber cursor mark on transparent
