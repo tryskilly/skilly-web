@@ -17,11 +17,11 @@ The reference JSX already contains the final copy, color usage, and section stru
 
 - No CMS integration
 - No i18n / RTL — Arabic support is a future task
-- No real waitlist backend — the form posts to a TODO stub
 - No demo video — placeholder section, real video to be shot later
 - No app screenshots — styled mockup placeholder remains
 - No blog, no docs site, no auth
 - No cookie consent banner (we use PostHog anonymous/memory mode — no cookies, no localStorage, no banner required)
+- No rate limiting on the waitlist endpoint for v1 (Resend's own rate limits act as a backstop; can add IP-based throttling later if abuse appears)
 
 ## 3. Technical Decisions
 
@@ -71,7 +71,40 @@ The site reports to the **same PostHog project as the macOS app** (US Cloud). On
 
 **Implementation pattern:** A single small script (`src/scripts/posthog-events.ts`) attaches one delegated click listener that reads `data-ph-event` and any `data-ph-prop-*` attributes on the clicked element (or its closest ancestor) and forwards them to `posthog.capture()`. This keeps the section components declarative — they just sprinkle `data-ph-event="..."` on the right elements. The waitlist form submission is the one exception: it fires `posthog.capture('web_waitlist_submitted', ...)` directly from inside `waitlist.ts` because the success state is post-async.
 
-### 3.6 Logo Assets
+### 3.6 Waitlist Backend: Resend + Netlify
+
+The waitlist form is wired to a real backend on day one. Architecture:
+
+- **Hosting:** Netlify, via `@astrojs/netlify` adapter
+- **Output mode:** `hybrid` — the landing page stays static (pre-rendered HTML, CDN-served), and only `/api/waitlist` runs server-side as a Netlify function
+- **Email service:** Resend (`resend` npm package)
+- **Sending domain:** `send.tryskilly.app` (verified subdomain)
+- **From address:** `Skilly <hello@send.tryskilly.app>`
+- **Reply-To:** `hello@tryskilly.app` (real working inbox the founder reads)
+
+**The endpoint (`POST /api/waitlist`) does three things:**
+
+1. **Validates** the request: email must be a well-formed address; platform must be one of `windows` / `linux` / `ios`
+2. **Adds the contact to the Resend Audience** "Skilly Waitlist" (`2b2eecf7-56f0-4d30-8cd6-e844b8883ad6`). If the contact already exists (duplicate signup), the error is swallowed and the flow continues — the user still gets a fresh confirmation email
+3. **Sends two emails in parallel**:
+   - **Confirmation to the user** — branded HTML + plain-text fallback. "You're on the list" + a link back to tryskilly.app
+   - **Notification to the founder** at `hello@tryskilly.app` — plain "New waitlist signup: {email} for {platform}" so the founder gets real-time signal during early days
+
+**Secrets management:**
+
+- `RESEND_API_KEY` and `RESEND_AUDIENCE_ID` live in `.env` (gitignored)
+- `.env.example` is committed with empty placeholders so future developers know what env vars are needed
+- On Netlify, the same vars are configured in the dashboard under Site → Environment
+
+**Frontend integration:**
+
+The existing `src/scripts/waitlist.ts` (built in Task 13) already has the right shape — it just needs the TODO stub replaced with a real `fetch('/api/waitlist', { method: 'POST', body: JSON.stringify(...) })`. Success / error handling is already in place.
+
+**Email template:**
+
+A single `src/lib/email-templates.ts` module exports two functions: `confirmationEmail({ platform })` returning `{ html, text }` and `notificationEmail({ email, platform })` returning `{ html, text }`. The HTML template uses inline styles (the only thing email clients reliably honor), the same dark/amber palette as the website, and includes Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}` token so unsubscribe is built in.
+
+### 3.7 Logo Assets
 
 The user has provided:
 - `skilly-logo-mark-512.png` — amber cursor mark on transparent

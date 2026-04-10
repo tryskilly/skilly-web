@@ -56,9 +56,18 @@ skilly-web/
     │   ├── hero-rotate.ts              Task 8
     │   ├── reveal-on-scroll.ts         Task 9
     │   └── waitlist.ts                 Task 13
+    ├── lib/
+    │   └── email-templates.ts          Task 19
     └── pages/
-        └── index.astro                 Task 15
+        ├── index.astro                 Task 15
+        └── api/
+            └── waitlist.ts             Task 19
 ```
+
+**Root-level files added in Task 19:**
+- `.env` (gitignored — holds RESEND_API_KEY + RESEND_AUDIENCE_ID)
+- `.env.example` (committed — placeholder template)
+- `netlify.toml` (build config)
 
 ---
 
@@ -2176,12 +2185,432 @@ git commit -m "chore: final Lighthouse pass and acceptance walkthrough" --allow-
 
 ---
 
+## Task 19: Resend + Netlify integration (real waitlist backend)
+
+**Files:**
+- Modify: `astro.config.mjs`, `package.json` (auto), `src/scripts/waitlist.ts`
+- Create: `.env`, `.env.example`, `src/pages/api/waitlist.ts`, `src/lib/email-templates.ts`, `netlify.toml`
+
+**Goal:** Replace the waitlist stub with a real backend that adds contacts to a Resend Audience and sends a confirmation email + a founder notification, deployable to Netlify.
+
+### Inputs (from user)
+
+- **Resend API key (full access):** `re_xxxxxxxxxxxxxxxxxxxxxxxx` — goes in `.env`, NEVER commit
+- **Audience ID:** `2b2eecf7-56f0-4d30-8cd6-e844b8883ad6` — Skilly Waitlist
+- **Sending domain:** `send.tryskilly.app` (verified subdomain)
+- **From:** `Skilly <hello@send.tryskilly.app>`
+- **Reply-To:** `hello@tryskilly.app`
+- **Founder notification address:** `hello@tryskilly.app` (real working inbox)
+
+### Steps
+
+- [ ] **Step 19.1: Install dependencies**
+
+```bash
+cd /Users/engmsaleh/Repos/skilly-web
+bun add @astrojs/netlify resend
+```
+
+Expected: both packages added to `dependencies` in `package.json`. `bun.lock` updated.
+
+- [ ] **Step 19.2: Update `astro.config.mjs` for hybrid output + Netlify adapter**
+
+Replace the file with:
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+import netlify from '@astrojs/netlify';
+
+export default defineConfig({
+  site: 'https://tryskilly.app',
+  output: 'hybrid',
+  adapter: netlify(),
+  integrations: [
+    tailwind({ applyBaseStyles: false }),
+  ],
+});
+```
+
+- [ ] **Step 19.3: Update `.gitignore`** to include `.env` (it should already be there from Task 1, but verify). The file should contain `.env` and `.env.local`.
+
+- [ ] **Step 19.4: Create `.env` with the real secrets** (NOT committed)
+
+```bash
+cat > /Users/engmsaleh/Repos/skilly-web/.env <<'EOF'
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
+RESEND_AUDIENCE_ID=2b2eecf7-56f0-4d30-8cd6-e844b8883ad6
+EOF
+```
+
+Verify the file was created and `.env` IS gitignored: `git check-ignore .env` should print `.env`.
+
+- [ ] **Step 19.5: Create `.env.example` (committed) with placeholder values**
+
+Create `/Users/engmsaleh/Repos/skilly-web/.env.example`:
+
+```
+# Resend (https://resend.com) — used by the waitlist API endpoint.
+# Get your key at: https://resend.com/api-keys
+# The key needs "Full access" so it can manage audiences as well as send emails.
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
+
+# Resend audience ID for the Skilly waitlist.
+# Create one at: https://resend.com/audiences
+RESEND_AUDIENCE_ID=00000000-0000-0000-0000-000000000000
+```
+
+- [ ] **Step 19.6: Create `src/lib/email-templates.ts`**
+
+This module exports two builders: `confirmationEmail({ platform })` and `notificationEmail({ email, platform })`. Both return `{ subject, html, text }`.
+
+```ts
+// src/lib/email-templates.ts
+
+export type WaitlistPlatform = 'windows' | 'linux' | 'ios';
+
+const PLATFORM_LABELS: Record<WaitlistPlatform, string> = {
+  windows: 'Windows',
+  linux: 'Linux',
+  ios: 'iOS / iPad',
+};
+
+export function confirmationEmail(opts: { platform: WaitlistPlatform }) {
+  const platformLabel = PLATFORM_LABELS[opts.platform];
+
+  const html = `<!doctype html>
+<html lang="en">
+<body style="margin:0;padding:0;background:#0F0F10;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#E5E5E0;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="background:#0F0F10;">
+    <tr>
+      <td align="center" style="padding:48px 24px;">
+        <table width="560" cellpadding="0" cellspacing="0" border="0" role="presentation" style="background:#1C1C1E;border-radius:16px;border:1px solid #27272A;max-width:560px;">
+          <tr>
+            <td style="padding:40px 40px 32px;">
+              <img src="https://tryskilly.app/skilly-mark.png" width="48" height="48" alt="Skilly" style="display:block;margin-bottom:24px;border:0;" />
+              <h1 style="margin:0 0 16px;font-size:26px;font-weight:700;color:#FAFAF8;letter-spacing:-0.5px;line-height:1.2;">
+                You're on the list.
+              </h1>
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.6;color:#A3A39E;">
+                Thanks for joining the Skilly waitlist for <span style="color:#F59E0B;font-weight:600;">${platformLabel}</span>. We'll send one email the day Skilly is available on your platform — no marketing in between.
+              </p>
+              <p style="margin:0 0 32px;font-size:16px;line-height:1.6;color:#A3A39E;">
+                If you have an Apple Silicon Mac, you can try Skilly today — it's already shipping on macOS.
+              </p>
+              <a href="https://tryskilly.app" style="display:inline-block;background:#F59E0B;color:#0F0F10;text-decoration:none;padding:14px 28px;border-radius:8px;font-weight:600;font-size:15px;">
+                Visit tryskilly.app
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 40px 32px;border-top:1px solid #27272A;">
+              <p style="margin:0;font-size:13px;line-height:1.6;color:#525250;">
+                You're receiving this because you signed up at tryskilly.app. If this wasn't you, ignore this email — we won't email you again.
+              </p>
+              <p style="margin:12px 0 0;font-size:13px;line-height:1.6;color:#525250;">
+                <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#737370;text-decoration:underline;">Unsubscribe</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:24px 0 0;font-size:12px;color:#525250;">Skilly · by moelabs.dev</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  const text = `You're on the list.
+
+Thanks for joining the Skilly waitlist for ${platformLabel}. We'll send one email the day Skilly is available on your platform — no marketing in between.
+
+If you have an Apple Silicon Mac, you can try Skilly today — it's already shipping on macOS.
+
+Visit tryskilly.app
+
+— Skilly · by moelabs.dev
+
+You're receiving this because you signed up at tryskilly.app. If this wasn't you, ignore this email — we won't email you again.
+Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}
+`;
+
+  return {
+    subject: `You're on the Skilly waitlist`,
+    html,
+    text,
+  };
+}
+
+export function notificationEmail(opts: { email: string; platform: WaitlistPlatform }) {
+  const platformLabel = PLATFORM_LABELS[opts.platform];
+
+  const html = `<!doctype html>
+<html lang="en">
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fafaf8;color:#27272A;padding:24px;">
+  <h2 style="margin:0 0 12px;font-size:18px;">New Skilly waitlist signup</h2>
+  <p style="margin:0 0 8px;"><strong>Email:</strong> ${escapeHtml(opts.email)}</p>
+  <p style="margin:0 0 8px;"><strong>Platform:</strong> ${platformLabel}</p>
+  <p style="margin:24px 0 0;color:#737370;font-size:13px;">Sent automatically by tryskilly.app</p>
+</body>
+</html>`;
+
+  const text = `New Skilly waitlist signup
+
+Email: ${opts.email}
+Platform: ${platformLabel}
+
+Sent automatically by tryskilly.app
+`;
+
+  return {
+    subject: `[Skilly] New waitlist signup: ${opts.email} (${platformLabel})`,
+    html,
+    text,
+  };
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+```
+
+- [ ] **Step 19.7: Create `src/pages/api/waitlist.ts`**
+
+This is the server-side endpoint. `export const prerender = false` is critical — without it Astro tries to pre-render the route at build time and the page becomes static.
+
+```ts
+// src/pages/api/waitlist.ts
+import type { APIRoute } from 'astro';
+import { Resend } from 'resend';
+import {
+  confirmationEmail,
+  notificationEmail,
+  type WaitlistPlatform,
+} from '../../lib/email-templates';
+
+export const prerender = false;
+
+const FROM = 'Skilly <hello@send.tryskilly.app>';
+const REPLY_TO = 'hello@tryskilly.app';
+const FOUNDER_NOTIFICATION_ADDRESS = 'hello@tryskilly.app';
+const VALID_PLATFORMS: readonly WaitlistPlatform[] = ['windows', 'linux', 'ios'] as const;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+interface RequestBody {
+  email?: unknown;
+  platform?: unknown;
+}
+
+function jsonResponse(status: number, body: Record<string, unknown>): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+export const POST: APIRoute = async ({ request }) => {
+  const apiKey = import.meta.env.RESEND_API_KEY;
+  const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
+
+  if (!apiKey || !audienceId) {
+    console.error('[waitlist] Missing RESEND_API_KEY or RESEND_AUDIENCE_ID');
+    return jsonResponse(500, { error: 'Server not configured' });
+  }
+
+  let body: RequestBody;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse(400, { error: 'Invalid JSON body' });
+  }
+
+  const email = typeof body.email === 'string' ? body.email.trim() : '';
+  const platform = typeof body.platform === 'string' ? body.platform : '';
+
+  if (!email || !EMAIL_RE.test(email)) {
+    return jsonResponse(400, { error: 'Invalid email address' });
+  }
+  if (!VALID_PLATFORMS.includes(platform as WaitlistPlatform)) {
+    return jsonResponse(400, { error: 'Invalid platform' });
+  }
+
+  const typedPlatform = platform as WaitlistPlatform;
+  const resend = new Resend(apiKey);
+
+  // Step 1: try to add the contact to the audience.
+  // If the contact already exists, swallow the error and continue —
+  // the user still gets a fresh confirmation email.
+  try {
+    await resend.contacts.create({
+      email,
+      audienceId,
+      unsubscribed: false,
+    });
+  } catch (err) {
+    // Log but don't fail. Resend returns 422 for duplicates.
+    console.warn('[waitlist] contacts.create skipped:', (err as Error).message);
+  }
+
+  // Step 2: send confirmation to user + notification to founder, in parallel
+  const confirmation = confirmationEmail({ platform: typedPlatform });
+  const notification = notificationEmail({ email, platform: typedPlatform });
+
+  const [confirmResult, notifyResult] = await Promise.allSettled([
+    resend.emails.send({
+      from: FROM,
+      replyTo: REPLY_TO,
+      to: email,
+      subject: confirmation.subject,
+      html: confirmation.html,
+      text: confirmation.text,
+    }),
+    resend.emails.send({
+      from: FROM,
+      to: FOUNDER_NOTIFICATION_ADDRESS,
+      subject: notification.subject,
+      html: notification.html,
+      text: notification.text,
+    }),
+  ]);
+
+  if (confirmResult.status === 'rejected') {
+    console.error('[waitlist] confirmation email failed:', confirmResult.reason);
+    return jsonResponse(500, { error: 'Failed to send confirmation email' });
+  }
+
+  if (notifyResult.status === 'rejected') {
+    // Don't fail the user-facing flow if only the founder notification failed.
+    console.error('[waitlist] notification email failed:', notifyResult.reason);
+  }
+
+  return jsonResponse(200, { ok: true });
+};
+```
+
+- [ ] **Step 19.8: Update `src/scripts/waitlist.ts`** to POST to the real endpoint instead of the simulated delay
+
+Find the existing block in `src/scripts/waitlist.ts`:
+
+```ts
+    try {
+      // TODO: replace with the real waitlist endpoint
+      // await fetch('https://api.tryskilly.app/waitlist', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ email: emailInput.value, platform: platformInput.value }),
+      // });
+      await new Promise((r) => setTimeout(r, 700));
+```
+
+Replace it with:
+
+```ts
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value.trim(),
+          platform: platformInput.value,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? `Request failed with status ${res.status}`);
+      }
+```
+
+The rest of the try block (PostHog capture + success state toggle + catch block) stays exactly as it was.
+
+- [ ] **Step 19.9: Create `netlify.toml` for build configuration**
+
+```toml
+# netlify.toml
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+```
+
+Note: Netlify will use Bun for the build via the `bun run build` command, but the runtime is Node 20 (Bun 1.2 isn't a first-class Netlify build runtime yet — using bun via npm-installed bun binary is the standard pattern). Actually, Netlify supports Bun directly now, but specifying `NODE_VERSION` keeps the function runtime predictable.
+
+- [ ] **Step 19.10: Verify the build**
+
+Run: `bun run build`
+Expected: build succeeds. Output should mention the Netlify adapter and the API route being included as a function.
+
+If you see an error about `process` not being defined or env vars missing, that's fine — the build succeeds even without env vars set (they're only needed at runtime). What you should NOT see is a TypeScript error or a missing-module error.
+
+- [ ] **Step 19.11: Local end-to-end test**
+
+Start the dev server in the background:
+
+```bash
+cd /Users/engmsaleh/Repos/skilly-web && bun run dev
+```
+
+In another terminal (or via a separate Bash call), POST a test signup:
+
+```bash
+curl -sS -X POST 'http://localhost:4321/api/waitlist' \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"test+plan@example.com","platform":"windows"}'
+```
+
+Expected response: `{"ok":true}`.
+
+Then check the founder inbox at `hello@tryskilly.app` for the notification email, and check the test address for the confirmation. (Or just trust that a 200 response means the Resend calls succeeded — Resend will reject with a clear error if something is wrong.)
+
+Stop the dev server.
+
+If you get a 500 with `{"error":"Server not configured"}`, the dev server didn't pick up `.env` — confirm `.env` exists at the project root. Astro reads `.env` automatically.
+
+- [ ] **Step 19.12: Commit**
+
+```bash
+git add astro.config.mjs package.json bun.lock .env.example netlify.toml src/lib/email-templates.ts src/pages/api/waitlist.ts src/scripts/waitlist.ts
+git commit -m "feat: wire waitlist form to Resend via Netlify-deployed API endpoint
+
+- Switch Astro from static to hybrid output with @astrojs/netlify adapter
+- Add /api/waitlist endpoint that adds the contact to the Skilly Waitlist
+  audience and sends a branded confirmation email plus a founder notification
+- Add src/lib/email-templates.ts with HTML+text confirmation and notification
+  templates (inline-styled, dark/amber palette, includes RESEND_UNSUBSCRIBE_URL)
+- Update src/scripts/waitlist.ts to POST to the real endpoint
+- Add netlify.toml with build command and Node 20 runtime
+- Add .env.example documenting required RESEND_API_KEY and RESEND_AUDIENCE_ID
+
+The .env file with real secrets is gitignored. On Netlify, configure the
+same vars in Site → Environment before deploying."
+```
+
+**Important:** verify the `git status` after the commit shows that `.env` is NOT in the commit. If it is, immediately run `git rm --cached .env` and amend the commit.
+
+---
+
 ## Done
 
-The marketing site is built, mobile-responsive, accessible, and Lighthouse-clean. To deploy:
+The marketing site is built, mobile-responsive, accessible, Lighthouse-clean, **and the waitlist form is wired to Resend via a Netlify-deployed API endpoint**. To deploy:
 
-- **Vercel:** `npx vercel` from the project root
-- **Netlify:** drag the `dist/` folder to Netlify
-- **Cloudflare Pages:** connect the repo, set build command `bun run build` and output directory `dist`
+**Netlify (selected):**
 
-Future work captured in spec §12: real waitlist endpoint, mobile hamburger menu, real demo video, real app screenshots, real OG image, analytics integration.
+1. Push the repo to GitHub
+2. In the Netlify dashboard → "Add new site" → "Import an existing project" → select the GitHub repo
+3. Build command: `bun run build` (already in `netlify.toml`)
+4. Publish directory: `dist` (already in `netlify.toml`)
+5. Before the first deploy, go to Site → Environment variables and add:
+   - `RESEND_API_KEY` = (your full-access Resend key)
+   - `RESEND_AUDIENCE_ID` = `2b2eecf7-56f0-4d30-8cd6-e844b8883ad6`
+6. Deploy. Netlify will detect `astro.config.mjs`'s Netlify adapter and provision the `/api/waitlist` function automatically.
+7. Add the custom domain `tryskilly.app` in Site → Domain management
+
+Future work captured in spec §12: mobile hamburger menu, real demo video, real app screenshots, real OG image, IP-based rate limiting on the waitlist endpoint.
