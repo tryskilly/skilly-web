@@ -1,0 +1,45 @@
+---
+// src/components/SkillFormat.astro
+import { highlightSkillYaml } from '../data/skill-yaml.ts';
+const lines = highlightSkillYaml();
+---
+<section class="relative py-24 lg:py-32 px-6">
+  <div
+    aria-hidden="true"
+    class="absolute left-0 right-0 top-0 h-px"
+    style="background: linear-gradient(90deg, transparent, #27272A, transparent);"
+  ></div>
+
+  <div class="max-w-site mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div data-reveal class="reveal">
+      <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">Skill format</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-bold tracking-tight mt-3 mb-5 text-gray-50">
+        One Markdown file. <span class="text-amber-500">That's a skill.</span>
+      </h2>
+      <p class="text-[17px] leading-relaxed text-gray-400 mb-6">
+        Skills are simple SKILL.md files with YAML frontmatter. Define the app, the teaching style, curriculum stages, and UI vocabulary. Skilly does the rest.
+      </p>
+      <p class="text-[17px] leading-relaxed text-gray-400 mb-8">
+        Anyone can write a skill — no code, no SDK, no API integration. Just Markdown that any AI model consumes natively.
+      </p>
+      <div class="flex gap-4 items-center">
+        <span class="text-sm text-gray-500">Skill marketplace coming soon</span>
+        <div class="h-px flex-1 bg-gray-800"></div>
+      </div>
+    </div>
+
+    <div data-reveal class="reveal reveal-delay-2 bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden shadow-amber-glow">
+      <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-800">
+        <span class="block w-2 h-2 rounded-full bg-red-500"></span>
+        <span class="block w-2 h-2 rounded-full bg-amber-500"></span>
+        <span class="block w-2 h-2 rounded-full bg-green-500"></span>
+        <span class="ml-2 text-xs text-gray-500 font-mono">blender-fundamentals-SKILL.md</span>
+      </div>
+      <pre class="p-5 text-[13px] leading-[1.7] font-mono overflow-auto max-h-[460px]">
+        {lines.map(({ line, color }) => (
+          <div class={color}>{line}</div>
+        ))}
+      </pre>
+    </div>
+  </div>
+</section>
