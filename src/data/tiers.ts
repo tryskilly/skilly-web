@@ -1,57 +1,31 @@
 // src/data/tiers.ts
-export interface Tier {
+// Single tier for the beta launch. When the beta ends and we ladder up
+// to multiple tiers, reintroduce the array shape.
+
+export interface BetaTier {
   name: string;
   price: string;
   period: string;
-  desc: string;
+  tagline: string;
   features: string[];
   cta: string;
-  highlight: boolean;
+  ctaHref: string;
+  limitNote: string;
 }
 
-export const tiers: Tier[] = [
-  {
-    name: 'Free',
-    price: '$0',
-    period: '',
-    desc: 'Prove the magic',
-    features: [
-      '10 interactions/day',
-      'Blender Fundamentals skill',
-      'Push-to-talk voice',
-      'Cursor pointing',
-    ],
-    cta: 'Download for Mac',
-    highlight: false,
-  },
-  {
-    name: 'Learner',
-    price: '$19',
-    period: '/mo',
-    desc: 'Learn at your pace',
-    features: [
-      '300 interactions/mo',
-      'All available skills',
-      'Voice + vision',
-      'Curriculum tracking',
-      'Priority voice quality',
-    ],
-    cta: 'Start learning',
-    highlight: true,
-  },
-  {
-    name: 'BYOK',
-    price: '$9',
-    period: '/mo',
-    desc: 'Bring your own key',
-    features: [
-      'Unlimited interactions',
-      'All available skills',
-      'Use your OpenAI API key',
-      'Full curriculum engine',
-      'Zero usage caps',
-    ],
-    cta: 'Connect your key',
-    highlight: false,
-  },
-];
+export const betaTier: BetaTier = {
+  name: 'Skilly Beta',
+  price: '$19',
+  period: '/month',
+  tagline: '3 hours of live teaching per month',
+  features: [
+    'Voice companion for Blender',
+    'Points at your screen, explains as you work',
+    "Watches what you're doing, teaches in real time",
+    'Cancel anytime',
+    'Beta pricing — locked in for life if you join now',
+  ],
+  cta: 'Join the beta',
+  ctaHref: '#waitlist',
+  limitNote: 'Limited to 50 beta users. After cap is reached, waitlist only.',
+};

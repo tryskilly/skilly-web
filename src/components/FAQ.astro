@@ -1,0 +1,55 @@
+---
+// src/components/FAQ.astro
+import { faqs } from '../data/faqs.ts';
+---
+<section id="faq" class="relative py-24 lg:py-32 px-6">
+  <div
+    aria-hidden="true"
+    class="absolute left-0 right-0 top-0 h-px"
+    style="background: linear-gradient(90deg, transparent, #27272A, transparent);"
+  ></div>
+
+  <div class="max-w-[720px] mx-auto">
+    <div class="text-center mb-14 lg:mb-16">
+      <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">FAQ</span>
+      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 text-gray-50">
+        Questions, answered.
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      {faqs.map((faq, i) => (
+        <details
+          data-reveal
+          class={`reveal reveal-delay-${Math.min(i + 1, 5)} group bg-gray-900 rounded-2xl border border-gray-800 hover:border-amber-500/25 transition-colors`}
+        >
+          <summary
+            class="list-none cursor-pointer px-6 py-5 flex items-center justify-between gap-4 text-[17px] font-semibold text-gray-50"
+          >
+            <span>{faq.question}</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+              class="shrink-0 text-amber-500 transition-transform duration-300 group-open:rotate-45"
+            >
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 pt-0 text-[15px] leading-relaxed text-gray-400">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hide default Safari details marker */
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
