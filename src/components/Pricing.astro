@@ -1,6 +1,9 @@
 ---
 // src/components/Pricing.astro
 import { betaTier } from '../data/tiers.ts';
+import { primaryCta } from '../data/config.ts';
+
+const cta = primaryCta();
 ---
 <section id="pricing" class="relative py-24 lg:py-32 px-6">
   <div
@@ -27,7 +30,7 @@ import { betaTier } from '../data/tiers.ts';
 
       <div class="mb-6">
         <h3 class="text-xl font-semibold text-gray-50 mb-1">{betaTier.name}</h3>
-        <p class="text-sm text-gray-400">{betaTier.tagline}</p>
+        <p class="text-sm text-gray-400 leading-relaxed">{betaTier.tagline}</p>
       </div>
 
       <div class="mb-8 flex items-baseline gap-1">
@@ -36,15 +39,18 @@ import { betaTier } from '../data/tiers.ts';
       </div>
 
       <a
-        href={betaTier.ctaHref}
-        data-ph-event="web_pricing_cta_clicked"
-        data-ph-prop-tier="beta"
-        class="block w-full text-center px-6 py-3.5 rounded-lg text-[15px] font-semibold mb-4 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 transition-all"
+        href={cta.href}
+        data-ph-event="web_cta_download_clicked"
+        data-ph-prop-location={cta.analyticsLocation}
+        class="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-lg text-[15px] font-semibold mb-4 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 transition-all"
       >
-        {betaTier.cta}
+        {cta.label}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12L12 4M12 4H5M12 4V11"/>
+        </svg>
       </a>
 
-      <p class="text-center text-xs text-gray-500 mb-8 leading-relaxed">{betaTier.limitNote}</p>
+      <p class="text-center text-xs text-gray-500 mb-8 leading-relaxed">{betaTier.finePrint}</p>
 
       <div class="border-t border-gray-800 pt-6 flex flex-col gap-3.5">
         {betaTier.features.map((f) => (
@@ -58,5 +64,11 @@ import { betaTier } from '../data/tiers.ts';
         ))}
       </div>
     </div>
+
+    <p class="text-center text-[13px] text-gray-500 mt-8 leading-relaxed">
+      Subscription happens inside the app after your free trial, via Polar.
+      <br />
+      No checkout on this page — just download and try.
+    </p>
   </div>
 </section>

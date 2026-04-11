@@ -1,0 +1,67 @@
+---
+// src/components/FreeTrial.astro
+import { primaryCta } from '../data/config.ts';
+
+const steps = [
+  {
+    num: '01',
+    title: 'Download Skilly and open it',
+    desc: 'The macOS app is small and free to install. No account, no card required to start.',
+  },
+  {
+    num: '02',
+    title: 'Pick a skill and start talking',
+    desc: 'Launch the app you want to learn (Blender, for now), hit Control+Option, and ask Skilly anything.',
+  },
+  {
+    num: '03',
+    title: 'If it clicks, subscribe in-app',
+    desc: "If Skilly earned it, upgrade to the $19 beta tier from inside the app. If not, walk away — no hassle.",
+  },
+];
+
+const cta = primaryCta();
+---
+<section id="free-trial" class="relative py-24 lg:py-32 px-6">
+  <div
+    aria-hidden="true"
+    class="absolute left-0 right-0 top-0 h-px"
+    style="background: linear-gradient(90deg, transparent, #27272A, transparent);"
+  ></div>
+
+  <div class="max-w-site mx-auto">
+    <div class="max-w-[640px] mx-auto text-center mb-16 lg:mb-20">
+      <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">Free trial</span>
+      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 text-gray-50">
+        Try Skilly free for 15 minutes.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12 max-w-[1000px] mx-auto">
+      {steps.map((step, i) => (
+        <div data-reveal class={`reveal reveal-delay-${i + 1}`}>
+          <div class="font-mono font-bold text-5xl text-amber-500/20 mb-4">{step.num}</div>
+          <h3 class="text-xl lg:text-[22px] font-semibold mb-2.5 text-gray-50">{step.title}</h3>
+          <p class="text-[15px] leading-relaxed text-gray-400">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex flex-col items-center mt-14 lg:mt-16">
+      <a
+        href={cta.href}
+        data-ph-event="web_cta_download_clicked"
+        data-ph-prop-location="free_trial"
+        class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+      >
+        {cta.label}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12L12 4M12 4H5M12 4V11"/>
+        </svg>
+      </a>
+      <p class="text-[13px] text-gray-500 mt-4 max-w-[420px] text-center leading-relaxed">
+        The free trial is 15 minutes total, one-time per user. It's enough to know if Skilly is for you.
+      </p>
+    </div>
+  </div>
+</section>

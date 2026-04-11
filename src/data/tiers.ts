@@ -8,24 +8,20 @@ export interface BetaTier {
   period: string;
   tagline: string;
   features: string[];
-  cta: string;
-  ctaHref: string;
-  limitNote: string;
+  finePrint: string;
 }
 
 export const betaTier: BetaTier = {
   name: 'Skilly Beta',
   price: '$19',
   period: '/month',
-  tagline: '3 hours of live teaching per month',
+  tagline: '3 hours of live teaching per month, across every skill',
   features: [
-    'Voice companion for Blender',
-    'Points at your screen, explains as you work',
-    "Watches what you're doing, teaches in real time",
-    'Cancel anytime',
-    'Beta pricing — locked in for life if you join now',
+    'Voice companion that watches your screen and points at what matters',
+    'Real-time teaching in any supported app',
+    'New skills added regularly — one price, all skills included',
+    '15 minutes free to try, no card required',
+    'Cancel anytime, beta price locked in for life',
   ],
-  cta: 'Join the beta',
-  ctaHref: '#waitlist',
-  limitNote: 'Limited to 50 beta users. After cap is reached, waitlist only.',
+  finePrint: '15 minutes free on first launch. Limited to 50 beta users.',
 };

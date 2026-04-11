@@ -2,21 +2,43 @@
 // src/components/Footer.astro
 import Logo from './Logo.astro';
 import Wordmark from './Wordmark.astro';
+import { BETA_STATUS } from '../data/config.ts';
+
+const statusDotClass =
+  BETA_STATUS === 'BETA_ACTIVE'
+    ? 'bg-green-500'
+    : BETA_STATUS === 'BETA_FULL'
+      ? 'bg-amber-500'
+      : 'bg-gray-500';
 ---
 <footer class="border-t border-gray-800 py-12 px-6">
-  <div class="max-w-site mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
-    <div class="flex items-center gap-2.5">
-      <Logo size={20} variant="amber" alt="Skilly" />
-      <Wordmark size="sm" />
-      <span class="text-[13px] text-gray-500 ml-2">by moelabs.dev</span>
+  <div class="max-w-site mx-auto flex flex-col gap-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-2.5">
+        <Logo size={20} variant="amber" alt="Skilly" />
+        <Wordmark size="sm" />
+        <span class="text-[13px] text-gray-500 ml-2">by moelabs.dev</span>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="/terms" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Terms</a>
+        <a href="/privacy" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Privacy</a>
+        <span class="block w-px h-3 bg-gray-800" aria-hidden="true"></span>
+        <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">GitHub</a>
+        <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">X / Twitter</a>
+        <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Discord</a>
+      </div>
     </div>
-    <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-      <a href="/terms" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Terms</a>
-      <a href="/privacy" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Privacy</a>
-      <span class="block w-px h-3 bg-gray-800" aria-hidden="true"></span>
-      <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">GitHub</a>
-      <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">X / Twitter</a>
-      <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Discord</a>
+
+    <div class="flex justify-center sm:justify-start">
+      <div
+        class="inline-flex items-center gap-2 bg-gray-900/60 border border-gray-800 rounded-full pl-2.5 pr-3 py-1"
+        aria-label={`Beta program status: ${BETA_STATUS}`}
+      >
+        <span class={`block w-1.5 h-1.5 rounded-full ${statusDotClass} animate-pulse-soft`} aria-hidden="true"></span>
+        <span class="font-mono text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-400">
+          Status: {BETA_STATUS}
+        </span>
+      </div>
     </div>
   </div>
 </footer>

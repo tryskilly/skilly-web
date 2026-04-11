@@ -15,22 +15,22 @@ const lastUpdated = 'April 12, 2026';
 
 const processors = [
   {
-    name: 'PostHog',
-    purpose: 'Anonymous product analytics (page views, button clicks, waitlist submissions)',
-    data: 'Event names, page URLs, anonymous session metadata. No cookies. No personal identifiers.',
-    location: 'United States',
-    link: 'https://posthog.com/privacy',
-  },
-  {
     name: 'OpenAI',
-    purpose: 'Powering Skilly\u2019s real-time voice teaching and screen-understanding features',
+    purpose: 'Real-time voice and vision inference — the model that powers Skilly\u2019s teaching in the macOS app',
     data: 'Transcribed audio, screen context, and model prompts, sent per teaching session. OpenAI processes these to generate responses and is contractually prohibited from using them for training.',
     location: 'United States',
     link: 'https://openai.com/policies/privacy-policy',
   },
   {
+    name: 'PostHog',
+    purpose: 'Anonymous product analytics (page views, button clicks, usage metrics)',
+    data: 'Event names, page URLs, anonymous session metadata. No cookies. No personal identifiers.',
+    location: 'United States',
+    link: 'https://posthog.com/privacy',
+  },
+  {
     name: 'WorkOS',
-    purpose: 'Authentication and account management (AuthKit)',
+    purpose: 'Authentication and account management via AuthKit (handled inside the macOS app)',
     data: 'Email address, hashed password or OAuth identifier, account metadata',
     location: 'United States',
     link: 'https://workos.com/legal/privacy',
@@ -43,6 +43,13 @@ const processors = [
     link: 'https://polar.sh/legal/privacy',
   },
   {
+    name: 'Cloudflare',
+    purpose: 'Backend infrastructure for the macOS app (API requests, edge functions, DDoS protection)',
+    data: 'Server access logs, IP addresses (retained by Cloudflare\u2019s infrastructure for short periods), TLS connection metadata',
+    location: 'Global CDN (varies)',
+    link: 'https://www.cloudflare.com/privacypolicy/',
+  },
+  {
     name: 'Resend',
     purpose: 'Transactional email delivery (waitlist confirmations, account notifications)',
     data: 'Email address, message content, delivery status',
@@ -51,7 +58,7 @@ const processors = [
   },
   {
     name: 'Netlify',
-    purpose: 'Website hosting and the backend for the waitlist form',
+    purpose: 'Website hosting and the backend for the waitlist form on tryskilly.app',
     data: 'Server access logs, IP addresses (retained by Netlify\u2019s infrastructure for short periods)',
     location: 'United States',
     link: 'https://www.netlify.com/privacy/',
