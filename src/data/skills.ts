@@ -10,7 +10,8 @@
 // To add a new skill, append an entry to the array. Edit the order to
 // change how cards appear on the page.
 
-import { TALLY_SKILL_REQUEST_URL } from './config.ts';
+// The skill request form is built into the Skills section itself —
+// the "Your app?" card scrolls to it via #skill-request anchor.
 
 export type SkillStatus = 'available' | 'coming_soon' | 'request';
 
@@ -36,6 +37,6 @@ export const skills: Skill[] = [
   {
     name: 'Your app?',
     status: 'request',
-    href: TALLY_SKILL_REQUEST_URL,
+    href: '#skill-request',
   },
 ];

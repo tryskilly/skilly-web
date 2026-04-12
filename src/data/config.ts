@@ -22,15 +22,11 @@ export const BETA_CAP_REACHED = false;
  */
 export const DOWNLOAD_URL = 'https://downloads.tryskilly.app/Skilly.dmg';
 
-/**
- * Tally form for users to request a new skill (app coverage).
- */
-export const TALLY_SKILL_REQUEST_URL = 'https://tally.so/r/SKILLY_SKILLS';
-
-/**
- * Tally form used as the waitlist when BETA_CAP_REACHED === true.
- */
-export const TALLY_WAITLIST_URL = 'https://tally.so/r/SKILLY_WAITLIST';
+// Skill request and beta-waitlist forms are built into the site
+// (src/components/Skills.astro and src/components/Pricing.astro)
+// and submit to our own Resend-backed API endpoints at
+// /api/skill-request and /api/waitlist respectively.
+// No external form service (Tally, Typeform, etc.) is used.
 
 /**
  * Beta status label shown in the footer.
@@ -43,14 +39,14 @@ export const BETA_STATUS: BetaStatus = 'BETA_ACTIVE';
 
 /**
  * Resolved CTA shown on the primary "try Skilly" button(s).
- * Returns the download URL in normal operation, or the Tally waitlist
- * form when the beta cap is reached.
+ * Returns the download URL in normal operation, or the inline
+ * beta-waitlist form anchor when the beta cap is reached.
  */
 export function primaryCta(): { label: string; href: string; analyticsLocation: string } {
   if (BETA_CAP_REACHED) {
     return {
       label: 'Join waitlist',
-      href: TALLY_WAITLIST_URL,
+      href: '#beta-waitlist',
       analyticsLocation: 'pricing_waitlist',
     };
   }

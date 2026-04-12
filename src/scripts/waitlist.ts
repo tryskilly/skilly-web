@@ -1,5 +1,7 @@
 // src/scripts/waitlist.ts
 // Note: window.posthog is declared globally in posthog-events.ts.
+export {};
+
 const form = document.querySelector<HTMLFormElement>('[data-waitlist-form]');
 if (form) {
   const platformBtns = form.querySelectorAll<HTMLButtonElement>('[data-platform]');

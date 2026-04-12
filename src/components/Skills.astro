@@ -53,8 +53,6 @@ const statusLabel: Record<string, string> = {
         const tagProps = isRequest
           ? {
               href: skill.href,
-              target: '_blank',
-              rel: 'noopener noreferrer',
               'data-ph-event': 'web_skill_request_clicked',
               class: `${wrapperClass} block group`,
             }
@@ -101,5 +99,74 @@ const statusLabel: Record<string, string> = {
       {' '}
       — we're exploring a creator program.
     </p>
+
+    <!-- Skill request form -->
+    <div id="skill-request" class="max-w-[480px] mx-auto mt-16 scroll-mt-24">
+      <div data-skill-request-wrapper class="bg-gray-900 rounded-[20px] border border-gray-800 p-8">
+        <h3 class="text-lg font-semibold text-gray-50 mb-1">Request a skill</h3>
+        <p class="text-sm text-gray-400 mb-6 leading-relaxed">Tell us which app you'd learn with Skilly. We read every request.</p>
+
+        <form data-skill-request-form>
+          <div class="flex flex-col gap-4 mb-4">
+            <div>
+              <label class="text-sm font-medium text-gray-300 block mb-1.5" for="sr-app">App name</label>
+              <input
+                id="sr-app"
+                type="text"
+                name="appName"
+                placeholder="e.g. Unity, Houdini, Cinema 4D..."
+                required
+                class="w-full px-4 py-3 rounded-lg text-[15px] bg-gray-950 border border-gray-700 text-gray-200 placeholder-gray-600 outline-none focus:border-amber-500 transition-colors"
+              />
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-300 block mb-1.5" for="sr-email">Your email</label>
+              <input
+                id="sr-email"
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+                class="w-full px-4 py-3 rounded-lg text-[15px] bg-gray-950 border border-gray-700 text-gray-200 placeholder-gray-600 outline-none focus:border-amber-500 transition-colors"
+              />
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-300 block mb-1.5" for="sr-message">What would you learn? <span class="text-gray-500 font-normal">(optional)</span></label>
+              <textarea
+                id="sr-message"
+                name="message"
+                rows="2"
+                placeholder="e.g. character rigging, 3D environments..."
+                class="w-full px-4 py-3 rounded-lg text-[15px] bg-gray-950 border border-gray-700 text-gray-200 placeholder-gray-600 outline-none focus:border-amber-500 transition-colors resize-none"
+              ></textarea>
+            </div>
+          </div>
+          <button
+            type="submit"
+            disabled
+            class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-lg px-6 py-3 text-[15px] font-semibold transition-all opacity-50 cursor-not-allowed"
+          >
+            Submit request
+          </button>
+          <p class="text-xs text-gray-600 mt-2.5 text-center">We'll email you if this skill becomes available.</p>
+        </form>
+      </div>
+
+      <div data-skill-request-success hidden class="bg-gray-900 rounded-[20px] border border-amber-500/25 p-10 text-center">
+        <div class="w-14 h-14 rounded-full bg-amber-500/10 border-2 border-amber-500/25 flex items-center justify-center mx-auto mb-5">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12l5 5L20 7" />
+          </svg>
+        </div>
+        <h3 class="text-[22px] font-semibold text-gray-50 mb-2">Request received!</h3>
+        <p class="text-[15px] text-gray-400 leading-relaxed">
+          We'll notify you when a <span data-success-app class="text-amber-300 font-medium"></span> skill is available.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  import '../scripts/skill-request.ts';
+</script>

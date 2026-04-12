@@ -1,10 +1,9 @@
-// src/pages/api/waitlist.ts
+// src/pages/api/skill-request.ts
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import {
-  confirmationEmail,
-  notificationEmail,
-  type WaitlistPlatform,
+  skillRequestConfirmation,
+  skillRequestNotification,
 } from '../../lib/email-templates';
 
 export const prerender = false;
@@ -12,12 +11,12 @@ export const prerender = false;
 const FROM = 'Skilly <hello@send.tryskilly.app>';
 const REPLY_TO = 'hello@tryskilly.app';
 const FOUNDER_NOTIFICATION_ADDRESS = 'hello@tryskilly.app';
-const VALID_PLATFORMS: readonly WaitlistPlatform[] = ['windows', 'linux', 'ios', 'macos_beta'] as const;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface RequestBody {
   email?: unknown;
-  platform?: unknown;
+  appName?: unknown;
+  message?: unknown;
 }
 
 function jsonResponse(status: number, body: Record<string, unknown>): Response {
@@ -29,10 +28,10 @@ function jsonResponse(status: number, body: Record<string, unknown>): Response {
 
 export const POST: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
-  const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
+  const audienceId = import.meta.env.RESEND_SKILL_REQUESTS_AUDIENCE_ID;
 
   if (!apiKey || !audienceId) {
-    console.error('[waitlist] Missing RESEND_API_KEY or RESEND_AUDIENCE_ID');
+    console.error('[skill-request] Missing RESEND_API_KEY or RESEND_SKILL_REQUESTS_AUDIENCE_ID');
     return jsonResponse(500, { error: 'Server not configured' });
   }
 
@@ -44,21 +43,19 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const email = typeof body.email === 'string' ? body.email.trim() : '';
-  const platform = typeof body.platform === 'string' ? body.platform : '';
+  const appName = typeof body.appName === 'string' ? body.appName.trim() : '';
+  const message = typeof body.message === 'string' ? body.message.trim().slice(0, 500) : '';
 
   if (!email || !EMAIL_RE.test(email)) {
     return jsonResponse(400, { error: 'Invalid email address' });
   }
-  if (!VALID_PLATFORMS.includes(platform as WaitlistPlatform)) {
-    return jsonResponse(400, { error: 'Invalid platform' });
+  if (!appName || appName.length < 1 || appName.length > 100) {
+    return jsonResponse(400, { error: 'App name is required' });
   }
 
-  const typedPlatform = platform as WaitlistPlatform;
   const resend = new Resend(apiKey);
 
-  // Step 1: try to add the contact to the audience.
-  // If the contact already exists, swallow the error and continue —
-  // the user still gets a fresh confirmation email.
+  // Add contact to the Skill Requests audience (swallow duplicates)
   try {
     await resend.contacts.create({
       email,
@@ -66,13 +63,12 @@ export const POST: APIRoute = async ({ request }) => {
       unsubscribed: false,
     });
   } catch (err) {
-    // Log but don't fail. Resend returns 422 for duplicates.
-    console.warn('[waitlist] contacts.create skipped:', (err as Error).message);
+    console.warn('[skill-request] contacts.create skipped:', (err as Error).message);
   }
 
-  // Step 2: send confirmation to user + notification to founder, in parallel
-  const confirmation = confirmationEmail({ platform: typedPlatform });
-  const notification = notificationEmail({ email, platform: typedPlatform });
+  // Send confirmation to user + notification to founder, in parallel
+  const confirmation = skillRequestConfirmation({ appName });
+  const notification = skillRequestNotification({ email, appName, message: message || undefined });
 
   const [confirmResult, notifyResult] = await Promise.allSettled([
     resend.emails.send({
@@ -93,13 +89,12 @@ export const POST: APIRoute = async ({ request }) => {
   ]);
 
   if (confirmResult.status === 'rejected') {
-    console.error('[waitlist] confirmation email failed:', confirmResult.reason);
+    console.error('[skill-request] confirmation email failed:', confirmResult.reason);
     return jsonResponse(500, { error: 'Failed to send confirmation email' });
   }
 
   if (notifyResult.status === 'rejected') {
-    // Don't fail the user-facing flow if only the founder notification failed.
-    console.error('[waitlist] notification email failed:', notifyResult.reason);
+    console.error('[skill-request] notification email failed:', notifyResult.reason);
   }
 
   return jsonResponse(200, { ok: true });

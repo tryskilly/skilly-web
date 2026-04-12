@@ -1,7 +1,7 @@
 ---
 // src/components/Pricing.astro
 import { betaTier } from '../data/tiers.ts';
-import { primaryCta } from '../data/config.ts';
+import { primaryCta, BETA_CAP_REACHED } from '../data/config.ts';
 
 const cta = primaryCta();
 ---
@@ -70,5 +70,50 @@ const cta = primaryCta();
       <br />
       No checkout on this page — just download and try.
     </p>
+
+    {BETA_CAP_REACHED && (
+      <div id="beta-waitlist" class="mt-12 scroll-mt-24">
+        <div data-beta-waitlist-wrapper class="bg-gray-900 rounded-[20px] border border-gray-800 p-8 text-center">
+          <h3 class="text-lg font-semibold text-gray-50 mb-1">Beta is full</h3>
+          <p class="text-sm text-gray-400 mb-6 leading-relaxed">All 50 beta spots are taken. Join the waitlist and we'll email you the moment a slot opens.</p>
+
+          <form data-beta-waitlist-form class="max-w-[360px] mx-auto">
+            <div class="flex gap-2.5">
+              <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+                class="flex-1 px-4 py-3 rounded-lg text-[15px] bg-gray-950 border border-gray-700 text-gray-200 placeholder-gray-600 outline-none focus:border-amber-500 transition-colors"
+              />
+              <button
+                type="submit"
+                disabled
+                class="bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-lg px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-all opacity-50 cursor-not-allowed"
+              >
+                Join waitlist
+              </button>
+            </div>
+            <p class="text-xs text-gray-600 mt-2.5">No spam. One email when a slot opens.</p>
+          </form>
+        </div>
+
+        <div data-beta-waitlist-success hidden class="bg-gray-900 rounded-[20px] border border-amber-500/25 p-10 text-center">
+          <div class="w-14 h-14 rounded-full bg-amber-500/10 border-2 border-amber-500/25 flex items-center justify-center mx-auto mb-5">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12l5 5L20 7" />
+            </svg>
+          </div>
+          <h3 class="text-[22px] font-semibold text-gray-50 mb-2">You're on the list!</h3>
+          <p class="text-[15px] text-gray-400 leading-relaxed">
+            We'll email you when a beta slot opens up.
+          </p>
+        </div>
+      </div>
+    )}
   </div>
 </section>
+
+<script>
+  import '../scripts/beta-waitlist.ts';
+</script>
