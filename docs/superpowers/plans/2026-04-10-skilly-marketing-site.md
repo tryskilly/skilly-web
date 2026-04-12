@@ -2196,7 +2196,7 @@ git commit -m "chore: final Lighthouse pass and acceptance walkthrough" --allow-
 ### Inputs (from user)
 
 - **Resend API key (full access):** `re_xxxxxxxxxxxxxxxxxxxxxxxx` — goes in `.env`, NEVER commit. The real key is given to the implementer out-of-band (chat / secrets manager) and never embedded in plan files.
-- **Audience ID:** `2b2eecf7-56f0-4d30-8cd6-e844b8883ad6` — Skilly Waitlist
+- **Audience ID:** `<RESEND_AUDIENCE_ID>` — Skilly Waitlist
 - **Sending domain:** `send.tryskilly.app` (verified subdomain)
 - **From:** `Skilly <hello@send.tryskilly.app>`
 - **Reply-To:** `hello@tryskilly.app`
@@ -2242,7 +2242,7 @@ export default defineConfig({
 ```bash
 cat > /Users/engmsaleh/Repos/skilly-web/.env <<'EOF'
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
-RESEND_AUDIENCE_ID=2b2eecf7-56f0-4d30-8cd6-e844b8883ad6
+RESEND_AUDIENCE_ID=<RESEND_AUDIENCE_ID>
 EOF
 ```
 
@@ -2613,7 +2613,7 @@ The marketing site is built, mobile-responsive, accessible, Lighthouse-clean, **
 4. Publish directory: `dist` (already in `netlify.toml`)
 5. Before the first deploy, go to Site → Environment variables and add:
    - `RESEND_API_KEY` = (your full-access Resend key)
-   - `RESEND_AUDIENCE_ID` = `2b2eecf7-56f0-4d30-8cd6-e844b8883ad6`
+   - `RESEND_AUDIENCE_ID` = `<RESEND_AUDIENCE_ID>`
 6. Deploy. Netlify will detect `astro.config.mjs`'s Netlify adapter and provision the `/api/waitlist` function automatically.
 7. Add the custom domain `tryskilly.app` in Site → Domain management
 

@@ -85,7 +85,7 @@ The waitlist form is wired to a real backend on day one. Architecture:
 **The endpoint (`POST /api/waitlist`) does three things:**
 
 1. **Validates** the request: email must be a well-formed address; platform must be one of `windows` / `linux` / `ios`
-2. **Adds the contact to the Resend Audience** "Skilly Waitlist" (`2b2eecf7-56f0-4d30-8cd6-e844b8883ad6`). If the contact already exists (duplicate signup), the error is swallowed and the flow continues — the user still gets a fresh confirmation email
+2. **Adds the contact to the Resend Audience** "Skilly Waitlist" (`<RESEND_AUDIENCE_ID>`). If the contact already exists (duplicate signup), the error is swallowed and the flow continues — the user still gets a fresh confirmation email
 3. **Sends two emails in parallel**:
    - **Confirmation to the user** — branded HTML + plain-text fallback. "You're on the list" + a link back to tryskilly.app
    - **Notification to the founder** at `hello@tryskilly.app` — plain "New waitlist signup: {email} for {platform}" so the founder gets real-time signal during early days
