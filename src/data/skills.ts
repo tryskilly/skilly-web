@@ -35,9 +35,21 @@ export const skills: Skill[] = [
     status: 'available',
     description: 'UI design, auto layout, components, prototyping',
   },
-  { name: 'After Effects',   status: 'coming_soon' },
-  { name: 'DaVinci Resolve', status: 'coming_soon' },
-  { name: 'Premiere Pro',    status: 'coming_soon' },
+  {
+    name: 'After Effects',
+    status: 'available',
+    description: 'Motion graphics, keyframing, effects, text animation',
+  },
+  {
+    name: 'DaVinci Resolve',
+    status: 'available',
+    description: 'Video editing, color grading, audio mixing, delivery',
+  },
+  {
+    name: 'Premiere Pro',
+    status: 'available',
+    description: 'Video editing, trimming, color, titles, export',
+  },
   {
     name: 'Your app?',
     status: 'request',
