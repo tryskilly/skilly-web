@@ -20,7 +20,7 @@ export const BETA_CAP_REACHED = false;
  * Direct link to the macOS app download. The trial starts on first
  * launch inside the app; there is no subscription step on the website.
  */
-export const DOWNLOAD_URL = 'https://downloads.tryskilly.app/Skilly.dmg';
+export const DOWNLOAD_URL = 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg';
 
 // Skill request and beta-waitlist forms are built into the site
 // (src/components/Skills.astro and src/components/Pricing.astro)
