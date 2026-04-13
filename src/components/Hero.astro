@@ -72,34 +72,54 @@ const firstApp = apps[0];
         </a>
       </div>
 
-      <!-- RIGHT: floating cursor mockup -->
-      <div class="hidden lg:flex flex-col items-center">
-        <div class="relative w-[320px] h-[320px]">
-          <div class="absolute top-10 left-5 w-[280px] h-[200px] bg-gray-900 rounded-xl border border-gray-800 p-4">
-            <div class="flex gap-1.5 mb-3">
-              <span class="block w-2 h-2 rounded-full bg-red-500"></span>
-              <span class="block w-2 h-2 rounded-full bg-amber-500"></span>
-              <span class="block w-2 h-2 rounded-full bg-green-500"></span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 80%"></div>
-              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 60%"></div>
-              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 100%"></div>
-              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 45%"></div>
-              <div class="h-1.5 rounded-sm bg-gray-800" style="width: 75%"></div>
-            </div>
-            <div class="mt-4 flex gap-1.5">
-              <div class="h-5 w-10 rounded bg-gray-800"></div>
-              <div class="h-5 w-14 rounded bg-gray-800"></div>
-              <div class="h-5 w-9 rounded bg-gray-800"></div>
-            </div>
-          </div>
-          <div class="absolute bottom-16 right-5 animate-float">
-            <Logo size={56} variant="amber" alt="Skilly cursor" />
-            <div class="absolute -top-2 -right-20 bg-gray-900 border border-amber-500/25 rounded-lg px-3 py-1.5 whitespace-nowrap text-xs font-medium text-amber-300">
-              UV Unwrap
-            </div>
-          </div>
+      <!-- RIGHT: animated Skilly teaching demo -->
+      <div class="hidden lg:block">
+        <div
+          class="relative w-[520px] h-[303px] rounded-xl overflow-hidden"
+          style="background: #0A0A0A;"
+          role="img"
+          aria-label="Skilly teaching Blender: user speaks 'How do I smooth this cube?', Skilly cursor animates to Add Modifier button, responds with explanation"
+        >
+          <!-- Layer 1: Blender window (base) -->
+          <img
+            src="/hero/blender-window.png"
+            alt=""
+            class="absolute hero-layer hero-fade-in"
+            style="left: 2.5%; top: 7.1%; width: 91.7%; animation-delay: 0s;"
+            loading="eager"
+          />
+          <!-- Layer 2: Button glow -->
+          <img
+            src="/hero/button-glow.png"
+            alt=""
+            class="absolute hero-layer hero-glow-pulse"
+            style="left: 71.7%; top: 7.1%; width: 15%; animation-delay: 1.2s;"
+            loading="eager"
+          />
+          <!-- Layer 3: Skilly cursor -->
+          <img
+            src="/hero/skilly-cursor.png"
+            alt=""
+            class="absolute hero-layer hero-cursor-fly"
+            style="left: 81.7%; top: 17.9%; width: 3.67%; animation-delay: 1s;"
+            loading="eager"
+          />
+          <!-- Layer 4: User voice bubble -->
+          <img
+            src="/hero/user-bubble.png"
+            alt=""
+            class="absolute hero-layer hero-slide-left"
+            style="left: 31.7%; top: 28.6%; width: 26.2%; animation-delay: 0.3s;"
+            loading="eager"
+          />
+          <!-- Layer 5: Skilly response bubble -->
+          <img
+            src="/hero/skilly-bubble.png"
+            alt=""
+            class="absolute hero-layer hero-slide-up"
+            style="left: 60%; top: 31.4%; width: 21.3%; animation-delay: 1.4s;"
+            loading="eager"
+          />
         </div>
       </div>
     </div>
