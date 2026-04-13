@@ -1,13 +1,12 @@
 ---
 // src/components/Hero.astro
-import Logo from './Logo.astro';
 import { apps } from '../data/apps.ts';
 import { DOWNLOAD_URL } from '../data/config.ts';
 const firstApp = apps[0];
 ---
 <section
   id="top"
-  class="relative min-h-screen flex items-center overflow-hidden"
+  class="relative overflow-hidden"
 >
   <!-- Ambient amber glow -->
   <div
@@ -21,106 +20,104 @@ const firstApp = apps[0];
     style="background: linear-gradient(180deg, rgba(245,158,11,0.03) 0%, transparent 60%);"
   ></div>
 
-  <div class="max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-20 w-full">
-    <div class="grid lg:grid-cols-[1fr,1.1fr] gap-8 items-center">
-      <!-- LEFT: copy -->
-      <div class="max-w-[720px]">
-        <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full pl-2.5 pr-4 py-1.5 mb-8">
-          <span class="block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-soft"></span>
-          <span class="text-[13px] font-medium text-amber-300">Now in beta — 5 skills live</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-gray-50 mb-6">
-          Your AI companion<br />
-          for learning{' '}
-          <span class="relative inline-block">
-            <span
-              data-hero-app
-              class="text-amber-500 inline-block transition-opacity duration-200"
-            >{firstApp}</span>
-            <span
-              aria-hidden="true"
-              class="absolute -bottom-1 left-0 right-0 h-[3px] rounded-sm opacity-60"
-              style="background: linear-gradient(90deg, #F59E0B, #FCD34D);"
-            ></span>
-          </span>
-        </h1>
-
-        <p class="text-lg lg:text-xl leading-relaxed text-gray-400 mb-10 max-w-[540px]">
-          Skilly sees your screen, hears your question, and points at exactly what you need. Like having an expert sitting next to you.
-        </p>
-
-        <div class="flex flex-wrap gap-3 items-center">
-          <a
-            href={DOWNLOAD_URL}
-            data-ph-event="web_cta_download_clicked"
-            data-ph-prop-location="hero"
-            class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
-          >
-            Download for Mac — Free
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 12L12 4M12 4H5M12 4V11"/>
-            </svg>
-          </a>
-          <span class="text-[13px] text-gray-500">macOS 14+ · Apple Silicon</span>
-        </div>
-        <a
-          href="#waitlist"
-          class="text-sm text-gray-500 hover:text-gray-300 mt-3 inline-block border-b border-dashed border-gray-700"
-        >
-          Not on Mac? Join the waitlist for Windows, Linux & iOS →
-        </a>
+  <div class="max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8 lg:pb-12 w-full">
+    <!-- Hero text — centered -->
+    <div class="max-w-[760px] mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full pl-2.5 pr-4 py-1.5 mb-8">
+        <span class="block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-soft"></span>
+        <span class="text-[13px] font-medium text-amber-300">Now in beta — 5 skills live</span>
       </div>
 
-      <!-- RIGHT: animated Skilly teaching demo -->
-      <div class="hidden lg:block">
-        <div
-          class="relative w-full aspect-[12/7] rounded-xl overflow-hidden"
-          style="background: #0A0A0A;"
-          role="img"
-          aria-label="Skilly teaching Blender: user speaks 'How do I smooth this cube?', Skilly cursor animates to Add Modifier button, responds with explanation"
+      <h1 class="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.08] tracking-tight text-gray-50 mb-6">
+        Your AI companion<br />
+        for learning{' '}
+        <span class="relative inline-block">
+          <span
+            data-hero-app
+            class="text-amber-500 inline-block transition-opacity duration-200"
+          >{firstApp}</span>
+          <span
+            aria-hidden="true"
+            class="absolute -bottom-1 left-0 right-0 h-[3px] rounded-sm opacity-60"
+            style="background: linear-gradient(90deg, #F59E0B, #FCD34D);"
+          ></span>
+        </span>
+      </h1>
+
+      <p class="text-lg lg:text-xl leading-relaxed text-gray-400 mb-10 max-w-[560px] mx-auto">
+        Skilly sees your screen, hears your question, and points at exactly what you need. Like having an expert sitting next to you.
+      </p>
+
+      <div class="flex flex-wrap gap-3 items-center justify-center">
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="hero"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
         >
-          <!-- Layer 1: Blender window (base) -->
-          <img
-            src="/hero/blender-window.png"
-            alt=""
-            class="absolute hero-layer hero-fade-in"
-            style="left: 2.5%; top: 7.1%; width: 91.7%; animation-delay: 0.3s;"
-            loading="eager"
-          />
-          <!-- Layer 2: Button glow -->
-          <img
-            src="/hero/button-glow.png"
-            alt=""
-            class="absolute hero-layer hero-glow-pulse"
-            style="left: 71.7%; top: 7.1%; width: 15%; animation-delay: 2.8s;"
-            loading="eager"
-          />
-          <!-- Layer 3: Skilly cursor -->
-          <img
-            src="/hero/skilly-cursor.png"
-            alt=""
-            class="absolute hero-layer hero-cursor-fly"
-            style="left: 81.7%; top: 17.9%; width: 3.67%; animation-delay: 2.2s;"
-            loading="eager"
-          />
-          <!-- Layer 4: User voice bubble -->
-          <img
-            src="/hero/user-bubble.png"
-            alt=""
-            class="absolute hero-layer hero-slide-left"
-            style="left: 31.7%; top: 28.6%; width: 26.2%; animation-delay: 1.0s;"
-            loading="eager"
-          />
-          <!-- Layer 5: Skilly response bubble -->
-          <img
-            src="/hero/skilly-bubble.png"
-            alt=""
-            class="absolute hero-layer hero-slide-up"
-            style="left: 60%; top: 31.4%; width: 21.3%; animation-delay: 3.2s;"
-            loading="eager"
-          />
-        </div>
+          Download for Mac — Free
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12L12 4M12 4H5M12 4V11"/>
+          </svg>
+        </a>
+        <span class="text-[13px] text-gray-500">macOS 14+ · Apple Silicon</span>
+      </div>
+      <a
+        href="#waitlist"
+        class="text-sm text-gray-500 hover:text-gray-300 mt-3 inline-block border-b border-dashed border-gray-700"
+      >
+        Not on Mac? Join the waitlist for Windows, Linux & iOS →
+      </a>
+    </div>
+
+    <!-- Hero illustration — full-width below text, visible on all viewports -->
+    <div class="mt-12 lg:mt-16 max-w-[960px] mx-auto">
+      <div
+        class="relative w-full aspect-[12/7] rounded-2xl overflow-hidden hero-zoom-in"
+        style="background: #0A0A0A; box-shadow: 0 0 80px rgba(245,158,11,0.06), 0 24px 48px rgba(0,0,0,0.4);"
+        role="img"
+        aria-label="Skilly teaching Blender: user speaks a question, Skilly cursor animates to the right button and responds with an explanation"
+      >
+        <!-- Layer 1: Blender window (base) -->
+        <img
+          src="/hero/blender-window.png"
+          alt=""
+          class="absolute hero-layer hero-fade-in"
+          style="left: 2.5%; top: 7.1%; width: 91.7%; animation-delay: 0.5s;"
+          loading="eager"
+        />
+        <!-- Layer 2: Button glow -->
+        <img
+          src="/hero/button-glow.png"
+          alt=""
+          class="absolute hero-layer hero-glow-pulse"
+          style="left: 71.7%; top: 7.1%; width: 15%; animation-delay: 3.0s;"
+          loading="eager"
+        />
+        <!-- Layer 3: Skilly cursor -->
+        <img
+          src="/hero/skilly-cursor.png"
+          alt=""
+          class="absolute hero-layer hero-cursor-fly"
+          style="left: 81.7%; top: 17.9%; width: 3.67%; animation-delay: 2.4s;"
+          loading="eager"
+        />
+        <!-- Layer 4: User voice bubble -->
+        <img
+          src="/hero/user-bubble.png"
+          alt=""
+          class="absolute hero-layer hero-slide-left"
+          style="left: 31.7%; top: 28.6%; width: 26.2%; animation-delay: 1.2s;"
+          loading="eager"
+        />
+        <!-- Layer 5: Skilly response bubble -->
+        <img
+          src="/hero/skilly-bubble.png"
+          alt=""
+          class="absolute hero-layer hero-slide-up"
+          style="left: 60%; top: 31.4%; width: 21.3%; animation-delay: 3.5s;"
+          loading="eager"
+        />
       </div>
     </div>
   </div>

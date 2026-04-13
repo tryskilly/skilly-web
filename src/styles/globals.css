@@ -64,7 +64,22 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Hero animated illustration layers */
+  /* Hero zoom-in entrance on the whole composition */
+  @keyframes hero-zoom-in {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .hero-zoom-in {
+    animation: hero-zoom-in 1s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  /*
+   * Hero animated illustration layers.
+   * Each layer fades/flies in with a delay, then after a hold period
+   * the whole sequence loops: layers fade out together, pause, and
+   * replay from the beginning. Total cycle: ~10s.
+   */
   .hero-layer {
     opacity: 0;
     animation-fill-mode: forwards;
@@ -72,32 +87,42 @@
     animation-timing-function: ease-out;
   }
   @keyframes hero-fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    0%   { opacity: 0; }
+    12%  { opacity: 1; }
+    75%  { opacity: 1; }
+    100% { opacity: 0; }
   }
   @keyframes hero-slide-left {
-    from { opacity: 0; transform: translateX(-40px); }
-    to   { opacity: 1; transform: translateX(0); }
+    0%   { opacity: 0; transform: translateX(-40px); }
+    12%  { opacity: 1; transform: translateX(0); }
+    75%  { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(0); }
   }
   @keyframes hero-slide-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+    0%   { opacity: 0; transform: translateY(20px); }
+    12%  { opacity: 1; transform: translateY(0); }
+    75%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(0); }
   }
   @keyframes hero-cursor-fly {
-    from { opacity: 0; transform: translateX(120px); }
-    to   { opacity: 1; transform: translateX(0); }
+    0%   { opacity: 0; transform: translateX(120px); }
+    15%  { opacity: 1; transform: translateX(0); }
+    75%  { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(0); }
   }
   @keyframes hero-glow-pulse {
     0%   { opacity: 0; transform: scale(0.8); }
-    40%  { opacity: 1; transform: scale(1); }
-    70%  { opacity: 1; transform: scale(1.08); }
-    100% { opacity: 1; transform: scale(1); }
+    10%  { opacity: 1; transform: scale(1); }
+    20%  { opacity: 1; transform: scale(1.08); }
+    30%  { opacity: 1; transform: scale(1); }
+    75%  { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1); }
   }
-  .hero-fade-in     { animation-name: hero-fade-in; }
-  .hero-slide-left  { animation-name: hero-slide-left; }
-  .hero-slide-up    { animation-name: hero-slide-up; }
-  .hero-cursor-fly  { animation-name: hero-cursor-fly; animation-duration: 1s; animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0); }
-  .hero-glow-pulse  { animation-name: hero-glow-pulse; animation-duration: 1.2s; }
+  .hero-fade-in     { animation-name: hero-fade-in;    animation-duration: 10s; animation-iteration-count: infinite; }
+  .hero-slide-left  { animation-name: hero-slide-left;  animation-duration: 10s; animation-iteration-count: infinite; }
+  .hero-slide-up    { animation-name: hero-slide-up;    animation-duration: 10s; animation-iteration-count: infinite; }
+  .hero-cursor-fly  { animation-name: hero-cursor-fly;  animation-duration: 10s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0); }
+  .hero-glow-pulse  { animation-name: hero-glow-pulse;  animation-duration: 10s; animation-iteration-count: infinite; }
 
   /* Nav scroll state */
   .nav-blur {
