@@ -68,7 +68,7 @@
   .hero-layer {
     opacity: 0;
     animation-fill-mode: forwards;
-    animation-duration: 0.6s;
+    animation-duration: 0.8s;
     animation-timing-function: ease-out;
   }
   @keyframes hero-fade-in {
@@ -96,8 +96,8 @@
   .hero-fade-in     { animation-name: hero-fade-in; }
   .hero-slide-left  { animation-name: hero-slide-left; }
   .hero-slide-up    { animation-name: hero-slide-up; }
-  .hero-cursor-fly  { animation-name: hero-cursor-fly; animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0); }
-  .hero-glow-pulse  { animation-name: hero-glow-pulse; animation-duration: 1s; }
+  .hero-cursor-fly  { animation-name: hero-cursor-fly; animation-duration: 1s; animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0); }
+  .hero-glow-pulse  { animation-name: hero-glow-pulse; animation-duration: 1.2s; }
 
   /* Nav scroll state */
   .nav-blur {

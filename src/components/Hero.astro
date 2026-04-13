@@ -22,7 +22,7 @@ const firstApp = apps[0];
   ></div>
 
   <div class="max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-20 w-full">
-    <div class="grid lg:grid-cols-[1fr,auto] gap-12 items-center">
+    <div class="grid lg:grid-cols-[1fr,1.1fr] gap-8 items-center">
       <!-- LEFT: copy -->
       <div class="max-w-[720px]">
         <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full pl-2.5 pr-4 py-1.5 mb-8">
@@ -75,7 +75,7 @@ const firstApp = apps[0];
       <!-- RIGHT: animated Skilly teaching demo -->
       <div class="hidden lg:block">
         <div
-          class="relative w-[520px] h-[303px] rounded-xl overflow-hidden"
+          class="relative w-full aspect-[12/7] rounded-xl overflow-hidden"
           style="background: #0A0A0A;"
           role="img"
           aria-label="Skilly teaching Blender: user speaks 'How do I smooth this cube?', Skilly cursor animates to Add Modifier button, responds with explanation"
@@ -85,7 +85,7 @@ const firstApp = apps[0];
             src="/hero/blender-window.png"
             alt=""
             class="absolute hero-layer hero-fade-in"
-            style="left: 2.5%; top: 7.1%; width: 91.7%; animation-delay: 0s;"
+            style="left: 2.5%; top: 7.1%; width: 91.7%; animation-delay: 0.3s;"
             loading="eager"
           />
           <!-- Layer 2: Button glow -->
@@ -93,7 +93,7 @@ const firstApp = apps[0];
             src="/hero/button-glow.png"
             alt=""
             class="absolute hero-layer hero-glow-pulse"
-            style="left: 71.7%; top: 7.1%; width: 15%; animation-delay: 1.2s;"
+            style="left: 71.7%; top: 7.1%; width: 15%; animation-delay: 2.8s;"
             loading="eager"
           />
           <!-- Layer 3: Skilly cursor -->
@@ -101,7 +101,7 @@ const firstApp = apps[0];
             src="/hero/skilly-cursor.png"
             alt=""
             class="absolute hero-layer hero-cursor-fly"
-            style="left: 81.7%; top: 17.9%; width: 3.67%; animation-delay: 1s;"
+            style="left: 81.7%; top: 17.9%; width: 3.67%; animation-delay: 2.2s;"
             loading="eager"
           />
           <!-- Layer 4: User voice bubble -->
@@ -109,7 +109,7 @@ const firstApp = apps[0];
             src="/hero/user-bubble.png"
             alt=""
             class="absolute hero-layer hero-slide-left"
-            style="left: 31.7%; top: 28.6%; width: 26.2%; animation-delay: 0.3s;"
+            style="left: 31.7%; top: 28.6%; width: 26.2%; animation-delay: 1.0s;"
             loading="eager"
           />
           <!-- Layer 5: Skilly response bubble -->
@@ -117,7 +117,7 @@ const firstApp = apps[0];
             src="/hero/skilly-bubble.png"
             alt=""
             class="absolute hero-layer hero-slide-up"
-            style="left: 60%; top: 31.4%; width: 21.3%; animation-delay: 1.4s;"
+            style="left: 60%; top: 31.4%; width: 21.3%; animation-delay: 3.2s;"
             loading="eager"
           />
         </div>
