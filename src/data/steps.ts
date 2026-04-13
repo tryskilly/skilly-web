@@ -8,8 +8,8 @@ export interface Step {
 export const steps: Step[] = [
   {
     num: '01',
-    title: 'Open any creative app',
-    desc: 'Launch Blender, Figma, or any desktop software. Skilly watches your screen.',
+    title: 'Open any app',
+    desc: 'Blender, Figma, Excel, your browser — anything. Skilly works with every app on your Mac.',
   },
   {
     num: '02',
