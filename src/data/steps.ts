@@ -13,8 +13,8 @@ export const steps: Step[] = [
   },
   {
     num: '02',
-    title: 'Hold Control+Option and ask',
-    desc: '"How do I UV unwrap this face?" — speak naturally, Skilly hears you.',
+    title: 'Talk to Skilly',
+    desc: 'Hold Control+Option and ask, or enable Live Tutor mode and just start talking. "How do I UV unwrap this face?"',
   },
   {
     num: '03',

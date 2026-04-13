@@ -30,7 +30,11 @@ export const skills: Skill[] = [
     status: 'available',
     description: '3D modeling, sculpting, animation, rendering',
   },
-  { name: 'Figma',           status: 'coming_soon' },
+  {
+    name: 'Figma',
+    status: 'available',
+    description: 'UI design, auto layout, components, prototyping',
+  },
   { name: 'After Effects',   status: 'coming_soon' },
   { name: 'DaVinci Resolve', status: 'coming_soon' },
   { name: 'Premiere Pro',    status: 'coming_soon' },
