@@ -14,7 +14,7 @@ export const faqs: Faq[] = [
   {
     question: 'Which apps does Skilly work with?',
     answer:
-      'Skilly works with any app we\u2019ve built a skill for. Blender is our first skill, available now. More are coming. You can request skills for other apps through our skill request form.',
+      'Skilly works with any app right out of the box \u2014 it sees your screen and can answer questions about whatever you\u2019re using. For apps with a dedicated skill installed (Blender and Figma so far), you get structured lessons, precise UI pointing, and up-to-date knowledge that goes beyond the AI\u2019s training data. More skills are coming. You can request one through our skill request form.',
   },
   {
     question: 'What\u2019s a "skill"?',
