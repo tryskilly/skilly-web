@@ -2,6 +2,7 @@
 // src/components/Nav.astro
 import Logo from './Logo.astro';
 import Wordmark from './Wordmark.astro';
+import { DOWNLOAD_URL } from '../data/config.ts';
 ---
 <header
   data-nav
@@ -19,7 +20,7 @@ import Wordmark from './Wordmark.astro';
       <a href="#pricing" data-ph-event="web_nav_link_clicked" data-ph-prop-link="pricing" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Pricing</a>
       <a href="#waitlist" data-ph-event="web_nav_link_clicked" data-ph-prop-link="waitlist" class="text-gray-400 hover:text-gray-200 text-[15px] font-medium transition-colors">Waitlist</a>
       <a
-        href="#download"
+        href={DOWNLOAD_URL}
         data-ph-event="web_cta_download_clicked"
         data-ph-prop-location="nav"
         class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-md px-5 py-2 text-sm font-semibold transition-all"
@@ -32,7 +33,7 @@ import Wordmark from './Wordmark.astro';
     </nav>
 
     <a
-      href="#download"
+      href={DOWNLOAD_URL}
       data-ph-event="web_cta_download_clicked"
       data-ph-prop-location="nav_mobile"
       class="md:hidden inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-md px-4 py-2 text-sm font-semibold"

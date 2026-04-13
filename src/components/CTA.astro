@@ -1,6 +1,7 @@
 ---
 // src/components/CTA.astro
 import Logo from './Logo.astro';
+import { DOWNLOAD_URL } from '../data/config.ts';
 ---
 <section id="download" class="py-24 lg:py-32 px-6 text-center">
   <div class="max-w-[600px] mx-auto">
@@ -15,7 +16,7 @@ import Logo from './Logo.astro';
       Download Skilly, load a skill, and let the cursor show you the way.
     </p>
     <a
-      href="#"
+      href={DOWNLOAD_URL}
       data-ph-event="web_cta_download_clicked"
       data-ph-prop-location="bottom"
       class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-10 py-4 text-lg font-semibold transition-all"

@@ -2,6 +2,7 @@
 // src/components/Hero.astro
 import Logo from './Logo.astro';
 import { apps } from '../data/apps.ts';
+import { DOWNLOAD_URL } from '../data/config.ts';
 const firstApp = apps[0];
 ---
 <section
@@ -51,7 +52,7 @@ const firstApp = apps[0];
 
         <div class="flex flex-wrap gap-3 items-center">
           <a
-            href="#download"
+            href={DOWNLOAD_URL}
             data-ph-event="web_cta_download_clicked"
             data-ph-prop-location="hero"
             class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
