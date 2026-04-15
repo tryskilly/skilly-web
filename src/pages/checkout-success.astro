@@ -27,4 +27,43 @@ import Footer from '../components/Footer.astro';
     </div>
   </main>
   <Footer />
+  <script>
+    // PostHog identification for the checkout success moment.
+    //
+    // The Cloudflare Worker's /checkout/create builds a Polar success_url
+    // containing ?uid=<workos_user_id>. When Polar redirects the user here
+    // after a successful subscription, we read that uid and call
+    // posthog.identify() with it — using the same distinct_id the macOS app
+    // uses — so this browser-side checkout moment and the app-side events
+    // land on the same PostHog person profile.
+    //
+    // We then strip the uid from the URL via history.replaceState so the
+    // WorkOS user ID never:
+    //   - appears in the browser address bar beyond the first paint,
+    //   - ends up in the browser history,
+    //   - leaks via referrer headers on outbound links.
+    //
+    // Note: because Layout.astro initializes PostHog with
+    // `persistence: 'memory'`, this identify call only applies to the
+    // current page view. That is sufficient — the goal is to stamp this
+    // single completed-purchase browser session with the real user id.
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const uid = params.get('uid');
+      if (!uid) return;
+
+      window.posthog?.identify(uid, {
+        source: 'web_checkout',
+      });
+      window.posthog?.capture('web_checkout_completed', {
+        source: 'web_checkout',
+      });
+
+      params.delete('uid');
+      const cleanedQuery = params.toString();
+      const cleanedUrl =
+        window.location.pathname + (cleanedQuery ? `?${cleanedQuery}` : '') + window.location.hash;
+      window.history.replaceState({}, document.title, cleanedUrl);
+    })();
+  </script>
 </Layout>

@@ -16,6 +16,7 @@ declare global {
       capture: (event: string, props?: Record<string, unknown>) => void;
       register: (props: Record<string, unknown>) => void;
       init: (key: string, config: Record<string, unknown>) => void;
+      identify: (distinctId: string, userProperties?: Record<string, unknown>) => void;
     };
   }
 }

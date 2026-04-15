@@ -45,8 +45,15 @@ if (form) {
         throw new Error((data as Record<string, string>).error ?? `Request failed with status ${res.status}`);
       }
 
+      // $set attaches email + requested app to the anonymous person profile
+      // without changing the distinct_id. See waitlist.ts for the full
+      // rationale on why we don't re-identify here.
       window.posthog?.capture('web_skill_request_submitted', {
         app: appInput.value.trim(),
+        $set: {
+          email: emailInput.value.trim(),
+          last_skill_requested: appInput.value.trim(),
+        },
       });
 
       if (successApp) successApp.textContent = appInput.value.trim();

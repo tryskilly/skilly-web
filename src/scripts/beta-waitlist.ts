@@ -40,7 +40,14 @@ if (form) {
         throw new Error((data as Record<string, string>).error ?? `Request failed with status ${res.status}`);
       }
 
-      window.posthog?.capture('web_beta_waitlist_submitted');
+      // $set attaches the email to the anonymous person profile without
+      // changing the distinct_id. See waitlist.ts for the full rationale.
+      window.posthog?.capture('web_beta_waitlist_submitted', {
+        $set: {
+          email: emailInput.value.trim(),
+          waitlist_platform: 'macos_beta',
+        },
+      });
 
       wrapper?.setAttribute('hidden', '');
       success?.removeAttribute('hidden');
