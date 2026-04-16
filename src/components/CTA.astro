@@ -1,30 +1,64 @@
 ---
 // src/components/CTA.astro
+// Loss-frame final CTA (per marketing-psychology Prospect Theory: losses
+// feel ~2x stronger than equivalent gains). One loss frame per page, used
+// here at the last decision moment.
 import Logo from './Logo.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
 ---
-<section id="download" class="py-24 lg:py-32 px-6 text-center">
-  <div class="max-w-[600px] mx-auto">
+<section
+  id="download"
+  class="relative py-24 lg:py-32 px-6 text-center overflow-hidden"
+  style="background: linear-gradient(180deg, #FEFCE8 0%, #FAFAF8 100%);"
+>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full"
+    style="background: radial-gradient(ellipse, rgba(245,158,11,0.18) 0%, transparent 60%);"
+  ></div>
+
+  <div class="relative max-w-[640px] mx-auto">
     <div class="flex justify-center mb-6">
       <Logo size={56} variant="amber" alt="Skilly" />
     </div>
-    <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mb-4 text-gray-50">
-      Stop watching tutorials.<br />
-      <span class="text-amber-500">Start doing.</span>
+    <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mb-4 text-gray-900">
+      Every minute spent hunting through menus<br />
+      <span class="text-amber-600">is a minute you won't get back.</span>
     </h2>
-    <p class="text-lg text-gray-400 mb-9 leading-relaxed">
-      Download Skilly, load a skill, and let the cursor show you the way.
+    <p class="text-lg text-gray-600 mb-9 leading-relaxed">
+      Skilly answers in seconds — out loud — for every app on your Mac.
     </p>
     <a
       href={DOWNLOAD_URL}
       data-ph-event="web_cta_download_clicked"
       data-ph-prop-location="bottom"
-      class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-10 py-4 text-lg font-semibold transition-all"
+      class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-lg hover:shadow-xl rounded-lg px-10 py-4 text-lg font-semibold transition-all"
     >
       Download for Mac — Free
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M4 12L12 4M12 4H5M12 4V11"/>
       </svg>
     </a>
+
+    <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-[13px] text-gray-600 mt-6">
+      <span class="inline-flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 10l4 4 6-8" />
+        </svg>
+        Free 15 min
+      </span>
+      <span class="inline-flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 10l4 4 6-8" />
+        </svg>
+        No card
+      </span>
+      <span class="inline-flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 10l4 4 6-8" />
+        </svg>
+        Cancel anytime
+      </span>
+    </div>
   </div>
 </section>

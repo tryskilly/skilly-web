@@ -1,67 +1,200 @@
 ---
 // src/components/Features.astro
-import { features } from '../data/features.ts';
+//
+// Modular Bento Showcase: 9 cells in an asymmetric grid that tell the
+// product story. Two cells embed pixel-accurate app mockups exported
+// from Pencil (Scene 2 = menu bar panel, Scene 3 = Live Tutor overlay).
+//
+// Alignment convention (enforced to prevent drift):
+//   - Title: exactly 1 line, ellipsis if overflow (line-clamp-1)
+//   - Description: exactly 2 lines, ellipsis if overflow (line-clamp-2)
+//   - Text block: min-h-[72px] reserves constant vertical space so titles
+//     and descriptions align across every cell regardless of content length
+//   - flex-col justify-between on each cell pushes the icon to the top
+//     and the text block to the bottom
+//
+// Icon convention: all SVGs come from Lucide (lucide.dev) with
+// viewBox="0 0 24 24", stroke-width="2", round caps/joins, 20×20 display
+// size (24×24 for the hero cell).
 ---
-<section id="features" class="py-24 lg:py-32 px-6">
+<section id="features" class="relative py-24 lg:py-32 px-6">
+  <div
+    aria-hidden="true"
+    class="absolute left-0 right-0 top-0 h-px"
+    style="background: linear-gradient(90deg, transparent, #E5E5E0, transparent);"
+  ></div>
+
   <div class="max-w-site mx-auto">
-    <div class="text-center mb-16 lg:mb-20">
-      <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">Features</span>
-      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 text-gray-50">
-        Not a chatbot. A companion.
+    <div class="text-center mb-16 lg:mb-20 max-w-[720px] mx-auto">
+      <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Features</span>
+      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 mb-4 text-gray-900">
+        Not a chatbot. A voice companion.
       </h2>
+      <p data-reveal class="reveal reveal-delay-1 text-[17px] leading-relaxed text-gray-600">
+        No typing. No chat window. You talk, Skilly talks back — and points at exactly what to click while streaming a live transcript beside the cursor.
+      </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {features.map((f, i) => (
+    <div
+      data-reveal
+      class="reveal reveal-delay-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[220px] gap-5"
+    >
+      <!-- CELL 1 (2×1 hero): Cursor pointing -->
+      <div class="lg:col-span-2 lg:row-span-1 bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-8 flex flex-col justify-between overflow-hidden relative">
         <div
-          data-reveal
-          class={`reveal reveal-delay-${(i % 3) + 1} bg-gray-900 rounded-2xl p-8 border border-gray-800 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/25`}
-        >
-          <div class="w-11 h-11 rounded-[10px] bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-5 text-amber-500">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              {f.icon === 'cursor' && (
-                <path d="M5 3L5 19L9 15L14 21L17 19L12 13L17 12L5 3Z" />
-              )}
-              {f.icon === 'voice' && (
-                <>
-                  <path d="M12 3v10M8 8a4 4 0 008 0" />
-                  <path d="M6 13a6 6 0 0012 0M12 17v4M9 21h6" />
-                </>
-              )}
-              {f.icon === 'brain' && (
-                <>
-                  <circle cx="12" cy="12" r="9" />
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M12 3v18M3 12h18" stroke-opacity="0.4" stroke-width="0.8" />
-                </>
-              )}
-              {f.icon === 'path' && (
-                <>
-                  <path d="M4 19L8 15L12 17L16 11L20 5" />
-                  <circle cx="8" cy="15" r="2" fill="currentColor" fill-opacity="0.3" stroke="none" />
-                  <circle cx="16" cy="11" r="2" fill="currentColor" fill-opacity="0.3" stroke="none" />
-                </>
-              )}
-              {f.icon === 'plug' && (
-                <>
-                  <circle cx="12" cy="12" r="9" stroke-opacity="0.3" />
-                  <circle cx="12" cy="12" r="4" fill="currentColor" fill-opacity="0.3" stroke="none" />
-                  <path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke-opacity="0.5" />
-                </>
-              )}
-              {f.icon === 'key' && (
-                <>
-                  <path d="M12 3a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z" fill="currentColor" fill-opacity="0.3" stroke="none" />
-                  <path d="M19 10a7 7 0 01-14 0" />
-                  <path d="M12 17v3M8 21h8" />
-                </>
-              )}
-            </svg>
-          </div>
-          <h3 class="text-lg font-semibold mb-2 text-gray-50">{f.title}</h3>
-          <p class="text-[15px] leading-relaxed text-gray-400">{f.desc}</p>
+          aria-hidden="true"
+          class="pointer-events-none absolute -right-16 -bottom-16 w-60 h-60 rounded-full"
+          style="background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);"
+        ></div>
+        <div class="relative w-12 h-12 rounded-[11px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4l7.07 17 2.51-7.39L21 11.07z" />
+          </svg>
         </div>
-      ))}
+        <div class="relative min-h-[82px] flex flex-col justify-end">
+          <h3 class="text-[22px] sm:text-[24px] font-bold tracking-tight text-gray-900 mb-2 line-clamp-1">Points at what you need</h3>
+          <p class="text-[15px] leading-relaxed text-gray-600 line-clamp-2">A blue cursor flies to the exact button Skilly is talking about, with a live transcript floating beside it.</p>
+        </div>
+      </div>
+
+      <!-- CELL 2 (2×2): Scene 2 — menu bar panel mockup -->
+      <div class="lg:col-span-2 lg:row-span-2 bg-gray-100 rounded-2xl border border-gray-200 shadow-sm overflow-hidden relative flex flex-col items-center justify-between p-8 gap-6">
+        <img
+          src="/scenes/menu-bar-panel.png"
+          alt="The Skilly menu bar panel showing the Figma Basics skill active with curriculum stage progress"
+          width="320"
+          class="w-full max-w-[320px] h-auto rounded-xl shadow-lg"
+          loading="lazy"
+        />
+        <div class="text-center max-w-[260px] min-h-[66px] flex flex-col justify-end">
+          <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">Your skill, your pace</h3>
+          <p class="text-[13px] text-gray-600 leading-relaxed line-clamp-2">Curriculum stages advance as you learn. No quizzes, no gates.</p>
+        </div>
+      </div>
+
+      <!-- CELL 3 (1×1): Multi-monitor -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-7 flex flex-col justify-between">
+        <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="14" x="2" y="3" rx="2" />
+            <line x1="8" x2="16" y1="21" y2="21" />
+            <line x1="12" x2="12" y1="17" y2="21" />
+          </svg>
+        </div>
+        <div class="min-h-[72px] flex flex-col justify-end">
+          <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">Sees every monitor</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Multi-display capture — the cursor always lands on the right screen.</p>
+        </div>
+      </div>
+
+      <!-- CELL 4 (1×1): 16 languages / 8 voices -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-7 flex flex-col justify-between">
+        <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+            <path d="M2 12h20" />
+          </svg>
+        </div>
+        <div class="min-h-[72px] flex flex-col justify-end">
+          <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">16 languages, 8 voices</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Learn in your language. Pick a voice you'll enjoy for hours.</p>
+        </div>
+      </div>
+
+      <!-- CELL 5 (2×1): Scene 3 — Live Tutor cursor + waveform + transcript mockup -->
+      <div class="lg:col-span-2 lg:row-span-1 bg-gray-100 rounded-2xl border border-gray-200 shadow-sm overflow-hidden relative flex items-stretch">
+        <div class="flex items-center gap-6 p-7 w-full">
+          <img
+            src="/scenes/live-tutor-overlay.png"
+            alt="Skilly's cursor with a blue waveform and a floating transcript bubble showing the spoken answer"
+            width="260"
+            class="flex-shrink-0 w-[260px] h-auto rounded-xl shadow-md border border-gray-200"
+            loading="lazy"
+          />
+          <div class="flex-1 min-w-0 flex flex-col justify-between self-stretch py-1">
+            <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 10v3" />
+                <path d="M6 6v11" />
+                <path d="M10 3v18" />
+                <path d="M14 8v7" />
+                <path d="M18 5v13" />
+                <path d="M22 10v3" />
+              </svg>
+            </div>
+            <div class="min-h-[72px] flex flex-col justify-end">
+              <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">Talk out loud. Hear the answer.</h3>
+              <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Spoken answers with a live transcript beside the cursor. Hands-free.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CELL 6 (1×1): Zero retention / privacy -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-7 flex flex-col justify-between">
+        <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </div>
+        <div class="min-h-[72px] flex flex-col justify-end">
+          <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">Zero retention</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Audio and screens stream live, then vanish. Nothing is saved.</p>
+        </div>
+      </div>
+
+      <!-- CELL 7 (1×1): Push-to-talk -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-7 flex flex-col justify-between">
+        <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2" />
+            <path d="M6 8h.01" />
+            <path d="M10 8h.01" />
+            <path d="M14 8h.01" />
+            <path d="M18 8h.01" />
+            <path d="M8 12h.01" />
+            <path d="M12 12h.01" />
+            <path d="M16 12h.01" />
+            <path d="M7 16h10" />
+          </svg>
+        </div>
+        <div class="min-h-[72px] flex flex-col justify-end">
+          <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">Reliable push-to-talk</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Hold <span class="font-mono">⌃⌥</span> anywhere — reliable even in full-screen apps.</p>
+        </div>
+      </div>
+
+      <!-- CELL 8 (1×1): Curriculum auto-advance -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-7 flex flex-col justify-between">
+        <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+            <polyline points="16 7 22 7 22 13" />
+          </svg>
+        </div>
+        <div class="min-h-[72px] flex flex-col justify-end">
+          <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">Tracks your progress</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Completion signals auto-advance the curriculum as you go.</p>
+        </div>
+      </div>
+
+      <!-- CELL 9 (1×1): Auto-activates per app -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-7 flex flex-col justify-between">
+        <div class="w-10 h-10 rounded-[9px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="7" height="7" x="3" y="3" rx="1" />
+            <rect width="7" height="7" x="14" y="3" rx="1" />
+            <rect width="7" height="7" x="14" y="14" rx="1" />
+            <rect width="7" height="7" x="3" y="14" rx="1" />
+          </svg>
+        </div>
+        <div class="min-h-[72px] flex flex-col justify-end">
+          <h3 class="text-[17px] font-bold text-gray-900 mb-1 line-clamp-1">Auto-activates per app</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed line-clamp-2">Switch apps and Skilly's expertise switches with you. Automatic.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -1,0 +1,40 @@
+---
+// src/components/CTABand.astro
+//
+// Slim horizontal CTA band used between sections at decision points.
+// Per page-cro: repeated CTAs at natural decision points increase
+// conversion without significantly increasing page bloat.
+//
+// Props:
+//   - headline: the micro-headline above the CTA
+//   - location: PostHog analytics label (e.g., "after_how_it_works")
+import { DOWNLOAD_URL } from '../data/config.ts';
+
+interface Props {
+  headline?: string;
+  location?: string;
+}
+
+const {
+  headline = "Ready to stop getting stuck in tutorials?",
+  location = "cta_band",
+} = Astro.props;
+---
+<section class="relative py-12 px-6 bg-white border-y border-gray-200">
+  <div class="max-w-site mx-auto flex flex-col sm:flex-row items-center justify-center gap-5 text-center sm:text-left">
+    <p class="text-[18px] font-semibold text-gray-900">
+      {headline}
+    </p>
+    <a
+      href={DOWNLOAD_URL}
+      data-ph-event="web_cta_download_clicked"
+      data-ph-prop-location={location}
+      class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3 text-[15px] font-semibold transition-all whitespace-nowrap"
+    >
+      Download for Mac — Free
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12L12 4M12 4H5M12 4V11"/>
+      </svg>
+    </a>
+  </div>
+</section>

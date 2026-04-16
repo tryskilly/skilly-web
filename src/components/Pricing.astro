@@ -1,5 +1,14 @@
 ---
 // src/components/Pricing.astro
+//
+// Beta launch = monthly billing only. Annual pricing isn't defined yet.
+// When we ladder up to multi-tier + annual after beta, reintroduce the
+// toggle (git history from 2026-04-16 has the previous implementation).
+//
+// Structure preserves the CRO-critique improvements:
+// - Mental-accounting reframe ($0.63 / day — less than a coffee)
+// - Three guarantee lines addressing regret aversion
+// - Scene 4 placeholder (settings/plan card) beside the pricing card
 import { betaTier } from '../data/tiers.ts';
 import { primaryCta, BETA_CAP_REACHED } from '../data/config.ts';
 
@@ -9,73 +18,111 @@ const cta = primaryCta();
   <div
     aria-hidden="true"
     class="absolute left-0 right-0 top-0 h-px"
-    style="background: linear-gradient(90deg, transparent, #27272A, transparent);"
+    style="background: linear-gradient(90deg, transparent, #E5E5E0, transparent);"
   ></div>
 
-  <div class="max-w-[560px] mx-auto">
-    <div class="text-center mb-14 lg:mb-16">
-      <span class="text-[13px] font-semibold text-amber-500 tracking-[1.5px] uppercase">Pricing</span>
-      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 text-gray-50">
-        Beta pricing. One tier.
+  <div class="max-w-site mx-auto">
+    <div class="text-center mb-14 lg:mb-16 max-w-[640px] mx-auto">
+      <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Pricing</span>
+      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 mb-4 text-gray-900">
+        Simple pricing. No surprises.
       </h2>
+      <p data-reveal class="reveal reveal-delay-1 text-[17px] leading-relaxed text-gray-600">
+        One tier, one price, cancel anytime. The beta rate is locked in for life on your account.
+      </p>
     </div>
 
-    <div
-      data-reveal
-      class="reveal reveal-delay-1 relative bg-gray-900 rounded-[20px] p-9 lg:p-10 border-2 border-amber-500 transition-all duration-300 shadow-amber-glow"
-    >
-      <div class="absolute top-4 right-4 bg-amber-500/15 text-amber-300 px-3 py-1 rounded-full text-xs font-semibold">
-        Beta
-      </div>
-
-      <div class="mb-6">
-        <h3 class="text-xl font-semibold text-gray-50 mb-1">{betaTier.name}</h3>
-        <p class="text-sm text-gray-400 leading-relaxed">{betaTier.tagline}</p>
-      </div>
-
-      <div class="mb-8 flex items-baseline gap-1">
-        <span class="text-6xl font-bold text-gray-50 tracking-tight">{betaTier.price}</span>
-        <span class="text-lg text-gray-500">{betaTier.period}</span>
-      </div>
-
-      <a
-        href={cta.href}
-        data-ph-event="web_cta_download_clicked"
-        data-ph-prop-location={cta.analyticsLocation}
-        class="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-lg text-[15px] font-semibold mb-4 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 transition-all"
+    <div class="grid lg:grid-cols-5 gap-6 items-start">
+      <!-- Pricing card — 60% of width on lg+ -->
+      <div
+        data-reveal
+        class="reveal reveal-delay-2 lg:col-span-3 relative bg-white rounded-[20px] p-9 lg:p-10 border-2 border-amber-500 shadow-lg"
       >
-        {cta.label}
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 12L12 4M12 4H5M12 4V11"/>
-        </svg>
-      </a>
+        <div class="absolute top-5 right-5 bg-amber-500/15 text-amber-700 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-semibold">
+          Beta
+        </div>
 
-      <p class="text-center text-xs text-gray-500 mb-8 leading-relaxed">{betaTier.finePrint}</p>
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-1">{betaTier.name}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{betaTier.tagline}</p>
+        </div>
 
-      <div class="border-t border-gray-800 pt-6 flex flex-col gap-3.5">
-        {betaTier.features.map((f) => (
-          <div class="flex items-start gap-2.5 text-[15px] text-gray-300 leading-relaxed">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" aria-hidden="true" class="shrink-0 mt-0.5">
-              <circle cx="9" cy="9" r="9" fill="#F59E0B" fill-opacity="0.15" />
-              <path d="M5.5 9.5L7.5 11.5L12.5 6.5" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span>{f}</span>
+        <div class="mb-2">
+          <div class="flex items-baseline gap-1">
+            <span class="text-6xl font-bold text-gray-900 tracking-tight">{betaTier.price}</span>
+            <span class="text-lg text-gray-500">{betaTier.period}</span>
           </div>
-        ))}
+          <p class="text-[13px] text-gray-500 mt-1">{betaTier.perDayEquivalent}</p>
+        </div>
+
+        <a
+          href={cta.href}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location={cta.analyticsLocation}
+          class="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-lg text-[15px] font-semibold mt-6 mb-5 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg transition-all"
+        >
+          {cta.label}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12L12 4M12 4H5M12 4V11"/>
+          </svg>
+        </a>
+
+        <!-- Guarantees row — addresses regret aversion -->
+        <div class="flex flex-col gap-2 mb-6">
+          {betaTier.guarantees.map((g) => (
+            <div class="flex items-center gap-2 text-[13px] text-gray-700">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 10l4 4 6-8" />
+              </svg>
+              <span>{g}</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-center text-xs text-gray-500 mb-6 leading-relaxed">{betaTier.finePrint}</p>
+
+        <!-- What's included -->
+        <div class="border-t border-gray-200 pt-6 flex flex-col gap-3">
+          <p class="text-[13px] font-semibold uppercase tracking-wider text-gray-500 mb-1">What's included</p>
+          {betaTier.features.map((f) => (
+            <div class="flex items-start gap-2.5 text-[15px] text-gray-700 leading-relaxed">
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none" aria-hidden="true" class="shrink-0 mt-0.5">
+                <circle cx="9" cy="9" r="9" fill="#F59E0B" fill-opacity="0.15" />
+                <path d="M5.5 9.5L7.5 11.5L12.5 6.5" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>{f}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Scene 4: Settings → Plan card mockup -->
+      <div data-reveal class="reveal reveal-delay-3 lg:col-span-2 lg:sticky lg:top-24">
+        <div class="bg-gray-100 rounded-[20px] border border-gray-200 p-8 h-full">
+          <p class="text-[13px] font-semibold uppercase tracking-wider text-gray-500 mb-4">Inside the app</p>
+          <img
+            src="/scenes/settings-plan-card.png"
+            alt="The Skilly settings panel showing the Plan card with trial status, usage meter, and Subscribe button"
+            width="520"
+            class="w-full h-auto rounded-xl shadow-lg"
+            loading="lazy"
+          />
+          <p class="text-[13px] text-gray-600 leading-relaxed mt-4">Manage your subscription, see your usage this period, and check remaining trial minutes — right from the menu bar.</p>
+        </div>
       </div>
     </div>
 
-    <p class="text-center text-[13px] text-gray-500 mt-8 leading-relaxed">
+    <p class="text-center text-[13px] text-gray-500 mt-10 leading-relaxed">
       Subscription happens inside the app after your free trial, via Polar.
       <br />
       No checkout on this page — just download and try.
     </p>
 
     {BETA_CAP_REACHED && (
-      <div id="beta-waitlist" class="mt-12 scroll-mt-24">
-        <div data-beta-waitlist-wrapper class="bg-gray-900 rounded-[20px] border border-gray-800 p-8 text-center">
-          <h3 class="text-lg font-semibold text-gray-50 mb-1">Beta is full</h3>
-          <p class="text-sm text-gray-400 mb-6 leading-relaxed">All 50 beta spots are taken. Join the waitlist and we'll email you the moment a slot opens.</p>
+      <div id="beta-waitlist" class="mt-12 scroll-mt-24 max-w-[480px] mx-auto">
+        <div data-beta-waitlist-wrapper class="bg-white rounded-[20px] border border-gray-200 shadow-sm p-8 text-center">
+          <h3 class="text-lg font-semibold text-gray-900 mb-1">Beta is full</h3>
+          <p class="text-sm text-gray-600 mb-6 leading-relaxed">All 50 beta spots are taken. Join the waitlist and we'll email you the moment a slot opens.</p>
 
           <form data-beta-waitlist-form class="max-w-[360px] mx-auto">
             <div class="flex gap-2.5">
@@ -84,28 +131,28 @@ const cta = primaryCta();
                 name="email"
                 placeholder="you@example.com"
                 required
-                class="flex-1 px-4 py-3 rounded-lg text-[15px] bg-gray-950 border border-gray-700 text-gray-200 placeholder-gray-600 outline-none focus:border-amber-500 transition-colors"
+                class="flex-1 px-4 py-3 rounded-lg text-[15px] bg-white border border-gray-300 text-gray-900 placeholder-gray-400 outline-none focus:border-amber-500 transition-colors"
               />
               <button
                 type="submit"
                 disabled
-                class="bg-amber-500 hover:bg-amber-600 text-gray-950 rounded-lg px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-all opacity-50 cursor-not-allowed"
+                class="bg-amber-500 hover:bg-amber-600 text-gray-950 shadow-sm rounded-lg px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-all opacity-50 cursor-not-allowed"
               >
                 Join waitlist
               </button>
             </div>
-            <p class="text-xs text-gray-600 mt-2.5">No spam. One email when a slot opens.</p>
+            <p class="text-xs text-gray-500 mt-2.5">No spam. One email when a slot opens.</p>
           </form>
         </div>
 
-        <div data-beta-waitlist-success hidden class="bg-gray-900 rounded-[20px] border border-amber-500/25 p-10 text-center">
+        <div data-beta-waitlist-success hidden class="bg-white rounded-[20px] border border-amber-500/30 shadow-sm p-10 text-center">
           <div class="w-14 h-14 rounded-full bg-amber-500/10 border-2 border-amber-500/25 flex items-center justify-center mx-auto mb-5">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12l5 5L20 7" />
             </svg>
           </div>
-          <h3 class="text-[22px] font-semibold text-gray-50 mb-2">You're on the list!</h3>
-          <p class="text-[15px] text-gray-400 leading-relaxed">
+          <h3 class="text-[22px] font-semibold text-gray-900 mb-2">You're on the list!</h3>
+          <p class="text-[15px] text-gray-600 leading-relaxed">
             We'll email you when a beta slot opens up.
           </p>
         </div>

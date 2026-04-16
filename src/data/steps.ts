@@ -9,16 +9,16 @@ export const steps: Step[] = [
   {
     num: '01',
     title: 'Open any app',
-    desc: 'Blender, Figma, Excel, your browser — anything. Skilly works with every app on your Mac.',
+    desc: 'Excel, Notion, your browser, a design tool — anything. Skilly works with every app on your Mac.',
   },
   {
     num: '02',
     title: 'Talk to Skilly',
-    desc: 'Hold Control+Option and ask, or enable Live Tutor mode and just start talking. "How do I UV unwrap this face?"',
+    desc: 'Hold Control+Option and ask out loud — or enable Live Tutor and just start talking. Anything you\u2019d ask a pro sitting next to you.',
   },
   {
     num: '03',
-    title: 'Watch the cursor fly',
-    desc: 'Skilly points at the exact button, explains what it does, and walks you through it.',
+    title: 'Hear it. See it. Watch the cursor.',
+    desc: 'Skilly answers out loud, streams a live transcript beside the cursor, and points at the exact UI element you need.',
   },
 ];

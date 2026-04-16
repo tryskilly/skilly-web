@@ -1,13 +1,25 @@
 ---
 // src/pages/index.astro
+//
+// Marketing redesign v2 composition (2026-04-16).
+// Section order per docs/2026-04-16-marketing-redesign-wireframe-v2.md:
+//
+//   Nav → Hero → TrustStrip → Features (bento) → SocialProof →
+//   HowItWorks → CTABand → Skills → Pricing → FAQ → Waitlist → CTA → Footer
+//
+// FreeTrial.astro and SkillFormat.astro are intentionally not imported
+// here: their messaging is absorbed into the bento grid + Pricing section
+// per the CRO critique. They remain in the repo in case we revive them.
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import Features from '../components/Features.astro';
+import SocialProof from '../components/SocialProof.astro';
 import HowItWorks from '../components/HowItWorks.astro';
+import CTABand from '../components/CTABand.astro';
 import Skills from '../components/Skills.astro';
-import SkillFormat from '../components/SkillFormat.astro';
 import Pricing from '../components/Pricing.astro';
-import FreeTrial from '../components/FreeTrial.astro';
 import FAQ from '../components/FAQ.astro';
 import Waitlist from '../components/Waitlist.astro';
 import CTA from '../components/CTA.astro';
@@ -15,13 +27,15 @@ import Footer from '../components/Footer.astro';
 ---
 <Layout>
   <Nav />
-  <main>
+  <main class="overflow-x-clip">
     <Hero />
+    <TrustStrip />
+    <Features />
+    <SocialProof />
     <HowItWorks />
+    <CTABand headline="Ready to stop hunting through menus?" location="after_how_it_works" />
     <Skills />
-    <SkillFormat />
     <Pricing />
-    <FreeTrial />
     <FAQ />
     <Waitlist />
     <CTA />

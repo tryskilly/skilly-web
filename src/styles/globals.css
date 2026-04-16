@@ -21,7 +21,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
   body {
-    @apply bg-gray-950 text-gray-200 font-sans;
+    @apply bg-gray-50 text-gray-900 font-sans;
     margin: 0;
   }
 }
@@ -60,7 +60,8 @@
     inset: 0;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.015;
+    opacity: 0.025;
+    mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
@@ -130,8 +131,8 @@
     -webkit-backdrop-filter: blur(16px);
   }
   header.scrolled {
-    background-color: rgba(15, 15, 16, 0.93);
-    border-bottom-color: #27272A;
+    background-color: rgba(250, 250, 248, 0.93);
+    border-bottom-color: #E5E5E0;
   }
 }
 

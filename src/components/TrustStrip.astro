@@ -1,0 +1,94 @@
+---
+// src/components/TrustStrip.astro
+//
+// Two rows directly under the hero:
+//   Row 1: Trust signals — founder bar + authority anchors (OpenAI, Apple APIs, open-source)
+//   Row 2: Privacy guarantees (no tracking, zero retention, etc.)
+//
+// Per page-cro dimension #5 (trust signals) and marketing-psychology
+// (Liking/Similarity Bias for founder bar, Authority Bias for tech anchors).
+---
+<section class="relative py-10 lg:py-14 px-6 bg-gray-100/60">
+  <div class="max-w-site mx-auto">
+    <!-- Row 1: Founder story + authority anchors -->
+    <div
+      data-reveal
+      class="reveal flex flex-col lg:flex-row items-center justify-between gap-6 mb-8"
+    >
+      <!-- Founder bar -->
+      <div class="flex items-center gap-3">
+        <div
+          class="w-11 h-11 rounded-full bg-amber-500 text-gray-950 flex items-center justify-center font-bold text-[17px] flex-shrink-0"
+          aria-label="Founder initial"
+        >
+          M
+        </div>
+        <p class="text-[14px] text-gray-700 leading-snug max-w-[360px]">
+          <span class="font-semibold text-gray-900">Built by makers</span> tired of Googling &ldquo;how do I X in this app?&rdquo; fifty times a week.
+        </p>
+      </div>
+
+      <!-- Authority anchors -->
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-gray-600">
+        <span class="inline-flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18M3 12h18" />
+          </svg>
+          Built on OpenAI Realtime
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2a5 5 0 015 5v3h-10V7a5 5 0 015-5z" />
+            <path d="M5 10h14v12H5z" />
+          </svg>
+          macOS native APIs
+        </span>
+        <a
+          href="https://github.com/tryskilly/skilly"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 hover:text-gray-900 underline underline-offset-2 decoration-dashed decoration-gray-300 hover:decoration-gray-600"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6a4.7 4.7 0 011.2-3.2c-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2a4.6 4.6 0 011.2 3.2c0 4.6-2.8 5.6-5.5 5.9.5.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .3"/>
+          </svg>
+          Open-source proxy
+        </a>
+      </div>
+    </div>
+
+    <!-- Row 2: Privacy guarantees -->
+    <div
+      class="border-t border-gray-200 pt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-2"
+    >
+      <span class="inline-flex items-center gap-2 text-[13px] text-gray-600">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="10" width="16" height="11" rx="2" />
+          <path d="M8 10V7a4 4 0 018 0v3" />
+        </svg>
+        Privacy first
+      </span>
+      <span class="inline-flex items-center gap-2 text-[13px] text-gray-600">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M5 5l14 14" />
+        </svg>
+        Zero retention
+      </span>
+      <span class="inline-flex items-center gap-2 text-[13px] text-gray-600">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2v10M12 22v-4M2 12h10M22 12h-4" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        No tracking cookies
+      </span>
+      <span class="inline-flex items-center gap-2 text-[13px] text-gray-600">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 20L20 4M4 4l16 16" />
+        </svg>
+        No ads
+      </span>
+    </div>
+  </div>
+</section>
