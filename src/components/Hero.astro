@@ -43,7 +43,7 @@ import { DOWNLOAD_URL } from '../data/config.ts';
       </h1>
 
       <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[640px] mx-auto">
-        A macOS menu-bar tutor for every app. Ask out loud — Skilly sees your screen, <strong class="font-semibold text-gray-900">answers out loud</strong>, and points at exactly what to click. With a live transcript streaming beside the cursor.
+        Speak — Skilly sees your screen, <strong class="font-semibold text-gray-900">moves your cursor</strong> to show you exactly where to click, and talks you through it <strong class="font-semibold text-gray-900">in your language</strong>. Works with every app on your Mac.
       </p>
 
       <div class="flex flex-wrap gap-3 items-center justify-center mb-4">
@@ -53,20 +53,25 @@ import { DOWNLOAD_URL } from '../data/config.ts';
           data-ph-prop-location="hero"
           class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
         >
-          Download for Mac — Free
+          Try it free — Download for Mac
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 12L12 4M12 4H5M12 4V11"/>
           </svg>
         </a>
       </div>
 
-      <!-- Trust micro-copy: addresses the three biggest cold-visitor objections -->
+      <!--
+        Trust micro-copy: 15-min free + no-card are the two biggest
+        cold-visitor objections. The "Mac only for now" clause rolls
+        the separate "Not on Mac?" link into the trust row — removing
+        one UI element while keeping the waitlist path accessible.
+      -->
       <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-[13px] text-gray-600">
         <span class="inline-flex items-center gap-1.5">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 10l4 4 6-8" />
           </svg>
-          Free 15 min
+          15 minutes free
         </span>
         <span class="inline-flex items-center gap-1.5">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -75,19 +80,15 @@ import { DOWNLOAD_URL } from '../data/config.ts';
           No card needed
         </span>
         <span class="inline-flex items-center gap-1.5">
-          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 10l4 4 6-8" />
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-gray-500">
+            <rect x="2" y="4" width="20" height="14" rx="2" />
+            <line x1="8" x2="16" y1="21" y2="21" />
+            <line x1="12" x2="12" y1="17" y2="21" />
           </svg>
-          macOS 14+ · Apple Silicon
+          Mac only for now —
+          <a href="#waitlist" class="underline underline-offset-2 decoration-dashed decoration-gray-400 text-gray-700 hover:text-gray-900 transition-colors">waitlist for Windows, Linux &amp; mobile</a>
         </span>
       </div>
-
-      <a
-        href="#waitlist"
-        class="text-sm text-gray-500 hover:text-gray-800 mt-6 inline-block border-b border-dashed border-gray-400"
-      >
-        Not on Mac? Join the waitlist for Windows, Linux & iOS →
-      </a>
     </div>
 
     <!-- Hero illustration — pixel-accurate Blender + Skilly cursor, layered PNGs.

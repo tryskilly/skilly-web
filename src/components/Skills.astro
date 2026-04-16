@@ -45,13 +45,31 @@ const brandLogos: Record<string, { path: string; color: string }> = {
   <div class="max-w-site mx-auto">
     <div class="max-w-[640px] mx-auto text-center mb-16 lg:mb-20">
       <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Skills</span>
-      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 mb-5 text-gray-900">
-        Works with any app.<br class="hidden sm:inline" />
-        <span class="text-amber-600">Skills make it better.</span>
+      <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight leading-[1.15] mt-3 mb-5 text-gray-900">
+        <span class="block">Works in any app.</span>
+        <span class="block text-amber-600 mt-2 sm:mt-3">Skills make it way better.</span>
       </h2>
-      <p data-reveal class="reveal reveal-delay-1 text-[17px] leading-relaxed text-gray-600">
-        Skilly works with any app on your Mac. <strong class="font-semibold text-gray-900">Skills are optional packs</strong> that add two things: <strong class="font-semibold text-gray-900">fresh knowledge</strong> straight from an app's official docs (beyond the AI's training cutoff) and a <strong class="font-semibold text-gray-900">structured curriculum</strong> — so Skilly can coach you through a guided course, not just answer one-off questions. Five ship as examples. A skill builder is coming.
+      <p data-reveal class="reveal reveal-delay-1 text-[17px] leading-relaxed text-gray-600 mb-5">
+        Skills are optional add-ons that give Skilly two superpowers for specific apps.
       </p>
+      <ul data-reveal class="reveal reveal-delay-2 inline-block text-left space-y-3 max-w-[560px]">
+        <li class="flex gap-3 items-start">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true">
+            <path d="M5 10l4 4 6-8" />
+          </svg>
+          <span class="text-[15px] leading-relaxed text-gray-600">
+            <strong class="font-semibold text-gray-900">Always up-to-date knowledge</strong> — straight from each app's official docs (beyond the AI's training cutoff), so answers stay accurate and current.
+          </span>
+        </li>
+        <li class="flex gap-3 items-start">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5" aria-hidden="true">
+            <path d="M5 10l4 4 6-8" />
+          </svg>
+          <span class="text-[15px] leading-relaxed text-gray-600">
+            <strong class="font-semibold text-gray-900">Guided courses</strong> — turn learning into step-by-step lessons with progress tracking. Skilly can coach you from beginner to pro, check what you're doing, and move to the next lesson when you're ready.
+          </span>
+        </li>
+      </ul>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -138,9 +156,9 @@ const brandLogos: Record<string, { path: string; color: string }> = {
     </div>
 
     <p class="text-center text-[14px] text-gray-500 mt-12 max-w-[560px] mx-auto leading-relaxed">
-      Skills are built and maintained by Skilly. If you want to build your own,
+      Five skills ship as examples — a skill builder is coming. Want to build your own?
       {' '}
-      <a href="mailto:hello@tryskilly.app" class="text-amber-600 hover:text-amber-700 underline underline-offset-2">get in touch</a>
+      <a href="mailto:hello@tryskilly.app" class="text-amber-600 hover:text-amber-700 underline underline-offset-2">Get in touch</a>
       {' '}
       — we're exploring a creator program.
     </p>

@@ -15,12 +15,12 @@ export const faqs: Faq[] = [
   {
     question: 'What happens if I cancel?',
     answer:
-      'You keep access until the end of your billing period, then it stops. No charges after that. Resubscribe anytime at the beta price while beta is open \u2014 we lock that price in for life on your account.',
+      'You keep using Skilly until the end of your billing month. Then it simply stops \u2014 no extra charges. Resubscribe anytime at the beta price \u2014 we lock that price in for life on your account.',
   },
   {
     question: 'Is it safe? What data does Skilly send to OpenAI?',
     answer:
-      'Audio and screen context stream to OpenAI for the duration of a live teaching session only. Nothing is persisted afterward, and OpenAI is contractually blocked from training on Skilly sessions. Our analytics logs only anonymous metrics \u2014 session length, token counts, costs \u2014 never your transcripts, screenshots, or prompts.',
+      'Yes. Audio and a live screenshot stream to OpenAI only while you\u2019re actively talking. Nothing is saved after the session ends, and OpenAI is contractually blocked from training on Skilly sessions. Our analytics log only anonymous metrics \u2014 session length, token counts, costs \u2014 never your transcripts, screenshots, or prompts.',
   },
   {
     question: 'Why $19 / month? What am I actually paying for?',
@@ -31,7 +31,7 @@ export const faqs: Faq[] = [
   {
     question: 'What is Skilly, exactly?',
     answer:
-      'A voice companion that watches your screen and teaches you how to use software in real time. You talk to it, it points at the right buttons, it explains what\u2019s happening. Think of it as a patient expert sitting next to you.',
+      'A friendly AI tutor that lives in your Mac menu bar. You talk, it sees your screen, moves the cursor to show you what to click, and speaks the answer in your language. Think of it as a patient expert sitting next to you.',
   },
   {
     question: 'How long is the free trial?',
@@ -41,12 +41,12 @@ export const faqs: Faq[] = [
   {
     question: 'Which apps does Skilly work with?',
     answer:
-      'Every app on your Mac. Skilly sees your screen and answers questions about whatever you\u2019re using \u2014 Excel, Notion, your browser, a niche CAD tool, anything. The five bundled skills (Blender, Figma, After Effects, Premiere Pro, DaVinci Resolve) are examples of what a dedicated skill adds: structured lessons, precise UI pointing, and up-to-date knowledge beyond the AI\u2019s training data. A skill builder is coming so you can create one for any app yourself.',
+      'Any app on your Mac. Skilly works great even without a skill \u2014 Excel, Notion, your browser, a niche CAD tool, anything. With a skill (like Figma or Blender), it gets smarter: step-by-step courses and up-to-date knowledge beyond the AI\u2019s training data. Five skills ship today; a skill builder is coming so you can make your own.',
   },
   {
     question: 'What\u2019s a "skill"?',
     answer:
-      'A skill teaches Skilly how to understand one specific app \u2014 its interface, its terminology, its common workflows. One subscription gives you every skill we release, current and future.',
+      'A skill is like an upgrade for one specific app \u2014 Skilly gets the latest instructions, shortcuts, and a full learning path so it can teach you properly. One subscription gives you every skill we release, current and future.',
   },
   {
     question: 'What happens when I hit my 3 hours?',
@@ -56,21 +56,21 @@ export const faqs: Faq[] = [
   {
     question: 'Can I build my own skill?',
     answer:
-      'A skill builder is on the roadmap \u2014 eventually, anyone will be able to create a skill for any app or workflow, right from inside Skilly or a web section of the site. Want early access? Email hello@tryskilly.app.',
+      'Not yet, but we\u2019re building a simple skill creator. Want early access? Just email hello@tryskilly.app.',
   },
   {
-    question: 'Which operating systems are supported?',
+    question: 'Which operating systems work?',
     answer:
-      'macOS 14+ on Apple Silicon Macs for the beta. Windows and Linux are on the roadmap \u2014 join the waitlist further down the page to hear when they ship.',
+      'Right now: macOS 14+ on Apple Silicon Macs only. Windows, Linux, and mobile are coming \u2014 join the waitlist below to be notified.',
   },
   {
     question: 'Will the price change after beta?',
     answer:
-      'Yes. Beta users keep $19 for 3 hours forever. New users after beta will see a different tier structure once we have real usage data.',
+      'Yes. Beta users keep the $19 price forever \u2014 even after we add more features. New users will see different pricing once the beta ends.',
   },
   {
     question: 'Can I use my own OpenAI API key?',
     answer:
-      'Not yet. If enough beta users ask, we\u2019ll add a bring-your-own-key option soon at a lower price.',
+      'Not yet. If many people want it, we\u2019ll add the option soon (at a lower price).',
   },
 ];
