@@ -24,8 +24,28 @@ import FAQ from '../components/FAQ.astro';
 import Waitlist from '../components/Waitlist.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
+import { faqs } from '../data/faqs.ts';
+
+// Schema.org FAQPage — built from the live faqs.ts data so it stays in
+// sync automatically when we edit FAQs. Gets injected into Layout.astro's
+// <head> via the named "head" slot.
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.answer,
+    },
+  })),
+};
 ---
 <Layout>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
   <Nav />
   <main class="overflow-x-clip">
     <Hero />

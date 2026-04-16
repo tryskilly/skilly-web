@@ -9,14 +9,55 @@ interface Props {
 }
 
 const {
-  title = 'Skilly — Your AI companion for learning creative software',
-  description = 'Skilly sees your screen, hears your question, and points at exactly what you need. Like having an expert sitting next to you. For Blender, Figma, After Effects, and more.',
+  title = 'Skilly — Stop hunting through menus. Just ask out loud.',
+  description = 'A macOS menu-bar AI tutor for every app. Ask a question out loud — Skilly sees your screen, answers out loud, and points at exactly what to click, with a live transcript beside the cursor. 15 minutes free, no card.',
   ogImage = '/og-image.png',
 } = Astro.props;
 
 const siteUrl = 'https://tryskilly.app';
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = new URL(ogImage, siteUrl).toString();
+
+// Schema.org structured data — applies to every page via Layout.astro.
+// Per the final launch audit (docs/2026-04-16-final-launch-audit.md), these
+// are the two sitewide schemas Skilly needs for AI citation + Google Rich
+// Results. Page-specific schemas (FAQPage, HowTo, etc.) are injected by
+// individual pages via the <slot name="head" /> hook below.
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Skilly',
+  url: siteUrl,
+  logo: `${siteUrl}/skilly-mark.png`,
+  sameAs: [
+    'https://x.com/tryskilly',
+    'https://github.com/tryskilly/skilly',
+    'https://discord.gg/NbRVfUtwfn',
+  ],
+  description: 'Skilly is a macOS menu-bar AI tutor that watches your screen, hears your voice, answers out loud, and points at exactly what to click — with a live transcript streaming beside the cursor.',
+};
+
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Skilly',
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'macOS 14.0+',
+  offers: {
+    '@type': 'Offer',
+    price: '19',
+    priceCurrency: 'USD',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: '19',
+      priceCurrency: 'USD',
+      billingDuration: 'P1M',
+      unitText: 'MONTH',
+    },
+  },
+  description: 'Voice-first macOS AI tutor for every app. Ask out loud, see a live transcript, watch the cursor point at exactly what you need.',
+  downloadUrl: 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg',
+};
 
 // PostHog public project key — same project as the Skilly macOS app.
 // Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
@@ -54,6 +95,15 @@ const POSTHOG_HOST = 'https://us.i.posthog.com';
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Schema.org — Organization (sitewide) -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
+
+    <!-- Schema.org — SoftwareApplication (sitewide) -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(softwareApplicationSchema)} />
+
+    <!-- Page-specific head injection slot (e.g. index.astro uses this for FAQPage schema) -->
+    <slot name="head" />
 
     <!-- PostHog: anonymous mode (no cookies, no localStorage, no consent banner) -->
     <script is:inline define:vars={{ POSTHOG_KEY, POSTHOG_HOST }}>

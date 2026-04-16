@@ -1,0 +1,78 @@
+# Skilly
+
+> Skilly is a macOS menu-bar AI tutor that watches your screen, hears your voice, answers out loud, and physically points at the right UI element with a live transcript floating beside the cursor. Works with every app on your Mac.
+
+## Core pages
+
+- [Homepage](https://tryskilly.app/): product overview, features, pricing, FAQ
+- [Privacy policy](https://tryskilly.app/privacy): data handling, PostHog, OpenAI, WorkOS
+- [Terms](https://tryskilly.app/terms)
+- [Download (GitHub release)](https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg)
+- [Machine-readable pricing](https://tryskilly.app/pricing.md)
+
+## Pricing
+
+- Beta: $19 / month (monthly billing only during beta)
+- 3 hours of live AI teaching per month
+- 15 minutes free trial on first launch — no credit card required
+- Cancel anytime — access continues through end of billing period
+- Beta limited to 50 users, beta price locked for life on beta accounts
+
+## What Skilly does
+
+You hold Control+Option and ask a question out loud (or enable Live Tutor for hands-free voice activation). Skilly captures your screen via macOS ScreenCaptureKit, streams audio and screen context to OpenAI Realtime, receives a spoken answer plus UI element coordinates, and animates a blue cursor across your screen to the exact button, menu, or slider you need — while a live transcript of the spoken answer streams as text beside the cursor. Works on any application.
+
+## Skills (bundled as examples)
+
+Skilly works with any macOS app out of the box. Skills are optional expansion packs that add two things:
+
+1. **Fresh knowledge** from the app's official documentation, beyond the AI's training cutoff
+2. **Structured curriculum** with stages, completion signals, and UI vocabulary — so Skilly can coach you through a course, not just answer one-off questions
+
+Five skills ship as examples:
+
+- Blender Fundamentals — 6 stages, from navigation to first render
+- After Effects Basics — compositions, layers, keyframes, effects
+- Premiere Pro Basics — timeline editing, transitions, export
+- DaVinci Resolve Basics — Cut, Edit, Color, Fairlight, Deliver pages
+- Figma Basics — frames, components, auto-layout, prototyping
+
+A skill builder is on the roadmap so anyone can create a skill for any app or workflow.
+
+## How it works
+
+1. Open any macOS app (Excel, Notion, browser, design tool — anything)
+2. Hold Control+Option and ask out loud — or turn on Live Tutor and just start talking
+3. Skilly answers out loud, streams a live transcript beside the cursor, and points at the exact UI element you need
+
+## Tech stack
+
+- macOS menu-bar-only app (LSUIElement)
+- Built on OpenAI Realtime API (gpt-realtime model, single WebSocket)
+- macOS native APIs: ScreenCaptureKit for screen, AVAudioEngine for audio
+- WorkOS AuthKit for sign-in
+- Polar for billing and subscription management
+- Open-source Cloudflare Worker proxy — no API keys ship in the binary
+- Sparkle for signed auto-updates
+
+## Privacy posture
+
+- Audio and screens stream only during a live teaching session and are not persisted afterward
+- OpenAI is contractually blocked from training on Skilly session content
+- Analytics (PostHog) capture only anonymous metrics — never transcripts, screenshots, or prompts
+- Website uses PostHog in `persistence: 'memory'` mode with no cookies and no localStorage identifiers
+- Auth tokens stored in macOS Keychain with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly`
+
+## Languages and voices
+
+- 16 languages supported with manual selection or speech-based auto-detection
+- 8 AI voices selectable
+
+## Platform availability
+
+- macOS 14+ on Apple Silicon and Intel (available)
+- Windows, Linux, iOS/iPad — on the waitlist, not yet available
+
+## Built by
+
+Skilly is built by Mohamed Saleh Zaied (@tryskilly on X, eng.mohamedszaied on GitHub), an iOS/macOS engineer who got tired of Googling "how do I X in this app?" fifty times a week while learning creative software.

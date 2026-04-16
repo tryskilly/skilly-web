@@ -1,0 +1,57 @@
+# Skilly — tryskilly.app
+# https://tryskilly.app/robots.txt
+#
+# Allow traditional search crawlers and AI-citation bots. Block the
+# training-only Common Crawl bot (CCBot) to avoid uncompensated inclusion
+# in LLM training corpora while still allowing our pages to be cited by
+# ChatGPT, Perplexity, Claude, Google AI Overviews, and Bing Copilot.
+
+User-agent: *
+Allow: /
+
+# OpenAI — ChatGPT with search
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google — Gemini and AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Microsoft — Bing and Copilot
+User-agent: Bingbot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl — used for LLM training, not citation. Block to avoid
+# uncompensated training corpus inclusion while keeping citation-time
+# crawlers enabled.
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://tryskilly.app/sitemap-index.xml
