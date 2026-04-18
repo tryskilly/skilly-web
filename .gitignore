@@ -23,3 +23,6 @@ bun-debug.log*
 # Local Netlify folder
 .netlify
 package-lock.json
+
+# OMX — tmux-based session monitor runtime state (logs, metrics, state files)
+.omx/
