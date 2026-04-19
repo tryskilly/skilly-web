@@ -63,6 +63,13 @@ const softwareApplicationSchema = {
 // Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
 const POSTHOG_KEY = 'phc_D46KQXyPXhmRabFDiL3KUZTWJcmjyqhpGJfpH7H48Sso';
 const POSTHOG_HOST = 'https://us.i.posthog.com';
+
+// Google Analytics 4 — Measurement ID is public and meant to ship in client
+// code. We run it in Google Consent Mode v2 with all storage types defaulted
+// to 'denied' so GA4 does not set cookies, matching the cookieless PostHog
+// setup. Events still arrive via cookieless pings (modeled in GA), so we
+// keep zero-banner UX without losing aggregate analytics.
+const GA_MEASUREMENT_ID = 'G-J90EDSX92N';
 ---
 <!doctype html>
 <html lang="en">
@@ -104,6 +111,25 @@ const POSTHOG_HOST = 'https://us.i.posthog.com';
 
     <!-- Page-specific head injection slot (e.g. index.astro uses this for FAQPage schema) -->
     <slot name="head" />
+
+    <!-- Google Analytics 4 — Consent Mode v2, denied-by-default (no cookies) -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+    <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+      });
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        anonymize_ip: true,
+        client_storage: 'none',
+      });
+    </script>
 
     <!-- PostHog: anonymous mode (no cookies, no localStorage, no consent banner) -->
     <script is:inline define:vars={{ POSTHOG_KEY, POSTHOG_HOST }}>
