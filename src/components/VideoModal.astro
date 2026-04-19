@@ -1,0 +1,98 @@
+---
+// src/components/VideoModal.astro
+// Lightweight YouTube lightbox. Renders a single <dialog> at the page root
+// and listens for clicks on any element with [data-video-modal-open].
+// The iframe src is only injected on open (and cleared on close) so the
+// video doesn't preload — keeps LCP and bandwidth clean.
+//
+// Trigger from anywhere on the page:
+//   <button data-video-modal-open="M29K4g5Z_NA">Watch demo</button>
+//
+// The "Also: 30-sec version" link inside swaps the iframe to the Short.
+---
+<dialog
+  id="video-modal"
+  class="bg-transparent p-0 max-w-[min(960px,92vw)] w-full backdrop:bg-black/80 backdrop:backdrop-blur-sm"
+  aria-label="Demo video"
+>
+  <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
+    <button
+      type="button"
+      id="video-modal-close"
+      aria-label="Close video"
+      class="absolute top-3 right-3 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="relative w-full aspect-video bg-black">
+      <iframe
+        id="video-modal-iframe"
+        title="Skilly demo video"
+        class="absolute inset-0 w-full h-full"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-950 text-gray-300 text-[13px]">
+      <span class="text-gray-500">Watching the full demo</span>
+      <a
+        href="https://youtube.com/shorts/Bs4PAOwHotE"
+        target="_blank"
+        rel="noopener"
+        data-ph-event="web_demo_short_clicked"
+        data-ph-prop-location="video_modal"
+        class="underline underline-offset-2 decoration-dashed decoration-gray-500 hover:text-white transition-colors"
+      >
+        Also: 30-second version →
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('video-modal') as HTMLDialogElement | null;
+  const iframe = document.getElementById('video-modal-iframe') as HTMLIFrameElement | null;
+  const closeBtn = document.getElementById('video-modal-close');
+
+  if (dialog && iframe) {
+    const open = (videoId: string) => {
+      const src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+      iframe.src = src;
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+    };
+
+    const close = () => {
+      iframe.src = '';
+      if (dialog.open) dialog.close();
+      document.body.style.overflow = '';
+    };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const trigger = target.closest<HTMLElement>('[data-video-modal-open]');
+      if (trigger) {
+        e.preventDefault();
+        const id = trigger.dataset.videoModalOpen;
+        if (id) open(id);
+        return;
+      }
+      // Backdrop click: target is the <dialog> itself, not its inner content.
+      if (target === dialog) close();
+    });
+
+    closeBtn?.addEventListener('click', close);
+    dialog.addEventListener('close', () => {
+      iframe.src = '';
+      document.body.style.overflow = '';
+    });
+  }
+</script>

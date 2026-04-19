@@ -5,6 +5,12 @@
 // is fixed and doesn't name any specific app. Both files remain in the
 // repo in case we revive the rotation pattern for a different component.
 import { DOWNLOAD_URL } from '../data/config.ts';
+import VideoModal from './VideoModal.astro';
+
+// YouTube ID for the main 16:9 product demo. The 9:16 Short lives inside
+// VideoModal.astro as a secondary link — keeps the homepage focused on
+// the desktop-friendly aspect ratio.
+const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
 ---
 <section
   id="top"
@@ -58,6 +64,18 @@ import { DOWNLOAD_URL } from '../data/config.ts';
             <path d="M4 12L12 4M12 4H5M12 4V11"/>
           </svg>
         </a>
+        <button
+          type="button"
+          data-video-modal-open={DEMO_VIDEO_ID}
+          data-ph-event="web_demo_video_played"
+          data-ph-prop-location="hero_button"
+          class="inline-flex items-center gap-2 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-6 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
+          </svg>
+          Watch 90-sec demo
+        </button>
       </div>
 
       <!--
@@ -136,8 +154,45 @@ import { DOWNLOAD_URL } from '../data/config.ts';
           style="left: 60%; top: 31.4%; width: 21.3%; animation-delay: 3.5s;"
           loading="eager"
         />
+
+        <button
+          type="button"
+          data-video-modal-open={DEMO_VIDEO_ID}
+          data-ph-event="web_demo_video_played"
+          data-ph-prop-location="hero_overlay"
+          aria-label="Watch the 90-second Skilly demo"
+          class="hero-play-btn absolute inset-0 flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        >
+          <span
+            aria-hidden="true"
+            class="relative inline-flex items-center justify-center w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white/95 group-hover:bg-white shadow-xl transition-all group-hover:scale-110 group-active:scale-95"
+          >
+            <span class="absolute inset-0 rounded-full bg-amber-500/40 animate-ping-slow"></span>
+            <svg width="32" height="32" viewBox="0 0 16 16" fill="#111827" class="relative ml-1.5" aria-hidden="true">
+              <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
+
+  <VideoModal />
 </section>
+
+<style>
+  /* Pulsing halo around the hero play button — slower, subtler than the
+     default Tailwind `animate-ping` so it reads as "live demo" without
+     becoming a distracting strobe behind the layered illustration. */
+  @keyframes ping-slow {
+    0% { transform: scale(1); opacity: 0.6; }
+    80%, 100% { transform: scale(1.6); opacity: 0; }
+  }
+  .animate-ping-slow {
+    animation: ping-slow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  .hero-play-btn {
+    z-index: 10;
+  }
+</style>
 
