@@ -64,12 +64,9 @@ const softwareApplicationSchema = {
 const POSTHOG_KEY = 'phc_D46KQXyPXhmRabFDiL3KUZTWJcmjyqhpGJfpH7H48Sso';
 const POSTHOG_HOST = 'https://us.i.posthog.com';
 
-// Google Analytics 4 — Measurement ID is public and meant to ship in client
-// code. We run it in Google Consent Mode v2 with all storage types defaulted
-// to 'denied' so GA4 does not set cookies, matching the cookieless PostHog
-// setup. Events still arrive via cookieless pings (modeled in GA), so we
-// keep zero-banner UX without losing aggregate analytics.
-const GA_MEASUREMENT_ID = 'G-J90EDSX92N';
+// Google Analytics 4 measurement ID.
+// Allow overriding through env for safe stream swaps without code edits.
+const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX92N';
 ---
 <!doctype html>
 <html lang="en">
@@ -112,22 +109,27 @@ const GA_MEASUREMENT_ID = 'G-J90EDSX92N';
     <!-- Page-specific head injection slot (e.g. index.astro uses this for FAQPage schema) -->
     <slot name="head" />
 
-    <!-- Google Analytics 4 — Consent Mode v2, denied-by-default (no cookies) -->
+    <!-- Google Analytics 4 -->
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
     <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       window.gtag = gtag;
+
+      // Keep ads-related storage denied by default, but allow analytics
+      // measurement so visits/events appear reliably in GA4.
       gtag('consent', 'default', {
         ad_storage: 'denied',
         ad_user_data: 'denied',
         ad_personalization: 'denied',
-        analytics_storage: 'denied',
+        analytics_storage: 'granted',
       });
+
       gtag('js', new Date());
       gtag('config', GA_MEASUREMENT_ID, {
         anonymize_ip: true,
-        client_storage: 'none',
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
       });
     </script>
 
