@@ -1,0 +1,204 @@
+---
+// src/pages/vs/clicky.astro
+//
+// Skilly vs Clicky — the parent fork.
+//
+// Tone note: Clicky is the open-source base we forked, not a competitor.
+// This page is a transparent "what we added on top" doc for anyone who
+// has tried Clicky and is deciding whether to switch.
+// Targets queries: "skilly vs clicky", "clicky alternative", "farzaa clicky fork".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { DOWNLOAD_URL } from '../../data/config.ts';
+
+const title = 'Skilly vs Clicky — what the fork adds on top of Farza\'s original';
+const description =
+  'Skilly is an open-source fork of Farza Majeed\'s Clicky. Same macOS cursor-buddy DNA, with a live tutor mode, single-call OpenAI Realtime pipeline, per-app skills, and multi-language support added on top. Full diff here.';
+
+const additions = [
+  {
+    label: 'Live Tutor mode',
+    body: 'Clicky is push-to-talk only. Skilly adds an always-listening Live Tutor mode where the screen is captured only during voice activity — so you can keep working and just speak when you need help.',
+  },
+  {
+    label: 'Single-call OpenAI Realtime API',
+    body: 'Clicky stacks three providers: TTS + STT + LLM. Skilly swaps that for a single direct voice-to-voice call against OpenAI Realtime. Roughly halves response latency in practice and simplifies the key surface.',
+  },
+  {
+    label: 'Pluggable Skills layer',
+    body: 'Markdown-based per-app curriculum (Blender, Figma, Xcode, Photoshop, After Effects, VS Code) that lives outside the model weights. Stays current even when the underlying model training cutoff is stale.',
+  },
+  {
+    label: 'Course-style progress tracking',
+    body: 'Tracks which skills / lessons you have completed per app, so tutoring picks up where you left off instead of starting from scratch every session.',
+  },
+  {
+    label: '20+ language auto-detect',
+    body: 'Realtime model picks the language you spoke in and responds in the same language — no config, no menu. Works across English, Arabic, Japanese, Chinese, Spanish, and more.',
+  },
+];
+
+const comparisonRows = [
+  { feature: 'Voice pipeline', skilly: 'Single-call OpenAI Realtime API (voice-to-voice)', clicky: 'Three-stack: STT → LLM → TTS (cloud providers you configure)' },
+  { feature: 'Always-listening mode', skilly: 'Yes — Live Tutor mode (voice-activity gated)', clicky: 'No — push-to-talk only' },
+  { feature: 'Per-app curriculum', skilly: 'Yes — Skills layer with Markdown SKILL.md per app', clicky: 'No — prompt defines capability, same for every app' },
+  { feature: 'Progress tracking', skilly: 'Yes — course-style progress per skill', clicky: 'No — stateless' },
+  { feature: 'Languages', skilly: '20+ auto-detected via Realtime model', clicky: 'Depends on chosen STT/TTS providers, manual config' },
+  { feature: 'Cursor guidance', skilly: 'Yes — cursor flies to the exact UI element', clicky: 'Yes — core Clicky behavior, inherited' },
+  { feature: 'Platform', skilly: 'macOS 14.0+', clicky: 'macOS (upstream repo)' },
+  { feature: 'License', skilly: 'Apache-2.0', clicky: 'Apache-2.0 (upstream)' },
+  { feature: 'Pricing', skilly: '15 minutes free, $19/month for 3 hours tutoring', clicky: 'Free, open source — bring your own API keys' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/clicky',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.0+' },
+    { '@type': 'SoftwareSourceCode', name: 'Clicky', codeRepository: 'https://github.com/farzaa/clicky' },
+  ],
+};
+---
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest fork story</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> Clicky
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Skilly is an open-source fork of <a href="https://github.com/farzaa/clicky" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">Farza Majeed&apos;s Clicky</a>.
+          Same macOS cursor-buddy DNA. We added a live tutor loop, a single-call Realtime pipeline, a pluggable skills layer,
+          and multi-language support on top. This page is the full diff so you can decide which one fits your workflow.
+        </p>
+      </div>
+    </section>
+
+    <!-- Credit callout -->
+    <section class="max-w-site mx-auto px-6 pb-10">
+      <div class="max-w-[820px] mx-auto bg-amber-50/50 border border-amber-200/60 rounded-xl p-6">
+        <p class="text-gray-700 leading-relaxed text-[15px]">
+          <strong class="text-gray-900">Credit where it is due.</strong> Clicky is the base. Farza shipped it open source and it is the reason this whole
+          category exists. Skilly would not be possible without that work. If the additions below are not useful to you, Clicky is the right tool — go use it.
+          Both are Apache-2.0, both are on GitHub.
+        </p>
+      </div>
+    </section>
+
+    <!-- What Skilly adds -->
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">What Skilly adds on top of Clicky</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          {additions.map((a) => (
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+              <p class="font-semibold text-amber-700 mb-2 text-[15px]">{a.label}</p>
+              <p class="text-gray-600 leading-relaxed text-[15px]">{a.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want the <strong class="text-gray-900">tutor experience</strong> — per-app curriculum, progress tracking, lower-latency voice,
+            and multi-language out of the box. You would rather install one app than configure a three-stack voice pipeline yourself.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Stick with Clicky if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want to <strong class="text-gray-900">control the entire pipeline</strong> — bring your own STT/LLM/TTS providers,
+            tweak prompts, read every line of code. Clicky is a cleaner base if you plan to fork it yourself rather than use it as-is.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">Clicky</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.clicky}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try the fork</h2>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Source on <a href="https://github.com/tryskilly/skilly" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">github.com/tryskilly/skilly</a>.</p>
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="vs_clicky"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Download Skilly
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <a href="/vs/cluely" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Cluely</p>
+            <p class="text-sm text-gray-500 mt-1">Tutor vs meeting coach</p>
+          </a>
+          <a href="/vs/rewind" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Rewind</p>
+            <p class="text-sm text-gray-500 mt-1">Active tutor vs passive recording</p>
+          </a>
+          <a href="/vs/raycast-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Raycast AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice + screen vs command bar</p>
+          </a>
+          <a href="/vs/gemini-live" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Gemini Live</p>
+            <p class="text-sm text-gray-500 mt-1">Native Mac app vs browser tab</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

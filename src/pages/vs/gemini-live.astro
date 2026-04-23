@@ -1,0 +1,153 @@
+---
+// src/pages/vs/gemini-live.astro
+//
+// SEO comparison page: "Skilly vs Google Gemini Live".
+// Target queries: "skilly vs gemini live", "gemini live mac", "google ai studio alternative".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { DOWNLOAD_URL } from '../../data/config.ts';
+
+const title = 'Skilly vs Gemini Live — native Mac tutor vs browser tab';
+const description =
+  'Google Gemini Live (AI Studio) is a browser-based voice AI with screen sharing. Skilly is a native macOS menu bar app built specifically for learning any app. Here is the honest feature comparison for Mac users.';
+
+const comparisonRows = [
+  { feature: 'Where it runs', skilly: 'Native macOS menu bar app — always one shortcut away', gemini: 'Browser tab in Google AI Studio (aistudio.google.com)' },
+  { feature: 'Trigger', skilly: 'Voice-gated: push-to-talk or Live Tutor mode. Nothing captured between voice events.', gemini: 'Start a session, continuous screen + mic during the session' },
+  { feature: 'Cursor guidance', skilly: 'Cursor physically moves to the exact UI element on your screen', gemini: 'Text and voice answers only — no cursor control' },
+  { feature: 'Skills / curriculum', skilly: 'Per-app Markdown curriculum (Blender, Figma, Xcode, Photoshop…) — stays current independent of model', gemini: 'General-purpose, no per-app context preloaded' },
+  { feature: 'Model', skilly: 'Single-call OpenAI Realtime API (voice-to-voice)', gemini: 'Google Gemini 2.x (Flash / Pro depending on tier)' },
+  { feature: 'Tab-switching', skilly: 'Stays out of the way in the menu bar — you stay in the app you are learning', gemini: 'You are in the browser, not the app — you switch windows to act on answers' },
+  { feature: 'Language support', skilly: '20+ languages auto-detected', gemini: '40+ languages (broader reach)' },
+  { feature: 'Privacy posture', skilly: 'Capture gated by voice activity. Screen Recording permission revokable anytime.', gemini: 'Screen + audio streamed to Google during session. Bound by Google Workspace terms.' },
+  { feature: 'Offline', skilly: 'Requires OpenAI API access but the app works without a persistent browser tab', gemini: 'Requires a browser session + Google account' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky', gemini: 'No — Google proprietary' },
+  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', gemini: 'Free tier with rate limits, paid tiers via Google AI Studio / API' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/gemini-live',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.0+' },
+    { '@type': 'SoftwareApplication', name: 'Google Gemini Live', applicationCategory: 'Multimodal AI', operatingSystem: 'Web, Android, iOS' },
+  ],
+};
+---
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> Gemini Live
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Google&apos;s Gemini Live is a genuinely impressive multimodal model running in the browser.
+          Skilly wraps a similar loop into a native Mac app with a cursor that actually moves.
+          If you are learning a Mac app, that last part is the difference.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You are <strong class="text-gray-900">inside a Mac app</strong> and need help without switching windows to a browser.
+            You want the cursor to physically move to the button you need to click, not just read instructions.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Gemini Live if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want <strong class="text-gray-900">a general-purpose multimodal AI</strong> you can use on any device
+            (Android, iOS, web). You are comfortable working in a browser tab and do not need a Mac-native UI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">Gemini Live</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.gemini}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want a Mac-native tutor?</h2>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky.</p>
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="vs_gemini_live"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Download Skilly
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <a href="/vs/cluely" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Cluely</p>
+            <p class="text-sm text-gray-500 mt-1">Tutor vs meeting coach</p>
+          </a>
+          <a href="/vs/rewind" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Rewind</p>
+            <p class="text-sm text-gray-500 mt-1">Active tutor vs passive recording</p>
+          </a>
+          <a href="/vs/raycast-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Raycast AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice + screen vs command bar</p>
+          </a>
+          <a href="/vs/clicky" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Clicky (parent fork)</p>
+            <p class="text-sm text-gray-500 mt-1">What we added on top</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

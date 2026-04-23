@@ -1,0 +1,156 @@
+---
+// src/pages/vs/cluely.astro
+//
+// SEO comparison page: "Skilly vs Cluely".
+// Target queries: "skilly vs cluely", "cluely alternative", "cluely vs clicky".
+// Template for the /vs/* series. Structure mirrored by rewind.astro,
+// raycast-ai.astro, gemini-live.astro — keep in sync.
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { DOWNLOAD_URL } from '../../data/config.ts';
+
+const title = 'Skilly vs Cluely — which AI screen assistant fits your workflow?';
+const description =
+  'Skilly is a voice-first AI tutor that watches your Mac screen and teaches you live. Cluely is an AI meeting and interview helper. Here is the honest feature-by-feature breakdown so you can pick the right one.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Live tutor for any app you are learning (Blender, Figma, Xcode…)', cluely: 'Real-time coach during meetings, calls, and interviews' },
+  { feature: 'Trigger', skilly: 'Voice-gated: screen is captured only when you press push-to-talk or speak in Live Tutor mode', cluely: 'Always-on during a session — continuously listens + reads your screen' },
+  { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', cluely: 'macOS + Windows desktop apps' },
+  { feature: 'How it guides', skilly: 'Moves your cursor to the exact UI element + live transcript beside it', cluely: 'Shows AI-generated prompts and answers in an overlay window' },
+  { feature: 'Skills / curriculum', skilly: 'Pluggable Markdown curriculum per app — Blender, Figma, Xcode, Photoshop, After Effects, VS Code', cluely: 'No per-app curriculum — general-purpose assistant' },
+  { feature: 'Language support', skilly: '20+ languages auto-detected via OpenAI Realtime', cluely: 'English-primary with multilingual support' },
+  { feature: 'Model layer', skilly: 'Single-call OpenAI Realtime API (voice-to-voice, lower latency)', cluely: 'Multi-model, proprietary pipeline' },
+  { feature: 'Privacy posture', skilly: 'Screen capture gated by voice activity. macOS Screen Recording permission required and revokable anytime.', cluely: 'Continuous screen + audio access during an active session' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky (github.com/tryskilly/skilly)', cluely: 'No — proprietary' },
+  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', cluely: 'Paid tiers starting around $20/month' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/cluely',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.0+' },
+    { '@type': 'SoftwareApplication', name: 'Cluely', applicationCategory: 'ProductivityApplication', operatingSystem: 'macOS, Windows' },
+  ],
+};
+---
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> Cluely
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Both are AI tools that see what is on your screen. They are built for very different jobs.
+          Skilly teaches you how to use an app. Cluely coaches you during a live meeting or interview.
+          Here is the breakdown without the marketing gloss.
+        </p>
+      </div>
+    </section>
+
+    <!-- TL;DR -->
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You are <strong class="text-gray-900">learning a new app</strong> (Blender, Figma, Xcode, Photoshop) and you want a tutor that answers
+            &ldquo;how do I do this&rdquo; out loud and <strong class="text-gray-900">moves your cursor to the exact spot</strong>.
+            You prefer an open-source Mac-native tool that only records when you actually speak.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Cluely if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want <strong class="text-gray-900">real-time help during a live call</strong> — sales pitches, interviews, negotiations.
+            You are fine with a closed-source tool that continuously reads your screen and audio during a session,
+            and you need Windows support.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison table -->
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">Cluely</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.cluely}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want to try Skilly?</h2>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Fork of Farza&apos;s open-source Clicky, Apache-2.0.</p>
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="vs_cluely"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Download Skilly
+        </a>
+      </div>
+    </section>
+
+    <!-- Related comparisons (internal linking for SEO) -->
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <a href="/vs/rewind" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Rewind</p>
+            <p class="text-sm text-gray-500 mt-1">Active tutor vs passive recording</p>
+          </a>
+          <a href="/vs/raycast-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Raycast AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice + screen vs command bar</p>
+          </a>
+          <a href="/vs/gemini-live" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Gemini Live</p>
+            <p class="text-sm text-gray-500 mt-1">Native Mac app vs browser tab</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

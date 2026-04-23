@@ -1,0 +1,161 @@
+---
+// src/pages/vs/raycast-ai.astro
+//
+// SEO comparison page: "Skilly vs Raycast AI".
+// Target queries: "skilly vs raycast ai", "raycast ai alternative", "voice assistant mac".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { DOWNLOAD_URL } from '../../data/config.ts';
+
+const title = 'Skilly vs Raycast AI — voice and screen awareness vs a command bar';
+const description =
+  'Raycast AI is a blazing-fast command bar with AI on top. Skilly is a voice-first AI tutor that watches your Mac screen and teaches you live. Different interaction models — here is when to use each.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Hands-on tutor while you are using an app', raycast: 'Launcher + command bar + AI chat + workflow automation' },
+  { feature: 'Interaction', skilly: 'Voice-first. Speak, get a voice answer, watch the cursor move.', raycast: 'Keyboard-first. Cmd+Space, type, get results.' },
+  { feature: 'Screen awareness', skilly: 'Yes — screenshot captured at the moment you speak, guides based on what is visible', raycast: 'Limited — AI chat can see attached context (files, clipboard), not live screen' },
+  { feature: 'Cursor guidance', skilly: 'Cursor physically moves to the exact UI element', raycast: 'No — text answers in the Raycast window' },
+  { feature: 'Audio output', skilly: 'Out loud via OpenAI Realtime voice', raycast: 'Text only (can copy to clipboard)' },
+  { feature: 'Skills / curriculum', skilly: 'Per-app Markdown curriculum (Blender, Figma, Xcode, Photoshop…)', raycast: 'Extensions marketplace for developer/productivity workflows' },
+  { feature: 'Platform', skilly: 'Native macOS menu bar (14.0+)', raycast: 'Native macOS app, Raycast Pro adds AI' },
+  { feature: 'Best learning use', skilly: 'Learning a new app (Blender, Figma, etc.) with zero friction', raycast: 'Quick factual Q&A while keeping your hands on the keyboard' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky', raycast: 'Extensions are open, core app is proprietary' },
+  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', raycast: 'Free core, Raycast Pro $8/month or $16/month for AI' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/raycast-ai',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.0+' },
+    { '@type': 'SoftwareApplication', name: 'Raycast AI', applicationCategory: 'ProductivityApplication', operatingSystem: 'macOS' },
+  ],
+};
+---
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> Raycast AI
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Raycast is the best command bar on Mac. Skilly is voice-first and screen-aware. If you already live in Raycast,
+          Skilly fills the gap it does not cover — learning new apps without reading docs or scrubbing tutorials.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You are <strong class="text-gray-900">actually using a Mac app and stuck</strong>. You want to ask out loud,
+            hear the answer, and see your cursor move to the right place. Raycast&apos;s chat box is the wrong surface for this.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Raycast AI if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want a <strong class="text-gray-900">fast keyboard-driven command bar</strong> with AI chat bolted on.
+            Calendar shortcuts, file actions, snippet expansion, and a clipboard manager — all great things Skilly does not do.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-8">
+      <div class="max-w-[960px] mx-auto bg-amber-50/50 border border-amber-200/60 rounded-xl p-6">
+        <p class="text-gray-700 leading-relaxed text-[15px]">
+          <strong class="text-gray-900">Honest take:</strong> most Mac power users already have Raycast. Skilly is not meant to replace it.
+          Raycast is where you <em>operate</em> your Mac; Skilly is where you <em>learn</em> a new app inside it.
+          Running both is normal.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16 pt-8">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">Raycast AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.raycast}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try Skilly alongside Raycast</h2>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source.</p>
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="vs_raycast_ai"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Download Skilly
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <a href="/vs/cluely" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Cluely</p>
+            <p class="text-sm text-gray-500 mt-1">Tutor vs meeting coach</p>
+          </a>
+          <a href="/vs/rewind" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Rewind</p>
+            <p class="text-sm text-gray-500 mt-1">Active tutor vs passive recording</p>
+          </a>
+          <a href="/vs/gemini-live" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Gemini Live</p>
+            <p class="text-sm text-gray-500 mt-1">Native Mac app vs browser tab</p>
+          </a>
+          <a href="/vs/clicky" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Clicky (parent fork)</p>
+            <p class="text-sm text-gray-500 mt-1">What we added on top</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

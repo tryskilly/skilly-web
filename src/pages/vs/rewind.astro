@@ -1,0 +1,152 @@
+---
+// src/pages/vs/rewind.astro
+//
+// SEO comparison page: "Skilly vs Rewind".
+// Target queries: "skilly vs rewind", "rewind alternative mac".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { DOWNLOAD_URL } from '../../data/config.ts';
+
+const title = 'Skilly vs Rewind — which Mac AI fits how you actually work?';
+const description =
+  'Skilly is an active voice-first AI tutor that teaches you live. Rewind passively records everything on your Mac so you can search it later. Same macOS vibe, totally different jobs — here is the honest breakdown.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Live tutor that answers "how do I do this" and shows you where to click', rewind: 'Personal memory — search anything you saw, heard, or typed in the past' },
+  { feature: 'Capture model', skilly: 'Voice-gated: screen is captured only when you press push-to-talk or speak', rewind: 'Always-on: continuous screen recording + audio + browser history' },
+  { feature: 'When you use it', skilly: 'The moment you are stuck in an app', rewind: 'After the fact, when you need to recall something' },
+  { feature: 'Output', skilly: 'Voice answer + cursor moves to the exact UI element + live transcript', rewind: 'Searchable timeline, summaries, transcripts of past meetings' },
+  { feature: 'Skills / curriculum', skilly: 'Per-app Markdown curriculum (Blender, Figma, Xcode, Photoshop, After Effects, VS Code)', rewind: 'No per-app curriculum — indexes whatever you happened to look at' },
+  { feature: 'Storage footprint', skilly: 'Minimal — no continuous recording, no local video index', rewind: 'Significant — weeks to months of screen recording stored locally' },
+  { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', rewind: 'macOS + iOS, integrates with calendar + Slack + email' },
+  { feature: 'Privacy posture', skilly: 'Capture gated by voice activity. Screen Recording permission revokable anytime.', rewind: 'Local-first recording, but always recording. Easy to pause, harder to audit.' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky', rewind: 'No — proprietary' },
+  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', rewind: 'Free tier + paid plans (Rewind Pro from $19/month)' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/rewind',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.0+' },
+    { '@type': 'SoftwareApplication', name: 'Rewind AI', applicationCategory: 'ProductivityApplication', operatingSystem: 'macOS, iOS' },
+  ],
+};
+---
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> Rewind
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Both are Mac AI tools that know what you are doing on your screen. Skilly teaches you in real time
+          when you ask. Rewind records everything so you can search later. Different jobs, not competitors — here is how to pick.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You are <strong class="text-gray-900">learning a new app</strong> and the problem is right now —
+            you want a voice to ask &ldquo;where is the bevel modifier?&rdquo; and see your cursor fly to it.
+            You do not want weeks of screen recording sitting on disk.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Rewind if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want a <strong class="text-gray-900">personal memory</strong> — searchable archive of every meeting, page,
+            and conversation. You are fine with continuous recording in exchange for being able to recall anything later.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">Rewind</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.rewind}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want to try Skilly?</h2>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky.</p>
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="vs_rewind"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Download Skilly
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <a href="/vs/cluely" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Cluely</p>
+            <p class="text-sm text-gray-500 mt-1">Tutor vs meeting coach</p>
+          </a>
+          <a href="/vs/raycast-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Raycast AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice + screen vs command bar</p>
+          </a>
+          <a href="/vs/gemini-live" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Gemini Live</p>
+            <p class="text-sm text-gray-500 mt-1">Native Mac app vs browser tab</p>
+          </a>
+          <a href="/vs/clicky" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Clicky (parent fork)</p>
+            <p class="text-sm text-gray-500 mt-1">What we added on top</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

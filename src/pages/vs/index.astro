@@ -1,0 +1,109 @@
+---
+// src/pages/vs/index.astro
+//
+// Hub page listing all "Skilly vs X" comparisons.
+// Purpose: internal linking for SEO + landing spot for "skilly alternatives" queries.
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { DOWNLOAD_URL } from '../../data/config.ts';
+
+const title = 'Skilly alternatives and comparisons — honest feature-by-feature';
+const description =
+  'Honest comparisons between Skilly and the Mac AI tools people most often ask about: Cluely, Rewind, Raycast AI, Google Gemini Live, and the original Clicky fork.';
+
+const comparisons = [
+  {
+    href: '/vs/cluely',
+    name: 'Skilly vs Cluely',
+    summary: 'Cluely coaches you during live meetings and interviews. Skilly teaches you how to use a Mac app.',
+  },
+  {
+    href: '/vs/rewind',
+    name: 'Skilly vs Rewind',
+    summary: 'Rewind passively records everything. Skilly actively teaches you when you ask for help.',
+  },
+  {
+    href: '/vs/raycast-ai',
+    name: 'Skilly vs Raycast AI',
+    summary: 'Raycast is a keyboard-first command bar. Skilly is voice-first and screen-aware.',
+  },
+  {
+    href: '/vs/gemini-live',
+    name: 'Skilly vs Gemini Live',
+    summary: 'Gemini Live runs in a browser tab. Skilly is native Mac and moves your cursor.',
+  },
+  {
+    href: '/vs/clicky',
+    name: 'Skilly vs Clicky (parent fork)',
+    summary: 'The honest diff between Skilly and the open-source base we forked from.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs',
+  hasPart: comparisons.map((c) => ({
+    '@type': 'WebPage',
+    name: c.name,
+    url: 'https://tryskilly.app' + c.href,
+    description: c.summary,
+  })),
+};
+---
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Nav />
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparisons</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly alternatives
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Skilly is one tool in a crowded space of Mac AI assistants. Here is the honest feature-by-feature
+          comparison with the tools people most often mention — so you can pick the right one without wading
+          through marketing pages.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[880px] mx-auto grid md:grid-cols-2 gap-5">
+        {comparisons.map((c) => (
+          <a
+            href={c.href}
+            class="block bg-white border border-gray-200 rounded-xl p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition-all"
+          >
+            <p class="font-semibold text-gray-900 text-lg mb-2">{c.name}</p>
+            <p class="text-gray-600 leading-relaxed text-[15px]">{c.summary}</p>
+            <p class="text-amber-700 font-medium text-[14px] mt-4">Read the breakdown →</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try Skilly yourself</h2>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source.</p>
+        <a
+          href={DOWNLOAD_URL}
+          data-ph-event="web_cta_download_clicked"
+          data-ph-prop-location="vs_index"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Download Skilly
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
