@@ -23,7 +23,7 @@ const comparisonRows = [
   { feature: 'Language support', skilly: '20+ languages auto-detected', gemini: '40+ languages (broader reach)' },
   { feature: 'Privacy posture', skilly: 'Capture gated by voice activity. Screen Recording permission revokable anytime.', gemini: 'Screen + audio streamed to Google during session. Bound by Google Workspace terms.' },
   { feature: 'Offline', skilly: 'Requires OpenAI API access but the app works without a persistent browser tab', gemini: 'Requires a browser session + Google account' },
-  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky', gemini: 'No — Google proprietary' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0 (fork of farzaa/clicky, MIT)', gemini: 'No — Google proprietary' },
   { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', gemini: 'Free tier with rate limits, paid tiers via Google AI Studio / API' },
 ];
 
@@ -113,7 +113,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want a Mac-native tutor?</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky.</p>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
         <a
           href={DOWNLOAD_URL}
           data-ph-event="web_cta_download_clicked"

@@ -1,29 +1,33 @@
 ---
 // src/pages/vs/rewind.astro
 //
-// SEO comparison page: "Skilly vs Rewind".
-// Target queries: "skilly vs rewind", "rewind alternative mac".
+// SEO: Rewind AI alternative landing page.
+// Rewind the standalone Mac app was shut down in December 2025 after Meta
+// acquired Limitless (Rewind's parent). This page captures the still-high
+// "rewind alternative" search volume while being honest about the shutdown.
+// Skilly is positioned as an alternative for ACTIVE tutoring, not for the
+// passive personal-memory use case Rewind originally solved. For that use
+// case we point people to Screenpipe (the open-source successor).
 
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { DOWNLOAD_URL } from '../../data/config.ts';
 
-const title = 'Skilly vs Rewind — which Mac AI fits how you actually work?';
+const title = 'Skilly vs Rewind — Rewind is dead, here is what comes next';
 const description =
-  'Skilly is an active voice-first AI tutor that teaches you live. Rewind passively records everything on your Mac so you can search it later. Same macOS vibe, totally different jobs — here is the honest breakdown.';
+  'Meta acquired Limitless in December 2025 and shut down the original Rewind AI Mac app. If you are looking for a Rewind alternative, this page maps your options — active tutoring (Skilly) vs passive personal memory (Screenpipe).';
 
 const comparisonRows = [
-  { feature: 'Primary use case', skilly: 'Live tutor that answers "how do I do this" and shows you where to click', rewind: 'Personal memory — search anything you saw, heard, or typed in the past' },
-  { feature: 'Capture model', skilly: 'Voice-gated: screen is captured only when you press push-to-talk or speak', rewind: 'Always-on: continuous screen recording + audio + browser history' },
-  { feature: 'When you use it', skilly: 'The moment you are stuck in an app', rewind: 'After the fact, when you need to recall something' },
-  { feature: 'Output', skilly: 'Voice answer + cursor moves to the exact UI element + live transcript', rewind: 'Searchable timeline, summaries, transcripts of past meetings' },
-  { feature: 'Skills / curriculum', skilly: 'Per-app Markdown curriculum (Blender, Figma, Xcode, Photoshop, After Effects, VS Code)', rewind: 'No per-app curriculum — indexes whatever you happened to look at' },
-  { feature: 'Storage footprint', skilly: 'Minimal — no continuous recording, no local video index', rewind: 'Significant — weeks to months of screen recording stored locally' },
-  { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', rewind: 'macOS + iOS, integrates with calendar + Slack + email' },
-  { feature: 'Privacy posture', skilly: 'Capture gated by voice activity. Screen Recording permission revokable anytime.', rewind: 'Local-first recording, but always recording. Easy to pause, harder to audit.' },
-  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky', rewind: 'No — proprietary' },
-  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', rewind: 'Free tier + paid plans (Rewind Pro from $19/month)' },
+  { feature: 'Status (2026)', skilly: 'Active — in beta, shipping', rewind: 'Shut down. Meta acquired Limitless Dec 2025; rewind.ai is dark.' },
+  { feature: 'Primary use case', skilly: 'Live tutor — ask out loud, get a voice answer, cursor moves to the exact UI element', rewind: 'Was: personal memory — continuous screen + audio recording, searchable history' },
+  { feature: 'Capture model', skilly: 'Voice-gated: screen captured only when you press push-to-talk or speak', rewind: 'Was: always-on continuous recording of screen + audio + browser history' },
+  { feature: 'When you use it', skilly: 'The moment you are stuck in an app', rewind: 'Was: after the fact, when you needed to recall something' },
+  { feature: 'Output', skilly: 'Voice answer + cursor moves to the exact UI element + live transcript', rewind: 'Was: searchable timeline, summaries, meeting transcripts' },
+  { feature: 'Storage footprint', skilly: 'Minimal — no continuous recording, no local video index', rewind: 'Was: significant — weeks to months of screen recording stored locally' },
+  { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', rewind: 'Was: macOS + iOS' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0 (fork of farzaa/clicky, MIT)', rewind: 'Was: proprietary' },
+  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', rewind: 'n/a — app is no longer available' },
 ];
 
 const productSchema = {
@@ -34,7 +38,6 @@ const productSchema = {
   url: 'https://tryskilly.app/vs/rewind',
   about: [
     { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.0+' },
-    { '@type': 'SoftwareApplication', name: 'Rewind AI', applicationCategory: 'ProductivityApplication', operatingSystem: 'macOS, iOS' },
   ],
 };
 ---
@@ -50,13 +53,29 @@ const productSchema = {
         <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
           Skilly <span class="text-gray-400">vs</span> Rewind
         </h1>
-        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
-          Both are Mac AI tools that know what you are doing on your screen. Skilly teaches you in real time
-          when you ask. Rewind records everything so you can search later. Different jobs, not competitors — here is how to pick.
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-6 max-w-[680px] mx-auto">
+          Heads up — Rewind AI is no longer a standalone product. Meta acquired Limitless (Rewind&apos;s parent)
+          in December 2025 and the Mac app was shut down. If you are looking for a Rewind alternative, the
+          answer depends on which part of Rewind you actually want.
         </p>
       </div>
     </section>
 
+    <!-- Status banner -->
+    <section class="max-w-site mx-auto px-6 pb-10">
+      <div class="max-w-[820px] mx-auto bg-red-50/60 border border-red-200 rounded-xl p-5 flex items-start gap-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-red-500 mt-2 shrink-0" aria-hidden="true"></span>
+        <div>
+          <p class="font-semibold text-gray-900 text-[15px] mb-1">Rewind status: discontinued (Dec 2025)</p>
+          <p class="text-gray-600 text-[14px] leading-relaxed">
+            Meta&apos;s acquisition folded Limitless into its wearables team. rewind.ai is offline.
+            Existing Rewind data is not portable to Meta&apos;s products. If you are here for a replacement, see below.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Picking the right alternative -->
     <section class="max-w-site mx-auto px-6 pb-12">
       <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
         <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
@@ -65,34 +84,40 @@ const productSchema = {
             <span class="font-semibold text-gray-900">Pick Skilly if</span>
           </div>
           <p class="text-gray-600 leading-relaxed text-[15px]">
-            You are <strong class="text-gray-900">learning a new app</strong> and the problem is right now —
-            you want a voice to ask &ldquo;where is the bevel modifier?&rdquo; and see your cursor fly to it.
-            You do not want weeks of screen recording sitting on disk.
+            You liked that Rewind <strong class="text-gray-900">understood what was on your screen</strong> —
+            and what you actually want is a <strong class="text-gray-900">tutor</strong> that answers questions
+            about the app you are in, not a recording of everything you have ever done.
+            Voice in, voice out, cursor moves to the right button.
           </p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
-            <span class="font-semibold text-gray-900">Pick Rewind if</span>
+            <span class="font-semibold text-gray-900">Pick Screenpipe if</span>
           </div>
           <p class="text-gray-600 leading-relaxed text-[15px]">
-            You want a <strong class="text-gray-900">personal memory</strong> — searchable archive of every meeting, page,
-            and conversation. You are fine with continuous recording in exchange for being able to recall anything later.
+            You want the <strong class="text-gray-900">personal-memory</strong> feature specifically —
+            continuous screen + audio recording you can search later.
+            <a href="https://github.com/mediar-ai/screenpipe" target="_blank" rel="noopener" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">Screenpipe</a>
+            is the open-source successor most Rewind refugees have moved to.
+            This is not what Skilly does — we would rather send you there honestly than sell you the wrong tool.
           </p>
         </div>
       </div>
     </section>
 
+    <!-- Historical comparison -->
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[960px] mx-auto">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-2 text-center">Feature by feature</h2>
+        <p class="text-center text-gray-500 text-sm mb-6">Rewind column reflects the product&apos;s state before the December 2025 shutdown.</p>
         <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <table class="w-full text-left text-[15px]">
             <thead class="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
                 <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
-                <th class="px-5 py-3.5 font-semibold text-gray-600">Rewind</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">Rewind (discontinued)</th>
               </tr>
             </thead>
             <tbody>
@@ -112,7 +137,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want to try Skilly?</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky.</p>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
         <a
           href={DOWNLOAD_URL}
           data-ph-event="web_cta_download_clicked"

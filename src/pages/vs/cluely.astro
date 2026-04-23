@@ -13,10 +13,10 @@ import { DOWNLOAD_URL } from '../../data/config.ts';
 
 const title = 'Skilly vs Cluely — which AI screen assistant fits your workflow?';
 const description =
-  'Skilly is a voice-first AI tutor that watches your Mac screen and teaches you live. Cluely is an AI meeting and interview helper. Here is the honest feature-by-feature breakdown so you can pick the right one.';
+  'Skilly is a voice-first AI tutor that watches your Mac screen and teaches you live. Cluely positions as an "undetectable AI meeting assistant" for live calls, interviews, and sales. Honest feature-by-feature breakdown so you can pick the right one.';
 
 const comparisonRows = [
-  { feature: 'Primary use case', skilly: 'Live tutor for any app you are learning (Blender, Figma, Xcode…)', cluely: 'Real-time coach during meetings, calls, and interviews' },
+  { feature: 'Primary use case', skilly: 'Live tutor for any app you are learning (Blender, Figma, Xcode…)', cluely: 'Real-time assistant during live meetings, calls, sales pitches, and interviews — marketed as "undetectable"' },
   { feature: 'Trigger', skilly: 'Voice-gated: screen is captured only when you press push-to-talk or speak in Live Tutor mode', cluely: 'Always-on during a session — continuously listens + reads your screen' },
   { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', cluely: 'macOS + Windows desktop apps' },
   { feature: 'How it guides', skilly: 'Moves your cursor to the exact UI element + live transcript beside it', cluely: 'Shows AI-generated prompts and answers in an overlay window' },
@@ -24,7 +24,7 @@ const comparisonRows = [
   { feature: 'Language support', skilly: '20+ languages auto-detected via OpenAI Realtime', cluely: 'English-primary with multilingual support' },
   { feature: 'Model layer', skilly: 'Single-call OpenAI Realtime API (voice-to-voice, lower latency)', cluely: 'Multi-model, proprietary pipeline' },
   { feature: 'Privacy posture', skilly: 'Screen capture gated by voice activity. macOS Screen Recording permission required and revokable anytime.', cluely: 'Continuous screen + audio access during an active session' },
-  { feature: 'Open source', skilly: 'Yes — Apache-2.0, fork of Farza\'s Clicky (github.com/tryskilly/skilly)', cluely: 'No — proprietary' },
+  { feature: 'Open source', skilly: 'Yes — Apache-2.0 (fork of farzaa/clicky, MIT)', cluely: 'No — proprietary' },
   { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', cluely: 'Paid tiers starting around $20/month' },
 ];
 
@@ -54,8 +54,8 @@ const productSchema = {
         </h1>
         <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
           Both are AI tools that see what is on your screen. They are built for very different jobs.
-          Skilly teaches you how to use an app. Cluely coaches you during a live meeting or interview.
-          Here is the breakdown without the marketing gloss.
+          Skilly teaches you how to use an app. Cluely positions itself as an <em>undetectable</em>
+          assistant for live calls, sales pitches, and interviews. Here is the breakdown without the marketing gloss.
         </p>
       </div>
     </section>
@@ -80,8 +80,9 @@ const productSchema = {
             <span class="font-semibold text-gray-900">Pick Cluely if</span>
           </div>
           <p class="text-gray-600 leading-relaxed text-[15px]">
-            You want <strong class="text-gray-900">real-time help during a live call</strong> — sales pitches, interviews, negotiations.
-            You are fine with a closed-source tool that continuously reads your screen and audio during a session,
+            You want <strong class="text-gray-900">real-time help during a live call</strong> — sales pitches, interviews, negotiations —
+            and are comfortable with its <em>undetectable</em> positioning (it is designed to stay invisible to meeting software and other participants).
+            You are fine with a closed-source tool that reads your screen and audio during a session,
             and you need Windows support.
           </p>
         </div>
@@ -119,7 +120,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want to try Skilly?</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Fork of Farza&apos;s open-source Clicky, Apache-2.0.</p>
+        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
         <a
           href={DOWNLOAD_URL}
           data-ph-event="web_cta_download_clicked"
