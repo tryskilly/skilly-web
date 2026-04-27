@@ -2,6 +2,8 @@
 // src/pages/learn/index.astro
 // /learn hub — lists every published article, grouped by category.
 import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const entries = await getCollection('learn');
@@ -11,7 +13,6 @@ const sorted = entries.sort(
 
 const siteUrl = 'https://tryskilly.app';
 
-// CollectionPage schema for the hub itself.
 const collectionSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -40,13 +41,7 @@ const breadcrumbSchema = {
   ],
 };
 
-const categories: Record<string, typeof sorted> = {};
-for (const entry of sorted) {
-  const cat = entry.data.category;
-  if (!categories[cat]) categories[cat] = [];
-  categories[cat].push(entry);
-}
-
+const categoryOrder = ['tutorial', 'how-to', 'comparison', 'concept', 'troubleshooting'];
 const categoryLabels: Record<string, string> = {
   tutorial: 'Tutorials',
   'how-to': 'How-to guides',
@@ -54,6 +49,17 @@ const categoryLabels: Record<string, string> = {
   concept: 'Concepts',
   troubleshooting: 'Troubleshooting',
 };
+
+const categories: Record<string, typeof sorted> = {};
+for (const entry of sorted) {
+  const cat = entry.data.category;
+  if (!categories[cat]) categories[cat] = [];
+  categories[cat].push(entry);
+}
+
+const orderedCategories = categoryOrder
+  .filter((c) => categories[c])
+  .map((c) => [c, categories[c]] as const);
 ---
 <Layout
   title="Learn — tutorials and guides for AI on Mac | Skilly"
@@ -64,58 +70,65 @@ const categoryLabels: Record<string, string> = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
-  <main class="max-w-5xl mx-auto px-6 py-16 md:py-24">
-    <nav class="text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
-      <ol class="flex items-center gap-2">
-        <li><a href="/" class="hover:text-amber-600">Home</a></li>
-        <li aria-hidden="true">›</li>
-        <li class="text-gray-700">Learn</li>
-      </ol>
-    </nav>
+  <Nav />
 
-    <header class="mb-16">
-      <p class="text-xs uppercase tracking-wider text-amber-600 font-semibold mb-3">Skilly Learn</p>
-      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
-        Tutorials and guides for AI on your Mac.
-      </h1>
-      <p class="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl">
-        Hands-on walkthroughs, honest comparisons, and the occasional deep dive into how voice + screen-aware AI actually works on macOS.
-      </p>
-    </header>
-
-    {sorted.length === 0 ? (
-      <p class="text-gray-500">No articles yet. Check back soon.</p>
-    ) : (
-      <div class="flex flex-col gap-16">
-        {Object.entries(categories).map(([cat, items]) => (
-          <section>
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
-              {categoryLabels[cat] ?? cat}
-            </h2>
-            <div class="grid gap-4 md:grid-cols-2">
-              {items.map((entry) => {
-                const slug = entry.id.replace(/\.md$/, '');
-                return (
-                  <a
-                    href={`/learn/${slug}/`}
-                    class="group p-6 rounded-2xl bg-white border border-gray-200 hover:border-amber-500/60 shadow-sm hover:shadow-md transition-all"
-                  >
-                    <h3 class="text-xl font-semibold text-gray-900 group-hover:text-amber-700 transition-colors leading-snug">
-                      {entry.data.title}
-                    </h3>
-                    <p class="mt-2 text-gray-600 leading-relaxed text-sm">{entry.data.description}</p>
-                    <p class="mt-4 text-xs text-gray-500">
-                      <time datetime={entry.data.pubDate.toISOString()}>
-                        {entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                      </time>
-                    </p>
-                  </a>
-                );
-              })}
-            </div>
-          </section>
-        ))}
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-12">
+      <div class="max-w-[760px] mx-auto text-center">
+        <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-amber-700 mb-4">Skilly Learn</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Tutorials & guides for AI on your Mac.
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 max-w-[640px] mx-auto">
+          Hands-on walkthroughs, honest comparisons, and the occasional deep dive into how voice + screen-aware AI actually works on macOS.
+        </p>
       </div>
-    )}
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20 lg:pb-24">
+      <div class="max-w-[1040px] mx-auto">
+        {sorted.length === 0 ? (
+          <p class="text-gray-500 text-center py-20">No articles yet. Check back soon.</p>
+        ) : (
+          <div class="flex flex-col gap-14">
+            {orderedCategories.map(([cat, items]) => (
+              <section>
+                <div class="flex items-baseline justify-between mb-6">
+                  <h2 class="text-2xl font-bold text-gray-900 tracking-tight">
+                    {categoryLabels[cat] ?? cat}
+                  </h2>
+                  <span class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">
+                    {items.length} {items.length === 1 ? 'article' : 'articles'}
+                  </span>
+                </div>
+                <div class="grid gap-4 md:grid-cols-2">
+                  {items.map((entry) => {
+                    const slug = entry.id.replace(/\.md$/, '');
+                    return (
+                      <a
+                        href={`/learn/${slug}/`}
+                        class="group p-7 rounded-xl bg-white border border-gray-200 hover:border-amber-500/60 shadow-sm hover:shadow-md transition-all"
+                      >
+                        <h3 class="text-[18px] font-semibold text-gray-900 group-hover:text-amber-700 transition-colors leading-snug tracking-tight">
+                          {entry.data.title}
+                        </h3>
+                        <p class="mt-2 text-[14px] text-gray-600 leading-relaxed">{entry.data.description}</p>
+                        <p class="mt-5 text-[11px] font-mono tracking-[0.06em] uppercase text-gray-400">
+                          <time datetime={entry.data.pubDate.toISOString()}>
+                            {entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                          </time>
+                        </p>
+                      </a>
+                    );
+                  })}
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
   </main>
+
+  <Footer />
 </Layout>
