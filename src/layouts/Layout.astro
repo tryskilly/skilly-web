@@ -168,7 +168,15 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
           persistence: 'memory',
           autocapture: false,
           capture_pageview: true,
-          disable_session_recording: true,
+          // Session replay enabled to investigate the activation funnel leak.
+          // Safe defaults: inputs are masked by default in PostHog, sampled
+          // moderately to keep storage in check. Re-evaluate after 30 days.
+          disable_session_recording: false,
+          session_recording: {
+            maskAllInputs: true,
+            maskTextSelector: '[data-ph-mask], input, textarea, [contenteditable="true"]',
+            recordCrossOriginIframes: false,
+          },
           loaded: function (ph) {
             ph.register({ source: 'web' });
           },

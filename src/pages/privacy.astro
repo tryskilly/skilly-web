@@ -23,8 +23,8 @@ const processors = [
   },
   {
     name: 'PostHog',
-    purpose: 'Anonymous product analytics (page views, button clicks, usage metrics)',
-    data: 'Event names, page URLs, anonymous session metadata. No cookies. No personal identifiers.',
+    purpose: 'Anonymous product analytics + session replay on the marketing website only (page views, button clicks, scroll/cursor paths) to find and fix UX issues',
+    data: 'Event names, page URLs, anonymous website session replays with all input fields automatically masked. No cookies. No persistent identifiers.',
     location: 'United States',
     link: 'https://posthog.com/privacy',
   },
@@ -102,7 +102,7 @@ const processors = [
             <li><strong class="text-gray-50">Account data</strong> — your email address and authentication identifiers via WorkOS AuthKit</li>
             <li><strong class="text-gray-50">Billing data</strong> — subscription status, held by Polar. We never see your full card number.</li>
             <li><strong class="text-gray-50">Usage metrics</strong> — anonymous per-session numbers: session length, turn count, token counts, feature usage</li>
-            <li><strong class="text-gray-50">Website analytics</strong> — anonymous page views and click events via PostHog (no cookies, no cross-session tracking)</li>
+            <li><strong class="text-gray-50">Website analytics</strong> — anonymous page views, click events, and session replays of website visits via PostHog. Replays show scroll and cursor paths to help us find UX problems; all input fields (email, etc.) are automatically masked. No cookies. No cross-session tracking.</li>
             <li><strong class="text-gray-50">Waitlist data</strong> — if you join the waitlist, we store your email and chosen platform in our Resend audience</li>
           </ul>
         </section>
@@ -116,7 +116,7 @@ const processors = [
             <li>Audio recordings of your voice</li>
             <li>Screenshots of your screen</li>
             <li>The content of your prompts or Skilly\u2019s responses</li>
-            <li>Keystrokes, cursor position, or any other device telemetry beyond what's needed for a single live teaching session</li>
+            <li>Keystrokes, cursor position, or any other device telemetry from the macOS app beyond what's needed for a single live teaching session (note: the marketing website at tryskilly.app does record anonymous cursor paths via PostHog session replay to find UX issues — see "Website analytics" above)</li>
           </ul>
           <p class="mt-3">
             Audio and screen data are streamed to OpenAI for real-time processing during a teaching session and are not retained by us afterward. Only anonymous aggregate metrics about the session are kept.
