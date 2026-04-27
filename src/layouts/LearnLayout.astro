@@ -1,0 +1,235 @@
+---
+// src/layouts/LearnLayout.astro
+// Wraps base Layout.astro and injects per-article Article + optional HowTo +
+// optional FAQPage + BreadcrumbList + Person schema. Used by every /learn/* page.
+import Layout from './Layout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'learn'>;
+}
+
+const { entry } = Astro.props;
+const { data, slug } = entry as any; // slug exposed by glob loader
+const articleSlug = slug ?? entry.id.replace(/\.md$/, '');
+
+const siteUrl = 'https://tryskilly.app';
+const articleUrl = `${siteUrl}/learn/${articleSlug}/`;
+const ogImage = data.ogImage ?? data.heroImage ?? '/og-image.png';
+
+// Person schema for the founder — establishes E-E-A-T entity signal.
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: data.author,
+  url: 'https://x.com/moelabs_dev',
+  sameAs: [
+    'https://x.com/moelabs_dev',
+    'https://github.com/eng-mohamedszaied',
+  ],
+  jobTitle: 'Founder, Skilly',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Skilly',
+    url: siteUrl,
+  },
+};
+
+// Article schema — the main page-level entity.
+const articleSchema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.description,
+  datePublished: data.pubDate.toISOString(),
+  dateModified: (data.updatedDate ?? data.pubDate).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: data.author,
+    url: 'https://x.com/moelabs_dev',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Skilly',
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/skilly-mark.png`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': articleUrl,
+  },
+  url: articleUrl,
+  image: new URL(ogImage, siteUrl).toString(),
+  keywords: data.tags.join(', '),
+};
+
+// BreadcrumbList — Home > Learn > {Article}
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Learn',
+      item: `${siteUrl}/learn/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: data.title,
+      item: articleUrl,
+    },
+  ],
+};
+
+// Optional HowTo schema — enabled when article frontmatter has howTo block.
+const howToSchema = data.howTo
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: data.title,
+      description: data.description,
+      ...(data.howTo.totalTime && { totalTime: data.howTo.totalTime }),
+      ...(data.howTo.tools && {
+        tool: data.howTo.tools.map((name: string) => ({
+          '@type': 'HowToTool',
+          name,
+        })),
+      }),
+      ...(data.howTo.supplies && {
+        supply: data.howTo.supplies.map((name: string) => ({
+          '@type': 'HowToSupply',
+          name,
+        })),
+      }),
+      step: data.howTo.steps.map((step: any, i: number) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        name: step.name,
+        text: step.text,
+        ...(step.image && { image: step.image }),
+      })),
+    }
+  : null;
+
+// Optional FAQPage schema — enabled when article has faq frontmatter.
+const faqSchema = data.faq && data.faq.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: data.faq.map((q: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: q.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: q.answer,
+        },
+      })),
+    }
+  : null;
+
+const formattedDate = data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+<Layout
+  title={`${data.title} — Skilly`}
+  description={data.description}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
+    {howToSchema && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(howToSchema)} />
+    )}
+    {faqSchema && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+    )}
+  </Fragment>
+
+  <main class="max-w-3xl mx-auto px-6 py-16 md:py-24">
+    <nav class="text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-amber-600">Home</a></li>
+        <li aria-hidden="true">›</li>
+        <li><a href="/learn/" class="hover:text-amber-600">Learn</a></li>
+        <li aria-hidden="true">›</li>
+        <li class="text-gray-700 truncate">{data.title}</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-amber-600 font-semibold mb-3">
+          {data.category}
+        </p>
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
+          {data.title}
+        </h1>
+        <p class="mt-4 text-lg text-gray-600 leading-relaxed">{data.description}</p>
+        <div class="mt-6 flex items-center gap-3 text-sm text-gray-500">
+          <span>By {data.author}</span>
+          <span aria-hidden="true">•</span>
+          <time datetime={data.pubDate.toISOString()}>{formattedDate}</time>
+          {data.howTo?.totalTime && (
+            <>
+              <span aria-hidden="true">•</span>
+              <span>~{data.howTo.totalTime.replace('PT', '').replace('M', ' min').replace('H', ' hr ')}</span>
+            </>
+          )}
+        </div>
+      </header>
+
+      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-a:text-amber-600 prose-a:no-underline hover:prose-a:underline prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-amber-700 prose-code:before:content-none prose-code:after:content-none">
+        <slot />
+      </div>
+
+      {data.faq && data.faq.length > 0 && (
+        <section class="mt-16 pt-12 border-t border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently asked questions</h2>
+          <div class="flex flex-col gap-3">
+            {data.faq.map((q: { question: string; answer: string }) => (
+              <details class="group bg-white rounded-2xl border border-gray-200 hover:border-amber-500/40 shadow-sm">
+                <summary class="list-none cursor-pointer px-6 py-5 flex items-center justify-between gap-4 text-[17px] font-semibold text-gray-900">
+                  <span>{q.question}</span>
+                  <span aria-hidden="true" class="text-gray-400 group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <div class="px-6 pb-5 text-gray-700 leading-relaxed">{q.answer}</div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <aside class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-amber-50 to-amber-100/40 border border-amber-200/60">
+        <p class="text-xs uppercase tracking-wider text-amber-700 font-semibold mb-2">Try Skilly</p>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">
+          A voice-first AI tutor that watches your screen.
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Hold Control+Option, ask out loud, and Skilly walks you through whatever app you're stuck in — Blender, Figma, Xcode, anything on Mac. 15 minutes free, no card.
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
+        >
+          Try Skilly free →
+        </a>
+      </aside>
+    </article>
+  </main>
+</Layout>

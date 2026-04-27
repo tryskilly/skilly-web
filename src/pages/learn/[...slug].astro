@@ -1,0 +1,20 @@
+---
+// src/pages/learn/[...slug].astro
+// Dynamic route — renders every markdown article in the learn collection.
+import { getCollection, render } from 'astro:content';
+import LearnLayout from '../../layouts/LearnLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('learn');
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/\.md$/, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<LearnLayout entry={entry}>
+  <Content />
+</LearnLayout>
