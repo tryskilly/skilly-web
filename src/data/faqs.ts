@@ -29,6 +29,11 @@ export const faqs: Faq[] = [
   },
   // The rest \u2014 collapsed by default
   {
+    question: 'Can I bring my own OpenAI API key?',
+    answer:
+      'Coming soon. We\u2019re adding a BYOK plan at a lower price for users with their own OpenAI Realtime credits \u2014 we\u2019re prioritizing the build based on demand. Email hello@tryskilly.app with subject "BYOK" and we\u2019ll notify you the moment it ships, plus lock in early-access pricing for you.',
+  },
+  {
     question: 'What is Skilly, exactly?',
     answer:
       'A friendly AI tutor that lives in your Mac menu bar. You talk, it sees your screen, moves the cursor to show you what to click, and speaks the answer in your language. Think of it as a patient expert sitting next to you.',
@@ -67,10 +72,5 @@ export const faqs: Faq[] = [
     question: 'Will the price change after beta?',
     answer:
       'Yes. Beta users keep the $19 price forever \u2014 even after we add more features. New users will see different pricing once the beta ends.',
-  },
-  {
-    question: 'Can I use my own OpenAI API key?',
-    answer:
-      'Not yet. If many people want it, we\u2019ll add the option soon (at a lower price).',
   },
 ];

@@ -47,6 +47,11 @@ const cta = primaryCta();
           <p class="text-sm text-gray-600 leading-relaxed">{betaTier.tagline}</p>
         </div>
 
+        <!-- Free-trial pre-headline (per pricing-bounce fix 2026-04-28).
+             Establishes the trial frame BEFORE the $19 number registers, to
+             reduce price-shock for visitors who scroll into pricing. -->
+        <p class="text-[15px] font-semibold text-amber-700 mb-2">First 15 minutes are free. Then decide.</p>
+
         <div class="mb-2">
           <div class="flex items-baseline gap-1">
             <span class="text-6xl font-bold text-gray-900 tracking-tight">{betaTier.price}</span>
@@ -58,14 +63,15 @@ const cta = primaryCta();
         <a
           href={cta.href}
           data-ph-event="web_cta_download_clicked"
-          data-ph-prop-location={cta.analyticsLocation}
-          class="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-lg text-[15px] font-semibold mt-6 mb-5 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg transition-all"
+          data-ph-prop-location="pricing_section"
+          class="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-lg text-[15px] font-semibold mt-6 mb-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg transition-all"
         >
-          {cta.label}
+          Start free — try Skilly first
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 12L12 4M12 4H5M12 4V11"/>
           </svg>
         </a>
+        <p class="text-center text-[13px] text-gray-500 mb-5">15 minutes free, no card. Decide after.</p>
 
         <!-- Guarantees row — addresses regret aversion -->
         <div class="flex flex-col gap-2 mb-6">
