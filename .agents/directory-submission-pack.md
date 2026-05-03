@@ -92,9 +92,9 @@ Status legend: `☐ todo` · `◐ in progress` · `☑ submitted` · `— skip`
 | 4 | **There's An AI For That (TAAFT)** | https://theresanaiforthat.com/launch/ | — SKIPPED — paid only ($49 / $347 tiers, confirmed 2026-04-18 by browser-use agent) | — |
 | 4.5 | **FutureTools** (Matt Wolfe) | https://www.futuretools.io/submit-a-tool | ✅ Submitted via browser-use agent 2026-04-18 (Gemini 2.5 Flash) — category Productivity, Freemium tier, awaiting review | ☑ |
 | 5 | **Futurepedia** | https://www.futurepedia.io/submit-tool | AI tools SEO-driven | ☐ |
-| 6 | **Toolify.ai** | https://www.toolify.ai/tool/submit-tool | AI tools directory | ☐ |
-| 7 | **AIToolsClub** | https://aitoolsclub.com/submit-ai-tool/ | AI tools listing | ☐ |
-| 8 | **StartupBase** | https://startupbase.io/submit | General startup directory | ☐ |
+| 6 | **Toolify.ai** | https://www.toolify.ai/tool/submit-tool | — SKIPPED — "Do it myself" path costs $99 (free path is AI-auto-filled, low control). Confirmed via browser-use agent 2026-05-04 | — |
+| 7 | **AIToolsClub** | https://aitoolsclub.com/submit-ai-tool/ | — DEAD URL — /submit-ai-tool/ returns 404, site has unbreakable Google Subscribe popup wall (2026-05-04) | — |
+| 8 | **StartupBase** | https://startupbase.io/submit | — BLOCKED — magic-link email or social OAuth required, no programmatic path. Manual login needed (2026-05-04) | ◐ |
 | 9 | **Uneed** (DR 74, Do Follow) | https://uneed.best/submit-a-tool | ✅ Submitted 2026-04-18 via CDP agent — *"Product is in the waiting line"* (pending review) | ☑ |
 | 10 | **AIXploria** | https://www.aixploria.com/en/submit-ai/ | Multilingual AI directory | ☐ |
 | 11 | **StartupStash** (DR 67, Do Follow) | https://startupstash.com/add-listing/ | ✅ Submitted 2026-04-18 via agent — *"Thank you for applying to get listed"* | ☑ |

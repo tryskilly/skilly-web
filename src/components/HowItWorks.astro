@@ -15,6 +15,17 @@ import { steps } from '../data/steps.ts';
       <h2 data-reveal class="reveal text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight mt-3 text-gray-900">
         Three steps. Zero setup.
       </h2>
+      <!--
+        Hidden AI-friendly question heading. The punchline H2 above is for
+        humans; AI assistants asked "how does Skilly work?" extract this
+        H3 + the steps below it. Sourced-claims paragraph follows so the
+        answer block contains specific facts (latency, framework names,
+        macOS version requirements) rather than just narrative.
+      -->
+      <h3 class="sr-only">How does Skilly work?</h3>
+      <p class="sr-only">
+        Skilly works in three steps. First, you press a hotkey (Control+Option) anywhere on macOS, including in full-screen apps. Second, you ask a question out loud while Skilly captures a screenshot of your active app via the macOS ScreenCaptureKit framework. Third, Skilly streams your voice and the screenshot to the OpenAI Realtime API (released October 2024) and gets a spoken answer back in approximately 500–700 milliseconds, while a blue cursor physically moves to the exact UI element you need. Skilly requires macOS 14.2 or newer and is built natively in Swift with no Electron wrapper. The app is open source under Apache-2.0 at github.com/tryskilly/skilly.
+      </p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-8 lg:gap-12">

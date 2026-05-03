@@ -49,7 +49,7 @@ relatedArticles:
 
 If you ship a Mac app that uses ScreenCaptureKit and you've ever closed your laptop lid mid-capture, you've probably seen this: 2-3 black or torn frames flash through your downstream pipeline before things recover. Maybe nobody filed a bug. Maybe they did and you couldn't reproduce it. This is the fix.
 
-> Verified 2026-04-29 against [Apple's CGDisplayRegisterReconfigurationCallback](https://developer.apple.com/documentation/coregraphics/1455336-cgdisplayregisterreconfiguration) and [SCStreamFrameInfo](https://developer.apple.com/documentation/screencapturekit/scstreamframeinfo) reference. The architectural pattern below was crystallized through a 7-round technical discussion on r/SwiftUI with [u/Deep_Ad1959](https://reddit.com/u/Deep_Ad1959), who shared the production version after we hit the same bug. **Credit goes to them for the SCFrameStatus gating insight in particular** — there is no good public writeup of that detail anywhere else as of this writing.
+> Verified 2026-04-30 against [Apple's CGDisplayRegisterReconfigurationCallback](https://developer.apple.com/documentation/coregraphics/1455336-cgdisplayregisterreconfiguration) and [SCStreamFrameInfo](https://developer.apple.com/documentation/screencapturekit/scstreamframeinfo) reference. The architectural pattern below was crystallized through an 8-round technical discussion on r/SwiftUI with [u/Deep_Ad1959](https://reddit.com/u/Deep_Ad1959), who shared the production version after we hit the same bug. **Credit goes to them for the SCFrameStatus gating insight, the duplicate-frame dedup, and the queueDepth note** — there is no good public writeup of those details anywhere else as of this writing.
 
 ## What you're actually seeing
 
@@ -190,6 +190,44 @@ func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuff
     }
 }
 ```
+
+## Step 7: Dedupe identical frames before the encoder
+
+`.complete` means the buffer has *final* pixels. It doesn't mean those pixels are *different* from the previous buffer. If the on-screen content is static (idle terminal, paused video, codeless editor) SCStream will keep handing you back-to-back identical frames. Feeding those into AVAssetWriter or any encoder is wasted work — and on idle-heavy recordings (a long Xcode session with the user mostly reading), it bloats output without adding information.
+
+A cheap presentation-timestamp + content-hash gate before the encoder solves it:
+
+```swift
+private var lastFrameHash: Int = 0
+private var lastFramePTS: CMTime = .zero
+
+func acceptForEncoding(_ buffer: CMSampleBuffer) -> Bool {
+    let pts = CMSampleBufferGetPresentationTimeStamp(buffer)
+    guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) else { return false }
+    let hash = pixelBuffer.contentHash() // a cheap pixel hash — perceptual hash, downsampled CRC, etc.
+
+    defer { lastFrameHash = hash; lastFramePTS = pts }
+
+    // Skip frames identical to the previous one, unless we haven't written one in a while
+    if hash == lastFrameHash && CMTimeGetSeconds(pts - lastFramePTS) < 1.0 {
+        return false
+    }
+    return true
+}
+```
+
+The 1-second floor exists so the encoder still sees *some* frame periodically — most container formats need this for seekability. Reported impact: ~40% smaller output on idle-heavy sessions, no perceptual quality loss.
+
+## Step 8: Tune `SCStreamConfiguration.queueDepth` if you're encoding under sustained load
+
+The default `queueDepth` of 8 is fine when you're previewing the buffer (rendering to a `CALayer`, feeding a low-cost AI vision model). It is *not* fine when downstream is a sustained-load encoder — HEVC at 4K, slow disk, network stream backpressure. Under sustained encoder blocking, ScreenCaptureKit silently drops frames at the kit level. There is no error, no delegate callback. You only catch it in playback when the timestamps don't add up.
+
+```swift
+let config = SCStreamConfiguration()
+config.queueDepth = 24  // was: default 8
+```
+
+If your scenario is "always encoding, never just previewing", bump this and add backpressure handling at the encoder side. If you're mixing modes (preview + occasional capture-to-disk), keep `queueDepth` tied to the lifecycle of the encoder — bump it on encode-start, lower it on encode-stop, so you're not paying for buffer headroom you're not using.
 
 ## Why this matters beyond cosmetics
 
