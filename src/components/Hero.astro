@@ -72,7 +72,14 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
         Speak — Skilly sees your screen, <strong class="font-semibold text-gray-900">moves your cursor</strong> to show you exactly where to click, and talks you through it <strong class="font-semibold text-gray-900">in your language</strong>. Works with every app on your Mac.
       </p>
 
-      <div class="flex flex-wrap gap-3 items-center justify-center mb-4">
+      <!--
+        DESKTOP CTA — visible by default, hidden on mobile devices.
+        ~65% of social-referrer traffic comes from phones; without
+        the mobile fallback below, those visitors saw a "Download for
+        Mac" CTA they physically cannot action and bounced. PostHog
+        90-day data: 40+ social-referrer visits, 0 download clicks.
+      -->
+      <div class="hero-cta-desktop flex flex-wrap gap-3 items-center justify-center mb-4">
         <a
           href={DOWNLOAD_URL}
           data-ph-event="web_cta_download_clicked"
@@ -95,6 +102,52 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
             <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
           </svg>
           Watch 90-sec demo
+        </button>
+      </div>
+
+      <!--
+        MOBILE FALLBACK — hidden by default, shown when an inline script
+        in <head> detects iPhone / Android / iPad UA and adds the
+        "is-mobile-ua" class to <html>. Posts to /api/waitlist with
+        platform=ios (the existing endpoint accepts ios/windows/linux/
+        macos_beta). Captures intent we'd otherwise lose entirely.
+
+        Two-line UX: clear explanation + email + watch-demo fallback.
+      -->
+      <div class="hero-cta-mobile mb-4 max-w-[420px] mx-auto" hidden>
+        <p class="text-[15px] text-gray-700 mb-3 text-center">
+          Skilly is <strong>Mac-only today</strong> (iOS coming soon). Drop your email and we'll ping you the moment it lands.
+        </p>
+        <form data-hero-mobile-waitlist class="flex flex-col sm:flex-row gap-2 mb-2">
+          <label class="sr-only" for="hero-mobile-email">Email</label>
+          <input
+            id="hero-mobile-email"
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+            class="flex-1 px-4 py-3 text-[15px] rounded-lg border border-gray-300 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 bg-white"
+          />
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md rounded-lg px-5 py-3 text-[15px] font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Notify me
+          </button>
+        </form>
+        <p data-hero-mobile-status class="text-[13px] text-center min-h-[16px]" aria-live="polite"></p>
+        <button
+          type="button"
+          data-video-modal-open={DEMO_VIDEO_ID}
+          data-ph-event="web_demo_video_played"
+          data-ph-prop-location="hero_mobile_button"
+          class="w-full mt-2 inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-6 py-3 text-[15px] font-semibold transition-all"
+        >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
+          </svg>
+          Watch 90-sec demo first
         </button>
       </div>
 
@@ -222,6 +275,85 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
   <VideoModal />
 </section>
 
+<!--
+  Mobile UA detection — runs synchronously BEFORE first paint so there's
+  no flash of the wrong CTA. Sets a class on <html> that the CSS below
+  uses to swap which CTA block is visible. is:inline keeps this out of
+  the bundler so it ships exactly as written, in the right load order.
+-->
+<script is:inline>
+  (function () {
+    var ua = navigator.userAgent || '';
+    var isMobile = /iPhone|Android.+Mobile|iPad|iPod/.test(ua);
+    if (isMobile) document.documentElement.classList.add('is-mobile-ua');
+  })();
+</script>
+
+<!--
+  Mobile fallback form-submit handler. Posts to /api/waitlist with
+  platform=ios, mirrors the existing Pricing.astro waitlist UX (success
+  state replaces form, error state shows inline). Tracked separately
+  in PostHog as web_mobile_waitlist_submitted so we can attribute
+  recovered conversions to this fallback specifically.
+-->
+<script>
+  const form = document.querySelector('[data-hero-mobile-waitlist]');
+  if (form instanceof HTMLFormElement) {
+    const status = document.querySelector('[data-hero-mobile-status]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!(emailInput instanceof HTMLInputElement) || !(submitBtn instanceof HTMLButtonElement)) return;
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Joining…';
+      if (status) {
+        status.textContent = '';
+        status.className = 'text-[13px] text-center min-h-[16px]';
+      }
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, platform: 'ios' }),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error ?? `Request failed with status ${res.status}`);
+        }
+
+        // Track this specifically so we can measure the fallback's recovery effect.
+        // posthog is loaded globally by posthog-events.ts
+        (window as unknown as { posthog?: { capture: (e: string, p: Record<string, unknown>) => void } }).posthog?.capture('web_mobile_waitlist_submitted', {
+          platform: 'ios',
+          location: 'hero_mobile_fallback',
+          $set: { email, waitlist_platform: 'ios' },
+        });
+
+        // Replace the form with a success message.
+        form.setAttribute('hidden', '');
+        if (status) {
+          status.textContent = `Got it. We'll email ${email} when iOS launches.`;
+          status.className = 'text-[14px] text-center text-emerald-700 font-medium min-h-[16px]';
+        }
+      } catch (err) {
+        console.error('[hero-mobile-waitlist]', err);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Notify me';
+        if (status) {
+          status.textContent = 'Something went wrong. Please try again.';
+          status.className = 'text-[13px] text-center text-red-600 min-h-[16px]';
+        }
+      }
+    });
+  }
+</script>
+
 <style>
   /* Pulsing halo around the hero play button — slower, subtler than the
      default Tailwind `animate-ping` so it reads as "live demo" without
@@ -236,5 +368,13 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
   .hero-play-btn {
     z-index: 10;
   }
+
+  /* Mobile-fallback CTA swap. The mobile block ships as [hidden] so it
+     does not flash for desktop visitors before the inline UA-detect
+     script runs. When the script flags mobile, swap visibility. The
+     desktop block stays visible by default (most cold checks here). */
+  :global(html.is-mobile-ua) .hero-cta-desktop { display: none; }
+  :global(html.is-mobile-ua) .hero-cta-mobile { display: block; }
+  :global(html.is-mobile-ua) .hero-cta-mobile[hidden] { display: block; }
 </style>
 
