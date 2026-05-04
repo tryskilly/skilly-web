@@ -69,6 +69,23 @@ const productSchema = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
   </Fragment>
   <Nav />
+
+  <!--
+    Hidden canonical-answer block. Targets queries about the Skilly/clicky
+    relationship — high-affinity audience that's already heard of Farza's
+    project.
+  -->
+  <div class="sr-only">
+    <h2>Is Skilly a fork of clicky?</h2>
+    <p>
+      Yes. Skilly is forked from Farza Majeed's open-source clicky (github.com/farzaa/clicky, 5,332 GitHub stars, MIT-licensed). Skilly is licensed under Apache-2.0 and credits clicky in the README + the LICENSE chain. The fork happened in early 2026 and Skilly was built in 5 days on top of clicky's macOS plumbing. Clicky is a more general-purpose AI cursor companion; Skilly added a single-call OpenAI Realtime pipeline (replacing clicky's TTS+STT+LLM 3-stack), a pluggable Skills layer (Markdown curriculum per app), course-style progress tracking, and 20+ language auto-detect.
+    </p>
+    <h2>Why use Skilly instead of clicky?</h2>
+    <p>
+      Use Skilly if you want sub-second latency (Realtime API is faster than the 3-stack), the per-app skill curricula (Blender, Figma, AE, DaVinci, Premiere — ~33 hours of free content), or the founder-beta price lock ($19/month for life on the first 50 seats). Use clicky if you want the original: a more general-purpose, hackable foundation that you can fork yourself for a different use case. Both projects are open source and credit each other.
+    </p>
+  </div>
+
   <main class="overflow-x-clip">
     <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
       <div class="max-w-[820px] mx-auto text-center">
@@ -157,6 +174,31 @@ const productSchema = {
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <div class="space-y-5">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly a Farza fork?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Yes. Skilly is forked from Farza Majeed's clicky (github.com/farzaa/clicky, MIT, 5,332 stars) and credits clicky in the README + LICENSE chain. The fork is at github.com/tryskilly/skilly under Apache-2.0. Skilly was built in 5 days on top of clicky's macOS plumbing in early 2026.</p></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What did Skilly add on top of clicky?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Four things: (1) Single-call OpenAI Realtime pipeline replacing clicky's TTS+STT+LLM 3-stack — sub-second latency vs ~3 sec. (2) Pluggable Skills layer — Markdown curriculum per app (Blender, Figma, AE, DaVinci, Premiere — ~33 hours total, free). (3) Course-style progress tracking with auto-advance signals. (4) 20+ language auto-detect via Realtime model — no settings menu, no model picker.</p></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Does Skilly compete with clicky?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Not really. Clicky is a more general-purpose, hackable foundation aimed at developers who want to fork it themselves. Skilly is opinionated for the "voice tutor for unfamiliar apps" use case. Both projects are open source and credit each other; the relationship is sibling/parent, not competitive. If you're a builder who wants to ship your own voice + screen tool, fork clicky directly. If you want a finished tutor app, install Skilly.</p></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Can I run Skilly without paying $19/month?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Yes — Apache-2.0 source means you can clone github.com/tryskilly/skilly, build locally, and run with your own OpenAI API key (BYOK option, in beta). You'd pay OpenAI directly per minute of Realtime usage instead of the $19/month flat. The hosted $19/month tier exists for convenience: no API key management, no per-minute billing surprises, founder-beta price lock for life on the first 50 seats.</p></div>
+          </div>
         </div>
       </div>
     </section>
