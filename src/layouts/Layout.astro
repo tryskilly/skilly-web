@@ -167,10 +167,11 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
           api_host: POSTHOG_HOST,
           persistence: 'memory',
           autocapture: false,
-          capture_pageview: true,
-          // Session replay enabled to investigate the activation funnel leak.
-          // Safe defaults: inputs are masked by default in PostHog, sampled
-          // moderately to keep storage in check. Re-evaluate after 30 days.
+          // Disable PostHog's auto-pageview: with persistence:'memory' it fires
+          // before campaign-param parsing populates super-properties, so utm_*
+          // fields never ride on the event. We fire $pageview manually in
+          // `loaded` after registering the parsed UTMs.
+          capture_pageview: false,
           disable_session_recording: false,
           session_recording: {
             maskAllInputs: true,
@@ -178,7 +179,16 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
             recordCrossOriginIframes: false,
           },
           loaded: function (ph) {
-            ph.register({ source: 'web' });
+            var superProps = { source: 'web' };
+            try {
+              var params = new URLSearchParams(window.location.search);
+              ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid'].forEach(function (k) {
+                var v = params.get(k);
+                if (v) superProps[k] = v;
+              });
+            } catch (e) {}
+            ph.register(superProps);
+            ph.capture('$pageview', { $current_url: window.location.href });
           },
         });
       })();
