@@ -85,6 +85,7 @@ export const POST: APIRoute = async ({ request }) => {
     }),
     resend.emails.send({
       from: FROM,
+      replyTo: email,
       to: FOUNDER_NOTIFICATION_ADDRESS,
       subject: notification.subject,
       html: notification.html,
