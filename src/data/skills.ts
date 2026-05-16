@@ -51,6 +51,11 @@ export const skills: Skill[] = [
     description: 'Video editing, trimming, color, titles, export',
   },
   {
+    name: 'Houdini',
+    status: 'available',
+    description: 'VFX simulations, Pyro and FLIP fluids, Karma rendering',
+  },
+  {
     name: 'Your app?',
     status: 'request',
     href: '#skill-request',
