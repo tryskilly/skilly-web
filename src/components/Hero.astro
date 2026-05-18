@@ -103,12 +103,22 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
         Mac" CTA they physically cannot action and bounced. PostHog
         90-day data: 40+ social-referrer visits, 0 download clicks.
       -->
-      <div class="hero-cta-desktop flex flex-wrap gap-3 items-center justify-center mb-4">
+      <!--
+        Single dominant Download CTA + demoted demo link.
+        2026-05-18 CRO change: prior layout had Download and Watch-Demo
+        as equally-sized side-by-side buttons. PostHog 14d showed
+        nav CTA outperforming hero 3:1 — the visual parity of the two
+        hero buttons was splitting attention. Promoting Download to
+        the only primary action and demoting demo to a text link
+        below should focus the click intent without losing the
+        preview-first path.
+      -->
+      <div class="hero-cta-desktop flex flex-col items-center gap-3 mb-4">
         <a
           href={DOWNLOAD_URL}
           data-ph-event="web_cta_download_clicked"
           data-ph-prop-location="hero"
-          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-10 py-4 text-[18px] font-semibold transition-all"
         >
           Try it free — Download for Mac
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -120,12 +130,12 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
           data-video-modal-open={DEMO_VIDEO_ID}
           data-ph-event="web_demo_video_played"
           data-ph-prop-location="hero_button"
-          class="inline-flex items-center gap-2 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-6 py-3.5 text-[17px] font-semibold transition-all"
+          class="inline-flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-[14px] font-medium underline underline-offset-4 decoration-gray-300 hover:decoration-gray-700 transition-colors"
         >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
           </svg>
-          Watch 90-sec demo
+          Watch 90-sec demo first
         </button>
       </div>
 
