@@ -9,6 +9,28 @@
 - [Terms](https://tryskilly.app/terms)
 - [Download (GitHub release)](https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg)
 - [Machine-readable pricing](https://tryskilly.app/pricing.md)
+- [Learn hub](https://tryskilly.app/learn): long-form tutorials covering macOS permissions, creative-tool workflows, and OpenAI Realtime API integration
+
+## Comparison pages
+
+- [Skilly vs Clicky](https://tryskilly.app/vs/clicky/): comparison with the upstream open-source project Skilly is forked from
+- [Skilly vs Cluely](https://tryskilly.app/vs/cluely/): comparison with the closed-source AI cursor/screen assistant
+- [Skilly vs Rewind](https://tryskilly.app/vs/rewind/): comparison with the macOS recall/search assistant
+- [Skilly vs Raycast AI](https://tryskilly.app/vs/raycast-ai/): comparison with the launcher-based AI assistant
+- [Skilly vs Gemini Live](https://tryskilly.app/vs/gemini-live/): comparison with Google's real-time voice assistant
+
+## Learn articles (tutorials and reference)
+
+- [How to add a Subdivision Surface modifier in Blender](https://tryskilly.app/learn/how-to-add-subdivision-surface-modifier-blender)
+- [How to add a Bevel modifier in Blender](https://tryskilly.app/learn/how-to-add-bevel-modifier-blender)
+- [How to enable Screen Recording permission on macOS](https://tryskilly.app/learn/enable-screen-recording-permission-macos)
+- [How to enable Accessibility permission on macOS](https://tryskilly.app/learn/enable-accessibility-permission-macos)
+- [How to use Auto Layout in Figma (2026)](https://tryskilly.app/learn/figma-auto-layout-tutorial)
+- [How to set up SwiftUI #Preview in Xcode](https://tryskilly.app/learn/swiftui-preview-macro-xcode)
+- [OpenAI Realtime API tutorial — voice + screen apps](https://tryskilly.app/learn/openai-realtime-api-tutorial)
+- [OpenAI MCP server tutorial — building tools for voice agents](https://tryskilly.app/learn/openai-mcp-server-tutorial)
+- [Best voice AI assistant for Mac in 2026](https://tryskilly.app/learn/best-voice-ai-assistant-mac-2026)
+- [ScreenCaptureKit lid-close fix](https://tryskilly.app/learn/screencapturekit-lid-close-fix)
 
 ## Pricing
 
@@ -29,13 +51,14 @@ Skilly works with any macOS app out of the box. Skills are optional expansion pa
 1. **Fresh knowledge** from the app's official documentation, beyond the AI's training cutoff
 2. **Structured curriculum** with stages, completion signals, and UI vocabulary — so Skilly can coach you through a course, not just answer one-off questions
 
-Five skills ship as examples:
+Six skills ship as examples:
 
 - Blender Fundamentals — 6 stages, from navigation to first render
 - After Effects Basics — compositions, layers, keyframes, effects
 - Premiere Pro Basics — timeline editing, transitions, export
 - DaVinci Resolve Basics — Cut, Edit, Color, Fairlight, Deliver pages
 - Figma Basics — frames, components, auto-layout, prototyping
+- Houdini Essentials — VFX simulations (Pyro, FLIP, RBD, Vellum) and Karma rendering for cinematic sequences
 
 A skill builder is on the roadmap so anyone can create a skill for any app or workflow.
 
