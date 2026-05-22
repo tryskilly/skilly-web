@@ -12,7 +12,7 @@ export const prerender = false;
 const FROM = 'Skilly <hello@send.tryskilly.app>';
 const REPLY_TO = 'hello@tryskilly.app';
 const FOUNDER_NOTIFICATION_ADDRESS = 'hello@tryskilly.app';
-const VALID_PLATFORMS: readonly WaitlistPlatform[] = ['windows', 'linux', 'ios', 'macos_beta'] as const;
+const VALID_PLATFORMS: readonly WaitlistPlatform[] = ['windows', 'linux', 'ios', 'macos_beta', 'updates'] as const;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface RequestBody {

@@ -1,23 +1,27 @@
 // src/lib/email-templates.ts
 
-export type WaitlistPlatform = 'windows' | 'linux' | 'ios' | 'macos_beta';
+export type WaitlistPlatform = 'windows' | 'linux' | 'ios' | 'macos_beta' | 'updates';
 
 const PLATFORM_LABELS: Record<WaitlistPlatform, string> = {
   windows: 'Windows',
   linux: 'Linux',
   ios: 'iOS / iPad',
   macos_beta: 'macOS Beta',
+  updates: 'Product updates',
 };
 
 export function confirmationEmail(opts: { platform: WaitlistPlatform }) {
   const platformLabel = PLATFORM_LABELS[opts.platform];
   const isBetaWaitlist = opts.platform === 'macos_beta';
+  const isUpdates = opts.platform === 'updates';
 
-  const bodyText = isBetaWaitlist
+  const bodyText = isUpdates
+    ? `Thanks for subscribing to Skilly product updates. We'll email you when a major release ships \u2014 BYOK improvements, new skills, big UX changes \u2014 one email per release, no marketing in between.`
+    : isBetaWaitlist
     ? `The Skilly beta is currently full. We\u2019ll email you the moment a slot opens up \u2014 no marketing in between.`
     : `Thanks for joining the Skilly waitlist for <span style="color:#F59E0B;font-weight:600;">${platformLabel}</span>. We'll send one email the day Skilly is available on your platform \u2014 no marketing in between.`;
 
-  const secondaryText = isBetaWaitlist
+  const secondaryText = isUpdates || isBetaWaitlist
     ? ``
     : `<p style="margin:0 0 32px;font-size:16px;line-height:1.6;color:#A3A39E;">
                 If you have an Apple Silicon Mac, you can try Skilly today \u2014 it's already shipping on macOS.
@@ -63,11 +67,15 @@ export function confirmationEmail(opts: { platform: WaitlistPlatform }) {
 </body>
 </html>`;
 
+  const textBody = isUpdates
+    ? `Thanks for subscribing to Skilly product updates. We'll email you when a major release ships — BYOK improvements, new skills, big UX changes — one email per release, no marketing in between.`
+    : isBetaWaitlist
+    ? `The Skilly beta is currently full. We'll email you the moment a slot opens up — no marketing in between.`
+    : `Thanks for joining the Skilly waitlist for ${platformLabel}. We'll send one email the day Skilly is available on your platform — no marketing in between.\n\nIf you have an Apple Silicon Mac, you can try Skilly today — it's already shipping on macOS.`;
+
   const text = `You're on the list.
 
-Thanks for joining the Skilly waitlist for ${platformLabel}. We'll send one email the day Skilly is available on your platform — no marketing in between.
-
-If you have an Apple Silicon Mac, you can try Skilly today — it's already shipping on macOS.
+${textBody}
 
 Visit tryskilly.app
 
@@ -77,11 +85,11 @@ You're receiving this because you signed up at tryskilly.app. If this wasn't you
 Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}
 `;
 
-  return {
-    subject: `You're on the Skilly waitlist`,
-    html,
-    text,
-  };
+  const subject = isUpdates
+    ? `You're subscribed to Skilly updates`
+    : `You're on the Skilly waitlist`;
+
+  return { subject, html, text };
 }
 
 export function notificationEmail(opts: { email: string; platform: WaitlistPlatform }) {

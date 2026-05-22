@@ -1,0 +1,120 @@
+---
+// src/components/NewsletterStrip.astro
+//
+// Always-visible email capture for product-update notifications. Added
+// 2026-05-22 after auditing the Resend waitlist audience and finding
+// it had 0 real signups in 42 days — existing waitlist surfaces all
+// gate on platform != Mac, so the ~65% of visitors who are Mac users
+// had no email path at all.
+//
+// Posts to /api/waitlist with platform=updates. Lives between FAQ and
+// Pricing so it catches scroll-past-the-demo, didn't-decide visitors.
+---
+<section id="updates" class="relative py-16 lg:py-20 px-6">
+  <div class="max-w-[680px] mx-auto">
+    <div
+      data-newsletter-wrapper
+      data-reveal
+      class="reveal bg-amber-50/40 rounded-[24px] border border-amber-200/70 p-9 lg:p-10 text-center"
+    >
+      <div class="w-12 h-12 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center mx-auto mb-4">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6.5l9 5.5 9-5.5" />
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+        </svg>
+      </div>
+
+      <h2 class="text-[26px] sm:text-[30px] font-bold tracking-tight text-gray-900 mb-3">
+        Want to know when v1.7 ships?
+      </h2>
+      <p class="text-[15px] sm:text-[16px] text-gray-700 leading-relaxed max-w-[480px] mx-auto mb-7">
+        One email per major release — BYOK upgrades, new skills, real UX changes. Zero marketing in between.
+      </p>
+
+      <form data-newsletter-form class="flex flex-col sm:flex-row gap-2.5 max-w-[440px] mx-auto">
+        <label class="sr-only" for="newsletter-email">Email address</label>
+        <input
+          id="newsletter-email"
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="you@example.com"
+          class="flex-1 px-4 py-3 text-[15px] rounded-lg border border-gray-300 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 bg-white"
+        />
+        <button
+          type="submit"
+          class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md rounded-lg px-6 py-3 text-[15px] font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Notify me
+        </button>
+      </form>
+      <p data-newsletter-status class="text-[13px] text-center mt-3 min-h-[16px]" aria-live="polite"></p>
+    </div>
+
+    <div
+      data-newsletter-success
+      hidden
+      class="bg-white rounded-[24px] border border-amber-500/30 shadow-sm p-10 text-center"
+    >
+      <div class="w-14 h-14 rounded-full bg-amber-500/10 border-2 border-amber-500/25 flex items-center justify-center mx-auto mb-4">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12l5 5L20 7" />
+        </svg>
+      </div>
+      <h3 class="text-[20px] font-semibold text-gray-900 mb-1">You're subscribed.</h3>
+      <p class="text-[14px] text-gray-600">We'll email <span data-newsletter-success-email class="text-amber-700 font-medium"></span> when the next major release ships.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-newsletter-form]');
+  const wrapper = document.querySelector<HTMLElement>('[data-newsletter-wrapper]');
+  const success = document.querySelector<HTMLElement>('[data-newsletter-success]');
+  const status = document.querySelector<HTMLElement>('[data-newsletter-status]');
+  const successEmail = document.querySelector<HTMLElement>('[data-newsletter-success-email]');
+  const button = form?.querySelector<HTMLButtonElement>('button[type=submit]');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form || !button) return;
+    const email = (form.querySelector('input[name=email]') as HTMLInputElement).value.trim();
+    if (!email) return;
+
+    if (status) status.textContent = '';
+    button.disabled = true;
+    button.textContent = 'Subscribing…';
+
+    try {
+      const r = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, platform: 'updates' }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        if (status) {
+          status.textContent = j.error || 'Something went wrong. Try again?';
+          status.style.color = '#B91C1C';
+        }
+        button.disabled = false;
+        button.textContent = 'Notify me';
+        return;
+      }
+      if (wrapper) wrapper.hidden = true;
+      if (success) success.hidden = false;
+      if (successEmail) successEmail.textContent = email;
+      // PostHog event so we can measure capture rate
+      const ph = (window as any).posthog;
+      if (ph?.capture) ph.capture('newsletter_subscribed', { source: 'pre_pricing_strip' });
+    } catch {
+      if (status) {
+        status.textContent = 'Network error. Try again?';
+        status.style.color = '#B91C1C';
+      }
+      button.disabled = false;
+      button.textContent = 'Notify me';
+    }
+  });
+</script>
