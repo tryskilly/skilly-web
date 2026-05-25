@@ -113,31 +113,115 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
         below should focus the click intent without losing the
         preview-first path.
       -->
-      <div class="hero-cta-desktop flex flex-col items-center gap-3 mb-4">
-        <a
-          href={DOWNLOAD_URL}
-          data-ph-event="web_cta_download_clicked"
-          data-ph-prop-location="hero"
-          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-10 py-4 text-[18px] font-semibold transition-all"
-        >
-          Try it free — Download for Mac
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 12L12 4M12 4H5M12 4V11"/>
-          </svg>
-        </a>
-        <button
-          type="button"
-          data-video-modal-open={DEMO_VIDEO_ID}
-          data-ph-event="web_demo_video_played"
-          data-ph-prop-location="hero_button"
-          class="inline-flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-[14px] font-medium underline underline-offset-4 decoration-gray-300 hover:decoration-gray-700 transition-colors"
-        >
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
-          </svg>
-          Watch 90-sec demo first
-        </button>
+      <!--
+        Email-gated download (2026-05-25). Heyclicky.com (parent codebase
+        competitor) is using the same pattern — email captured BEFORE
+        download URL revealed. Trade-off: small bounce on email-skeptics
+        vs every visitor becoming a contact for v1.7+ broadcasts.
+
+        Smart-gate: "Just download (no email)" link below hits /dmg
+        which 302-redirects to GitHub Releases. This is also the URL we
+        use in the Show HN body — HN crowd specifically rejects email
+        gates, so we give them a bypass without losing the default capture.
+
+        Submission flow:
+          email submit → POST /api/waitlist (platform=updates) →
+          on success: window.location = /dmg (triggers DMG download)
+          PostHog event: web_hero_download_emailed
+      -->
+      <div class="hero-cta-desktop flex flex-col items-center gap-2.5 mb-4 max-w-[440px] mx-auto w-full">
+        <form data-hero-download-form class="w-full flex flex-col sm:flex-row gap-2">
+          <label class="sr-only" for="hero-download-email">Email address</label>
+          <input
+            id="hero-download-email"
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+            class="flex-1 min-w-0 px-4 py-3.5 text-[15px] rounded-lg border border-gray-300 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 bg-white"
+          />
+          <button
+            type="submit"
+            data-ph-event="web_hero_download_emailed"
+            class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Download for Mac
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 12L12 4M12 4H5M12 4V11"/>
+            </svg>
+          </button>
+        </form>
+        <p data-hero-download-status class="text-[12px] text-center min-h-[14px]" aria-live="polite"></p>
+        <div class="flex items-center gap-3 text-[12px] text-gray-500">
+          <a
+            href="/dmg"
+            data-ph-event="web_cta_download_clicked"
+            data-ph-prop-location="hero_skip"
+            class="underline underline-offset-2 decoration-gray-300 hover:decoration-gray-600 hover:text-gray-700"
+          >
+            Just download (no email)
+          </a>
+          <span class="text-gray-300">·</span>
+          <button
+            type="button"
+            data-video-modal-open={DEMO_VIDEO_ID}
+            data-ph-event="web_demo_video_played"
+            data-ph-prop-location="hero_button"
+            class="inline-flex items-center gap-1 hover:text-gray-700 underline underline-offset-2 decoration-gray-300 hover:decoration-gray-600"
+          >
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
+            </svg>
+            Watch 90-sec demo
+          </button>
+        </div>
       </div>
+
+      <script>
+        const heroForm = document.querySelector<HTMLFormElement>('[data-hero-download-form]');
+        const heroStatus = document.querySelector<HTMLElement>('[data-hero-download-status]');
+        const heroButton = heroForm?.querySelector<HTMLButtonElement>('button[type=submit]');
+
+        heroForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!heroForm || !heroButton) return;
+          const emailInput = heroForm.querySelector<HTMLInputElement>('input[name=email]');
+          const email = emailInput?.value.trim() || '';
+          if (!email) return;
+
+          if (heroStatus) { heroStatus.textContent = ''; heroStatus.style.color = ''; }
+          heroButton.disabled = true;
+          heroButton.textContent = 'Starting download…';
+
+          try {
+            const r = await fetch('/api/waitlist', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, platform: 'updates' }),
+            });
+            const j = await r.json().catch(() => ({}));
+            if (!r.ok) {
+              if (heroStatus) {
+                heroStatus.textContent = j.error || 'Could not save — downloading anyway.';
+                heroStatus.style.color = '#B45309';
+              }
+              // Don't block the download on a backend error
+            } else {
+              const ph = (window as any).posthog;
+              if (ph?.capture) ph.capture('hero_email_captured', { source: 'hero_download_form' });
+            }
+            // Trigger download via the /dmg route (302 to GitHub Releases)
+            window.location.href = '/dmg';
+          } catch {
+            if (heroStatus) {
+              heroStatus.textContent = 'Network error — downloading anyway.';
+              heroStatus.style.color = '#B45309';
+            }
+            window.location.href = '/dmg';
+          }
+        });
+      </script>
 
       <!--
         MOBILE FALLBACK — hidden by default, shown when an inline script

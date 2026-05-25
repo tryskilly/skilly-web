@@ -1,0 +1,30 @@
+---
+// src/pages/dmg.astro
+//
+// 302-redirect to the latest Skilly DMG on GitHub Releases.
+//
+// Purpose: bypass the email-gated Hero download for high-trust contexts:
+//   - Show HN launch body (HN audience rejects email-gated downloads)
+//   - Journalist pitches (DF, MacStories, iOS Dev Weekly tip submissions)
+//   - "Skip and download anyway" link below the Hero email form
+//
+// Use this URL anywhere we want a direct DMG link with no friction.
+// All other traffic should hit the Hero, get the email-gated flow,
+// and end up here automatically via window.location on form submit.
+//
+// PostHog UTM tag: ?utm_source=dmg_direct picks up the bypass cohort
+// so we can measure how much email-gating costs us in downloads.
+
+export const prerender = false;
+
+import { DOWNLOAD_URL } from '../data/config.ts';
+
+export async function GET() {
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: DOWNLOAD_URL,
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+    },
+  });
+}
