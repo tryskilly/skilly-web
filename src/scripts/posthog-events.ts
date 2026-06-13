@@ -18,8 +18,33 @@ declare global {
       init: (key: string, config: Record<string, unknown>) => void;
       identify: (distinctId: string, userProperties?: Record<string, unknown>) => void;
     };
+    gtag?: (...args: unknown[]) => void;
+    skillyTrack?: (event: string, props?: Record<string, unknown>) => void;
   }
 }
+
+function gaSafeProperties(props: Record<string, unknown>): Record<string, unknown> {
+  const safe: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(props)) {
+    const normalized = key.toLowerCase();
+    if (key.startsWith('$')) continue;
+    if (normalized.includes('email')) continue;
+    if (normalized.includes('name')) continue;
+    if (normalized.includes('phone')) continue;
+    safe[key] = value;
+  }
+  return safe;
+}
+
+window.skillyTrack = (event, props = {}) => {
+  const safeProps = {
+    source: 'web',
+    source_surface: 'marketing_site',
+    ...props,
+  };
+  window.posthog?.capture(event, safeProps);
+  window.gtag?.('event', event, gaSafeProperties(safeProps));
+};
 
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement | null;
@@ -39,5 +64,5 @@ document.addEventListener('click', (e) => {
     }
   }
 
-  window.posthog?.capture(eventName, props);
+  window.skillyTrack?.(eventName, props);
 });

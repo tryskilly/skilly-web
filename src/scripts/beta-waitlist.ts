@@ -40,9 +40,11 @@ if (form) {
         throw new Error((data as Record<string, string>).error ?? `Request failed with status ${res.status}`);
       }
 
-      // $set attaches the email to the anonymous person profile without
-      // changing the distinct_id. See waitlist.ts for the full rationale.
-      window.posthog?.capture('web_beta_waitlist_submitted', {
+      // Track conversion and attach lead email to PostHog for funnel attribution.
+      // The shared helper strips $set before mirroring the event to GA4.
+      window.skillyTrack?.('web_beta_waitlist_submitted', {
+        platform: 'macos_beta',
+        email_submitted: true,
         $set: {
           email: emailInput.value.trim(),
           waitlist_platform: 'macos_beta',

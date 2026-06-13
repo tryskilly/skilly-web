@@ -105,9 +105,14 @@
       if (wrapper) wrapper.hidden = true;
       if (success) success.hidden = false;
       if (successEmail) successEmail.textContent = email;
-      // PostHog event so we can measure capture rate
-      const ph = (window as any).posthog;
-      if (ph?.capture) ph.capture('newsletter_subscribed', { source: 'pre_pricing_strip' });
+      (window as any).skillyTrack?.('newsletter_subscribed', {
+        source: 'pre_pricing_strip',
+        email_submitted: true,
+        $set: {
+          email,
+          waitlist_platform: 'updates',
+        },
+      });
     } catch {
       if (status) {
         status.textContent = 'Network error. Try again?';

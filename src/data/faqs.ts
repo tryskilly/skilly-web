@@ -20,7 +20,7 @@ export const faqs: Faq[] = [
   {
     question: 'Is it safe? What data does Skilly send to OpenAI?',
     answer:
-      'Yes. Audio and a live screenshot stream to OpenAI only while you\u2019re actively talking. Nothing is saved after the session ends, and OpenAI is contractually blocked from training on Skilly sessions. Our analytics log only anonymous metrics \u2014 session length, token counts, costs \u2014 never your transcripts, screenshots, or prompts.',
+      'Yes. Audio and a live screenshot stream to OpenAI only while you\u2019re actively talking. Nothing is saved after the session ends, and OpenAI is contractually blocked from training on Skilly sessions. Our analytics log operational and funnel metadata \u2014 session length, token counts, costs, clicks, signups, and plan events \u2014 never your transcripts, screenshots, or prompts.',
   },
   {
     question: 'Why $19 / month? What am I actually paying for?',

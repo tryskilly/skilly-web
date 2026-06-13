@@ -208,8 +208,14 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
               }
               // Don't block the download on a backend error
             } else {
-              const ph = (window as any).posthog;
-              if (ph?.capture) ph.capture('hero_email_captured', { source: 'hero_download_form' });
+              (window as any).skillyTrack?.('hero_email_captured', {
+                source: 'hero_download_form',
+                email_submitted: true,
+                $set: {
+                  email,
+                  waitlist_platform: 'updates',
+                },
+              });
             }
             // Trigger download via the /dmg route (302 to GitHub Releases)
             window.location.href = '/dmg';
@@ -461,9 +467,10 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
 
         // Track this specifically so we can measure the fallback's recovery effect.
         // posthog is loaded globally by posthog-events.ts
-        (window as unknown as { posthog?: { capture: (e: string, p: Record<string, unknown>) => void } }).posthog?.capture('web_mobile_waitlist_submitted', {
+        (window as unknown as { skillyTrack?: (e: string, p: Record<string, unknown>) => void }).skillyTrack?.('web_mobile_waitlist_submitted', {
           platform: 'ios',
           location: 'hero_mobile_fallback',
+          email_submitted: true,
           $set: { email, waitlist_platform: 'ios' },
         });
 
@@ -509,4 +516,3 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
   :global(html.is-mobile-ua) .hero-cta-mobile { display: block; }
   :global(html.is-mobile-ua) .hero-cta-mobile[hidden] { display: block; }
 </style>
-

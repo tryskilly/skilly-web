@@ -2,7 +2,7 @@
 // src/pages/privacy.astro
 // DRAFT — plain-English Privacy Policy matching the current product
 // reality. The list of data processors is authoritative: Skilly currently
-// uses PostHog, OpenAI, WorkOS, Polar, Resend, and Netlify. If you add or
+// uses PostHog, Google Analytics, OpenAI, WorkOS, Polar, Resend, and Netlify. If you add or
 // remove a processor, update this page.
 //
 // Before any serious launch, replace with a generator-produced policy
@@ -23,10 +23,17 @@ const processors = [
   },
   {
     name: 'PostHog',
-    purpose: 'Anonymous product analytics + session replay on the marketing website only (page views, button clicks, scroll/cursor paths) to find and fix UX issues',
-    data: 'Event names, page URLs, anonymous website session replays with all input fields automatically masked. No cookies. No persistent identifiers.',
+    purpose: 'Product analytics, marketing attribution, funnel measurement, and session replay on the marketing website',
+    data: 'Event names, page URLs, campaign parameters, first-party analytics identifiers, session replays with input fields masked, and email addresses when users submit waitlist, newsletter, skill-request, or checkout forms.',
     location: 'United States',
     link: 'https://posthog.com/privacy',
+  },
+  {
+    name: 'Google Analytics',
+    purpose: 'Website traffic, acquisition, and conversion measurement',
+    data: 'Page views, campaign parameters, device/browser metadata, and non-PII conversion events. We do not send email addresses, names, or freeform form text to Google Analytics.',
+    location: 'United States',
+    link: 'https://policies.google.com/privacy',
   },
   {
     name: 'WorkOS',
@@ -101,9 +108,10 @@ const processors = [
           <ul class="list-disc pl-6 space-y-1.5 marker:text-amber-500">
             <li><strong class="text-gray-50">Account data</strong> — your email address and authentication identifiers via WorkOS AuthKit</li>
             <li><strong class="text-gray-50">Billing data</strong> — subscription status, held by Polar. We never see your full card number.</li>
-            <li><strong class="text-gray-50">Usage metrics</strong> — anonymous per-session numbers: session length, turn count, token counts, feature usage</li>
-            <li><strong class="text-gray-50">Website analytics</strong> — anonymous page views, click events, and session replays of website visits via PostHog. Replays show scroll and cursor paths to help us find UX problems; all input fields (email, etc.) are automatically masked. No cookies. No cross-session tracking.</li>
+            <li><strong class="text-gray-50">Usage metrics</strong> — per-session numbers: session length, turn count, token counts, costs, feature usage, and account or tenant identifiers when available</li>
+            <li><strong class="text-gray-50">Website analytics</strong> — page views, campaign parameters, click events, conversion events, and session replays of website visits via PostHog. Replays show scroll and cursor paths to help us find UX problems; all input fields are automatically masked.</li>
             <li><strong class="text-gray-50">Waitlist data</strong> — if you join the waitlist, we store your email and chosen platform in our Resend audience</li>
+            <li><strong class="text-gray-50">Lead attribution data</strong> — if you submit a waitlist, newsletter, skill-request, or checkout form, we may send your email address to PostHog so we can connect marketing activity to product signup and subscription funnels. We do not send that email address to Google Analytics.</li>
           </ul>
         </section>
 
@@ -116,10 +124,10 @@ const processors = [
             <li>Audio recordings of your voice</li>
             <li>Screenshots of your screen</li>
             <li>The content of your prompts or Skilly\u2019s responses</li>
-            <li>Keystrokes, cursor position, or any other device telemetry from the macOS app beyond what's needed for a single live teaching session (note: the marketing website at tryskilly.app does record anonymous cursor paths via PostHog session replay to find UX issues — see "Website analytics" above)</li>
+            <li>Keystrokes, cursor position, or any other device telemetry from the macOS app beyond what's needed for a single live teaching session (note: the marketing website at tryskilly.app does record website cursor paths via PostHog session replay to find UX issues — see "Website analytics" above)</li>
           </ul>
           <p class="mt-3">
-            Audio and screen data are streamed to OpenAI for real-time processing during a teaching session and are not retained by us afterward. Only anonymous aggregate metrics about the session are kept.
+            Audio and screen data are streamed to OpenAI for real-time processing during a teaching session and are not retained by us afterward. We keep operational and analytics metadata about sessions, but not the session content itself.
           </p>
         </section>
 
@@ -153,7 +161,7 @@ const processors = [
         <section>
           <h2 class="text-2xl font-bold text-gray-50 mb-3">4. Cookies and tracking</h2>
           <p>
-            Skilly's website does not use cookies for analytics or tracking. PostHog is configured in anonymous/memory mode, meaning no cookies or localStorage identifiers are set. Your visit is not tied to a persistent identifier. Individual sessions are anonymous.
+            Skilly's website uses first-party analytics storage for PostHog and Google Analytics so we can understand repeat visits, campaign performance, downloads, waitlist submissions, checkout completion, and the path from marketing to product activation. We do not use advertising cookies, and we do not send email addresses, names, or freeform form text to Google Analytics.
           </p>
         </section>
 

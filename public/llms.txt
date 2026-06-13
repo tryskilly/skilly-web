@@ -82,8 +82,8 @@ A skill builder is on the roadmap so anyone can create a skill for any app or wo
 
 - Audio and screens stream only during a live teaching session and are not persisted afterward
 - OpenAI is contractually blocked from training on Skilly session content
-- Analytics (PostHog) capture only anonymous metrics — never transcripts, screenshots, or prompts
-- Website uses PostHog in `persistence: 'memory'` mode with no cookies and no localStorage identifiers
+- Analytics capture operational and funnel metadata — never transcripts, screenshots, or prompts
+- Website uses PostHog and Google Analytics for first-party attribution and conversion measurement
 - Auth tokens stored in macOS Keychain with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly`
 
 ## Languages and voices

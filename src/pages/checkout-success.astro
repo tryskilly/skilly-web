@@ -43,10 +43,9 @@ import Footer from '../components/Footer.astro';
     //   - ends up in the browser history,
     //   - leaks via referrer headers on outbound links.
     //
-    // Note: because Layout.astro initializes PostHog with
-    // `persistence: 'memory'`, this identify call only applies to the
-    // current page view. That is sufficient — the goal is to stamp this
-    // single completed-purchase browser session with the real user id.
+    // Layout.astro now uses persistent first-party PostHog storage, so this
+    // identify call stitches checkout success to prior marketing activity and
+    // to the WorkOS-keyed macOS app profile.
     (() => {
       const params = new URLSearchParams(window.location.search);
       const uid = params.get('uid');
@@ -54,9 +53,15 @@ import Footer from '../components/Footer.astro';
 
       window.posthog?.identify(uid, {
         source: 'web_checkout',
+        source_surface: 'marketing_site',
       });
       window.posthog?.capture('web_checkout_completed', {
         source: 'web_checkout',
+        source_surface: 'marketing_site',
+      });
+      window.gtag?.('event', 'web_checkout_completed', {
+        source: 'web_checkout',
+        source_surface: 'marketing_site',
       });
 
       params.delete('uid');

@@ -65,16 +65,11 @@ if (form) {
         throw new Error(data.error ?? `Request failed with status ${res.status}`);
       }
 
-      // Track waitlist submission in PostHog. $set attaches the email and
-      // platform to the anonymous person profile without changing the
-      // distinct_id, so we don't create a separate email-keyed profile that
-      // would diverge from the WorkOS-keyed profile the macOS app identifies
-      // under. Per PostHog identity-resolution docs, cross-client stitching
-      // is not automatic — the app events stay under the WorkOS user ID and
-      // the web events stay under the anonymous distinct_id, but both now
-      // have the user's email so you can correlate them in PostHog.
-      window.posthog?.capture('web_waitlist_submitted', {
+      // Track conversion and attach lead email to PostHog for funnel attribution.
+      // The shared helper strips $set before mirroring the event to GA4.
+      window.skillyTrack?.('web_waitlist_submitted', {
         platform: platformInput.value,
+        email_submitted: true,
         $set: {
           email: emailInput.value.trim(),
           waitlist_platform: platformInput.value,

@@ -45,11 +45,12 @@ if (form) {
         throw new Error((data as Record<string, string>).error ?? `Request failed with status ${res.status}`);
       }
 
-      // $set attaches email + requested app to the anonymous person profile
-      // without changing the distinct_id. See waitlist.ts for the full
-      // rationale on why we don't re-identify here.
-      window.posthog?.capture('web_skill_request_submitted', {
+      // Track conversion and attach lead email/requested app to PostHog for funnel attribution.
+      // The shared helper strips $set before mirroring the event to GA4.
+      window.skillyTrack?.('web_skill_request_submitted', {
         app: appInput.value.trim(),
+        email_submitted: true,
+        message_present: Boolean(messageInput?.value.trim()),
         $set: {
           email: emailInput.value.trim(),
           last_skill_requested: appInput.value.trim(),
