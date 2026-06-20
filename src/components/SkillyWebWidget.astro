@@ -1,0 +1,37 @@
+---
+// Loads the production Skilly Web companion on the public marketing site.
+// The publishable key is origin-locked in Studio; no server secret is exposed.
+const SKILLY_WEB_KEY = import.meta.env.PUBLIC_SKILLY_WEB_KEY || 'pk_live_496a58ddf39c84536cbea0b227485ebb0d5a227088d97cf9';
+const SKILLY_WEB_SKILL = import.meta.env.PUBLIC_SKILLY_WEB_SKILL || 'skilly-marketing';
+const SKILLY_WEB_BACKEND_URL = import.meta.env.PUBLIC_SKILLY_WEB_BACKEND_URL || 'https://studio.tryskilly.app';
+const SKILLY_WEB_CDN_URL = import.meta.env.PUBLIC_SKILLY_WEB_CDN_URL || 'https://cdn.tryskilly.app/web/v1.js';
+const SKILLY_WEB_CORE_URL = import.meta.env.PUBLIC_SKILLY_WEB_CORE_URL || 'https://cdn.tryskilly.app/web/v1.0.0/skilly_core_web_sdk.js';
+---
+
+<script
+  is:inline
+  define:vars={{
+    SKILLY_WEB_KEY,
+    SKILLY_WEB_SKILL,
+    SKILLY_WEB_BACKEND_URL,
+    SKILLY_WEB_CDN_URL,
+    SKILLY_WEB_CORE_URL,
+  }}
+>
+  (function () {
+    var host = window.location.hostname;
+    var isProductionMarketing = host === 'tryskilly.app' || host === 'www.tryskilly.app';
+    if (!isProductionMarketing || !SKILLY_WEB_KEY) return;
+
+    var script = document.createElement('script');
+    script.src = SKILLY_WEB_CDN_URL;
+    script.defer = true;
+    script.dataset.skillyKey = SKILLY_WEB_KEY;
+    script.dataset.skillySkill = SKILLY_WEB_SKILL;
+    script.dataset.skillyBackendUrl = SKILLY_WEB_BACKEND_URL;
+    script.dataset.skillyCoreUrl = SKILLY_WEB_CORE_URL;
+    script.dataset.skillyAccent = '#f59e0b';
+    script.dataset.skillyLocale = 'en';
+    document.head.appendChild(script);
+  })();
+</script>

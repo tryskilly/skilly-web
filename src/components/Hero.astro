@@ -38,6 +38,7 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
 
 <section
   id="top"
+  data-skilly="hero"
   class="relative overflow-hidden"
 >
   <!-- Ambient amber wash -->
@@ -129,7 +130,7 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
           on success: window.location = /dmg (triggers DMG download)
           PostHog event: web_hero_download_emailed
       -->
-      <div class="hero-cta-desktop flex flex-col items-center gap-2.5 mb-4 max-w-[440px] mx-auto w-full">
+      <div class="hero-cta-desktop flex flex-col items-center gap-2.5 mb-4 max-w-[440px] mx-auto w-full" data-skilly="primary-cta">
         <form data-hero-download-form class="w-full flex flex-col sm:flex-row gap-2">
           <label class="sr-only" for="hero-download-email">Email address</label>
           <input
@@ -165,6 +166,7 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
           <span class="text-gray-300">·</span>
           <button
             type="button"
+            data-skilly="demo-video"
             data-video-modal-open={DEMO_VIDEO_ID}
             data-ph-event="web_demo_video_played"
             data-ph-prop-location="hero_button"
