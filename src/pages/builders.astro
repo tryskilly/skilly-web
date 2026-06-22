@@ -8,8 +8,8 @@ import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 const STUDIO_URL = 'https://studio.tryskilly.app/signup';
 ---
 <Layout
-  title="Skilly for Builders - Add a voice guide to your website"
-  description="Skilly for Builders lets website and app owners add a voice-and-pointer guide to customer experiences, with project skills, previews, domains, and usage managed in Studio."
+  title="Skilly for Builders - Voice guidance for your website"
+  description="Skilly for Builders lets website and app owners install a voice-and-pointer guide that answers from site content, docs, and project skills managed in Studio."
   productLine="builders"
   funnelStage="conversion"
 >
@@ -21,17 +21,17 @@ const STUDIO_URL = 'https://studio.tryskilly.app/signup';
         <div>
           <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Skilly for builders</span>
           <h1 class="mt-4 text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.06] tracking-tight text-gray-900">
-            Add a voice guide to your website.
+            Give your website a guide that speaks and points.
           </h1>
           <p class="mt-6 max-w-[620px] text-lg lg:text-xl leading-relaxed text-gray-600">
-            Customers ask questions on your site. Skilly answers out loud, points to the right place, and uses the skill you control in Studio.
+            Customers should not have to search docs, watch onboarding videos, or open support just to find the next step. Skilly answers on the page, out loud, using the website skill you control in Studio.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
             <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
-              Start in Studio
+              Create a Studio project
             </a>
             <a href="/#builders" data-ph-event="web_builders_overview_clicked" data-ph-prop-location="builders_hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center justify-center border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-800 rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
-              See overview
+              See how it works
             </a>
           </div>
         </div>
@@ -40,24 +40,24 @@ const STUDIO_URL = 'https://studio.tryskilly.app/signup';
             <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
               <div class="text-sm font-semibold text-amber-700">Studio project</div>
               <div class="mt-2 text-2xl font-bold text-gray-900">Customer onboarding guide</div>
-              <p class="mt-2 text-sm leading-relaxed text-gray-600">A project owns the skill, domains, widget style, install snippet, and usage.</p>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">One project owns the website skill, domains, widget style, install snippet, and usage.</p>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
               <div class="rounded-2xl border border-gray-200 p-5">
                 <div class="text-3xl font-bold text-gray-900">1</div>
-                <p class="mt-2 text-sm text-gray-600">Paste a URL or docs.</p>
+                <p class="mt-2 text-sm text-gray-600">Import a site URL and docs.</p>
               </div>
               <div class="rounded-2xl border border-gray-200 p-5">
                 <div class="text-3xl font-bold text-gray-900">2</div>
-                <p class="mt-2 text-sm text-gray-600">Preview the live widget.</p>
+                <p class="mt-2 text-sm text-gray-600">Preview the guide before install.</p>
               </div>
               <div class="rounded-2xl border border-gray-200 p-5">
                 <div class="text-3xl font-bold text-gray-900">3</div>
-                <p class="mt-2 text-sm text-gray-600">Add allowed domains.</p>
+                <p class="mt-2 text-sm text-gray-600">Lock it to allowed domains.</p>
               </div>
               <div class="rounded-2xl border border-gray-200 p-5">
                 <div class="text-3xl font-bold text-gray-900">4</div>
-                <p class="mt-2 text-sm text-gray-600">Install one script.</p>
+                <p class="mt-2 text-sm text-gray-600">Install the CDN snippet.</p>
               </div>
             </div>
           </div>
@@ -69,8 +69,8 @@ const STUDIO_URL = 'https://studio.tryskilly.app/signup';
       <div class="max-w-site mx-auto grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
         <div>
           <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Studio pricing</span>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">Priced around projects and usage.</h2>
-          <p class="mt-4 text-[17px] leading-relaxed text-gray-600">The Mac app beta is sold as hosted tutoring minutes. Skilly for Builders is different: each Studio project owns a website skill, allowed domains, widget setup, and usage analytics.</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">A different package from the Mac app.</h2>
+          <p class="mt-4 text-[17px] leading-relaxed text-gray-600">The Mac app is sold as hosted tutoring minutes for one user. Skilly for Builders is organized around Studio projects: one website skill, allowed domains, widget setup, and usage analytics per surface.</p>
         </div>
         <div class="grid gap-4 sm:grid-cols-3">
           <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
@@ -79,18 +79,18 @@ const STUDIO_URL = 'https://studio.tryskilly.app/signup';
           </div>
           <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
             <div class="text-sm font-semibold text-gray-900">Usage</div>
-            <p class="mt-2 text-sm leading-relaxed text-gray-600">Measured per project so teams see cost and adoption.</p>
+            <p class="mt-2 text-sm leading-relaxed text-gray-600">Tracked per project so teams see cost, adoption, and errors.</p>
           </div>
           <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
             <div class="text-sm font-semibold text-gray-900">Beta</div>
-            <p class="mt-2 text-sm leading-relaxed text-gray-600">Create in Studio first; public packaging can evolve from real usage.</p>
+            <p class="mt-2 text-sm leading-relaxed text-gray-600">Start in Studio first; public packaging can evolve from real usage.</p>
           </div>
         </div>
       </div>
     </section>
     <section class="px-6 py-20 bg-gray-50 border-y border-gray-200">
       <div class="max-w-[760px] mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">Built for customer education, not generic chat.</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">Built for product guidance, not generic chat.</h2>
         <p class="mt-4 text-[17px] leading-relaxed text-gray-600">Skilly should know your product, stay inside allowed surfaces, and help users complete real tasks with voice and pointing.</p>
         <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="mt-8 inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
           Create your first project

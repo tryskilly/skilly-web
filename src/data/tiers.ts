@@ -20,7 +20,7 @@ export const betaTier: BetaTier = {
   price: '$19',
   period: '/month',
   perDayEquivalent: '3 hosted hours included, about $0.11 per included minute.',
-  tagline: '3 hours of real AI tutoring every month for the Mac app.',
+  tagline: '3 hosted hours every month for the native Mac tutor.',
   features: [
     'Instant help that sees your screen and moves your cursor',
     'Works in any Mac app',
