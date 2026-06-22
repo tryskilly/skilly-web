@@ -106,28 +106,28 @@ const faqSchema = {
             Add a voice-and-pointer guide that answers from your own content and points at the exact button. Teach it in Studio, ship it to your website, and manage every project from one dashboard.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a
-              href={STUDIO_URL}
-              data-ph-event="web_builders_studio_clicked"
-              data-ph-prop-location="builders_hero"
-              data-ph-prop-target-funnel="builders"
-              class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105"
-            >
-              Open Studio
-            </a>
             <button
               type="button"
               data-builders-widget-demo
               data-ph-event="web_builders_widget_demo_clicked"
               data-ph-prop-location="builders_hero"
               data-ph-prop-target-funnel="builders"
-              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
+              class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105"
             >
               Try it on this page
             </button>
+            <a
+              href={STUDIO_URL}
+              data-ph-event="web_builders_studio_clicked"
+              data-ph-prop-location="builders_hero"
+              data-ph-prop-target-funnel="builders"
+              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
+            >
+              Open Studio
+            </a>
           </div>
           <p class="mt-4 text-[13px] text-[#6B635A]">
-            One script tag · domain-locked · usage-billed · <a href="#how" class="underline underline-offset-2 decoration-[#9A5B08]/40 hover:decoration-[#9A5B08]">see how it works</a>
+            One script tag · domain-locked · usage-billed · <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 decoration-[#9A5B08]/40 hover:decoration-[#9A5B08]">open source</a> · <a href="#how" class="underline underline-offset-2 decoration-[#9A5B08]/40 hover:decoration-[#9A5B08]">see how it works</a>
           </p>
         </div>
 
@@ -269,7 +269,8 @@ const faqSchema = {
         <h2 class="mx-auto max-w-xl text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">Give your product a voice that points.</h2>
         <p class="mt-4 text-[15px] text-[#FAF8F4]/60">Draft your first skill in Studio. Preview before anyone sees it.</p>
         <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex rounded-xl bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714]">Open Studio</a>
-        <p class="mt-8 text-[13px] text-[#FAF8F4]/35">Using Skilly personally on your Mac? <a href="/people" data-ph-event="web_people_crosslink_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="people" class="text-[#FAF8F4]/55 underline underline-offset-2 hover:text-[#FAF8F4]/80 transition-colors">Skilly for People</a> is the desktop tutor.</p>
+        <p class="mx-auto mt-8 max-w-xl text-[13.5px] leading-relaxed text-[#FAF8F4]/55">Built solo by Mohamed and fully open source — <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-[#FAF8F4]/85">inspect the engine</a> before you put it in front of your users. Questions about your use case? <a href="mailto:mohamed@tryskilly.app" class="underline underline-offset-2 hover:text-[#FAF8F4]/85">mohamed@tryskilly.app</a></p>
+        <p class="mt-5 text-[13px] text-[#FAF8F4]/35">Using Skilly personally on your Mac? <a href="/people" data-ph-event="web_people_crosslink_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="people" class="text-[#FAF8F4]/55 underline underline-offset-2 hover:text-[#FAF8F4]/80 transition-colors">Skilly for People</a> is the desktop tutor.</p>
       </div>
     </section>
   </main>
