@@ -1,103 +1,286 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
-import BuildersSection from '../components/Builders.astro';
 import Footer from '../components/Footer.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 
 const STUDIO_URL = 'https://studio.tryskilly.app/signup';
+
+const faqs = [
+  {
+    question: 'How much work is it to install?',
+    answer: 'For web, installation is one script tag plus a Studio project. The skill, style, allowed domains, and usage are managed in Studio.',
+  },
+  {
+    question: 'Does it work on mobile apps?',
+    answer: 'The product architecture is built for web and mobile SDK surfaces. Web is the first builder surface; mobile SDK support is part of the same project model as it matures.',
+  },
+  {
+    question: 'What does it cost per minute?',
+    answer: 'Builder sessions are metered by the second against pooled minutes. Public packaging can change during beta, so Studio is the source of truth for current project limits.',
+  },
+  {
+    question: 'Is customer data safe?',
+    answer: 'The widget is locked to approved domains and app IDs. Provider keys stay on Skilly backend infrastructure rather than being exposed in the browser or SDK.',
+  },
+  {
+    question: 'How is this different from Skilly for People?',
+    answer: 'Skilly for People is a personal desktop tutor. Skilly for Builders embeds a guide in your website or app to help your users complete tasks inside your product.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
 ---
 <Layout
-  title="Skilly for Builders - Voice guidance for your website"
-  description="Skilly for Builders lets website and app owners install a voice-and-pointer guide that answers from site content, docs, and project skills managed in Studio."
+  title="Skilly for Builders - Voice guidance for your website or app"
+  description="Skilly for Builders lets website, SaaS, and app owners add a voice-and-pointer guide that answers from product content, docs, and Studio-managed skills."
   productLine="builders"
   funnelStage="conversion"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
   <Nav />
-  <main class="overflow-x-clip pt-16">
-    <section class="relative px-6 pt-24 pb-16 lg:pt-32 lg:pb-20 bg-[#FAFAF8] overflow-hidden">
-      <div aria-hidden="true" class="pointer-events-none absolute top-12 right-0 h-[520px] w-[520px] rounded-full" style="background: radial-gradient(circle, rgba(245,158,11,0.18), transparent 68%);"></div>
-      <div class="relative max-w-site mx-auto grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center">
+  <main class="overflow-x-clip bg-[#FAF8F4] text-[#1A1714]">
+    <div class="sr-only" itemscope itemtype="https://schema.org/SoftwareApplication">
+      <h2 itemprop="name">Skilly for Builders</h2>
+      <p itemprop="description">
+        Skilly for Builders is an embeddable voice-and-pointer assistant for website, SaaS, and app owners. Builders create a Studio project, teach Skilly from website content and docs, lock it to allowed domains or app IDs, and install it as a guided assistant for their users.
+      </p>
+      <span itemprop="applicationCategory">DeveloperApplication</span>
+    </div>
+
+    <section id="top" class="mx-auto max-w-6xl px-5 pb-12 pt-24 sm:px-8 sm:pt-28">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
         <div>
-          <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Skilly for builders</span>
-          <h1 class="mt-4 text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.06] tracking-tight text-gray-900">
-            Give your website a guide that speaks and points.
+          <div class="font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]">
+            <span class="text-[#1A1714]">[</span>POINT: for-builders<span class="text-[#1A1714]">]</span>
+          </div>
+          <h1 class="mt-5 max-w-[700px] text-[42px] font-bold leading-[1.03] tracking-tight text-[#1A1714] sm:text-[56px]">
+            Let users ask your product what to do next.
           </h1>
-          <p class="mt-6 max-w-[620px] text-lg lg:text-xl leading-relaxed text-gray-600">
-            Customers should not have to search docs, watch onboarding videos, or open support just to find the next step. Skilly answers on the page, out loud, using the website skill you control in Studio.
+          <p class="mt-6 max-w-lg text-[18px] leading-relaxed text-[#6B635A]">
+            Add a voice-and-pointer guide that answers from your own content and points at the exact button. Teach it in Studio, ship it to your website, and manage every project from one dashboard.
           </p>
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
-              Create a Studio project
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={STUDIO_URL}
+              data-ph-event="web_builders_studio_clicked"
+              data-ph-prop-location="builders_hero"
+              data-ph-prop-target-funnel="builders"
+              class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105"
+            >
+              Open Studio
             </a>
-            <a href="/#builders" data-ph-event="web_builders_overview_clicked" data-ph-prop-location="builders_hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center justify-center border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-800 rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
+            <a
+              href="#how"
+              data-ph-event="web_builders_how_clicked"
+              data-ph-prop-location="builders_hero"
+              data-ph-prop-target-funnel="builders"
+              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
+            >
               See how it works
             </a>
           </div>
+          <p class="mt-4 text-[13px] text-[#6B635A]">
+            One snippet for web · pooled minutes · project skills · domain locked
+          </p>
         </div>
-        <div class="rounded-[28px] border border-gray-200 bg-white p-6 shadow-xl">
-          <div class="grid gap-4">
-            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-              <div class="text-sm font-semibold text-amber-700">Studio project</div>
-              <div class="mt-2 text-2xl font-bold text-gray-900">Customer onboarding guide</div>
-              <p class="mt-2 text-sm leading-relaxed text-gray-600">One project owns the website skill, domains, widget style, install snippet, and usage.</p>
+
+        <div class="rounded-3xl border border-[#E8E2D9] bg-[#FAF8F4] p-5 sm:p-6">
+          <div class="relative min-h-[320px] overflow-hidden rounded-2xl border border-[#E8E2D9] bg-white shadow-sm">
+            <div class="flex h-11 items-center gap-4 border-b border-[#E8E2D9] px-5 text-[13px] text-[#6B635A]">
+              <span class="font-semibold text-[#1A1714]">yourapp.com</span>
+              <span class="ml-auto hidden sm:inline">Product</span>
+              <span class="hidden sm:inline">Pricing</span>
+              <span class="hidden sm:inline">Support</span>
             </div>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div class="rounded-2xl border border-gray-200 p-5">
-                <div class="text-3xl font-bold text-gray-900">1</div>
-                <p class="mt-2 text-sm text-gray-600">Import a site URL and docs.</p>
+            <div class="p-6">
+              <h4 class="text-[22px] font-bold">Welcome to your dashboard</h4>
+              <p class="mt-2 max-w-xs text-[14px] text-[#6B635A]">New here? Ask Skilly where to start or what each setting does.</p>
+              <div class="mt-5 grid max-w-xs grid-cols-2 gap-2.5">
+                <div class="h-16 rounded-lg bg-[#F2EEE6]"></div>
+                <div class="h-16 rounded-lg bg-[#F2EEE6]"></div>
               </div>
-              <div class="rounded-2xl border border-gray-200 p-5">
-                <div class="text-3xl font-bold text-gray-900">2</div>
-                <p class="mt-2 text-sm text-gray-600">Preview the guide before install.</p>
+            </div>
+            <div class="absolute bottom-5 right-5 flex items-end gap-2">
+              <div class="max-w-[200px] rounded-2xl rounded-br-sm border border-[#E8E2D9] bg-white px-3.5 py-2.5 text-[12.5px] shadow">
+                <span class="mb-0.5 block font-mono text-[10px] tracking-[0.04em] text-[#2563EB]">SKILLY</span>
+                Click <b class="text-[#9A5B08]">Connect data</b> first, top-left card.
               </div>
-              <div class="rounded-2xl border border-gray-200 p-5">
-                <div class="text-3xl font-bold text-gray-900">3</div>
-                <p class="mt-2 text-sm text-gray-600">Lock it to allowed domains.</p>
-              </div>
-              <div class="rounded-2xl border border-gray-200 p-5">
-                <div class="text-3xl font-bold text-gray-900">4</div>
-                <p class="mt-2 text-sm text-gray-600">Install the CDN snippet.</p>
-              </div>
+              <button class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#F59E0B] shadow-lg" aria-label="Skilly launcher preview">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1714" aria-hidden="true"><path d="M5 3l14 8-6 1.5L11 19 5 3z"/></svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <BuildersSection />
-    <section class="px-6 py-20 bg-white border-y border-gray-200">
-      <div class="max-w-site mx-auto grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
-        <div>
-          <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Studio pricing</span>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">A different package from the Mac app.</h2>
-          <p class="mt-4 text-[17px] leading-relaxed text-gray-600">The Mac app is sold as hosted tutoring minutes for one user. Skilly for Builders is organized around Studio projects: one website skill, allowed domains, widget setup, and usage analytics per surface.</p>
-        </div>
-        <div class="grid gap-4 sm:grid-cols-3">
-          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-            <div class="text-sm font-semibold text-gray-900">Project</div>
-            <p class="mt-2 text-sm leading-relaxed text-gray-600">One website or app surface with its own skill.</p>
-          </div>
-          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-            <div class="text-sm font-semibold text-gray-900">Usage</div>
-            <p class="mt-2 text-sm leading-relaxed text-gray-600">Tracked per project so teams see cost, adoption, and errors.</p>
-          </div>
-          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-            <div class="text-sm font-semibold text-gray-900">Beta</div>
-            <p class="mt-2 text-sm leading-relaxed text-gray-600">Start in Studio first; public packaging can evolve from real usage.</p>
-          </div>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: the-problem<span class="text-[#9A5B08]">]</span></div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <div class="reveal"><div class="mb-1.5 text-[15px] font-bold">Users get stuck silently</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Most users do not open a ticket. They miss the next step, stall during activation, or leave.</p></div>
+          <div class="reveal"><div class="mb-1.5 text-[15px] font-bold">Docs go unread</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Users rarely leave the product to read a knowledge base. Help has to live where the work happens.</p></div>
+          <div class="reveal"><div class="mb-1.5 text-[15px] font-bold">Support carries the load</div><p class="text-[14px] leading-relaxed text-[#6B635A]">The same setup and navigation questions land in your inbox. Much of that volume can be handled in-product.</p></div>
         </div>
       </div>
     </section>
-    <section class="px-6 py-20 bg-gray-50 border-y border-gray-200">
-      <div class="max-w-[760px] mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">Built for product guidance, not generic chat.</h2>
-        <p class="mt-4 text-[17px] leading-relaxed text-gray-600">Skilly should know your product, stay inside allowed surfaces, and help users complete real tasks with voice and pointing.</p>
-        <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="mt-8 inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
-          Create your first project
-        </a>
+
+    <section id="how" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-16 sm:px-8 sm:py-20">
+      <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]"><span class="text-[#1A1714]">[</span>POINT: how-it-works<span class="text-[#1A1714]">]</span></div>
+      <h2 class="mb-3 text-[32px] font-bold leading-[1.03] tracking-tight sm:text-[40px]">Teach once. Install on your product. Manage from Studio.</h2>
+      <p class="mb-10 max-w-xl text-[16px] text-[#6B635A]">Your guide is a Studio project: one skill, approved surfaces, widget config, usage, and preview workflow.</p>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-white p-6">
+          <span class="mb-4 grid h-9 w-9 place-items-center rounded-xl bg-[#F59E0B]/15 font-bold text-[#9A5B08]">1</span>
+          <h3 class="text-[17px] font-bold">Teach the project</h3>
+          <p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Give Studio a URL, docs, or notes. It drafts the first project skill, and you edit the markdown before publishing.</p>
+        </div>
+        <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-white p-6">
+          <span class="mb-4 grid h-9 w-9 place-items-center rounded-xl bg-[#F59E0B]/15 font-bold text-[#9A5B08]">2</span>
+          <h3 class="text-[17px] font-bold">Preview the experience</h3>
+          <p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Check how Skilly answers, speaks, and points using your website content before you put it in front of customers.</p>
+        </div>
+        <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-white p-6">
+          <span class="mb-4 grid h-9 w-9 place-items-center rounded-xl bg-[#F59E0B]/15 font-bold text-[#9A5B08]">3</span>
+          <h3 class="text-[17px] font-bold">Install in one line</h3>
+          <p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Drop in the snippet, lock it to your domains, and keep every future change managed from Studio.</p>
+        </div>
+      </div>
+      <div class="mt-8 max-w-2xl overflow-hidden rounded-2xl border border-[#E8E2D9] bg-[#1A1714]">
+        <div class="flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-[12px] tracking-[0.04em] text-[#FAF8F4]/50">
+          <span>install · one line</span><span>HTML</span>
+        </div>
+        <pre class="overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed text-[#FAF8F4]/90">&lt;script src=<span class="text-[#F59E0B]">"https://cdn.tryskilly.app/web/v1.js"</span>
+  data-skilly-key=<span class="text-[#F59E0B]">"pk_live_..."</span>
+  data-skilly-site=<span class="text-[#F59E0B]">"app"</span> defer&gt;&lt;/script&gt;</pre>
+      </div>
+    </section>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: managed<span class="text-[#9A5B08]">]</span></div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div><h3 class="mb-1.5 text-[15px] font-bold">Domain-locked</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">The widget only runs on origins and app IDs you approve.</p></div>
+          <div><h3 class="mb-1.5 text-[15px] font-bold">Keys stay safe</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">Provider keys live on Skilly backend infrastructure, not inside browser code.</p></div>
+          <div><h3 class="mb-1.5 text-[15px] font-bold">Usage you can see</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">Minutes, sessions, top pages, domains, and health per project.</p></div>
+          <div><h3 class="mb-1.5 text-[15px] font-bold">Preview before live</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">Test how Skilly speaks, answers, and points before visitors see it.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+      <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: use-cases<span class="text-[#9A5B08]">]</span></div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="text-[16px] font-bold">Onboarding</div><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Walk new users to their first win: connect data, create a project, invite a teammate, or finish setup.</p></div>
+        <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="text-[16px] font-bold">Support deflection</div><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Answer repetitive “where do I...” questions inside the product before they become tickets.</p></div>
+        <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="text-[16px] font-bold">Feature discovery</div><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Point existing users at settings and features they have not found yet.</p></div>
+      </div>
+    </section>
+
+    <section id="pricing" class="scroll-mt-20 border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+        <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: pricing<span class="text-[#9A5B08]">]</span></div>
+        <h2 class="mb-2 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">One pool of minutes, every project.</h2>
+        <p class="mb-9 max-w-xl text-[15px] text-[#6B635A]">Builder pricing is usage-based and separate from the individual desktop plan. Public packaging may evolve during beta.</p>
+        <div class="grid gap-5 sm:grid-cols-3">
+          {[
+            ['STARTER', '$29', '500 minutes', 'For one early product surface', 'Start'],
+            ['STUDIO', '$99', '2,000 minutes', 'For active product onboarding', 'Open Studio'],
+            ['SCALE', '$299', '7,500 minutes', 'For higher-volume support flows', 'Talk to us'],
+          ].map(([name, price, minutes, body, cta], index) => (
+            <div class={`relative rounded-2xl ${index === 1 ? 'border-2 border-[#F59E0B]' : 'border border-[#E8E2D9]'} bg-[#FAF8F4] p-6`}>
+              {index === 1 && <span class="absolute -top-2.5 left-6 rounded bg-[#F59E0B] px-2 py-0.5 font-mono text-[10px] tracking-[0.04em] text-[#1A1714]">POPULAR</span>}
+              <div class="font-mono text-[11px] tracking-[0.04em] text-[#6B635A]">{name}</div>
+              <div class="mt-2 flex items-baseline gap-1.5"><span class="text-[32px] font-bold leading-none tracking-tight">{price}</span><span class="text-[13px] text-[#6B635A]">/mo</span></div>
+              <div class="mt-2 text-[14px] font-medium">{minutes}</div>
+              <div class="text-[13px] text-[#6B635A]">{body}</div>
+              <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location={`builders_pricing_${name.toLowerCase()}`} data-ph-prop-target-funnel="builders" class={`mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-[14px] font-semibold ${index === 1 ? 'bg-[#F59E0B] text-[#1A1714]' : 'border border-[#E8E2D9] bg-white hover:border-[#F59E0B]/40'}`}>{cta}</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="mx-auto max-w-3xl scroll-mt-20 px-5 py-14 sm:px-8">
+      <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: faq<span class="text-[#9A5B08]">]</span></div>
+      <h2 class="mb-7 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">For builders, answered.</h2>
+      <div class="divide-y divide-[#E8E2D9] border-y border-[#E8E2D9]">
+        {faqs.map((faq) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between text-[16px] font-semibold">
+              {faq.question}
+              <span class="text-[22px] leading-none text-[#6B635A] transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-[14.5px] leading-relaxed text-[#6B635A]">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="border-t border-[#E8E2D9] bg-[#1A1714] text-[#FAF8F4]">
+      <div class="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8">
+        <h2 class="mx-auto max-w-xl text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">Give your product a voice that points.</h2>
+        <p class="mt-4 text-[15px] text-[#FAF8F4]/60">Draft your first skill in Studio. Preview before anyone sees it.</p>
+        <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex rounded-xl bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714]">Open Studio</a>
       </div>
     </section>
   </main>
   <Footer />
   <SkillyWebWidget />
+
+  <script>
+    const buildersObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          buildersObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el, index) => {
+      if (el instanceof HTMLElement) {
+        el.style.transitionDelay = `${(index % 3) * 90}ms`;
+        buildersObserver.observe(el);
+      }
+    });
+  </script>
+
+  <style>
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: all 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+    .card-lift {
+      transition: transform 0.25s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-3px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </Layout>

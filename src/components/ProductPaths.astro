@@ -1,56 +1,49 @@
 ---
 const paths = [
   {
-    label: 'For Mac users',
-    title: 'Get unstuck without leaving the app.',
-    body: 'Ask out loud on your Mac. Skilly sees the screen, talks back, and points at the exact menu or button.',
-    href: '/mac',
-    cta: 'Explore Mac app',
-    targetFunnel: 'mac',
+    label: 'For people',
+    title: 'A personal tutor for the apps you use.',
+    body: 'Use Skilly as an individual learner or professional. It runs on Mac today, Windows is next, and the goal is the same: ask out loud, hear the answer, and see where to click.',
+    href: '/people',
+    cta: 'Explore Skilly for people',
+    targetFunnel: 'people',
+    featured: true,
   },
   {
     label: 'For builders',
-    title: 'Turn your website into a guided experience.',
-    body: 'Add a voice-and-pointer guide that answers from your site, docs, and Studio project skill.',
+    title: 'A guided assistant for your website or app.',
+    body: 'Install Skilly for customers, users, or visitors. Each site or product surface gets its own Studio project, skill, domains, widget style, and usage analytics.',
     href: '/builders',
-    cta: 'Explore builders',
+    cta: 'Explore Skilly for builders',
     targetFunnel: 'builders',
-  },
-  {
-    label: 'For people',
-    title: 'Follow skills that teach the tool.',
-    body: 'Use bundled learning paths for creative apps, then request or build the next skill you need.',
-    href: '/people',
-    cta: 'Explore skills',
-    targetFunnel: 'people',
   },
 ];
 ---
-<section id="products" class="relative py-20 px-6 bg-white">
+<section id="products" class="relative py-14 lg:py-16 px-6 bg-white">
   <div class="max-w-site mx-auto">
     <div class="max-w-[680px] mb-10">
-      <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Choose your path</span>
+      <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Two product paths</span>
       <h2 data-reveal class="reveal mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-        Choose the Skilly path that matches the job.
+        Skilly for yourself, or Skilly inside your product.
       </h2>
       <p data-reveal class="reveal reveal-delay-1 mt-4 text-[17px] leading-relaxed text-gray-600">
-        Use Skilly yourself on Mac, install it for customers on your website, or explore guided skills for the apps you want to learn.
+        The main Skilly experience is for individual desktop users. Builders use Studio to create website and app assistants for their own customers.
       </p>
     </div>
 
-    <div class="grid gap-5 lg:grid-cols-3">
+    <div class="grid gap-5 lg:grid-cols-2">
       {paths.map((path, index) => (
         <a
           href={path.href}
           data-ph-event="web_product_path_clicked"
           data-ph-prop-path={path.label}
           data-ph-prop-target-funnel={path.targetFunnel}
-          class={`reveal reveal-delay-${index + 1} group rounded-2xl border border-gray-200 bg-gray-50 p-7 transition-all hover:-translate-y-1 hover:border-amber-500/50 hover:bg-white hover:shadow-md`}
+          class={`reveal reveal-delay-${index + 1} group rounded-2xl border ${path.featured ? 'border-amber-500/45 bg-amber-50/45' : 'border-gray-200 bg-gray-50'} p-7 transition-all hover:-translate-y-1 hover:border-amber-500/50 hover:bg-white hover:shadow-md`}
           data-reveal
         >
           <div class="text-[12px] font-semibold tracking-[1.3px] uppercase text-amber-600">{path.label}</div>
           <h3 class="mt-4 text-2xl font-bold tracking-tight text-gray-900">{path.title}</h3>
-          <p class="mt-3 min-h-[72px] text-[15px] leading-relaxed text-gray-600">{path.body}</p>
+          <p class="mt-3 text-[15px] leading-relaxed text-gray-600">{path.body}</p>
           <div class="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-gray-900 group-hover:text-amber-700">
             {path.cta}
             <span aria-hidden="true">→</span>

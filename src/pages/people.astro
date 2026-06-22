@@ -1,73 +1,362 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
-import Skills from '../components/Skills.astro';
-import Pricing from '../components/Pricing.astro';
 import Footer from '../components/Footer.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
+
+const faqs = [
+  {
+    question: 'How long is the free trial?',
+    answer: 'Skilly includes 15 minutes of real hosted usage with no card required. Most people know within the first session whether voice guidance and pointing is useful for them.',
+  },
+  {
+    question: 'Which apps does Skilly work with?',
+    answer: 'Skilly works in any app on your Mac. It can help without a skill, and app-specific skills make it better by adding lessons, vocabulary, and current documentation.',
+  },
+  {
+    question: 'Is Skilly private?',
+    answer: 'Skilly streams audio and screenshots only while you are asking for help. Sessions are not retained by Skilly, and OpenAI is not allowed to train on API traffic.',
+  },
+  {
+    question: 'Can I build my own skill?',
+    answer: 'Yes. You can create private skills for the tools you want to learn, refine them during lessons, and share or submit the best ones later.',
+  },
+  {
+    question: 'What happens when I hit my hosted minutes?',
+    answer: 'Hosted usage pauses until the next cycle. There are no surprise overage charges, and Skilly warns you as you approach the limit.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
 ---
 <Layout
-  title="Skilly for People - Guided skills for learning software"
-  description="Skilly for People helps learners use guided skills for creative and professional apps. Ask out loud, get spoken help, and watch Skilly point while you learn."
+  title="Skilly for People - Learn any desktop app by asking out loud"
+  description="Skilly for People is the personal AI tutor for individual Mac users and future Windows users. Ask out loud, get spoken help, and watch Skilly point at what to click."
   productLine="people"
-  funnelStage="consideration"
+  funnelStage="conversion"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
   <Nav />
-  <main class="overflow-x-clip pt-16">
-    <section class="relative px-6 pt-24 pb-16 lg:pt-32 lg:pb-20 bg-[#FAFAF8] overflow-hidden">
-      <div class="max-w-site mx-auto grid gap-10 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center">
+  <main class="overflow-x-clip bg-[#FAF8F4] text-[#1A1714]">
+    <div class="sr-only" itemscope itemtype="https://schema.org/SoftwareApplication">
+      <h2 itemprop="name">Skilly for People</h2>
+      <p itemprop="description">
+        Skilly for People is a personal voice-first AI tutor for individual desktop users. It is available for macOS today and planned for Windows. Users ask out loud, Skilly sees the current screen, speaks the answer, and points at the exact interface element to use next.
+      </p>
+      <span itemprop="operatingSystem">macOS 14+ today; Windows planned</span>
+      <span itemprop="applicationCategory">EducationalApplication</span>
+    </div>
+
+    <section id="top" class="mx-auto max-w-6xl px-5 pb-12 pt-24 sm:px-8 sm:pt-28">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
         <div>
-          <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Skilly for people</span>
-          <h1 class="mt-4 text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.06] tracking-tight text-gray-900">
-            Learn the app while you use it.
+          <div class="font-mono text-[12px] tracking-[0.04em] text-[#F50A87]">
+            <span class="text-[#1A1714]">[</span>POINT: for-people<span class="text-[#1A1714]">]</span>
+          </div>
+          <h1 class="mt-5 max-w-[650px] text-[44px] font-bold leading-[1.03] tracking-tight text-[#1A1714] sm:text-[58px]">
+            <span class="block">Stop Googling</span>
+            <span>"how do I do this?"</span>
           </h1>
-          <p class="mt-6 max-w-[650px] text-lg lg:text-xl leading-relaxed text-gray-600">
-            Skilly turns software learning into guided practice. Start with bundled skills for Blender, Figma, video editing, motion graphics, and VFX, then ask out loud whenever you get stuck.
+          <p class="mt-6 max-w-lg text-[18px] leading-relaxed text-[#6B635A]">
+            Skilly is the patient expert sitting next to you. Ask out loud in any Mac app, hear the answer, and watch the cursor move to the exact button, menu, or setting.
           </p>
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href={DOWNLOAD_URL} data-ph-event="web_cta_download_clicked" data-ph-prop-location="people_hero" class="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
-              Download the Mac tutor
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={DOWNLOAD_URL}
+              data-ph-event="web_cta_download_clicked"
+              data-ph-prop-location="people_hero"
+              data-ph-prop-target-funnel="people"
+              class="inline-flex items-center gap-2 rounded-xl bg-[#F50A87] px-6 py-3.5 font-semibold text-white transition hover:brightness-105"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M5 3l14 8-6 1.5L11 19 5 3z"/></svg>
+              Download free
             </a>
-            <a href="#skills" data-ph-event="web_people_skills_clicked" data-ph-prop-location="people_hero" class="inline-flex items-center justify-center border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-800 rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
-              Browse skills
+            <a
+              href="#demo"
+              data-ph-event="web_demo_video_played"
+              data-ph-prop-location="people_hero"
+              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F50A87]/40"
+            >
+              Watch 90-sec demo
             </a>
           </div>
+          <p class="mt-4 text-[13px] text-[#6B635A]">
+            15 minutes free · no card · macOS 14+ · free with your own OpenAI key
+          </p>
         </div>
-        <div class="rounded-[28px] border border-gray-200 bg-white p-6 shadow-xl">
-          <div class="space-y-3">
-            {['Blender fundamentals', 'Figma auto layout', 'DaVinci color basics', 'Houdini VFX concepts'].map((item, index) => (
-              <div class="flex items-center gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                <div class="grid h-10 w-10 place-items-center rounded-xl bg-amber-500/10 text-amber-700 font-bold">{index + 1}</div>
-                <div>
-                  <div class="font-bold text-gray-900">{item}</div>
-                  <div class="text-sm text-gray-500">Voice guidance, pointer help, progress</div>
-                </div>
+
+        <div id="demo" class="relative scroll-mt-24">
+          <div class="absolute -top-3 left-2 z-20 rounded-2xl rounded-bl-sm bg-[#1A1714] px-3.5 py-2 text-[13px] text-[#FAF8F4] shadow-lg">
+            <span class="mr-1.5 font-mono text-[10px] tracking-[0.04em] text-[#F50A87]">YOU</span>how do I render this?
+          </div>
+          <div class="relative mt-8 overflow-hidden rounded-2xl border border-[#E8E2D9] bg-white shadow-xl">
+            <div class="flex h-9 items-center gap-1.5 border-b border-[#E8E2D9] bg-[#F2EEE6] px-4">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#E8E2D9]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#E8E2D9]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#E8E2D9]"></span>
+              <span class="ml-2 font-mono text-[10px] tracking-[0.04em] text-[#6B635A]">Blender</span>
+            </div>
+            <div class="grid grid-cols-[1fr_auto] gap-4 p-5">
+              <div class="space-y-2.5">
+                <div class="h-24 rounded-lg bg-[#F2EEE6]"></div>
+                <div class="h-3 w-2/3 rounded bg-[#F2EEE6]"></div>
+                <div class="h-3 w-1/2 rounded bg-[#F2EEE6]"></div>
               </div>
-            ))}
+              <div class="w-28 space-y-2">
+                <div class="h-3 rounded bg-[#F2EEE6]"></div>
+                <div class="relative">
+                  <div class="absolute inset-0 rounded-lg bg-[#F50A87]/25 blur-md"></div>
+                  <div class="relative grid h-9 place-items-center rounded-lg border-2 border-[#F50A87] bg-[#F50A87]/10 text-[12px] font-semibold text-[#F50A87]">Render</div>
+                </div>
+                <div class="h-3 rounded bg-[#F2EEE6]"></div>
+              </div>
+            </div>
+            <div class="people-cursor absolute right-[108px] top-[92px]">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="#2563EB" stroke="white" stroke-width="1.5" style="filter:drop-shadow(0 2px 4px rgba(37,99,235,.4))" aria-hidden="true"><path d="M5 3l14 8-6 1.5L11 19 5 3z"/></svg>
+            </div>
+          </div>
+          <div class="absolute -bottom-4 right-2 z-20 max-w-[260px] rounded-2xl rounded-br-sm border border-[#E8E2D9] bg-white px-3.5 py-2.5 shadow-lg">
+            <div class="mb-1 flex items-center gap-2">
+              <span class="font-mono text-[10px] tracking-[0.04em] text-[#2563EB]">SKILLY · 0:02</span>
+              <span class="voice-wave flex h-[18px] items-end gap-[2px]" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+            </div>
+            <div class="text-[13px] leading-snug">Hit <b class="text-[#F50A87]">Render</b> on the right, or press F12 to render the current frame.</div>
           </div>
         </div>
       </div>
     </section>
-    <section class="px-6 py-20 bg-white border-y border-gray-200">
-      <div class="max-w-site mx-auto grid gap-6 md:grid-cols-3">
-        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-          <h2 class="text-xl font-bold tracking-tight text-gray-900">Ask the exact question.</h2>
-          <p class="mt-3 text-[15px] leading-relaxed text-gray-600">No more pausing a tutorial and guessing which menu changed. Ask what you are trying to do right now.</p>
-        </div>
-        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-          <h2 class="text-xl font-bold tracking-tight text-gray-900">See where to click.</h2>
-          <p class="mt-3 text-[15px] leading-relaxed text-gray-600">Skilly explains out loud and moves the pointer to the UI element it is talking about.</p>
-        </div>
-        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-          <h2 class="text-xl font-bold tracking-tight text-gray-900">Keep learning in context.</h2>
-          <p class="mt-3 text-[15px] leading-relaxed text-gray-600">Skills add app-specific vocabulary, docs, and learning stages so help gets better than generic Q&A.</p>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#F50A87]">[</span>POINT: the-fix<span class="text-[#F50A87]">]</span></div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <div class="reveal"><div class="mb-1.5 text-[15px] font-bold">No more tab-switching</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Stop leaving your work to search forums, scrub tutorials, and guess. Ask without breaking focus.</p></div>
+          <div class="reveal"><div class="mb-1.5 text-[15px] font-bold">Answers for your screen</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Skilly sees what you see, so it answers about your actual file, not a generic doc that does not match.</p></div>
+          <div class="reveal"><div class="mb-1.5 text-[15px] font-bold">Shows, not just tells</div><p class="text-[14px] leading-relaxed text-[#6B635A]">The cursor moves to the exact button while it talks. You watch the step happen instead of decoding directions.</p></div>
         </div>
       </div>
     </section>
-    <Skills />
-    <Pricing />
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+      <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#F50A87]"><span class="text-[#1A1714]">[</span>POINT: create-a-skill<span class="text-[#1A1714]">]</span></div>
+      <div class="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr]">
+        <div>
+          <h2 class="text-[32px] font-bold leading-[1.03] tracking-tight text-[#1A1714] sm:text-[40px]">Want to learn something new? Make a skill for it.</h2>
+          <p class="mt-5 max-w-md text-[17px] leading-relaxed text-[#6B635A]">
+            Do not know the app yet? That is fine. Name what you want to learn, and Skilly can turn docs and notes into a step-by-step guide you use live.
+          </p>
+          <ul class="mt-6 space-y-2.5 text-[15px]">
+            <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> Lands in your library as a private skill</li>
+            <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> Refine it mid-lesson as you learn</li>
+            <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> Share by link or submit it to the public library later</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6 shadow-sm sm:p-7">
+          <div class="mb-4 rounded-xl border border-[#E8E2D9] bg-[#F2EEE6] px-4 py-3 text-[15px]">Teach me to cut a clip in DaVinci Resolve</div>
+          <div class="mb-5 space-y-2">
+            <div class="flex items-center gap-2.5 text-[13.5px]"><span class="grid h-5 w-5 place-items-center rounded-full bg-[#F50A87]/10 text-[11px] text-[#F50A87]">✓</span> Read product docs and context</div>
+            <div class="flex items-center gap-2.5 text-[13.5px]"><span class="grid h-5 w-5 place-items-center rounded-full bg-[#F50A87]/10 text-[11px] text-[#F50A87]">✓</span> Composed the first lessons</div>
+            <div class="flex items-center gap-2.5 text-[13.5px]"><span class="grid h-5 w-5 place-items-center rounded-full bg-[#F50A87]/10 text-[11px] text-[#F50A87]">✓</span> Added vocabulary for pointing</div>
+          </div>
+          <div class="overflow-hidden rounded-xl border border-[#E8E2D9]">
+            <div class="flex items-center justify-between border-b border-[#E8E2D9] bg-[#F2EEE6] px-4 py-2.5">
+              <span class="text-[14px] font-semibold">DaVinci - Cut a clip</span>
+              <span class="rounded border border-[#E8E2D9] bg-white px-2 py-0.5 font-mono text-[10px] tracking-[0.04em] text-[#6B635A]">private</span>
+            </div>
+            <div class="space-y-1.5 p-4 text-[13px]">
+              <div class="flex gap-2"><span class="font-mono text-[#F50A87]">01</span> Import footage to the media pool</div>
+              <div class="flex gap-2"><span class="font-mono text-[#F50A87]">02</span> Drop it on the timeline</div>
+              <div class="pl-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]">+ 4 more</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#F50A87]">[</span>POINT: skills<span class="text-[#F50A87]">]</span></div>
+        <h2 class="mb-2 text-[26px] font-bold leading-tight tracking-tight sm:text-[32px]">Skills that ship free in the app</h2>
+        <p class="mb-7 max-w-lg text-[15px] text-[#6B635A]">Full courses with progress tracking and current knowledge from docs, so help can go deeper than generic chat.</p>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {['Blender|Modeling, sculpting, rendering', 'Figma|Auto layout, components, prototyping', 'After Effects|Keyframing, effects, text animation', 'DaVinci Resolve|Editing, color, audio, delivery', 'Premiere Pro|Trimming, color, titles, export', 'Houdini|Pyro, FLIP fluids, Karma rendering'].map((item) => {
+            const [name, description] = item.split('|');
+            return (
+              <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-5">
+                <div class="text-[16px] font-bold">{name}</div>
+                <div class="mt-1 text-[13px] text-[#6B635A]">{description}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+      <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#F50A87]">[</span>POINT: how-it-works<span class="text-[#F50A87]">]</span></div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="reveal"><div class="mb-2 font-mono text-[28px] font-semibold text-[#F50A87]/40">01</div><h3 class="text-[17px] font-bold">You are stuck in any app</h3><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Excel, Notion, Blender, your browser, or a niche professional tool on your Mac.</p></div>
+        <div class="reveal"><div class="mb-2 font-mono text-[28px] font-semibold text-[#F50A87]/40">02</div><h3 class="text-[17px] font-bold">Hold the shortcut, talk</h3><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Press Ctrl + Option and ask out loud, like you would ask a person sitting beside you.</p></div>
+        <div class="reveal"><div class="mb-2 font-mono text-[28px] font-semibold text-[#F50A87]/40">03</div><h3 class="text-[17px] font-bold">Hear it, watch the cursor</h3><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Skilly talks you through the answer and points at exactly what to click.</p></div>
+      </div>
+      <div class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#E8E2D9] pt-6 text-[13px] text-[#6B635A]">
+        <span>16 languages, 8 voices</span><span>· OpenAI Realtime</span><span>· Zero retention</span><span>· Open source, Apache-2.0</span><span>· Native Swift, no Electron</span>
+      </div>
+    </section>
+
+    <section id="pricing" class="scroll-mt-20 border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
+        <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#F50A87]">[</span>POINT: pricing<span class="text-[#F50A87]">]</span></div>
+        <h2 class="mb-2 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">Start free. Pay only if it clicks.</h2>
+        <p class="mb-9 text-[15px] text-[#6B635A]">The hosted plan is for individual desktop users. Builder pricing lives separately in Studio.</p>
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border-2 border-[#F50A87]/25 bg-[#FAF8F4] p-7">
+            <div class="mb-2 font-mono text-[11px] tracking-[0.04em] text-[#F50A87]">HOSTED</div>
+            <div class="flex items-baseline gap-2"><span class="text-[40px] font-bold leading-none tracking-tight">$19</span><span class="text-[#6B635A]">/month</span></div>
+            <p class="mt-2 text-[14px] text-[#6B635A]">Voice minutes hosted for you. 15 minutes free first, no card.</p>
+            <ul class="mt-5 space-y-2.5 text-[14px]">
+              <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> Works in every Mac app</li>
+              <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> All bundled skills plus build your own</li>
+              <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> 16 languages, Live Tutor, multi-monitor</li>
+              <li class="flex gap-2.5"><span class="text-[#F50A87]">✓</span> Cancel anytime, keep access through the period</li>
+            </ul>
+            <a href={DOWNLOAD_URL} data-ph-event="web_cta_download_clicked" data-ph-prop-location="people_pricing_hosted" class="mt-7 inline-flex h-12 w-full items-center justify-center rounded-xl bg-[#F50A87] px-5 font-semibold text-white">Start free</a>
+          </div>
+          <div class="rounded-3xl border border-[#E8E2D9] bg-[#FAF8F4] p-7">
+            <div class="mb-2 font-mono text-[11px] tracking-[0.04em] text-[#6B635A]">BRING YOUR OWN KEY</div>
+            <div class="flex items-baseline gap-2"><span class="text-[40px] font-bold leading-none tracking-tight">Free</span><span class="text-[#6B635A]">+ OpenAI usage</span></div>
+            <p class="mt-2 text-[14px] text-[#6B635A]">Paste your own OpenAI key and skip the hosted trial gate. Pay OpenAI directly, roughly $0.06-0.10/min.</p>
+            <ul class="mt-5 space-y-2.5 text-[14px]">
+              <li class="flex gap-2.5"><span>✓</span> No subscription or card with Skilly</li>
+              <li class="flex gap-2.5"><span>✓</span> Full cost control</li>
+              <li class="flex gap-2.5"><span>✓</span> Audit or fork the source</li>
+            </ul>
+            <a href="https://github.com/tryskilly/skilly" data-ph-event="web_github_clicked" data-ph-prop-location="people_pricing_byok" class="mt-7 inline-flex h-12 w-full items-center justify-center rounded-xl border border-[#E8E2D9] bg-white px-5 font-semibold transition hover:border-[#F50A87]/40">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-3xl px-5 py-14 text-center sm:px-8">
+      <h2 class="text-[26px] font-bold leading-tight tracking-tight sm:text-[32px]">Not on Mac yet?</h2>
+      <p class="mb-6 mt-3 text-[15px] text-[#6B635A]">Windows, Linux, and mobile are planned. Tell us where you are and we will email when your platform opens.</p>
+      <div class="flex flex-wrap justify-center gap-2.5">
+        <span class="rounded-xl border border-[#E8E2D9] bg-white px-4 py-2 text-[13px]">macOS - available now</span>
+        <span class="rounded-xl border border-[#E8E2D9] bg-white px-4 py-2 text-[13px] text-[#6B635A]">Windows - in development</span>
+        <span class="rounded-xl border border-[#E8E2D9] bg-white px-4 py-2 text-[13px] text-[#6B635A]">Linux - planned</span>
+        <span class="rounded-xl border border-[#E8E2D9] bg-white px-4 py-2 text-[13px] text-[#6B635A]">iOS - exploring</span>
+      </div>
+    </section>
+
+    <section id="faq" class="mx-auto max-w-3xl scroll-mt-20 px-5 py-14 sm:px-8">
+      <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#F50A87]">[</span>POINT: faq<span class="text-[#F50A87]">]</span></div>
+      <h2 class="mb-7 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">Good to know.</h2>
+      <div class="divide-y divide-[#E8E2D9] border-y border-[#E8E2D9]">
+        {faqs.map((faq) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between text-[16px] font-semibold">
+              {faq.question}
+              <span class="text-[22px] leading-none text-[#6B635A] transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-[14.5px] leading-relaxed text-[#6B635A]">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="border-t border-[#E8E2D9] bg-[#1A1714] text-[#FAF8F4]">
+      <div class="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8">
+        <h2 class="mx-auto max-w-xl text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">The expert who never gets tired of your questions.</h2>
+        <a href={DOWNLOAD_URL} data-ph-event="web_cta_download_clicked" data-ph-prop-location="people_bottom" class="mt-7 inline-flex items-center gap-2 rounded-xl bg-[#F50A87] px-7 py-3.5 font-semibold text-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M5 3l14 8-6 1.5L11 19 5 3z"/></svg>
+          Download free for Mac
+        </a>
+        <p class="mt-4 text-[13px] text-[#FAF8F4]/50">15 min free · no card · macOS 14+</p>
+      </div>
+    </section>
   </main>
   <Footer />
   <SkillyWebWidget />
+
+  <script>
+    const peopleObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          peopleObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el, index) => {
+      if (el instanceof HTMLElement) {
+        el.style.transitionDelay = `${(index % 3) * 90}ms`;
+        peopleObserver.observe(el);
+      }
+    });
+  </script>
+
+  <style>
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: all 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+    .card-lift {
+      transition: transform 0.25s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-3px);
+    }
+    .people-cursor {
+      animation: people-bob 3s ease-in-out infinite;
+    }
+    @keyframes people-bob {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-3px, -5px); }
+    }
+    .voice-wave span {
+      display: inline-block;
+      width: 3px;
+      border-radius: 3px;
+      background: #2563EB;
+      animation: people-wave 1s ease-in-out infinite;
+    }
+    .voice-wave span:nth-child(2) { animation-delay: 0.15s; }
+    .voice-wave span:nth-child(3) { animation-delay: 0.3s; }
+    .voice-wave span:nth-child(4) { animation-delay: 0.45s; }
+    .voice-wave span:nth-child(5) { animation-delay: 0.6s; }
+    @keyframes people-wave {
+      0%, 100% { height: 6px; }
+      50% { height: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .people-cursor,
+      .voice-wave span {
+        animation: none;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </Layout>
