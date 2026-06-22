@@ -4,7 +4,8 @@ import Logo from './Logo.astro';
 import Wordmark from './Wordmark.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
 
-const isBuildersPage = Astro.url.pathname.startsWith('/builders');
+// Builders is the homepage, so treat "/" as a builders surface.
+const isBuildersPage = Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/builders');
 const isAudiencePage = Astro.url.pathname.startsWith('/people') || isBuildersPage;
 const pricingHref = isAudiencePage ? '#pricing' : '/#pricing';
 const faqHref = isAudiencePage ? '#faq' : '/#faq';
@@ -25,7 +26,7 @@ const primaryTargetFunnel = isBuildersPage ? 'builders' : undefined;
 
     <nav class="hidden md:flex items-center gap-7">
       <a href="/people" data-ph-event="web_nav_link_clicked" data-ph-prop-link="people" class="text-gray-600 hover:text-gray-900 text-[15px] font-medium transition-colors">For People</a>
-      <a href="/builders" data-ph-event="web_nav_link_clicked" data-ph-prop-link="builders" class="text-gray-600 hover:text-gray-900 text-[15px] font-medium transition-colors">For Builders</a>
+      <a href="/" data-ph-event="web_nav_link_clicked" data-ph-prop-link="builders" class="text-gray-600 hover:text-gray-900 text-[15px] font-medium transition-colors">For Builders</a>
       <a href={pricingHref} data-ph-event="web_nav_link_clicked" data-ph-prop-link="pricing" class="text-gray-600 hover:text-gray-900 text-[15px] font-medium transition-colors">Pricing</a>
       <a href={faqHref} data-ph-event="web_nav_link_clicked" data-ph-prop-link="faq" class="text-gray-600 hover:text-gray-900 text-[15px] font-medium transition-colors">FAQ</a>
       <a href="/learn" data-ph-event="web_nav_link_clicked" data-ph-prop-link="learn" class="text-gray-600 hover:text-gray-900 text-[15px] font-medium transition-colors">Learn</a>
