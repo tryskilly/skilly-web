@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: 'What does it cost per minute?',
-    answer: 'Builder sessions draw from your plan\'s pooled minutes at actual usage. The Starter plan ($29/mo) includes 500 minutes — roughly 8 hours of active guided sessions. The Studio dashboard shows your live balance and usage per project. Pricing may evolve during beta.',
+    answer: 'Builder sessions draw from your plan\'s pooled minutes at actual usage. The Starter plan ($29/mo) includes 400 minutes — more than 6 hours of active guided sessions. The Studio dashboard shows your live balance and usage per project. Pricing may evolve during beta.',
   },
   {
     question: 'Is customer data safe?',
@@ -200,9 +200,9 @@ const faqSchema = {
         <p class="mb-9 max-w-xl text-[15px] text-[#6B635A]">Builder pricing is usage-based and separate from the individual desktop plan. Public packaging may evolve during beta.</p>
         <div class="grid gap-5 sm:grid-cols-3">
           {[
-            ['STARTER', '$29', '500 minutes', 'For one early product surface', 'Start'],
-            ['STUDIO', '$99', '2,000 minutes', 'For active product onboarding', 'Open Studio'],
-            ['SCALE', '$299', '7,500 minutes', 'For higher-volume support flows', 'Talk to us'],
+            ['STARTER', '$29', '400 minutes', 'For one early product surface', 'Start'],
+            ['STUDIO', '$99', '1,500 minutes', 'For active product onboarding', 'Open Studio'],
+            ['SCALE', '$299', '5,000 minutes', 'For higher-volume support flows', 'Talk to us'],
           ].map(([name, price, minutes, body, cta], index) => (
             <div class={`relative rounded-2xl ${index === 1 ? 'border-2 border-[#F59E0B]' : 'border border-[#E8E2D9]'} bg-[#FAF8F4] p-6`}>
               {index === 1 && <span class="absolute -top-2.5 left-6 rounded bg-[#F59E0B] px-2 py-0.5 font-mono text-[10px] tracking-[0.04em] text-[#1A1714]">POPULAR</span>}
