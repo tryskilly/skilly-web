@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 
 const STUDIO_URL = 'https://studio.tryskilly.app/signup';
+// TODO: swap for a real scheduling link (Calendly / cal.com). mailto is the functional fallback.
+const BOOKING_URL = 'mailto:mohamed@tryskilly.app?subject=Skilly%20for%20Builders%20%E2%80%94%20intro%20call&body=Hi%20Mohamed%2C%20I%27d%20like%20to%20talk%20about%20adding%20Skilly%20to%20our%20product.';
 
 const builderPlans = [
   {
@@ -34,6 +36,7 @@ const builderPlans = [
     cap: 'Hard cap: 5,000 minutes/month',
     body: 'For higher-volume support flows',
     cta: 'Talk to us',
+    href: BOOKING_URL,
   },
 ];
 
@@ -128,6 +131,9 @@ const faqSchema = {
           </div>
           <p class="mt-4 text-[13px] text-[#6B635A]">
             One script tag · domain-locked · usage-billed · <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 decoration-[#9A5B08]/40 hover:decoration-[#9A5B08]">open source</a> · <a href="#how" class="underline underline-offset-2 decoration-[#9A5B08]/40 hover:decoration-[#9A5B08]">see how it works</a>
+          </p>
+          <p class="mt-3 text-[13px] text-[#6B635A]">
+            Want a hand setting it up? <a href={BOOKING_URL} data-ph-event="web_builders_book_clicked" data-ph-prop-location="builders_hero" data-ph-prop-target-funnel="builders" class="font-medium text-[#9A5B08] underline underline-offset-2 hover:brightness-110">Book 15 min with the founder</a>
           </p>
         </div>
 
@@ -238,7 +244,7 @@ const faqSchema = {
               <div class="mt-2 text-[14px] font-medium">{plan.minutes}</div>
               <div class="mt-1 text-[12px] font-medium text-[#9A5B08]">{plan.cap}</div>
               <div class="mt-2 text-[13px] text-[#6B635A]">{plan.body}</div>
-              <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location={`builders_pricing_${plan.id}`} data-ph-prop-target-funnel="builders" class={`mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-[14px] font-semibold ${plan.popular ? 'bg-[#F59E0B] text-[#1A1714]' : 'border border-[#E8E2D9] bg-white hover:border-[#F59E0B]/40'}`}>{plan.cta}</a>
+              <a href={plan.href ?? STUDIO_URL} data-ph-event={plan.href ? 'web_builders_book_clicked' : 'web_builders_studio_clicked'} data-ph-prop-location={`builders_pricing_${plan.id}`} data-ph-prop-target-funnel="builders" class={`mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-[14px] font-semibold ${plan.popular ? 'bg-[#F59E0B] text-[#1A1714]' : 'border border-[#E8E2D9] bg-white hover:border-[#F59E0B]/40'}`}>{plan.cta}</a>
             </div>
           ))}
         </div>
@@ -268,7 +274,10 @@ const faqSchema = {
       <div class="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8">
         <h2 class="mx-auto max-w-xl text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">Give your product a voice that points.</h2>
         <p class="mt-4 text-[15px] text-[#FAF8F4]/60">Draft your first skill in Studio. Preview before anyone sees it.</p>
-        <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex rounded-xl bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714]">Open Studio</a>
+        <div class="mt-7 flex flex-wrap justify-center gap-3">
+          <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="inline-flex rounded-xl bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714]">Open Studio</a>
+          <a href={BOOKING_URL} data-ph-event="web_builders_book_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="inline-flex rounded-xl border border-[#FAF8F4]/25 px-7 py-3.5 font-semibold text-[#FAF8F4] transition hover:border-[#FAF8F4]/55">Book 15 min with the founder</a>
+        </div>
         <p class="mx-auto mt-8 max-w-xl text-[13.5px] leading-relaxed text-[#FAF8F4]/55">Built solo by Mohamed and fully open source — <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-[#FAF8F4]/85">inspect the engine</a> before you put it in front of your users. Questions about your use case? <a href="mailto:mohamed@tryskilly.app" class="underline underline-offset-2 hover:text-[#FAF8F4]/85">mohamed@tryskilly.app</a></p>
         <p class="mt-5 text-[13px] text-[#FAF8F4]/35">Using Skilly personally on your Mac? <a href="/people" data-ph-event="web_people_crosslink_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="people" class="text-[#FAF8F4]/55 underline underline-offset-2 hover:text-[#FAF8F4]/80 transition-colors">Skilly for People</a> is the desktop tutor.</p>
       </div>
