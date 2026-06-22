@@ -1,13 +1,13 @@
 # Product Marketing Context
 
-*Last updated: 2026-04-16*
+*Last updated: 2026-06-22*
 
 ## Product Overview
-**One-liner:** An AI tutor for your Mac that sees your screen, moves the cursor, and speaks you through any app.
-**What it does:** Skilly lives in your macOS menu bar. You press a shortcut (or enable Live Tutor) and ask out loud — "how do I add a bevel?" — and it screenshots your active app, moves the cursor to the exact UI element, and narrates the answer in your language. Works in every Mac app; ships with deeper "skills" for Blender, Figma, After Effects, DaVinci Resolve, and Premiere Pro.
-**Product category:** AI copilot / voice-first learning assistant for desktop apps (category-creating — adjacent to Arc Search, Granola, Rewind, Cursor, one-on-one video tutorials)
-**Product type:** Native macOS app, subscription SaaS (downloaded DMG, in-app billing via Polar)
-**Business model:** Beta: $19/month for 3 hours of live voice+vision tutoring. 15 min free (no card). Beta capped at 50 users with price locked for life. Multi-tier + annual planned post-beta.
+**One-liner:** A voice-and-pointer tutor for software, available as a native Mac companion and as an embeddable website guide for builders.
+**What it does:** On Mac, Skilly lives in the menu bar. You press a shortcut (or enable Live Tutor) and ask out loud — "how do I add a bevel?" — and it screenshots your active app, moves the cursor to the exact UI element, and narrates the answer in your language. For builders, Skilly for Web lets website owners create a Studio project, import site/docs context, preview a website skill, and install a CDN widget so customers can ask questions inside their site.
+**Product category:** Voice-first learning assistant for software and customer education. Adjacent to AI tutors, website onboarding widgets, product copilots, and one-on-one video tutorials.
+**Product type:** Native macOS app plus Studio-managed web widget, subscription/usage SaaS.
+**Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, roughly $0.11 per included minute. 15 min free (no card). Beta capped at 50 users with price locked for life. Builders/Web pricing should be framed separately around Studio projects and usage, not borrowed from Mac hosted minutes.
 
 ## Target Audience
 **Target companies:** Individual creators and knowledge workers (not enterprise yet). Solo freelancers, indie makers, small teams. People who pay for their own tools.
@@ -127,5 +127,6 @@
 ## Goals
 **Business goal:** Fill the 50-seat beta with activated paying users who'd rate 9+/10, so the post-beta launch has real testimonials, usage data, and word-of-mouth.
 **Conversion action (primary):** Download DMG → complete 15-min free trial → subscribe inside the app.
-**Conversion action (secondary):** Cross-platform waitlist signup (Windows / Linux / iOS) — builds launch list for v2.
+**Conversion action (secondary):** Start in Studio for Skilly for Builders, plus cross-platform waitlist signup (Windows / Linux / iOS) for native clients.
+**Funnel architecture:** Homepage is the umbrella. `/mac` converts Mac learners to download. `/builders` converts website/app owners to Studio signup. `/people` explains guided skills and routes back to the Mac app. Analytics should include `product_line`, `funnel_stage`, `page_path`, and `target_funnel` where applicable.
 **Current metrics:** *Unknown — baseline being established; PostHog tracking in place. Landing page is live at tryskilly.app. Beta status: BETA_ACTIVE, 0 early-access users counted on site.*

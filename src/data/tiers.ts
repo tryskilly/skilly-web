@@ -19,8 +19,8 @@ export const betaTier: BetaTier = {
   name: 'Skilly Beta',
   price: '$19',
   period: '/month',
-  perDayEquivalent: 'That\u2019s ~$0.63 a day \u2014 cheaper than your morning coffee.',
-  tagline: '3 hours of real AI tutoring every month \u2014 in any app you use.',
+  perDayEquivalent: '3 hosted hours included, about $0.11 per included minute.',
+  tagline: '3 hours of real AI tutoring every month for the Mac app.',
   features: [
     'Instant help that sees your screen and moves your cursor',
     'Works in any Mac app',

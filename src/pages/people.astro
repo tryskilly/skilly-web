@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Skills from '../components/Skills.astro';
+import Pricing from '../components/Pricing.astro';
+import Footer from '../components/Footer.astro';
+import SkillyWebWidget from '../components/SkillyWebWidget.astro';
+import { DOWNLOAD_URL } from '../data/config.ts';
+---
+<Layout
+  title="Skilly for People - Guided skills for learning apps"
+  description="Skilly for People helps learners use guided skills for creative apps. Ask out loud, get spoken help, and let Skilly point while you learn."
+  productLine="people"
+  funnelStage="consideration"
+>
+  <Nav />
+  <main class="overflow-x-clip pt-16">
+    <section class="relative px-6 pt-24 pb-16 lg:pt-32 lg:pb-20 bg-[#FAFAF8] overflow-hidden">
+      <div class="max-w-site mx-auto grid gap-10 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center">
+        <div>
+          <span class="text-[13px] font-semibold text-amber-600 tracking-[1.5px] uppercase">Skilly for people</span>
+          <h1 class="mt-4 text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.06] tracking-tight text-gray-900">
+            Learn creative apps with guided skills.
+          </h1>
+          <p class="mt-6 max-w-[650px] text-lg lg:text-xl leading-relaxed text-gray-600">
+            Start with bundled skills for Blender, Figma, video editing, motion graphics, and VFX. Skilly speaks, points, and tracks progress as you learn.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href={DOWNLOAD_URL} data-ph-event="web_cta_download_clicked" data-ph-prop-location="people_hero" class="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
+              Download for Mac
+            </a>
+            <a href="#skills" data-ph-event="web_people_skills_clicked" data-ph-prop-location="people_hero" class="inline-flex items-center justify-center border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-800 rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap">
+              Browse skills
+            </a>
+          </div>
+        </div>
+        <div class="rounded-[28px] border border-gray-200 bg-white p-6 shadow-xl">
+          <div class="space-y-3">
+            {['Blender fundamentals', 'Figma auto layout', 'DaVinci color basics', 'Houdini VFX concepts'].map((item, index) => (
+              <div class="flex items-center gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                <div class="grid h-10 w-10 place-items-center rounded-xl bg-amber-500/10 text-amber-700 font-bold">{index + 1}</div>
+                <div>
+                  <div class="font-bold text-gray-900">{item}</div>
+                  <div class="text-sm text-gray-500">Voice, vision, pointer, progress</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+    <Skills />
+    <Pricing />
+  </main>
+  <Footer />
+  <SkillyWebWidget />
+</Layout>

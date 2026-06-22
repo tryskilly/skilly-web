@@ -6,12 +6,16 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  productLine?: 'umbrella' | 'mac' | 'builders' | 'people' | 'learn' | 'legal';
+  funnelStage?: 'awareness' | 'consideration' | 'conversion' | 'education' | 'legal';
 }
 
 const {
   title = 'Skilly — Stop hunting through menus. Just ask out loud.',
-  description = 'A macOS menu-bar AI tutor for every app. Ask a question out loud — Skilly sees your screen, answers out loud, and points at exactly what to click, with a live transcript beside the cursor. 15 minutes free, no card.',
+  description = 'A voice-first AI tutor for Mac users and web builders. Ask out loud, get spoken answers, and watch Skilly point at exactly what to click. Add the same guide to your website with Skilly for Web.',
   ogImage = '/og-image.png',
+  productLine = 'umbrella',
+  funnelStage = 'awareness',
 } = Astro.props;
 
 const siteUrl = 'https://tryskilly.app';
@@ -34,7 +38,7 @@ const organizationSchema = {
     'https://github.com/tryskilly/skilly',
     'https://discord.gg/NbRVfUtwfn',
   ],
-  description: 'Skilly is a macOS menu-bar AI tutor that watches your screen, hears your voice, answers out loud, and points at exactly what to click — with a live transcript streaming beside the cursor.',
+  description: 'Skilly is a voice-first AI tutor for Mac users and web builders. It sees the screen, hears your voice, answers out loud, and points at exactly what to click.',
 };
 
 const softwareApplicationSchema = {
@@ -55,7 +59,7 @@ const softwareApplicationSchema = {
       unitText: 'MONTH',
     },
   },
-  description: 'Voice-first macOS AI tutor for every app. Ask out loud, see a live transcript, watch the cursor point at exactly what you need.',
+  description: 'Voice-first AI tutor for Mac apps and websites. Ask out loud, see a live transcript, and watch Skilly point at exactly what you need.',
   downloadUrl: 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg',
 };
 
@@ -179,7 +183,14 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
             recordCrossOriginIframes: false,
           },
           loaded: function (ph) {
-            var superProps = { source: 'web', source_surface: 'marketing_site' };
+            var pageProps = {
+              source: 'web',
+              source_surface: 'marketing_site',
+              product_line: document.body && document.body.dataset.productLine || 'umbrella',
+              funnel_stage: document.body && document.body.dataset.funnelStage || 'awareness',
+              page_path: window.location.pathname,
+            };
+            var superProps = Object.assign({}, pageProps);
             try {
               var params = new URLSearchParams(window.location.search);
               ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid'].forEach(function (k) {
@@ -188,13 +199,13 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
               });
             } catch (e) {}
             ph.register(superProps);
-            ph.capture('$pageview', { $current_url: window.location.href, source_surface: 'marketing_site' });
+            ph.capture('$pageview', Object.assign({ $current_url: window.location.href }, pageProps));
           },
         });
       })();
     </script>
   </head>
-  <body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden">
+  <body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden" data-product-line={productLine} data-funnel-stage={funnelStage}>
     <div class="grain" aria-hidden="true"></div>
     <slot />
 

@@ -36,10 +36,21 @@ function gaSafeProperties(props: Record<string, unknown>): Record<string, unknow
   return safe;
 }
 
+function analyticsPropName(datasetKey: string): string {
+  return datasetKey
+    .slice('phProp'.length)
+    .replace(/^[A-Z]/, (char) => char.toLowerCase())
+    .replace(/[A-Z]/g, (char) => `_${char.toLowerCase()}`);
+}
+
 window.skillyTrack = (event, props = {}) => {
+  const body = document.body;
   const safeProps = {
     source: 'web',
     source_surface: 'marketing_site',
+    product_line: body?.dataset.productLine ?? 'umbrella',
+    funnel_stage: body?.dataset.funnelStage ?? 'awareness',
+    page_path: window.location.pathname,
     ...props,
   };
   window.posthog?.capture(event, safeProps);
@@ -58,8 +69,8 @@ document.addEventListener('click', (e) => {
   const props: Record<string, string> = {};
   for (const [key, value] of Object.entries(el.dataset)) {
     if (key.startsWith('phProp') && value !== undefined) {
-      // phPropLocation -> location
-      const propKey = key.slice('phProp'.length).toLowerCase();
+      // phPropLocation -> location, phPropProductLine -> product_line
+      const propKey = analyticsPropName(key);
       props[propKey] = value;
     }
   }

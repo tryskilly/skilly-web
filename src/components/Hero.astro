@@ -4,7 +4,6 @@
 // apps.ts and the hero-rotate.ts script are no longer used — the headline
 // is fixed and doesn't name any specific app. Both files remain in the
 // repo in case we revive the rotation pattern for a different component.
-import { DOWNLOAD_URL } from '../data/config.ts';
 import VideoModal from './VideoModal.astro';
 
 // YouTube ID for the main 16:9 product demo. The 9:16 Short lives inside
@@ -33,6 +32,7 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
     </span>
     <span itemprop="operatingSystem">macOS 14.2+</span>.
     Skilly works in any Mac app and ships with 5 free skill curricula (Blender, Figma, After Effects, DaVinci Resolve, Premiere Pro).
+    Skilly for Web lets builders add the same voice-and-pointer guide to customer websites through a Studio-managed widget.
   </p>
 </div>
 
@@ -68,6 +68,13 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
           <span class="block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-soft"></span>
           <span class="text-[13px] font-medium text-amber-700">Founder beta — 5 skills live</span>
         </span>
+        <a
+          href="#builders"
+          data-ph-event="web_builders_hero_pill_clicked"
+          class="inline-flex items-center gap-1.5 bg-white hover:bg-gray-50 border border-gray-300 hover:border-gray-400 rounded-full pl-3 pr-3.5 py-1.5 transition-colors"
+        >
+          <span class="text-[13px] font-medium text-gray-800">New: Skilly for Web</span>
+        </a>
         <a
           href="https://github.com/tryskilly/skilly"
           target="_blank"

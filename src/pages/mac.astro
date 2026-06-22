@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import Features from '../components/Features.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Skills from '../components/Skills.astro';
+import Pricing from '../components/Pricing.astro';
+import FAQ from '../components/FAQ.astro';
+import CTA from '../components/CTA.astro';
+import Footer from '../components/Footer.astro';
+import SkillyWebWidget from '../components/SkillyWebWidget.astro';
+---
+<Layout
+  title="Skilly for Mac - Voice tutor that sees your screen and points"
+  description="Skilly for Mac is a voice-first AI tutor. Ask out loud, let Skilly see your screen, hear the answer, and watch it point at exactly what to click."
+  productLine="mac"
+  funnelStage="conversion"
+>
+  <Nav />
+  <main class="overflow-x-clip">
+    <Hero />
+    <TrustStrip />
+    <Features />
+    <HowItWorks />
+    <Skills />
+    <Pricing />
+    <FAQ />
+    <CTA />
+  </main>
+  <Footer />
+  <SkillyWebWidget />
+</Layout>
