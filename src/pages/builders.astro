@@ -6,6 +6,37 @@ import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 
 const STUDIO_URL = 'https://studio.tryskilly.app/signup';
 
+const builderPlans = [
+  {
+    id: 'starter',
+    name: 'STARTER',
+    price: '$29',
+    minutes: '400 minutes',
+    cap: 'Hard cap: 400 minutes/month',
+    body: 'For one early product surface',
+    cta: 'Start',
+  },
+  {
+    id: 'studio',
+    name: 'STUDIO',
+    price: '$99',
+    minutes: '1,500 minutes',
+    cap: 'Hard cap: 1,500 minutes/month',
+    body: 'For active product onboarding',
+    cta: 'Open Studio',
+    popular: true,
+  },
+  {
+    id: 'scale',
+    name: 'SCALE',
+    price: '$299',
+    minutes: '5,000 minutes',
+    cap: 'Hard cap: 5,000 minutes/month',
+    body: 'For higher-volume support flows',
+    cta: 'Talk to us',
+  },
+];
+
 const faqs = [
   {
     question: 'How much work is it to install?',
@@ -17,7 +48,7 @@ const faqs = [
   },
   {
     question: 'What does it cost per minute?',
-    answer: 'Builder sessions draw from your plan\'s pooled minutes at actual usage. The Starter plan ($29/mo) includes 400 minutes — more than 6 hours of active guided sessions. The Studio dashboard shows your live balance and usage per project. Pricing may evolve during beta.',
+    answer: 'Builder sessions draw from your plan\'s pooled minutes at actual usage. Starter is $29/mo for 400 minutes, Studio is $99/mo for 1,500 minutes, and Scale is $299/mo for 5,000 minutes. Plans are hard-capped during beta, so there are no automatic overage surprises.',
   },
   {
     question: 'Is customer data safe?',
@@ -197,23 +228,23 @@ const faqSchema = {
       <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: pricing<span class="text-[#9A5B08]">]</span></div>
         <h2 class="mb-2 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">One pool of minutes, every project.</h2>
-        <p class="mb-9 max-w-xl text-[15px] text-[#6B635A]">Builder pricing is usage-based and separate from the individual desktop plan. Public packaging may evolve during beta.</p>
+        <p class="mb-9 max-w-xl text-[15px] text-[#6B635A]">Builder pricing is separate from the individual desktop plan. Each plan has a hard monthly minute cap during beta; when the cap is reached, new widget sessions pause until you upgrade or the next period starts.</p>
         <div class="grid gap-5 sm:grid-cols-3">
-          {[
-            ['STARTER', '$29', '400 minutes', 'For one early product surface', 'Start'],
-            ['STUDIO', '$99', '1,500 minutes', 'For active product onboarding', 'Open Studio'],
-            ['SCALE', '$299', '5,000 minutes', 'For higher-volume support flows', 'Talk to us'],
-          ].map(([name, price, minutes, body, cta], index) => (
-            <div class={`relative rounded-2xl ${index === 1 ? 'border-2 border-[#F59E0B]' : 'border border-[#E8E2D9]'} bg-[#FAF8F4] p-6`}>
-              {index === 1 && <span class="absolute -top-2.5 left-6 rounded bg-[#F59E0B] px-2 py-0.5 font-mono text-[10px] tracking-[0.04em] text-[#1A1714]">POPULAR</span>}
-              <div class="font-mono text-[11px] tracking-[0.04em] text-[#6B635A]">{name}</div>
-              <div class="mt-2 flex items-baseline gap-1.5"><span class="text-[32px] font-bold leading-none tracking-tight">{price}</span><span class="text-[13px] text-[#6B635A]">/mo</span></div>
-              <div class="mt-2 text-[14px] font-medium">{minutes}</div>
-              <div class="text-[13px] text-[#6B635A]">{body}</div>
-              <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location={`builders_pricing_${name.toLowerCase()}`} data-ph-prop-target-funnel="builders" class={`mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-[14px] font-semibold ${index === 1 ? 'bg-[#F59E0B] text-[#1A1714]' : 'border border-[#E8E2D9] bg-white hover:border-[#F59E0B]/40'}`}>{cta}</a>
+          {builderPlans.map((plan) => (
+            <div class={`relative rounded-2xl ${plan.popular ? 'border-2 border-[#F59E0B]' : 'border border-[#E8E2D9]'} bg-[#FAF8F4] p-6`}>
+              {plan.popular && <span class="absolute -top-2.5 left-6 rounded bg-[#F59E0B] px-2 py-0.5 font-mono text-[10px] tracking-[0.04em] text-[#1A1714]">POPULAR</span>}
+              <div class="font-mono text-[11px] tracking-[0.04em] text-[#6B635A]">{plan.name}</div>
+              <div class="mt-2 flex items-baseline gap-1.5"><span class="text-[32px] font-bold leading-none tracking-tight">{plan.price}</span><span class="text-[13px] text-[#6B635A]">/mo</span></div>
+              <div class="mt-2 text-[14px] font-medium">{plan.minutes}</div>
+              <div class="mt-1 text-[12px] font-medium text-[#9A5B08]">{plan.cap}</div>
+              <div class="mt-2 text-[13px] text-[#6B635A]">{plan.body}</div>
+              <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location={`builders_pricing_${plan.id}`} data-ph-prop-target-funnel="builders" class={`mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-[14px] font-semibold ${plan.popular ? 'bg-[#F59E0B] text-[#1A1714]' : 'border border-[#E8E2D9] bg-white hover:border-[#F59E0B]/40'}`}>{plan.cta}</a>
             </div>
           ))}
         </div>
+        <p class="mt-5 text-[13px] leading-relaxed text-[#6B635A]">
+          Included minutes are metered as active Skilly widget session time across all projects in the workspace. Automatic overages are disabled for beta.
+        </p>
       </div>
     </section>
 
