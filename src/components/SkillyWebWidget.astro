@@ -30,7 +30,14 @@ const SKILLY_WEB_CORE_URL = import.meta.env.PUBLIC_SKILLY_WEB_CORE_URL || 'https
     script.dataset.skillySkill = SKILLY_WEB_SKILL;
     script.dataset.skillyBackendUrl = SKILLY_WEB_BACKEND_URL;
     script.dataset.skillyCoreUrl = SKILLY_WEB_CORE_URL;
-    script.dataset.skillyAccent = '#f59e0b';
+    var isPeople = window.location.pathname === '/' || window.location.pathname.startsWith('/people');
+    var isBuilders = window.location.pathname.startsWith('/builders');
+    script.dataset.skillyAccent = isPeople ? '#f50a87' : '#f59e0b';
+    script.dataset.skillyLauncher = isBuilders
+      ? 'Ask Skilly about builders'
+      : isPeople
+        ? 'Ask Skilly about the app'
+        : 'Ask Skilly';
     script.dataset.skillyLocale = 'en';
     document.head.appendChild(script);
   })();

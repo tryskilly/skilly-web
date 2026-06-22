@@ -84,6 +84,16 @@ const faqSchema = {
             >
               Open Studio
             </a>
+            <button
+              type="button"
+              data-builders-widget-demo
+              data-ph-event="web_builders_widget_demo_clicked"
+              data-ph-prop-location="builders_hero"
+              data-ph-prop-target-funnel="builders"
+              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
+            >
+              Ask Skilly on this page
+            </button>
             <a
               href="#how"
               data-ph-event="web_builders_how_clicked"
@@ -95,7 +105,7 @@ const faqSchema = {
             </a>
           </div>
           <p class="mt-4 text-[13px] text-[#6B635A]">
-            One snippet for web · pooled minutes · project skills · domain locked
+            One snippet for web · pooled minutes · project skills · domain locked · try the widget here
           </p>
         </div>
 
@@ -242,6 +252,18 @@ const faqSchema = {
   </main>
   <Footer />
   <SkillyWebWidget />
+
+  <script>
+    document.querySelector('[data-builders-widget-demo]')?.addEventListener('click', () => {
+      const goal = 'Explain how Skilly for Builders helps a website or app guide users, and point at the most relevant section on this page.';
+      const skilly = (window as unknown as { Skilly?: { start?: (goal?: string) => void } }).Skilly;
+      if (skilly?.start) {
+        skilly.start(goal);
+      } else {
+        window.dispatchEvent(new CustomEvent('skilly:demo-requested', { detail: { goal } }));
+      }
+    });
+  </script>
 
   <script>
     const buildersObserver = new IntersectionObserver((entries) => {

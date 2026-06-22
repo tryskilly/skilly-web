@@ -3,7 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
+import VideoModal from '../components/VideoModal.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
+
+const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
 
 const faqs = [
   {
@@ -86,14 +89,15 @@ const faqSchema = {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M5 3l14 8-6 1.5L11 19 5 3z"/></svg>
               Download free
             </a>
-            <a
-              href="#demo"
+            <button
+              type="button"
+              data-video-modal-open={DEMO_VIDEO_ID}
               data-ph-event="web_demo_video_played"
               data-ph-prop-location="people_hero"
               class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F50A87]/40"
             >
               Watch 90-sec demo
-            </a>
+            </button>
           </div>
           <p class="mt-4 text-[13px] text-[#6B635A]">
             15 minutes free · no card · macOS 14+ · free with your own OpenAI key
@@ -137,6 +141,20 @@ const faqSchema = {
             </div>
             <div class="text-[13px] leading-snug">Hit <b class="text-[#F50A87]">Render</b> on the right, or press F12 to render the current frame.</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[#E8E2D9] bg-white/70">
+      <div class="mx-auto grid max-w-6xl gap-5 px-5 py-8 sm:px-8 md:grid-cols-[1.1fr_1fr] md:items-center">
+        <p class="text-[14px] leading-relaxed text-[#6B635A]">
+          <strong class="font-semibold text-[#1A1714]">Built for real desktop work.</strong> Native Swift app, OpenAI Realtime voice, visible cursor pointing, and open-source code you can inspect.
+        </p>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-[#6B635A] md:justify-end">
+          <span>OpenAI Realtime</span>
+          <span>macOS native</span>
+          <span>Zero retention</span>
+          <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="font-semibold text-[#1A1714] underline underline-offset-4 decoration-[#F50A87]/30 hover:decoration-[#F50A87]">Open source</a>
         </div>
       </div>
     </section>
@@ -291,6 +309,7 @@ const faqSchema = {
     </section>
   </main>
   <Footer />
+  <VideoModal />
   <SkillyWebWidget />
 
   <script>
