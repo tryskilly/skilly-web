@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 ---
-<Layout title="Welcome to Skilly Pro" description="Your subscription is active.">
+<Layout title="Welcome to Skilly Pro" description="Your subscription is active." productLine="people" funnelStage="conversion">
   <Nav />
   <main class="min-h-[70vh] flex items-center justify-center px-6">
     <div class="text-center max-w-md">
@@ -58,10 +58,14 @@ import Footer from '../components/Footer.astro';
       window.posthog?.capture('web_checkout_completed', {
         source: 'web_checkout',
         source_surface: 'marketing_site',
+        product_line: 'people',
+        funnel_stage: 'conversion',
       });
       window.gtag?.('event', 'web_checkout_completed', {
         source: 'web_checkout',
         source_surface: 'marketing_site',
+        product_line: 'people',
+        funnel_stage: 'conversion',
       });
 
       params.delete('uid');

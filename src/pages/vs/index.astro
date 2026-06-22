@@ -55,7 +55,7 @@ const schema = {
   })),
 };
 ---
-<Layout title={title} description={description}>
+<Layout title={title} description={description} productLine="people" funnelStage="consideration">
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </Fragment>
@@ -98,6 +98,7 @@ const schema = {
           href={DOWNLOAD_URL}
           data-ph-event="web_cta_download_clicked"
           data-ph-prop-location="vs_index"
+          data-ph-prop-target-funnel="people"
           class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
         >
           Download Skilly
