@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-*Last updated: 2026-06-22*
+*Last updated: 2026-06-22 (builders intro CRO pass)*
 
 ## Product Overview
 **One-liner:** A voice-and-pointer tutor for software, available as a native Mac companion and as an embeddable website guide for builders.

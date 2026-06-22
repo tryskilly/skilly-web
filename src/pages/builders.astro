@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: 'What does it cost per minute?',
-    answer: 'Builder sessions are metered by the second against pooled minutes. Public packaging can change during beta, so Studio is the source of truth for current project limits.',
+    answer: 'Builder sessions draw from your plan\'s pooled minutes at actual usage. The Starter plan ($29/mo) includes 500 minutes — roughly 8 hours of active guided sessions. The Studio dashboard shows your live balance and usage per project. Pricing may evolve during beta.',
   },
   {
     question: 'Is customer data safe?',
@@ -92,20 +92,11 @@ const faqSchema = {
               data-ph-prop-target-funnel="builders"
               class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
             >
-              Ask Skilly on this page
+              Try it on this page
             </button>
-            <a
-              href="#how"
-              data-ph-event="web_builders_how_clicked"
-              data-ph-prop-location="builders_hero"
-              data-ph-prop-target-funnel="builders"
-              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
-            >
-              See how it works
-            </a>
           </div>
           <p class="mt-4 text-[13px] text-[#6B635A]">
-            One snippet for web · pooled minutes · project skills · domain locked · try the widget here
+            One script tag · domain-locked · usage-billed · <a href="#how" class="underline underline-offset-2 decoration-[#9A5B08]/40 hover:decoration-[#9A5B08]">see how it works</a>
           </p>
         </div>
 
@@ -131,7 +122,7 @@ const faqSchema = {
                 Click <b class="text-[#9A5B08]">Connect data</b> first, top-left card.
               </div>
               <button class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#F59E0B] shadow-lg" aria-label="Skilly launcher preview">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1714" aria-hidden="true"><path d="M5 3l14 8-6 1.5L11 19 5 3z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 80 80" fill="#1A1714" aria-hidden="true"><path d="M20 8C18 7 16 9 16 11L16 60C16 62 18 64 20 63L34 52C35 51 37 51 38 52L50 66C51 67 53 68 55 67L61 61C63 59 62 57 61 56L49 44C48 43 48 41 49 40L58 38C60 37 61 35 59 34L20 8Z"/></svg>
               </button>
             </div>
           </div>
@@ -247,6 +238,7 @@ const faqSchema = {
         <h2 class="mx-auto max-w-xl text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">Give your product a voice that points.</h2>
         <p class="mt-4 text-[15px] text-[#FAF8F4]/60">Draft your first skill in Studio. Preview before anyone sees it.</p>
         <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex rounded-xl bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714]">Open Studio</a>
+        <p class="mt-8 text-[13px] text-[#FAF8F4]/35">Using Skilly personally on your Mac? <a href="/people" data-ph-event="web_people_crosslink_clicked" data-ph-prop-location="builders_bottom" class="text-[#FAF8F4]/55 underline underline-offset-2 hover:text-[#FAF8F4]/80 transition-colors">Skilly for People</a> is the desktop tutor.</p>
       </div>
     </section>
   </main>
