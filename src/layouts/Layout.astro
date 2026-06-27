@@ -170,6 +170,10 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
         window.posthog.init(POSTHOG_KEY, {
           api_host: POSTHOG_HOST,
           persistence: 'localStorage+cookie',
+          // Write the distinct_id cookie on .tryskilly.app so studio.tryskilly.app
+          // (Studio/web-backend) reads the SAME id and the marketing -> signup
+          // funnel stitches into one person. (Default is true; explicit here.)
+          cross_subdomain_cookie: true,
           autocapture: false,
           // Disable PostHog's auto-pageview: it can fire before campaign-param
           // parsing populates super-properties, so utm_* fields may not ride
