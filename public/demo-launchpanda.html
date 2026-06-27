@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>LaunchPanda — roadmap (Skilly demo for @Guronnimo)</title>
+<!--
+  Personalised demo stage built FOR LaunchPanda (@Guronnimo / launchpanda.dev) to show
+  Skilly guiding a new user through their launch roadmap. Mirrors LaunchPanda's real UI
+  (ranked directories by stage, DR + dofollow badges, submit arrows). Labelled targets
+  (data-demo) for cursor pointing. Served at tryskilly.app/demo-launchpanda.html so the
+  domain-locked widget loads.
+
+  For real guidance: Studio project trained on .agents/launchpanda-demo/SKILL.md, allowlist
+  this domain, swap data-skilly-key / data-skilly-skill below.
+-->
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}</style>
+</head>
+<body class="bg-[#0e1117] text-slate-100">
+  <!-- Top bar -->
+  <header class="flex items-center justify-between border-b border-white/10 px-6 py-3">
+    <div class="flex items-center gap-2">
+      <span class="text-[20px]">🐼</span>
+      <span class="text-[16px] font-bold tracking-tight">LaunchPanda</span>
+      <span class="ml-1 rounded bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-400">LIVE</span>
+    </div>
+    <nav class="flex items-center gap-5 text-[14px] text-slate-300">
+      <a data-demo="nav-launch" href="#" class="font-medium text-white">Launch</a>
+      <a data-demo="nav-community" href="#" class="hover:text-white">Community</a>
+      <div data-demo="user-avatar" class="grid h-8 w-8 place-items-center rounded-full bg-indigo-500 text-[13px] font-semibold">JV</div>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-5 py-8">
+    <div class="mb-1 text-[24px] font-bold tracking-tight">Your launch roadmap</div>
+    <p class="mb-6 text-[14px] text-slate-400">47 vetted directories, ranked by the free traffic and backlinks they deliver. Work top to bottom.</p>
+
+    <!-- Stage: Just started -->
+    <div class="mb-3 flex items-center gap-2 text-[14px] font-semibold text-slate-200">
+      <span>🌱 Just started</span><span class="text-slate-500">· 0 / 7</span>
+    </div>
+    <div class="mb-8 space-y-2">
+      <!-- Product Hunt (the recommended FIRST step) -->
+      <div data-demo="dir-producthunt" class="flex items-center justify-between rounded-xl border border-indigo-500/40 bg-indigo-500/10 px-4 py-3">
+        <div>
+          <div class="flex items-center gap-2 text-[15px] font-semibold">Product Hunt <span class="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[10px] text-emerald-400">✓ Vetted</span></div>
+          <div class="text-[12px] text-slate-400">The biggest launch platform for tech products.</div>
+          <div class="mt-1 flex items-center gap-3 text-[11px]"><span class="rounded bg-white/10 px-1.5 py-0.5 font-semibold">DR 91</span><span class="text-emerald-400">🟢 Free dofollow</span></div>
+        </div>
+        <button data-demo="submit-producthunt" class="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-[13px] font-semibold hover:bg-indigo-500">Submit ›</button>
+      </div>
+      <!-- Peerlist -->
+      <div data-demo="dir-peerlist" class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+        <div>
+          <div class="flex items-center gap-2 text-[15px] font-semibold">Peerlist <span class="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[10px] text-emerald-400">✓ Vetted</span></div>
+          <div class="text-[12px] text-slate-400">Professional network for developers and builders.</div>
+          <div class="mt-1 flex items-center gap-3 text-[11px]"><span class="rounded bg-white/10 px-1.5 py-0.5 font-semibold">DR 58</span><span class="text-emerald-400">🟢 Free dofollow</span></div>
+        </div>
+        <button data-demo="submit-peerlist" class="rounded-lg border border-white/20 px-3.5 py-1.5 text-[13px] font-medium hover:bg-white/10">Submit ›</button>
+      </div>
+    </div>
+
+    <!-- Stage: Growing -->
+    <div class="mb-3 flex items-center gap-2 text-[14px] font-semibold text-slate-200">
+      <span>🌿 Growing</span><span class="text-slate-500">· 0 / 47</span>
+    </div>
+    <div class="mb-8 space-y-2">
+      <div data-demo="dir-easylaunch" class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+        <div>
+          <div class="flex items-center gap-2 text-[15px] font-semibold">EasyLaunch <span class="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[10px] text-emerald-400">✓ Vetted</span></div>
+          <div class="text-[12px] text-slate-400">A clean, no-noise launch directory for newly shipped products.</div>
+          <div class="mt-1 flex items-center gap-3 text-[11px]"><span class="rounded bg-white/10 px-1.5 py-0.5 font-semibold">DR 18</span><span class="text-emerald-400">🟢 Free dofollow</span></div>
+        </div>
+        <button data-demo="submit-easylaunch" class="rounded-lg border border-white/20 px-3.5 py-1.5 text-[13px] font-medium hover:bg-white/10">Submit ›</button>
+      </div>
+      <div class="rounded-xl border border-dashed border-white/10 px-4 py-3 text-center text-[13px] text-slate-500" data-demo="more-directories">+ 45 more directories, personalised to your stage</div>
+    </div>
+  </main>
+
+  <!-- Skilly widget — swap key/skill for a LaunchPanda Studio project (skill: launchpanda-demo) for real guidance. -->
+  <script src="https://cdn.tryskilly.app/web/v1.js"
+          data-skilly-key="pk_live_496a58ddf39c84536cbea0b227485ebb0d5a227088d97cf9"
+          data-skilly-skill="skilly-marketing"
+          data-skilly-site="app"
+          data-skilly-accent="#6366f1"
+          data-skilly-locale="en"
+          defer></script>
+</body>
+</html>
