@@ -107,3 +107,13 @@ MAU pricing means your bill climbs as your product grows — even for users who 
 5. **You want users to ask out loud and be shown the exact button** → [Skilly](/).
 
 Don't overthink "best overall." Match the guidance model to your product and your buyer's patience — that decision matters more than any feature checklist.
+
+## Skilly vs each tool — head to head
+
+Weighing Skilly against a specific incumbent? Here are the honest side-by-side breakdowns:
+
+- [Skilly vs Appcues](/vs/appcues) — voice guide vs no-code product tours
+- [Skilly vs Pendo](/vs/pendo) — voice guide vs analytics-first platform
+- [Skilly vs Userpilot](/vs/userpilot) — voice-first vs no-code flows ($299/mo vs free)
+- [Skilly vs Whatfix](/vs/whatfix) — self-serve guide vs enterprise DAP
+- [Skilly vs Command AI](/vs/command-ai) — voice-and-pointer vs AI text copilot
