@@ -1,0 +1,204 @@
+---
+// src/pages/vs/command-ai.astro
+// SEO comparison page: "Skilly vs Command AI" (Builders product).
+// Target queries: "skilly vs command ai", "commandbar alternative", "command ai alternative".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const COMPETITOR = 'Command AI';
+const CTA_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=vs&utm_campaign=vs-command-ai';
+
+const title = 'Skilly vs Command AI — voice guide vs AI support copilot';
+const description =
+  'Command AI (formerly CommandBar, now part of Amplitude) does AI nudges and an in-app support copilot. Skilly is a voice guide that answers out loud and points the cursor. Honest comparison.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Live, conversational in-app guidance — users ask out loud and get walked to the exact button', commandai: 'AI-guided nudges + an in-app AI support agent (Copilot) that answers questions and can co-browse' },
+  { feature: 'How it answers', skilly: 'Voice answer + cursor moved to the exact UI element — it shows you', commandai: 'Generative text answers in a chat/copilot, plus nudges and spotlight search' },
+  { feature: 'Modality', skilly: 'Voice-first (speak to it, hear the answer)', commandai: 'Text-first chat + search, with co-browse' },
+  { feature: 'Setup', skilly: 'One script tag, taught from your own content in Studio', commandai: 'Install, connect content/data sources, configure nudges and copilot' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', commandai: 'Via Amplitude / sales-led (no public self-serve price)' },
+  { feature: 'Ownership', skilly: 'Independent, single founder, fast-moving', commandai: 'Acquired by Amplitude (2024) — now part of a larger analytics suite' },
+  { feature: 'Best fit', skilly: 'Builders who want voice-first guidance that points users to the button', commandai: 'Teams who want an AI support copilot + nudges, especially within Amplitude' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/command-ai',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly for Builders', applicationCategory: 'BusinessApplication', operatingSystem: 'Web (embeddable)' },
+    { '@type': 'SoftwareApplication', name: 'Command AI', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+  ],
+};
+---
+<Layout title={title} description={description} productLine="builders" funnelStage="consideration">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+
+  <div class="sr-only">
+    <h2>What’s the difference between Skilly and Command AI?</h2>
+    <p>
+      Command AI (formerly CommandBar, acquired by Amplitude in 2024) offers AI-guided nudges for product teams and an in-app AI support agent (Copilot) that answers user questions with generative text and can co-browse, plus spotlight search, tours, and checklists. Skilly is a voice-first guide: a user asks a question out loud and Skilly answers in your product’s voice while moving their cursor to the exact button — it shows the user rather than describing the answer in a chat box. Command AI is text-first and sold through Amplitude (sales-led). Skilly is voice-first, self-serve, and priced on voice-interaction minutes with a free founding tier and a $29/month starter. Both are AI-native; the core difference is voice-and-pointer guidance (Skilly) versus a text copilot plus nudges (Command AI).
+    </p>
+    <h2>Is Skilly a Command AI or CommandBar alternative?</h2>
+    <p>
+      Skilly is a voice-first alternative to Command AI (formerly CommandBar) if you want users to be shown the exact button rather than read a text answer. It is self-serve with transparent pricing (free tier, then $29/month for 400 voice-interaction minutes), whereas Command AI is now sold through Amplitude and is sales-led. For a text AI support copilot deeply tied to Amplitude analytics, Command AI is the fit; for hands-on voice guidance, Skilly is. Sign up at studio.tryskilly.app/signup.
+    </p>
+  </div>
+
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> {COMPETITOR}
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Command AI (formerly CommandBar, now part of Amplitude) answers users in a text copilot and nudges them.
+          Skilly answers <em>out loud</em> and moves their cursor to the exact button. Both are AI-native —
+          here is how they differ.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want users to <strong class="text-gray-900">ask out loud and be shown the exact button</strong>
+            — voice-first guidance, not a text chat — with self-serve, transparent pricing and one script tag.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Command AI if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want an <strong class="text-gray-900">AI support copilot and nudges</strong> with generative text
+            answers and co-browse — especially if you are <strong class="text-gray-900">already in Amplitude</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[24%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">{COMPETITOR}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.commandai}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-400 mt-3 text-center">Command AI positioning verified 2026-06-28 against command.ai (acquired by Amplitude, 2024). This category changes fast — confirm on the vendor site.</p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <div class="space-y-5">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly a CommandBar / Command AI alternative?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Yes, with a different interaction model. CommandBar became Command AI and was acquired by Amplitude in 2024; it offers AI nudges and a text-based support copilot with co-browse. Skilly is voice-first: users ask out loud and it points the cursor at the exact button. If you want a self-serve, voice-driven guide that shows rather than tells, Skilly is a strong alternative; if you want a text copilot tied to Amplitude analytics, Command AI fits better.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What’s the difference between a voice guide and an AI copilot?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                An AI copilot like Command AI’s answers questions in text and can take some actions; the user still reads the answer and finds the button. A voice guide like Skilly answers out loud and physically moves the cursor to the right element, so the user is shown where to click. For users who are stuck or non-technical, being shown is often faster than reading a generated answer.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">How does pricing compare?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Command AI is now sold through Amplitude and is sales-led, with no public self-serve price. Skilly is self-serve and transparent: a free founding tier, then $29/month for 400 voice-interaction minutes ($99 and $299 tiers for more). For a small team that wants to start today without a sales call, Skilly is the faster, cheaper path.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What does Command AI do that Skilly does not?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                A mature text support copilot with co-browse, spotlight search, nudge targeting, and tight integration with Amplitude’s analytics. Skilly is newer and focused on voice-and-pointer guidance, without deep analytics or a text support agent. If your priority is AI support deflection inside an Amplitude stack, Command AI is the more complete fit today.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
+        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Voice-first, no sales call.</p>
+        <a
+          href={CTA_URL}
+          data-ph-event="web_cta_builders_signup_clicked"
+          data-ph-prop-location="vs_command_ai"
+          data-ph-prop-target-funnel="builders"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Start free in Studio
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More onboarding-tool comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="/vs/appcues" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Appcues</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code tours</p>
+          </a>
+          <a href="/vs/pendo" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Pendo</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs analytics + guides</p>
+          </a>
+          <a href="/vs/userpilot" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Userpilot</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code flows</p>
+          </a>
+          <a href="/vs/whatfix" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Whatfix</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs enterprise DAP</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
