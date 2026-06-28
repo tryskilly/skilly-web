@@ -41,6 +41,11 @@ const learn = defineCollection({
     // Internal linking + SEO
     relatedArticles: z.array(z.string()).default([]),
     canonicalKeyword: z.string().optional(),
+    // Programmatic curriculum pages: `series` = the app a stage lesson belongs to
+    // (set on per-stage pages so the /learn index can group them under their hub
+    // instead of flooding the flat category lists).
+    series: z.string().optional(),
+    lessonNumber: z.number().optional(),
   }),
 });
 
