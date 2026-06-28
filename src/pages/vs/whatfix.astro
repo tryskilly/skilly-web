@@ -1,0 +1,205 @@
+---
+// src/pages/vs/whatfix.astro
+// SEO comparison page: "Skilly vs Whatfix" (Builders product).
+// Target queries: "skilly vs whatfix", "whatfix alternative", "lightweight digital adoption platform".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const COMPETITOR = 'Whatfix';
+const CTA_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=vs&utm_campaign=vs-whatfix';
+
+const title = 'Skilly vs Whatfix — voice guide vs enterprise adoption platform';
+const description =
+  'Whatfix is an enterprise digital adoption platform with flows, analytics, and governance across many apps. Skilly is a self-serve, embeddable voice guide for a single product. Honest comparison.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Live, conversational in-app guidance for one product — users ask out loud and get walked to the exact button', whatfix: 'Enterprise digital adoption across one or many apps (flows, smart tips, task lists, self-service support)' },
+  { feature: 'How it guides', skilly: 'Voice answer + cursor moved to the exact UI element', whatfix: 'Pre-built flows, smart tips, and a self-service help widget tied to your knowledge base' },
+  { feature: 'Scope', skilly: 'Your product — one embeddable widget', whatfix: 'Many applications, including third-party/enterprise software, at org scale' },
+  { feature: 'Setup & ownership', skilly: 'One script tag, self-serve, taught from your content', whatfix: 'Implementation project, admin team, content authoring' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', whatfix: 'Enterprise, sales-led (no public price — book a demo)' },
+  { feature: 'Analytics & governance', skilly: 'Minimal today — focused on guidance', whatfix: 'Deep: event tracking, session replays, AI insights, segmentation, SSO/governance' },
+  { feature: 'Best fit', skilly: 'Indie/SMB builders who want a fast, affordable voice guide in their own product', whatfix: 'Enterprises onboarding employees/customers across many apps with governance needs' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/whatfix',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly for Builders', applicationCategory: 'BusinessApplication', operatingSystem: 'Web (embeddable)' },
+    { '@type': 'SoftwareApplication', name: 'Whatfix', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+  ],
+};
+---
+<Layout title={title} description={description} productLine="builders" funnelStage="consideration">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+
+  <div class="sr-only">
+    <h2>What’s the difference between Skilly and Whatfix?</h2>
+    <p>
+      Whatfix is an enterprise digital adoption platform (DAP). It overlays guidance — flows, smart tips, task lists, and self-service support — across one or many applications, with deep analytics, session replays, AI insights, segmentation, and enterprise governance. It is sold to large organizations, implemented as a project, and priced via sales (no public price). Skilly is a lightweight, self-serve voice guide you embed in a single product with one script tag. A user asks a question out loud and Skilly answers in your product’s voice while moving their cursor to the exact button. Skilly prices on voice-interaction minutes with a free founding tier and a $29/month starter. Whatfix is the enterprise, multi-app, governance-heavy option; Skilly is the fast, affordable, single-product option.
+    </p>
+    <h2>Is Skilly a Whatfix alternative?</h2>
+    <p>
+      Skilly is a lightweight alternative to Whatfix for teams that do not need enterprise scale, multi-app coverage, or governance. It is self-serve (free tier, then $29/month for 400 voice-interaction minutes) versus Whatfix’s sales-led enterprise pricing, and it installs with one script tag instead of an implementation project. For cross-application adoption at a large organization, Whatfix remains the more complete platform. Sign up for Skilly at studio.tryskilly.app/signup.
+    </p>
+  </div>
+
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> {COMPETITOR}
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Whatfix is an enterprise adoption platform spanning many apps. Skilly is a self-serve voice guide
+          for a single product — your users <em>talk to</em> it and it points the cursor.
+          Here is where each one fits.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You are an <strong class="text-gray-900">indie or SMB builder</strong> who wants a voice guide live
+            in your own product <strong class="text-gray-900">today</strong>, self-serve, with one script tag and
+            transparent pricing — not an enterprise rollout.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Whatfix if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You are an <strong class="text-gray-900">enterprise onboarding across many applications</strong>
+            and need deep analytics, segmentation, SSO, and governance — and have budget for a sales-led DAP.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[24%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">{COMPETITOR}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.whatfix}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-400 mt-3 text-center">Whatfix positioning verified 2026-06-28 against whatfix.com. This category changes fast — confirm on the vendor site.</p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <div class="space-y-5">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly a lightweight Whatfix alternative?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Yes. Whatfix is a full enterprise digital adoption platform built for guidance across many applications with analytics and governance. Skilly is a focused voice guide for a single product, installed with one script tag and priced self-serve (free tier, then $29/month). If you do not need multi-app coverage, deep analytics, or enterprise governance, Skilly is the lighter, faster, cheaper option.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Can Skilly guide users across multiple apps like Whatfix?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                No. Whatfix can overlay guidance across many applications, including third-party enterprise software — that is its core strength. Skilly embeds in your own product as a single widget. If you need to guide employees across a suite of internal and SaaS tools, Whatfix is the right platform; Skilly is for guidance inside the product you build.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">How much does each cost?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Whatfix is enterprise and sales-led — there is no public price; you book a demo for a quote. Skilly is transparent and self-serve: a free founding tier, then $29/month for 400 voice-interaction minutes ($99 and $299 tiers for more). For most non-enterprise teams, Skilly is dramatically cheaper and faster to start.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What does Whatfix do that Skilly does not?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Multi-application coverage, deep analytics and session replays, AI insights, segmentation, and enterprise governance like SSO and role-based access. Skilly is new and intentionally narrow — the voice-guidance layer for a single product. For large-organization adoption programs, Whatfix is the more complete platform today.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
+        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. No implementation project.</p>
+        <a
+          href={CTA_URL}
+          data-ph-event="web_cta_builders_signup_clicked"
+          data-ph-prop-location="vs_whatfix"
+          data-ph-prop-target-funnel="builders"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Start free in Studio
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More onboarding-tool comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="/vs/appcues" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Appcues</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code tours</p>
+          </a>
+          <a href="/vs/pendo" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Pendo</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs analytics + guides</p>
+          </a>
+          <a href="/vs/userpilot" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Userpilot</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code flows</p>
+          </a>
+          <a href="/vs/command-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Command AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs AI support copilot</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

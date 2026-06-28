@@ -1,0 +1,209 @@
+---
+// src/pages/vs/appcues.astro
+//
+// SEO comparison page: "Skilly vs Appcues" (Builders product).
+// Target queries: "skilly vs appcues", "appcues alternative", "voice onboarding vs appcues".
+// Builders /vs template — mirrored by pendo.astro, userpilot.astro, whatfix.astro, command-ai.astro.
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const COMPETITOR = 'Appcues';
+const CTA_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=vs&utm_campaign=vs-appcues';
+
+const title = 'Skilly vs Appcues — voice-first guidance vs no-code tours';
+const description =
+  'Appcues builds no-code product tours, tooltips, and checklists. Skilly is an embeddable voice guide your users talk to — it answers out loud and moves their cursor to the exact button. Honest comparison.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Live, conversational in-app guidance — users ask out loud and get walked to the exact button', appcues: 'No-code product tours, tooltips, checklists, and in-app messages you design in advance' },
+  { feature: 'How it guides', skilly: 'Voice answer + cursor moved to the exact UI element, in your product’s voice', appcues: 'Visual flows the user clicks through (modals, hotspots, slideouts)' },
+  { feature: 'How users trigger it', skilly: 'The user asks a question out loud ("where do I start?")', appcues: 'Flows fire on segments, events, or page load that you pre-configure' },
+  { feature: 'Setup', skilly: 'One script tag, then teach it from your own content in Studio', appcues: 'Install the SDK, then build each flow in the no-code editor' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', appcues: 'Monthly active users + installations, sales-led (no public flat price)' },
+  { feature: 'Analytics & segmentation', skilly: 'Minimal today — focused on the guidance layer', appcues: 'Mature: event targeting, segments, A/B testing, flow analytics' },
+  { feature: 'Maturity', skilly: 'New (2026), single founder, fast-moving', appcues: 'A decade in market, enterprise customers, established' },
+  { feature: 'Best fit', skilly: 'Builders who want users to ask and be shown, with self-serve transparent pricing', appcues: 'Growth/PLG teams who need polished, segmented, measured onboarding flows' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/appcues',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly for Builders', applicationCategory: 'BusinessApplication', operatingSystem: 'Web (embeddable)' },
+    { '@type': 'SoftwareApplication', name: 'Appcues', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+  ],
+};
+---
+<Layout title={title} description={description} productLine="builders" funnelStage="consideration">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+
+  <div class="sr-only">
+    <h2>What’s the difference between Skilly and Appcues?</h2>
+    <p>
+      Skilly and Appcues both add in-app guidance to your product, but in opposite ways. Appcues is a no-code platform for building visual product tours, tooltips, checklists, and in-app messages that users click through; you design each flow in advance and target it to user segments. Skilly is an embeddable voice guide: a user asks a question out loud ("where do I start?") and Skilly answers in your product’s voice while moving their cursor to the exact button. You add one script tag and teach Skilly from your own content in Studio instead of building flows. Appcues prices on monthly active users plus installations and is sales-led. Skilly prices on voice-interaction minutes, with a free founding tier and a transparent $29/month starter. Appcues has a decade of analytics, segmentation, and A/B testing; Skilly is new and focused on the live-guidance layer.
+    </p>
+    <h2>Is Skilly an Appcues alternative?</h2>
+    <p>
+      Skilly is an alternative to Appcues if your goal is conversational, voice-first onboarding rather than pre-built click-through tours. It is self-serve with transparent pricing (free tier, then $29/month for 400 voice-interaction minutes) versus Appcues’ sales-led, MAU-based pricing. Skilly installs with one script tag and is taught from your existing content. It is not yet a replacement for Appcues’ mature analytics, segmentation, and experimentation — choose Skilly for live guidance, Appcues for measured, segmented flows. Sign up at studio.tryskilly.app/signup.
+    </p>
+  </div>
+
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> {COMPETITOR}
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Both add in-app guidance to your product. Appcues builds visual tours your users click through.
+          Skilly is a voice guide your users <em>talk to</em> — it answers out loud and moves their cursor
+          to the exact button. Here is the breakdown without the marketing gloss.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want users to <strong class="text-gray-900">ask out loud and be shown the exact button</strong>,
+            not click through a pre-built tour. You want <strong class="text-gray-900">one script tag</strong>,
+            transparent self-serve pricing, and to teach the guide from content you already have.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Appcues if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You need <strong class="text-gray-900">mature, segmented onboarding flows</strong> with A/B testing
+            and flow analytics, built by a no-code team, and you are comfortable with
+            <strong class="text-gray-900">MAU-based, sales-led pricing</strong> and a decade-old platform.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[24%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">{COMPETITOR}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.appcues}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-400 mt-3 text-center">Appcues pricing and positioning verified 2026-06-28 against appcues.com. This category changes fast — confirm on the vendor site.</p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <div class="space-y-5">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly cheaper than Appcues?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                For most early-stage products, yes. Skilly has a free founding tier and a transparent $29/month starter (400 voice-interaction minutes). Appcues publishes no flat price — it is sales-led and billed on monthly active users plus installations, which climbs as your product grows regardless of how much guidance users actually use. Skilly bills on minutes of guidance delivered, so cost tracks usage, not headcount.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Can Skilly replace Appcues for product tours?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                It depends on the job. Skilly replaces the "user is stuck and needs to be shown what to do" use case with a voice guide that points the cursor at the right button. It does not yet replace Appcues’ pre-built, segmented flows, A/B testing, and flow analytics. Many teams use a guide like Skilly for live help and keep a tour builder for structured first-run onboarding.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">How hard is Skilly to install vs Appcues?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Both are low-code. Skilly is one script tag; you then teach it from your existing help docs and content in Studio rather than building each flow by hand. Appcues installs an SDK and you build flows in its no-code editor. Skilly’s setup is faster to a working guide; Appcues gives you more granular control over each individual flow.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What does Appcues do that Skilly does not?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Appcues has a decade of maturity Skilly does not: deep segmentation, event-based targeting, A/B testing, flow analytics, and enterprise governance. If your onboarding strategy depends on measuring and experimenting on structured flows at scale, Appcues is the more complete platform today. Skilly is the better fit when the priority is conversational, voice-first guidance and fast, transparent setup.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
+        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Teach it from content you already have.</p>
+        <a
+          href={CTA_URL}
+          data-ph-event="web_cta_builders_signup_clicked"
+          data-ph-prop-location="vs_appcues"
+          data-ph-prop-target-funnel="builders"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Start free in Studio
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More onboarding-tool comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="/vs/pendo" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Pendo</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs analytics + guides</p>
+          </a>
+          <a href="/vs/userpilot" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Userpilot</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code flows</p>
+          </a>
+          <a href="/vs/whatfix" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Whatfix</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs enterprise DAP</p>
+          </a>
+          <a href="/vs/command-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Command AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs AI support copilot</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

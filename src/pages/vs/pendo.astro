@@ -1,0 +1,206 @@
+---
+// src/pages/vs/pendo.astro
+// SEO comparison page: "Skilly vs Pendo" (Builders product).
+// Target queries: "skilly vs pendo", "pendo alternative", "voice onboarding vs pendo".
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const COMPETITOR = 'Pendo';
+const CTA_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=vs&utm_campaign=vs-pendo';
+
+const title = 'Skilly vs Pendo — voice guide vs analytics + in-app guides';
+const description =
+  'Pendo pairs product analytics with in-app guides for whole teams. Skilly is an embeddable voice guide your users talk to — it answers out loud and points the cursor. Honest comparison of fit and pricing.';
+
+const comparisonRows = [
+  { feature: 'Primary use case', skilly: 'Live, conversational in-app guidance — users ask out loud and get walked to the exact button', pendo: 'Product analytics + in-app guides + feedback (NPS) in one platform' },
+  { feature: 'Center of gravity', skilly: 'The guidance layer — answering and pointing in real time', pendo: 'Analytics-first: measure behavior, then guide and survey based on it' },
+  { feature: 'How it guides', skilly: 'Voice answer + cursor moved to the exact UI element', pendo: 'Pre-built in-app guides (tooltips, walkthroughs, banners)' },
+  { feature: 'Setup', skilly: 'One script tag, taught from your own content in Studio', pendo: 'Install the snippet, tag features for analytics, build guides' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', pendo: 'Free up to 500 MAU; Base/Core/Ultimate are custom, sales-led, MAU-based' },
+  { feature: 'Analytics & segmentation', skilly: 'Minimal today — focused on guidance', pendo: 'Deep: product analytics, session replay, segments, journeys' },
+  { feature: 'Maturity', skilly: 'New (2026), single founder, fast-moving', pendo: 'Established enterprise platform, large customer base' },
+  { feature: 'Best fit', skilly: 'Builders who want conversational guidance with transparent pricing', pendo: 'Product teams who want analytics and guidance unified at scale' },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://tryskilly.app/vs/pendo',
+  about: [
+    { '@type': 'SoftwareApplication', name: 'Skilly for Builders', applicationCategory: 'BusinessApplication', operatingSystem: 'Web (embeddable)' },
+    { '@type': 'SoftwareApplication', name: 'Pendo', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+  ],
+};
+---
+<Layout title={title} description={description} productLine="builders" funnelStage="consideration">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+  <Nav />
+
+  <div class="sr-only">
+    <h2>What’s the difference between Skilly and Pendo?</h2>
+    <p>
+      Pendo is an analytics-first platform: it measures how users behave in your product, then lets you build in-app guides and collect NPS feedback based on that data. Skilly is a focused, embeddable voice guide: a user asks a question out loud and Skilly answers in your product’s voice while moving their cursor to the exact button. Pendo offers a free tier up to 500 monthly active users; its paid Base, Core, and Ultimate plans are custom-priced and sales-led, billed on MAU. Skilly prices on voice-interaction minutes with a free founding tier and a $29/month starter. Pendo is broad and analytics-heavy; Skilly is narrow and guidance-first. If you need product analytics, session replay, and segmentation, Pendo is the bigger platform. If you want users to ask and be shown, Skilly is the more direct tool.
+    </p>
+    <h2>Is Skilly a Pendo alternative?</h2>
+    <p>
+      Skilly is an alternative to Pendo’s in-app guide layer, not its analytics suite. Choose Skilly when the priority is conversational, voice-first guidance that points users to the right button, with transparent self-serve pricing (free tier, then $29/month for 400 voice-interaction minutes). Choose Pendo when you need analytics, session replay, and segmentation unified with guidance. Sign up for Skilly at studio.tryskilly.app/signup.
+    </p>
+  </div>
+
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+      <div class="max-w-[820px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          Skilly <span class="text-gray-400">vs</span> {COMPETITOR}
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
+          Pendo is an analytics platform that also ships in-app guides. Skilly is a voice guide your users
+          <em>talk to</em> — it answers out loud and moves their cursor to the exact button.
+          Here is where each one fits.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-12">
+      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want a <strong class="text-gray-900">voice guide that answers and points</strong> in real time,
+            installed with one script tag and taught from your own content — with
+            <strong class="text-gray-900">transparent, usage-based pricing</strong>.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+            <span class="font-semibold text-gray-900">Pick Pendo if</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-[15px]">
+            You want <strong class="text-gray-900">product analytics, session replay, and segmentation</strong>
+            unified with in-app guides, and you are onboarding at scale where measurement drives the guidance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table class="w-full text-left text-[15px]">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[24%]">Feature</th>
+                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
+                <th class="px-5 py-3.5 font-semibold text-gray-600">{COMPETITOR}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-gray-100 last:border-b-0 align-top">
+                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
+                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.pendo}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-400 mt-3 text-center">Pendo pricing and positioning verified 2026-06-28 against pendo.io. This category changes fast — confirm on the vendor site.</p>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <div class="space-y-5">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Does Pendo have a free plan, and how does Skilly compare?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Yes — Pendo offers a free plan for up to 500 monthly active users that includes product analytics, in-app guides, and NPS. Its paid plans (Base, Core, Ultimate) are custom-priced and sales-led. Skilly also has a free founding tier, then a transparent $29/month starter (400 voice-interaction minutes). Pendo’s free plan gives you analytics; Skilly’s gives you a working voice guide.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Can Skilly replace Pendo?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Only the guidance part. Pendo is primarily a product-analytics platform that also offers guides; Skilly does not do product analytics, session replay, or segmentation. If your main need is analytics, keep Pendo. If your main need is conversational, voice-first guidance that points users to the right button, Skilly is the more focused and faster-to-set-up tool, and the two can run side by side.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Which is faster to set up?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Skilly is faster to a working guide: one script tag, then teach it from your existing content. Pendo requires installing the snippet, tagging features for analytics, and building guides before you see value — more setup, but it unlocks the analytics Pendo is known for.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What does Pendo do that Skilly does not?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
+                Product analytics, session replay, feature tagging, journeys, and segmentation at enterprise scale. Skilly is new and intentionally narrow — it is the live voice-guidance layer, not an analytics suite. If you need to measure and segment behavior deeply, Pendo is the larger platform today.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
+        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Teach it from content you already have.</p>
+        <a
+          href={CTA_URL}
+          data-ph-event="web_cta_builders_signup_clicked"
+          data-ph-prop-location="vs_pendo"
+          data-ph-prop-target-funnel="builders"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+        >
+          Start free in Studio
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[960px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">More onboarding-tool comparisons</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="/vs/appcues" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Appcues</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code tours</p>
+          </a>
+          <a href="/vs/userpilot" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Userpilot</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code flows</p>
+          </a>
+          <a href="/vs/whatfix" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Whatfix</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs enterprise DAP</p>
+          </a>
+          <a href="/vs/command-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <p class="font-medium text-gray-900">Skilly vs Command AI</p>
+            <p class="text-sm text-gray-500 mt-1">Voice guide vs AI support copilot</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
