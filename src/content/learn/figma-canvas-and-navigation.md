@@ -5,6 +5,8 @@ pubDate: 2026-06-29
 updatedDate: 2026-06-29
 author: "Mohamed Saleh Zaied"
 category: how-to
+series: "Figma"
+lessonNumber: 1
 tags:
   - figma
   - ui-design

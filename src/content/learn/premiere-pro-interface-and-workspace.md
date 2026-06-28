@@ -5,6 +5,8 @@ pubDate: 2026-06-29
 updatedDate: 2026-06-29
 author: "Mohamed Saleh Zaied"
 category: how-to
+series: "Premiere Pro"
+lessonNumber: 1
 tags:
   - video-editing
   - premiere-pro

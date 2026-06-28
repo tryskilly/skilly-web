@@ -101,6 +101,8 @@ pubDate: {TODAY}
 updatedDate: {TODAY}
 author: "Mohamed Saleh Zaied"
 category: how-to
+series: {yamlq(app)}
+lessonNumber: {stage['n']}
 tags:
 {tag_yaml}
 howTo:

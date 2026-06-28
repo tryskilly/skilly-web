@@ -5,6 +5,8 @@ pubDate: 2026-06-29
 updatedDate: 2026-06-29
 author: "Mohamed Saleh Zaied"
 category: how-to
+series: "DaVinci Resolve"
+lessonNumber: 5
 tags:
   - video-editing
   - color-grading

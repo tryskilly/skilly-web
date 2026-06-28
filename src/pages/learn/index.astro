@@ -11,6 +11,19 @@ const sorted = entries.sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
 
+// Programmatic curriculum split: hubs (one per app) get a featured section,
+// per-stage lesson pages (data.series) are reachable via their hub + sitemap
+// rather than flooding the flat category grids below. Standalone = hand-written.
+const idSlug = (e: (typeof sorted)[number]) => e.id.replace(/\.md$/, '');
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const isHub = (e: (typeof sorted)[number]) => idSlug(e).endsWith('-tutorial-for-beginners');
+const hubs = sorted.filter(isHub);
+const lessons = sorted.filter((e) => e.data.series && !isHub(e));
+const standalone = sorted.filter((e) => !e.data.series && !isHub(e));
+const hubAppSlug = (e: (typeof sorted)[number]) => idSlug(e).replace('-tutorial-for-beginners', '');
+const lessonCount = (hub: (typeof sorted)[number]) =>
+  lessons.filter((l) => slugify(l.data.series ?? '') === hubAppSlug(hub)).length;
+
 const siteUrl = 'https://tryskilly.app';
 
 const collectionSchema = {
@@ -51,7 +64,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 const categories: Record<string, typeof sorted> = {};
-for (const entry of sorted) {
+for (const entry of standalone) {
   const cat = entry.data.category;
   if (!categories[cat]) categories[cat] = [];
   categories[cat].push(entry);
@@ -84,6 +97,30 @@ const orderedCategories = categoryOrder
         </p>
       </div>
     </section>
+
+    {hubs.length > 0 && (
+      <section class="max-w-site mx-auto px-6 pb-6">
+        <div class="max-w-[1040px] mx-auto">
+          <div class="flex items-baseline justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Course curriculums</h2>
+            <span class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">{hubs.length} apps</span>
+          </div>
+          <p class="text-gray-600 text-[15px] mb-6 max-w-[680px]">Free, step-by-step beginner curriculums for the creative apps Skilly teaches — each one a sequence of hands-on lessons you can follow on your Mac.</p>
+          <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {hubs.map((hub) => (
+              <a
+                href={`/learn/${idSlug(hub)}/`}
+                class="group p-7 rounded-xl bg-white border border-gray-200 hover:border-amber-500/60 shadow-sm hover:shadow-md transition-all"
+              >
+                <h3 class="text-[18px] font-semibold text-gray-900 group-hover:text-amber-700 transition-colors leading-snug tracking-tight">{hub.data.title}</h3>
+                <p class="mt-2 text-[14px] text-gray-600 leading-relaxed">{hub.data.description}</p>
+                <p class="mt-5 text-[11px] font-mono tracking-[0.06em] uppercase text-amber-700">{lessonCount(hub)} lessons &rarr;</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
 
     <section class="max-w-site mx-auto px-6 pb-20 lg:pb-24">
       <div class="max-w-[1040px] mx-auto">
