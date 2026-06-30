@@ -216,3 +216,66 @@ function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+
+export interface AuditEmailReport {
+  product?: string;
+  host?: string;
+  score?: number;
+  band?: string;
+  scores?: Record<string, number>;
+  gaps?: string[];
+  questions?: { question: string; answered: boolean }[];
+  firstRunPath?: string[];
+  voiceGuideScript?: string;
+  skillPreview?: string;
+  studioUrl?: string;
+}
+
+export function auditReportEmail(opts: { report: AuditEmailReport; url: string }) {
+  const r = opts.report;
+  const name = escapeHtml(r.product || r.host || opts.url);
+  const studio =
+    r.studioUrl ||
+    'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=free-tool&utm_campaign=ai-onboarding-audit-email';
+  const li = (items: string[] = []) => items.map((i) => `<li style="margin:5px 0;">${escapeHtml(i)}</li>`).join('');
+  const scoreRows = Object.entries(r.scores || {})
+    .map(
+      ([k, v]) =>
+        `<tr><td style="padding:5px 0;color:#6B635A;">${escapeHtml(k)}</td><td style="padding:5px 0;text-align:right;font-weight:600;">${v}/20</td></tr>`,
+    )
+    .join('');
+  const questionsHtml = (r.questions || [])
+    .map((q) => `<li style="margin:5px 0;list-style:none;">${q.answered ? '&#9989;' : '&#10060;'} ${escapeHtml(q.question)}</li>`)
+    .join('');
+
+  const subject = `Your AI onboarding audit: ${r.product || r.host || opts.url} scored ${r.score ?? '--'}/100`;
+  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:620px;margin:0 auto;color:#1A1714;line-height:1.5;">
+  <p style="font-family:monospace;font-size:12px;color:#9A5B08;letter-spacing:0.04em;">SKILLY · AI ONBOARDING AUDIT</p>
+  <h1 style="font-size:22px;margin:6px 0;">${name}</h1>
+  <p style="font-size:34px;font-weight:700;margin:8px 0;">${r.score ?? '--'}<span style="font-size:15px;color:#6B635A;font-weight:400;">/100 &middot; ${escapeHtml(r.band || '')}</span></p>
+  <table style="width:100%;border-collapse:collapse;margin:14px 0 22px;">${scoreRows}</table>
+  <h2 style="font-size:16px;">Top gaps</h2><ul style="padding-left:18px;color:#4E463D;">${li(r.gaps)}</ul>
+  <h2 style="font-size:16px;">Questions your public content leaves dead</h2><ul style="padding-left:0;color:#4E463D;">${questionsHtml}</ul>
+  <h2 style="font-size:16px;">Suggested first-run path</h2><ol style="padding-left:18px;color:#4E463D;">${li(r.firstRunPath)}</ol>
+  <h2 style="font-size:16px;">Voice-guide script</h2>
+  <pre style="background:#1A1714;color:#FAF8F4;padding:12px;border-radius:8px;white-space:pre-wrap;font-size:12px;">${escapeHtml(r.voiceGuideScript || '')}</pre>
+  <h2 style="font-size:16px;">SKILL.md preview</h2>
+  <pre style="background:#F2EEE6;padding:12px;border-radius:8px;white-space:pre-wrap;font-size:12px;overflow-x:auto;">${escapeHtml(r.skillPreview || '')}</pre>
+  <p style="margin:26px 0;"><a href="${studio}" style="background:#F59E0B;color:#1A1714;padding:13px 26px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;">Turn this into a live voice guide &rarr; Open Studio</a></p>
+  <p style="font-size:12px;color:#6B635A;">This is what Skilly reads when it teaches your in-product guide. Reply to this email if you want a hand. &mdash; tryskilly.app</p>
+</div>`;
+  const text = [
+    `Skilly AI Onboarding Audit — ${r.product || r.host || opts.url}`,
+    `Score: ${r.score ?? '--'}/100 (${r.band || ''})`,
+    '',
+    'Top gaps:',
+    ...(r.gaps || []).map((g) => `- ${g}`),
+    '',
+    'First-run path:',
+    ...(r.firstRunPath || []).map((p, i) => `${i + 1}. ${p}`),
+    '',
+    `Turn it into a live voice guide: ${studio}`,
+  ].join('\n');
+
+  return { subject, html, text };
+}

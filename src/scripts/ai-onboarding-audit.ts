@@ -115,6 +115,9 @@ Help a new user reach "${goal}" without leaving the product.
   };
 }
 
+let lastReport: AuditReport | null = null;
+let lastAuditUrl = '';
+
 function renderReport(report: AuditReport, rawUrl: string, goal: string, productType: string): void {
   const title = document.querySelector<HTMLElement>('[data-audit-title]');
   const score = document.querySelector<HTMLElement>('[data-audit-score]');
@@ -177,6 +180,10 @@ function renderReport(report: AuditReport, rawUrl: string, goal: string, product
     host: report.host,
     used_llm: Boolean(report.usedLlm),
   });
+
+  lastReport = report;
+  lastAuditUrl = rawUrl;
+  document.querySelector<HTMLElement>('[data-audit-email-form]')?.classList.remove('hidden');
 }
 
 document.addEventListener('submit', async (event) => {
@@ -224,6 +231,54 @@ document.addEventListener('submit', async (event) => {
     if (button) {
       button.disabled = false;
       button.textContent = originalButtonText;
+    }
+  }
+});
+
+document.addEventListener('submit', async (event) => {
+  const form = event.target instanceof HTMLFormElement ? event.target : null;
+  if (!form?.matches('[data-audit-email-form]')) return;
+  event.preventDefault();
+
+  const msg = form.querySelector<HTMLElement>('[data-audit-email-msg]');
+  const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const originalText = button?.textContent ?? '';
+  const email = String(new FormData(form).get('email') ?? '').trim();
+
+  const setMsg = (text: string, ok: boolean) => {
+    if (!msg) return;
+    msg.textContent = text;
+    msg.className = `mt-2 text-sm font-medium ${ok ? 'text-green-700' : 'text-red-700'}`;
+  };
+
+  if (!lastReport) {
+    setMsg('Run an audit first.', false);
+    return;
+  }
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Sending...';
+  }
+  try {
+    const response = await fetch('/api/ai-onboarding-audit-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, url: lastAuditUrl, report: lastReport }),
+    });
+    if (!response.ok) throw new Error('send failed');
+    setMsg('Sent — check your inbox for the full report.', true);
+    form.reset();
+    window.skillyTrack?.('web_ai_audit_report_emailed', {
+      tool: 'ai_onboarding_audit',
+      host: lastReport.host,
+      score: lastReport.score,
+    });
+  } catch {
+    setMsg('Could not send right now. Try again in a moment.', false);
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.textContent = originalText;
     }
   }
 });

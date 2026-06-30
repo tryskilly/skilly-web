@@ -110,40 +110,38 @@ const siblingTools = [
       <div class="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <form data-ai-audit-form class="rounded-3xl border border-[#E8E2D9] bg-white p-5 shadow-sm sm:p-7">
           <h2 class="text-2xl font-bold tracking-tight">Run the audit</h2>
-          <p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Generate an instant preview from your inputs. The full crawler-backed report will use this same form.</p>
+          <p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Paste your product URL. We crawl your public site and score whether an AI guide could onboard a new user from it.</p>
 
           <label class="mt-6 block">
             <span class="text-sm font-semibold">Product URL</span>
             <input name="url" type="url" required placeholder="https://yourproduct.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
           </label>
 
-          <label class="mt-4 block">
-            <span class="text-sm font-semibold">Activation goal</span>
-            <select name="goal" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition focus:border-[#F59E0B]">
-              <option value="create first project">Create first project</option>
-              <option value="connect data">Connect data</option>
-              <option value="invite teammate">Invite teammate</option>
-              <option value="publish first page">Publish first page</option>
-            </select>
-          </label>
-
-          <label class="mt-4 block">
-            <span class="text-sm font-semibold">Product type</span>
-            <input name="type" type="text" placeholder="Analytics tool, design app, CRM..." class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
-          </label>
-
-          <label class="mt-4 block">
-            <span class="text-sm font-semibold">Docs URL <span class="font-normal text-[#6B635A]">(optional)</span></span>
-            <input name="docsUrl" type="url" placeholder="https://docs.yourproduct.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
-          </label>
-
-          <label class="mt-4 block">
-            <span class="text-sm font-semibold">Email <span class="font-normal text-[#6B635A]">(optional)</span></span>
-            <input name="email" type="email" placeholder="you@company.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
-          </label>
+          <details class="mt-4">
+            <summary class="cursor-pointer list-none text-sm font-semibold text-[#9A5B08] transition hover:brightness-110">Add details <span class="font-normal text-[#6B635A]">(optional — sharpens the audit)</span></summary>
+            <div class="mt-3 space-y-4">
+              <label class="block">
+                <span class="text-sm font-semibold">Activation goal</span>
+                <select name="goal" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition focus:border-[#F59E0B]">
+                  <option value="create first project">Create first project</option>
+                  <option value="connect data">Connect data</option>
+                  <option value="invite teammate">Invite teammate</option>
+                  <option value="publish first page">Publish first page</option>
+                </select>
+              </label>
+              <label class="block">
+                <span class="text-sm font-semibold">Product type</span>
+                <input name="type" type="text" placeholder="Analytics tool, design app, CRM..." class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+              </label>
+              <label class="block">
+                <span class="text-sm font-semibold">Docs URL</span>
+                <input name="docsUrl" type="url" placeholder="https://docs.yourproduct.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+              </label>
+            </div>
+          </details>
 
           <button type="submit" class="mt-6 w-full rounded-xl bg-[#F59E0B] px-5 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
-            Generate audit preview
+            Run audit
           </button>
           <p data-ai-audit-error class="mt-3 hidden text-sm font-medium text-red-700"></p>
         </form>
@@ -198,6 +196,16 @@ const siblingTools = [
               Share audit
             </a>
           </div>
+
+          <form data-audit-email-form class="mt-5 hidden rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-4">
+            <h3 class="font-bold">Email me the full report</h3>
+            <p class="mt-1 text-[14px] text-[#6B635A]">Get this audit and your SKILL.md as a formatted report in your inbox.</p>
+            <div class="mt-3 flex flex-col gap-2 sm:flex-row">
+              <input name="email" type="email" required placeholder="you@company.com" class="w-full rounded-xl border border-[#D8D0C5] bg-white px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+              <button type="submit" class="shrink-0 rounded-xl bg-[#1A1714] px-5 py-3 font-semibold text-white transition hover:bg-[#2A251F] active:scale-[0.98]">Email me the report</button>
+            </div>
+            <p data-audit-email-msg class="mt-2 hidden text-sm font-medium"></p>
+          </form>
         </div>
       </div>
     </section>
