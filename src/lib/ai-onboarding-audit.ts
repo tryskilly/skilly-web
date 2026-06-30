@@ -398,8 +398,11 @@ function normalizeLlmReport(parsed: LlmAuditPayload, fallback: AuditReport): Aud
 }
 
 async function llmReport(input: AuditInput, pages: CrawledPage[], fallback: AuditReport): Promise<AuditReport> {
-  const apiKey = import.meta.env.OPENAI_API_KEY;
-  if (!apiKey) return fallback;
+  const apiKey = process.env.OPENAI_API_KEY ?? import.meta.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.warn('[ai-audit] OPENAI_API_KEY missing at runtime — using deterministic fallback (set it in Netlify + redeploy)');
+    return fallback;
+  }
 
   const prompt = [
     'You are scoring whether an AI product guide can explain and onboard a new user from public product content.',
@@ -421,16 +424,25 @@ async function llmReport(input: AuditInput, pages: CrawledPage[], fallback: Audi
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: import.meta.env.OPENAI_AUDIT_MODEL || 'gpt-5.4-mini',
+        model: process.env.OPENAI_AUDIT_MODEL ?? import.meta.env.OPENAI_AUDIT_MODEL ?? 'gpt-4o-mini',
         input: prompt,
         max_output_tokens: 2200,
       }),
     });
-    if (!response.ok) return fallback;
+    if (!response.ok) {
+      const body = await response.text().catch(() => '');
+      console.warn(`[ai-audit] OpenAI ${response.status}: ${body.slice(0, 300)}`);
+      return fallback;
+    }
     const data = await response.json();
     const parsed = safeJsonParse(openAIResponseText(data));
-    return parsed ? normalizeLlmReport(parsed, fallback) ?? fallback : fallback;
-  } catch {
+    if (!parsed) {
+      console.warn('[ai-audit] could not parse LLM JSON response — using deterministic fallback');
+      return fallback;
+    }
+    return normalizeLlmReport(parsed, fallback) ?? fallback;
+  } catch (error) {
+    console.warn(`[ai-audit] LLM call failed: ${error instanceof Error ? error.message : String(error)}`);
     return fallback;
   }
 }
