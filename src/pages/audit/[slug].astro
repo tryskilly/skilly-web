@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { buildStudioPrefillUrl, runAudit, type ScoreKey } from '../../lib/ai-onboarding-audit';
+
+export const prerender = false;
+
+const slug = Astro.params.slug ?? '';
+const goal = Astro.url.searchParams.get('goal') || 'create first project';
+const productType = Astro.url.searchParams.get('type') || '';
+const report = await runAudit({
+  url: slug.includes('.') ? `https://${slug}` : slug,
+  goal,
+  productType,
+});
+const studioUrl = buildStudioPrefillUrl(report, { url: `https://${report.host}`, goal, productType });
+const title = `${report.product} AI onboarding audit - ${report.score}/100`;
+const description = `${report.product} scored ${report.score}/100 on Skilly's AI onboarding audit. See onboarding gaps, dead-end questions, and a generated guide preview.`;
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Report',
+  name: title,
+  url: report.shareUrl,
+  about: report.product,
+  description,
+};
+const scoreEntries = Object.entries(report.scores) as Array<[ScoreKey, number]>;
+---
+<Layout title={title} description={description} ogImage={report.ogImage} productLine="builders" funnelStage="awareness">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(pageSchema)} />
+  </Fragment>
+
+  <Nav />
+  <main id="top" class="overflow-x-clip bg-[#FAF8F4] text-[#1A1714]">
+    <section class="mx-auto max-w-6xl px-5 pb-12 pt-24 sm:px-8 lg:pt-28">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div>
+          <p class="font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]">AI onboarding audit</p>
+          <h1 class="mt-4 max-w-3xl text-[40px] font-bold leading-[1.04] tracking-tight sm:text-[56px]">{report.product} scored {report.score}/100.</h1>
+          <p class="mt-5 max-w-2xl text-[18px] leading-relaxed text-[#6B635A]">{description}</p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href={studioUrl} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="share_page" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">Preview in Studio</a>
+            <a href="/tools/ai-onboarding-audit" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Run your audit</a>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6 shadow-sm">
+          <div class="text-6xl font-bold tracking-tight">{report.score}</div>
+          <div class="mt-1 text-sm text-[#6B635A]">out of 100</div>
+          <div class="mt-4 rounded-xl bg-[#FAF8F4] px-4 py-3 font-semibold">{report.band}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto grid max-w-6xl gap-4 px-5 py-10 sm:px-8 md:grid-cols-5">
+        {scoreEntries.map(([label, value]) => (
+          <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-4">
+            <div class="text-sm font-semibold">{label}</div>
+            <div class="mt-2 text-3xl font-bold">{value}/20</div>
+            <p class="mt-2 text-[13px] leading-relaxed text-[#6B635A]">{report.scoreJustifications[label]}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto grid max-w-6xl gap-6 px-5 py-14 sm:px-8 lg:grid-cols-2">
+      <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6">
+        <h2 class="text-2xl font-bold tracking-tight">Specific gaps</h2>
+        <ul class="mt-5 space-y-3 text-[15px] leading-relaxed text-[#6B635A]">
+          {report.gaps.map((gap) => <li>{gap}</li>)}
+        </ul>
+      </div>
+      <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6">
+        <h2 class="text-2xl font-bold tracking-tight">Questions users ask</h2>
+        <ul class="mt-5 space-y-3 text-[15px] leading-relaxed text-[#6B635A]">
+          {report.questions.map((item) => <li><span class="font-semibold text-[#1A1714]">{item.answered ? 'Answered' : 'Missing'}:</span> {item.question}</li>)}
+        </ul>
+      </div>
+      <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6">
+        <h2 class="text-2xl font-bold tracking-tight">Suggested first-run path</h2>
+        <ol class="mt-5 list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-[#6B635A]">
+          {report.firstRunPath.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+      <div class="rounded-3xl border border-[#E8E2D9] bg-[#1A1714] p-6 text-[#FAF8F4]">
+        <h2 class="text-2xl font-bold tracking-tight">Voice-guide script</h2>
+        <pre class="mt-5 whitespace-pre-wrap font-mono text-[13px] leading-relaxed text-[#FAF8F4]/80">{report.voiceGuideScript}</pre>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+      <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6">
+        <h2 class="text-2xl font-bold tracking-tight">Generated SKILL.md preview</h2>
+        <pre class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-[#FAF8F4] p-5 font-mono text-[13px] leading-relaxed text-[#4E463D]">{report.skillPreview}</pre>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={studioUrl} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="skill_preview" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">Open Studio</a>
+          <a href="mailto:hello@tryskilly.app?subject=Remove%20Skilly%20audit%20page" class="inline-flex items-center rounded-xl border border-[#E8E2D9] px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Claim or remove</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

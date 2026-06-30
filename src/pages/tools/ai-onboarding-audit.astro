@@ -1,0 +1,233 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const STUDIO_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=free-tool&utm_campaign=ai-onboarding-audit';
+
+const title = 'Free AI onboarding audit - Can AI explain your product?';
+const description =
+  'Paste your product URL and see whether an AI guide could explain your onboarding path, answer new-user questions, and draft a Skilly voice guide.';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'AI Onboarding Audit by Skilly',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: 'https://tryskilly.app/tools/ai-onboarding-audit',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  description,
+};
+
+const siblingTools = [
+  ['Product tour script generator', '/tools/product-tour-script-generator'],
+  ['User onboarding checklist', '/tools/user-onboarding-checklist'],
+  ['In-app help generator', '/tools/in-app-help-generator'],
+  ['AI product tour generator', '/tools/ai-product-tour-generator'],
+];
+---
+<Layout title={title} description={description} productLine="builders" funnelStage="awareness">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(toolSchema)} />
+  </Fragment>
+
+  <Nav />
+  <main id="top" class="overflow-x-clip bg-[#FAF8F4] text-[#1A1714]">
+    <section class="mx-auto max-w-6xl px-5 pb-14 pt-24 sm:px-8 lg:pt-28">
+      <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.96fr)_minmax(420px,1.04fr)]">
+        <div>
+          <p class="font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]">Free tool for SaaS builders</p>
+          <h1 class="mt-5 max-w-[760px] text-[42px] font-bold leading-[1.03] tracking-tight sm:text-[56px]">
+            Can AI explain your product?
+          </h1>
+          <p class="mt-6 max-w-xl text-[18px] leading-relaxed text-[#6B635A]">
+            Paste a product URL. Get an AI-readiness score, dead-end questions, onboarding gaps, and a Skilly guide preview.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#audit-form" class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
+              Run audit
+            </a>
+            <a href={STUDIO_URL} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">
+              Open Studio
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-[#E8E2D9] bg-white p-4 shadow-sm sm:p-5">
+          <div class="rounded-2xl border border-[#E8E2D9] bg-[#1A1714] p-5 text-[#FAF8F4]">
+            <div class="flex items-start justify-between gap-5 border-b border-white/10 pb-5">
+              <div>
+                <p class="font-mono text-[11px] tracking-[0.04em] text-[#F59E0B]">Sample report</p>
+                <h2 class="mt-2 text-2xl font-bold">AI-ready, but brittle</h2>
+              </div>
+              <div class="text-right">
+                <div class="text-5xl font-bold tracking-tight">68</div>
+                <div class="text-xs text-[#FAF8F4]/60">out of 100</div>
+              </div>
+            </div>
+            <div class="mt-5 grid gap-3 sm:grid-cols-2">
+              {['Activation clarity', 'CTA clarity', 'Help availability', 'Docs friction'].map((label, index) => (
+                <div class="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                  <div class="text-sm font-semibold">{label}</div>
+                  <div class="mt-3 h-1.5 rounded-full bg-[#F59E0B]" style={`width: ${[72, 64, 48, 58][index]}%`}></div>
+                </div>
+              ))}
+            </div>
+            <div class="mt-5 rounded-xl bg-[#FAF8F4] p-4 text-[#1A1714]">
+              <div class="text-sm font-bold">Generated Skilly guide preview</div>
+              <p class="mt-2 text-sm leading-relaxed text-[#6B635A]">
+                If the user asks where to start, explain the first setup action, point to the primary CTA, then confirm the expected next screen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:px-8 md:grid-cols-3">
+        <div>
+          <h2 class="text-lg font-bold">Scores what public AI can read</h2>
+          <p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Activation path, CTAs, help depth, docs structure, and whether a guide can infer what to show next.</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold">Finds dead-end questions</h2>
+          <p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">The report flags questions a new user would ask that your public site does not answer clearly.</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold">Turns gaps into a guide</h2>
+          <p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">You get a voice-guide script and a SKILL.md preview you can move into Studio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="audit-form" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-16 sm:px-8 sm:py-20">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <form data-ai-audit-form class="rounded-3xl border border-[#E8E2D9] bg-white p-5 shadow-sm sm:p-7">
+          <h2 class="text-2xl font-bold tracking-tight">Run the audit</h2>
+          <p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Generate an instant preview from your inputs. The full crawler-backed report will use this same form.</p>
+
+          <label class="mt-6 block">
+            <span class="text-sm font-semibold">Product URL</span>
+            <input name="url" type="url" required placeholder="https://yourproduct.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+          </label>
+
+          <label class="mt-4 block">
+            <span class="text-sm font-semibold">Activation goal</span>
+            <select name="goal" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition focus:border-[#F59E0B]">
+              <option value="create first project">Create first project</option>
+              <option value="connect data">Connect data</option>
+              <option value="invite teammate">Invite teammate</option>
+              <option value="publish first page">Publish first page</option>
+            </select>
+          </label>
+
+          <label class="mt-4 block">
+            <span class="text-sm font-semibold">Product type</span>
+            <input name="type" type="text" placeholder="Analytics tool, design app, CRM..." class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+          </label>
+
+          <label class="mt-4 block">
+            <span class="text-sm font-semibold">Docs URL <span class="font-normal text-[#6B635A]">(optional)</span></span>
+            <input name="docsUrl" type="url" placeholder="https://docs.yourproduct.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+          </label>
+
+          <label class="mt-4 block">
+            <span class="text-sm font-semibold">Email <span class="font-normal text-[#6B635A]">(optional)</span></span>
+            <input name="email" type="email" placeholder="you@company.com" class="mt-2 w-full rounded-xl border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B]" />
+          </label>
+
+          <button type="submit" class="mt-6 w-full rounded-xl bg-[#F59E0B] px-5 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
+            Generate audit preview
+          </button>
+          <p data-ai-audit-error class="mt-3 hidden text-sm font-medium text-red-700"></p>
+        </form>
+
+        <div data-ai-audit-result class="rounded-3xl border border-[#E8E2D9] bg-white p-5 shadow-sm sm:p-7" aria-live="polite">
+          <div class="flex items-start justify-between gap-5">
+            <div>
+              <p class="font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]">Audit preview</p>
+              <h2 data-audit-title class="mt-2 text-2xl font-bold tracking-tight">Your report will appear here.</h2>
+              <p data-audit-engine class="mt-2 text-sm text-[#6B635A]">Waiting for crawler context.</p>
+            </div>
+            <div class="rounded-2xl bg-[#FAF8F4] px-5 py-4 text-center">
+              <div data-audit-score class="text-4xl font-bold">--</div>
+              <div class="text-xs text-[#6B635A]">score</div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-2" data-audit-scores></div>
+          <div class="mt-6 rounded-2xl bg-[#FAF8F4] p-4">
+            <h3 class="font-bold">Top gaps</h3>
+            <ul data-audit-gaps class="mt-3 space-y-2 text-[15px] leading-relaxed text-[#6B635A]">
+              <li>Enter a URL to generate a focused onboarding audit.</li>
+            </ul>
+          </div>
+          <div class="mt-5 grid gap-4 md:grid-cols-2">
+            <div class="rounded-2xl border border-[#E8E2D9] p-4">
+              <h3 class="font-bold">Dead-end questions</h3>
+              <ul data-audit-questions class="mt-3 space-y-2 text-[15px] leading-relaxed text-[#6B635A]">
+                <li>Questions appear after the audit runs.</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-[#E8E2D9] p-4">
+              <h3 class="font-bold">First-run path</h3>
+              <ol data-audit-path class="mt-3 list-decimal space-y-2 pl-5 text-[15px] leading-relaxed text-[#6B635A]">
+                <li>Path appears after the audit runs.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="mt-5 rounded-2xl bg-[#1A1714] p-4 text-[#FAF8F4]">
+            <h3 class="font-bold">Voice-guide script</h3>
+            <pre data-audit-script class="mt-3 whitespace-pre-wrap font-mono text-[12.5px] leading-relaxed text-[#FAF8F4]/80">Waiting for product context...</pre>
+          </div>
+          <div class="mt-5 rounded-2xl border border-[#E8E2D9] p-4">
+            <h3 class="font-bold">SKILL.md preview</h3>
+            <pre data-audit-skill class="mt-3 overflow-x-auto whitespace-pre-wrap font-mono text-[12.5px] leading-relaxed text-[#4E463D]">Waiting for product context...</pre>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href={STUDIO_URL} data-ai-studio-link data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="report" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#1A1714] px-5 py-3 font-semibold text-white transition hover:bg-[#2A251F] active:scale-[0.98]">
+              Preview in Studio
+            </a>
+            <a href="#audit-form" data-ai-share-link class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3 font-semibold text-[#1A1714] transition hover:border-[#F59E0B]/40 active:scale-[0.98]">
+              Share audit
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
+      <h2 class="text-2xl font-bold tracking-tight">More free onboarding tools</h2>
+      <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {siblingTools.map(([label, href]) => (
+          <a href={href} class="rounded-2xl border border-[#E8E2D9] bg-white p-5 font-semibold text-[#1A1714] transition hover:border-[#F59E0B]/50 hover:bg-[#FFF9ED]">
+            {label}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+      <div class="rounded-3xl border border-[#E8E2D9] bg-[#1A1714] p-7 text-[#FAF8F4] sm:p-10">
+        <h2 class="max-w-2xl text-3xl font-bold tracking-tight">The real product is not the score. It is the guide.</h2>
+        <p class="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#FAF8F4]/70">
+          Skilly turns the audit into an in-product voice guide. Users ask what to do next, and the guide answers from your product knowledge.
+        </p>
+        <a href={STUDIO_URL} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="bottom_cta" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
+          Open Studio
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+
+  <script>
+    import '../../scripts/ai-onboarding-audit.ts';
+  </script>
+</Layout>
