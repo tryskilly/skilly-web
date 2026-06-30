@@ -163,7 +163,7 @@ function extractPage(url: URL, html: string): CrawledPage {
   const cleanText = compactText(html);
   return {
     url: url.toString(),
-    title: matchAll(html, /<title\b[^>]*>([\s\S]*?)<\/title>/i)[0] || productNameFromHost(url.host),
+    title: matchAll(html, /<title\b[^>]*>([\s\S]*?)<\/title>/gi)[0] || productNameFromHost(url.host),
     headings: unique(matchAll(html, /<h[1-3]\b[^>]*>([\s\S]*?)<\/h[1-3]>/gi), 12),
     ctas: unique(
       [
@@ -398,7 +398,7 @@ function normalizeLlmReport(parsed: LlmAuditPayload, fallback: AuditReport): Aud
 }
 
 async function llmReport(input: AuditInput, pages: CrawledPage[], fallback: AuditReport): Promise<AuditReport> {
-  const apiKey = process.env.OPENAI_API_KEY ?? import.meta.env.OPENAI_API_KEY;
+  const apiKey = (typeof process !== 'undefined' ? process.env?.OPENAI_API_KEY : undefined) ?? import.meta.env.OPENAI_API_KEY;
   if (!apiKey) {
     console.warn('[ai-audit] OPENAI_API_KEY missing at runtime — using deterministic fallback (set it in Netlify + redeploy)');
     return fallback;
@@ -424,7 +424,7 @@ async function llmReport(input: AuditInput, pages: CrawledPage[], fallback: Audi
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_AUDIT_MODEL ?? import.meta.env.OPENAI_AUDIT_MODEL ?? 'gpt-4o-mini',
+        model: (typeof process !== 'undefined' ? process.env?.OPENAI_AUDIT_MODEL : undefined) ?? import.meta.env.OPENAI_AUDIT_MODEL ?? 'gpt-4o-mini',
         input: prompt,
         max_output_tokens: 2200,
       }),
