@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import type { SeoLandingPage } from '../data/seoLandingPages.ts';
+
+interface Props {
+  page: SeoLandingPage;
+}
+
+const { page } = Astro.props;
+const path = `/${page.group}/${page.slug}`;
+const ctaUrl = `https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=seo&utm_campaign=${page.ctaCampaign}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: page.title,
+  description: page.description,
+  url: `https://tryskilly.app${path}`,
+  mainEntity: page.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+---
+<Layout title={page.title} description={page.description} productLine="builders" funnelStage="education">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+  </Fragment>
+  <Nav />
+
+  <main class="overflow-x-clip">
+    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-10">
+      <div class="max-w-[840px] mx-auto text-center">
+        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">{page.eyebrow}</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+          {page.h1}
+        </h1>
+        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[700px] mx-auto">{page.intro}</p>
+        <a
+          href={ctaUrl}
+          data-ph-event="web_cta_builders_signup_clicked"
+          data-ph-prop-location={`${page.group}_${page.slug}`}
+          data-ph-prop-target-funnel="builders"
+          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all"
+        >
+          Start free in Studio
+        </a>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[980px] mx-auto grid lg:grid-cols-[1fr_0.75fr] gap-6 items-start">
+        <div class="grid gap-5">
+          {page.sections.map((section) => (
+            <article class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+              <h2 class="text-2xl font-semibold text-gray-900 mb-3">{section.heading}</h2>
+              <p class="text-gray-700 leading-relaxed">{section.body}</p>
+            </article>
+          ))}
+        </div>
+        <aside class="bg-amber-50/80 border border-amber-200/70 rounded-xl p-7 lg:sticky lg:top-24">
+          <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-amber-700 mb-4">What Skilly adds</p>
+          <ul class="space-y-3">
+            {page.bullets.map((item) => (
+              <li class="flex gap-3 text-gray-700 leading-relaxed">
+                <span class="mt-2 block h-2 w-2 rounded-full bg-amber-500 shrink-0" aria-hidden="true"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-16">
+      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <div class="space-y-5">
+          {page.faqs.map((faq) => (
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">{faq.question}</h3>
+              <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,14 @@
+---
+import SeoLandingTemplate from '../../components/SeoLandingTemplate.astro';
+import { getSeoLandingPages } from '../../data/seoLandingPages.ts';
+
+export function getStaticPaths() {
+  return getSeoLandingPages('for').map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+---
+<SeoLandingTemplate page={page} />

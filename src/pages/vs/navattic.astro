@@ -1,0 +1,7 @@
+---
+import BuildersComparisonTemplate from '../../components/BuildersComparisonTemplate.astro';
+import { getBuildersComparisonPage } from '../../data/buildersComparisonPages.ts';
+
+const page = getBuildersComparisonPage('navattic');
+---
+<BuildersComparisonTemplate page={page} />

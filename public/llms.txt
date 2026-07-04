@@ -77,6 +77,31 @@ For builders, the same skill format (editable markdown) powers each Studio proje
 - [Skilly vs Rewind](https://tryskilly.app/vs/rewind/): comparison with the macOS recall/search assistant
 - [Skilly vs Raycast AI](https://tryskilly.app/vs/raycast-ai/): comparison with the launcher-based AI assistant
 - [Skilly vs Gemini Live](https://tryskilly.app/vs/gemini-live/): comparison with Google's real-time voice assistant
+- [Skilly vs Appcues](https://tryskilly.app/vs/appcues/): voice-and-pointer onboarding vs no-code product tours
+- [Skilly vs Pendo](https://tryskilly.app/vs/pendo/): voice guide vs analytics-first product adoption suite
+- [Skilly vs Userpilot](https://tryskilly.app/vs/userpilot/): voice guide vs no-code flows and analytics
+- [Skilly vs Whatfix](https://tryskilly.app/vs/whatfix/): self-serve voice guide vs enterprise digital adoption platform
+- [Skilly vs Command AI](https://tryskilly.app/vs/command-ai/): voice guide vs text AI support copilot and nudges
+- [Skilly vs WalkMe](https://tryskilly.app/vs/walkme/): voice guide vs enterprise digital adoption
+- [Skilly vs Chameleon](https://tryskilly.app/vs/chameleon/): voice onboarding vs no-code tours, surveys, and launchers
+- [Skilly vs Intercom Fin](https://tryskilly.app/vs/intercom-fin/): in-product voice guidance vs AI support agent
+- [Skilly vs Storylane](https://tryskilly.app/vs/storylane/): live product guidance vs interactive demos for sales and marketing
+- [Skilly vs Arcade](https://tryskilly.app/vs/arcade/): embedded voice help vs interactive demo storytelling
+- [Skilly vs Navattic](https://tryskilly.app/vs/navattic/): live product guide vs interactive product demo
+
+## Builders use cases
+
+- [Voice onboarding](https://tryskilly.app/use-cases/voice-onboarding/): users ask out loud and get shown the next click
+- [AI product tours](https://tryskilly.app/use-cases/ai-product-tours/): open-ended AI guidance for users who do not follow fixed tours
+- [Reduce support tickets](https://tryskilly.app/use-cases/reduce-support-tickets/): deflect repetitive "where do I click?" and setup questions
+- [In-app guidance for SaaS](https://tryskilly.app/use-cases/in-app-guidance-for-saas/): embedded voice guidance for activation and retention workflows
+
+## Builders audience pages
+
+- [For devtools](https://tryskilly.app/for/devtools/): guide API keys, webhooks, environments, and dashboard setup
+- [For AI SaaS](https://tryskilly.app/for/ai-saas/): guide prompts, projects, data connections, and AI workflow setup
+- [For no-code tools](https://tryskilly.app/for/nocode-tools/): help nontechnical users map plain-language goals to builder controls
+- [For education platforms](https://tryskilly.app/for/education-platforms/): voice-and-pointer guidance for learners and course workflows
 
 ## Learn articles (tutorials and reference)
 

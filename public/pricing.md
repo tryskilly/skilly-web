@@ -5,7 +5,46 @@ Machine-readable pricing for AI agents and API consumers. See also:
 - [Landing page](https://tryskilly.app/)
 - [llms.txt](https://tryskilly.app/llms.txt)
 
-## Skilly Beta — $19/month
+## Skilly for Builders
+
+Embeddable voice-and-pointer assistant for websites, SaaS products, and apps. Create a Studio project, teach Skilly from your content, lock it to approved domains, and install it with one script tag.
+
+### Early Access — $0/month
+
+- **$0 / month** (USD)
+- 30 teaching minutes per month
+- For design partners and early builders testing the widget
+- Studio project creation, editable skill markdown, allowed domains, and widget configuration
+
+### Starter — $29/month
+
+- **$29 / month** (USD)
+- 400 teaching minutes per month
+- Best for small products, early SaaS teams, and landing-page onboarding
+- Hard-capped during beta to avoid automatic overage surprises
+
+### Studio — $99/month
+
+- **$99 / month** (USD)
+- 1,500 teaching minutes per month
+- Best for growing SaaS products with active onboarding and support-deflection use cases
+- Includes the same Studio project controls, widget install, and editable skill workflow
+
+### Scale — $299/month
+
+- **$299 / month** (USD)
+- 5,000 teaching minutes per month
+- Best for higher-traffic SaaS products and teams validating voice guidance across multiple surfaces
+- Design-partner call recommended for rollout planning: https://cal.com/moelabs.dev
+
+### Builders billing notes
+
+- Builder sessions draw from the plan's pooled voice-interaction minutes at actual usage
+- Plans are hard-capped during beta; there are no automatic overage charges
+- Billing is managed through Polar where applicable
+- Studio signup: https://studio.tryskilly.app/signup
+
+## Skilly for People Beta — $19/month
 
 Only tier available during the beta. Annual billing launches post-beta.
 
