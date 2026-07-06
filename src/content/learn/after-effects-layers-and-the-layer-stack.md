@@ -49,7 +49,7 @@ relatedArticles: []
 
 Understand how layers work, how to create the most common layer types, and how to control their visibility and order. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 2 of the After Effects curriculum.** Before this: [Interface and Navigation](/learn/after-effects-interface-and-navigation). Next up: [Keyframing and Animation](/learn/after-effects-keyframing-and-animation).
+> **Lesson 2 of the After Effects curriculum.** Before this: [Interface and Navigation](//). Next up: [Keyframing and Animation](//).
 
 ## What you'll do
 
@@ -71,4 +71,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners)**. Previous: [Interface and Navigation](/learn/after-effects-interface-and-navigation). Continue with [Keyframing and Animation](/learn/after-effects-keyframing-and-animation).
+This is one stage of the full **[After Effects beginner curriculum](//)**. Previous: [Interface and Navigation](//). Continue with [Keyframing and Animation](//).

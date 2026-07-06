@@ -43,7 +43,7 @@ relatedArticles: []
 
 Combine related components into a component set and expose controls for consumers. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 6 of the Figma curriculum.** Before this: [Components and Instances](/learn/figma-components-and-instances). Next up: [Prototyping Basics](/learn/figma-prototyping-basics).
+> **Lesson 6 of the Figma curriculum.** Before this: [Components and Instances](//). Next up: [Prototyping Basics](//).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners)**. Previous: [Components and Instances](/learn/figma-components-and-instances). Continue with [Prototyping Basics](/learn/figma-prototyping-basics).
+This is one stage of the full **[Figma beginner curriculum](//)**. Previous: [Components and Instances](//). Continue with [Prototyping Basics](//).

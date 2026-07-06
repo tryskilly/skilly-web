@@ -43,7 +43,7 @@ relatedArticles: []
 
 Navigate the hierarchy and develop confident selection habits. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 3 of the Figma curriculum.** Before this: [Shapes and the Frame Tool](/learn/figma-shapes-and-the-frame-tool). Next up: [Auto Layout](/learn/figma-auto-layout).
+> **Lesson 3 of the Figma curriculum.** Before this: [Shapes and the Frame Tool](//). Next up: [Auto Layout](//).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners)**. Previous: [Shapes and the Frame Tool](/learn/figma-shapes-and-the-frame-tool). Continue with [Auto Layout](/learn/figma-auto-layout).
+This is one stage of the full **[Figma beginner curriculum](//)**. Previous: [Shapes and the Frame Tool](//). Continue with [Auto Layout](//).

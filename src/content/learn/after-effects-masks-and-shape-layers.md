@@ -43,7 +43,7 @@ relatedArticles: []
 
 Control what's visible on a layer with masks, and create standalone vector graphics with shape layers. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 5 of the After Effects curriculum.** Before this: [Effects and Effect Controls](/learn/after-effects-effects-and-effect-controls). Next up: [Text Animation](/learn/after-effects-text-animation).
+> **Lesson 5 of the After Effects curriculum.** Before this: [Effects and Effect Controls](//). Next up: [Text Animation](//).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners)**. Previous: [Effects and Effect Controls](/learn/after-effects-effects-and-effect-controls). Continue with [Text Animation](/learn/after-effects-text-animation).
+This is one stage of the full **[After Effects beginner curriculum](//)**. Previous: [Effects and Effect Controls](//). Continue with [Text Animation](//).

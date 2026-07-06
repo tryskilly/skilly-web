@@ -41,7 +41,7 @@ relatedArticles: []
 
 Learn to move around the Figma canvas — the foundation for everything that follows. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 1 of the Figma curriculum.** Next up: [Shapes and the Frame Tool](/learn/figma-shapes-and-the-frame-tool).
+> **Lesson 1 of the Figma curriculum.** Next up: [Shapes and the Frame Tool](//).
 
 ## What you'll do
 
@@ -59,4 +59,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners)**. Continue with [Shapes and the Frame Tool](/learn/figma-shapes-and-the-frame-tool).
+This is one stage of the full **[Figma beginner curriculum](//)**. Continue with [Shapes and the Frame Tool](//).

@@ -48,7 +48,7 @@ relatedArticles: []
 
 Simulate flexible materials with the modern Vellum framework — one solver, many constraint types. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 6 of the Houdini curriculum.** Next up: [Solaris and the LOP Workflow](/learn/houdini-solaris-and-the-lop-workflow).
+> **Lesson 6 of the Houdini curriculum.** Next up: [Solaris and the LOP Workflow](//).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners)**. Continue with [Solaris and the LOP Workflow](/learn/houdini-solaris-and-the-lop-workflow).
+This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [Solaris and the LOP Workflow](//).

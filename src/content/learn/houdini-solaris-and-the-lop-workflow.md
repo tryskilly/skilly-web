@@ -48,7 +48,7 @@ relatedArticles: []
 
 Move from /obj-context legacy lighting to the modern /stage Solaris USD-based pipeline. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 7 of the Houdini curriculum.** Next up: [Karma Rendering](/learn/houdini-karma-rendering).
+> **Lesson 7 of the Houdini curriculum.** Next up: [Karma Rendering](//).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners)**. Continue with [Karma Rendering](/learn/houdini-karma-rendering).
+This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [Karma Rendering](//).

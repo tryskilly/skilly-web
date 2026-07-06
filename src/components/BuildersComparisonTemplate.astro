@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { page } = Astro.props;
-const ctaUrl = `https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=vs&utm_campaign=vs-${page.slug}`;
+const ctaUrl = 'https://studio.tryskilly.app/signup';
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -129,7 +129,9 @@ const related = buildersComparisonIndexItems.filter((item) => item.href !== `/vs
           href={ctaUrl}
           data-ph-event="web_cta_builders_signup_clicked"
           data-ph-prop-location={`vs_${page.slug.replaceAll('-', '_')}`}
+          data-ph-prop-campaign={`vs-${page.slug}`}
           data-ph-prop-target-funnel="builders"
+          rel="nofollow"
           class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
         >
           Start free in Studio

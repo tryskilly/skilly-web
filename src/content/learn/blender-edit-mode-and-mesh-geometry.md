@@ -49,7 +49,7 @@ relatedArticles: []
 
 Cross the critical threshold from moving objects to editing their geometry. Here's how to do it in **Blender** on macOS, step by step — part of the free Blender beginner curriculum.
 
-> **Lesson 3 of the Blender curriculum.** Next up: [Core Mesh Editing Tools](/learn/blender-core-mesh-editing-tools).
+> **Lesson 3 of the Blender curriculum.** Next up: [Core Mesh Editing Tools](//).
 
 ## What you'll do
 
@@ -71,4 +71,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Blender beginner curriculum](/learn/blender-tutorial-for-beginners)**. Continue with [Core Mesh Editing Tools](/learn/blender-core-mesh-editing-tools).
+This is one stage of the full **[Blender beginner curriculum](//)**. Continue with [Core Mesh Editing Tools](//).

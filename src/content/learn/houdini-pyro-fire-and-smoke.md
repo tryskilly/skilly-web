@@ -44,7 +44,7 @@ relatedArticles: []
 
 Run a sparse pyro simulation from source to cache. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 3 of the Houdini curriculum.** Next up: [FLIP Fluids](/learn/houdini-flip-fluids).
+> **Lesson 3 of the Houdini curriculum.** Next up: [FLIP Fluids](//).
 
 ## What you'll do
 
@@ -63,4 +63,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners)**. Continue with [FLIP Fluids](/learn/houdini-flip-fluids).
+This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [FLIP Fluids](//).

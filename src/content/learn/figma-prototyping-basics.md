@@ -43,7 +43,7 @@ relatedArticles: []
 
 Connect frames into a clickable flow and present it. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 7 of the Figma curriculum.** Before this: [Variants and Component Properties](/learn/figma-variants-and-component-properties). Next up: [null](/learn/figma-null).
+> **Lesson 7 of the Figma curriculum.** Before this: [Variants and Component Properties](/learn/figma-variants-and-component-properties/). This is the final lesson in the current Figma sequence.
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners)**. Previous: [Variants and Component Properties](/learn/figma-variants-and-component-properties). Continue with [null](/learn/figma-null).
+This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners/)**. Previous: [Variants and Component Properties](/learn/figma-variants-and-component-properties/). This is the final lesson in the current sequence.

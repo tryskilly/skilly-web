@@ -112,8 +112,8 @@ Don't overthink "best overall." Match the guidance model to your product and you
 
 Weighing Skilly against a specific incumbent? Here are the honest side-by-side breakdowns:
 
-- [Skilly vs Appcues](/vs/appcues) — voice guide vs no-code product tours
-- [Skilly vs Pendo](/vs/pendo) — voice guide vs analytics-first platform
-- [Skilly vs Userpilot](/vs/userpilot) — voice-first vs no-code flows ($299/mo vs free)
-- [Skilly vs Whatfix](/vs/whatfix) — self-serve guide vs enterprise DAP
-- [Skilly vs Command AI](/vs/command-ai) — voice-and-pointer vs AI text copilot
+- [Skilly vs Appcues](//) — voice guide vs no-code product tours
+- [Skilly vs Pendo](//) — voice guide vs analytics-first platform
+- [Skilly vs Userpilot](//) — voice-first vs no-code flows ($299/mo vs free)
+- [Skilly vs Whatfix](//) — self-serve guide vs enterprise DAP
+- [Skilly vs Command AI](//) — voice-and-pointer vs AI text copilot

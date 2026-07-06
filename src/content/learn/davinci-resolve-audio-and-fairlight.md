@@ -48,7 +48,7 @@ relatedArticles: []
 
 Move to the Fairlight page for professional audio mixing, EQ, and loudness monitoring. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 6 of the DaVinci Resolve curriculum.** Before this: [Color Grading Basics](/learn/davinci-resolve-color-grading-basics). Next up: [Deliver and Export](/learn/davinci-resolve-deliver-and-export).
+> **Lesson 6 of the DaVinci Resolve curriculum.** Before this: [Color Grading Basics](//). Next up: [Deliver and Export](//).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners)**. Previous: [Color Grading Basics](/learn/davinci-resolve-color-grading-basics). Continue with [Deliver and Export](/learn/davinci-resolve-deliver-and-export).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](//)**. Previous: [Color Grading Basics](//). Continue with [Deliver and Export](//).

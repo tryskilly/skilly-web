@@ -45,7 +45,7 @@ relatedArticles: []
 
 Create animated text using After Effects' per-character Text Animator system. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 6 of the After Effects curriculum.** Before this: [Masks and Shape Layers](/learn/after-effects-masks-and-shape-layers). Next up: [Rendering and Export](/learn/after-effects-rendering-and-export).
+> **Lesson 6 of the After Effects curriculum.** Before this: [Masks and Shape Layers](//). Next up: [Rendering and Export](//).
 
 ## What you'll do
 
@@ -65,4 +65,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners)**. Previous: [Masks and Shape Layers](/learn/after-effects-masks-and-shape-layers). Continue with [Rendering and Export](/learn/after-effects-rendering-and-export).
+This is one stage of the full **[After Effects beginner curriculum](//)**. Previous: [Masks and Shape Layers](//). Continue with [Rendering and Export](//).

@@ -8,6 +8,7 @@ export default defineConfig({
   site: 'https://tryskilly.app',
   output: 'static',
   adapter: vercel(),
+  trailingSlash: 'always',
   redirects: {
     // Builders is now the homepage; keep old /builders links working.
     '/builders': '/',

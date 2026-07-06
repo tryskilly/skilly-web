@@ -43,7 +43,7 @@ relatedArticles: []
 
 Mix audio tracks and add text titles to your sequence. Here's how to do it in **Premiere Pro** on macOS, step by step — part of the free Premiere Pro beginner curriculum.
 
-> **Lesson 6 of the Premiere Pro curriculum.** Next up: [Export](/learn/premiere-pro-export).
+> **Lesson 6 of the Premiere Pro curriculum.** Next up: [Export](//).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Premiere Pro beginner curriculum](/learn/premiere-pro-tutorial-for-beginners)**. Continue with [Export](/learn/premiere-pro-export).
+This is one stage of the full **[Premiere Pro beginner curriculum](//)**. Continue with [Export](//).

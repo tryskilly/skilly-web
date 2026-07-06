@@ -43,7 +43,7 @@ relatedArticles: []
 
 Learn Figma's flexbox-like system for responsive design. This is the single most important skill for modern Figma work. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 4 of the Figma curriculum.** Before this: [Layers Panel and Selection](/learn/figma-layers-panel-and-selection). Next up: [Components and Instances](/learn/figma-components-and-instances).
+> **Lesson 4 of the Figma curriculum.** Before this: [Layers Panel and Selection](//). Next up: [Components and Instances](//).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners)**. Previous: [Layers Panel and Selection](/learn/figma-layers-panel-and-selection). Continue with [Components and Instances](/learn/figma-components-and-instances).
+This is one stage of the full **[Figma beginner curriculum](//)**. Previous: [Layers Panel and Selection](//). Continue with [Components and Instances](//).

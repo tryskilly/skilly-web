@@ -219,32 +219,32 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
 
 export const buildersComparisonIndexItems = [
   {
-    href: '/vs/appcues',
+    href: '/vs/appcues/',
     name: 'Skilly vs Appcues',
     summary: 'Appcues builds no-code product tours. Skilly is a voice guide users talk to — it points the cursor.',
   },
   {
-    href: '/vs/pendo',
+    href: '/vs/pendo/',
     name: 'Skilly vs Pendo',
     summary: 'Pendo is analytics-first with in-app guides. Skilly is a focused, voice-first guidance layer.',
   },
   {
-    href: '/vs/userpilot',
+    href: '/vs/userpilot/',
     name: 'Skilly vs Userpilot',
     summary: 'Userpilot is no-code flows + analytics from $299/mo. Skilly is voice-first, starting free.',
   },
   {
-    href: '/vs/whatfix',
+    href: '/vs/whatfix/',
     name: 'Skilly vs Whatfix',
     summary: 'Whatfix is an enterprise DAP across many apps. Skilly is a self-serve guide for one product.',
   },
   {
-    href: '/vs/command-ai',
+    href: '/vs/command-ai/',
     name: 'Skilly vs Command AI',
     summary: 'Command AI (Amplitude) is a text AI copilot + nudges. Skilly answers out loud and shows the button.',
   },
   ...buildersComparisonPages.map((page) => ({
-    href: `/vs/${page.slug}`,
+    href: `/vs/${page.slug}/`,
     name: `Skilly vs ${page.competitor}`,
     summary: page.quickTake,
   })),

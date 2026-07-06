@@ -51,7 +51,7 @@ relatedArticles: []
 
 Give the mesh a surface appearance using the Principled BSDF shader and the Shader Editor. Here's how to do it in **Blender** on macOS, step by step — part of the free Blender beginner curriculum.
 
-> **Lesson 6 of the Blender curriculum.** Next up: [Lighting and Rendering](/learn/blender-lighting-and-rendering).
+> **Lesson 6 of the Blender curriculum.** Next up: [Lighting and Rendering](//).
 
 ## What you'll do
 
@@ -74,4 +74,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Blender beginner curriculum](/learn/blender-tutorial-for-beginners)**. Continue with [Lighting and Rendering](/learn/blender-lighting-and-rendering).
+This is one stage of the full **[Blender beginner curriculum](//)**. Continue with [Lighting and Rendering](//).

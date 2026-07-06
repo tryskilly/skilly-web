@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 
-const STUDIO_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=free-tool&utm_campaign=ai-onboarding-audit';
+const STUDIO_URL = 'https://studio.tryskilly.app/signup';
 
 const title = 'Free AI onboarding audit - Can AI explain your product?';
 const description =
@@ -25,10 +25,10 @@ const toolSchema = {
 };
 
 const siblingTools = [
-  ['Product tour script generator', '/tools/product-tour-script-generator'],
-  ['User onboarding checklist', '/tools/user-onboarding-checklist'],
-  ['In-app help generator', '/tools/in-app-help-generator'],
-  ['AI product tour generator', '/tools/ai-product-tour-generator'],
+  ['Product tour script generator', '/tools/product-tour-script-generator/'],
+  ['User onboarding checklist', '/tools/user-onboarding-checklist/'],
+  ['In-app help generator', '/tools/in-app-help-generator/'],
+  ['AI product tour generator', '/tools/ai-product-tour-generator/'],
 ];
 ---
 <Layout title={title} description={description} productLine="builders" funnelStage="awareness">
@@ -52,7 +52,7 @@ const siblingTools = [
             <a href="#audit-form" class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
               Run audit
             </a>
-            <a href={STUDIO_URL} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">
+            <a href={STUDIO_URL} rel="nofollow" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="hero" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">
               Open Studio
             </a>
           </div>
@@ -189,7 +189,7 @@ const siblingTools = [
             <pre data-audit-skill class="mt-3 overflow-x-auto whitespace-pre-wrap font-mono text-[12.5px] leading-relaxed text-[#4E463D]">Waiting for product context...</pre>
           </div>
           <div class="mt-5 flex flex-wrap gap-3">
-            <a href={STUDIO_URL} data-ai-studio-link data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="report" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#1A1714] px-5 py-3 font-semibold text-white transition hover:bg-[#2A251F] active:scale-[0.98]">
+            <a href={STUDIO_URL} rel="nofollow" data-ai-studio-link data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="report" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#1A1714] px-5 py-3 font-semibold text-white transition hover:bg-[#2A251F] active:scale-[0.98]">
               Preview in Studio
             </a>
             <a href="#audit-form" data-ai-share-link class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3 font-semibold text-[#1A1714] transition hover:border-[#F59E0B]/40 active:scale-[0.98]">
@@ -227,7 +227,7 @@ const siblingTools = [
         <p class="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#FAF8F4]/70">
           Skilly turns the audit into an in-product voice guide. Users ask what to do next, and the guide answers from your product knowledge.
         </p>
-        <a href={STUDIO_URL} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="bottom_cta" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
+        <a href={STUDIO_URL} rel="nofollow" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="bottom_cta" data-ph-prop-target-funnel="builders" class="mt-7 inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">
           Open Studio
         </a>
       </div>

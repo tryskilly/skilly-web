@@ -43,7 +43,7 @@ relatedArticles: []
 
 Get oriented in Premiere Pro's panel-based workspace and understand where everything lives before touching footage. Here's how to do it in **Premiere Pro** on macOS, step by step — part of the free Premiere Pro beginner curriculum.
 
-> **Lesson 1 of the Premiere Pro curriculum.** Next up: [Import and Project Organization](/learn/premiere-pro-import-and-project-organization).
+> **Lesson 1 of the Premiere Pro curriculum.** Next up: [Import and Project Organization](//).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Premiere Pro beginner curriculum](/learn/premiere-pro-tutorial-for-beginners)**. Continue with [Import and Project Organization](/learn/premiere-pro-import-and-project-organization).
+This is one stage of the full **[Premiere Pro beginner curriculum](//)**. Continue with [Import and Project Organization](//).

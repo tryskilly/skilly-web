@@ -20,13 +20,13 @@ Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly]
 
 ## The After Effects curriculum
 
-1. **[Interface and Navigation](/learn/after-effects-interface-and-navigation)** — Get oriented in After Effects and learn to move around the Composition panel and Timeline without losing your place.
-2. **[Layers and the Layer Stack](/learn/after-effects-layers-and-the-layer-stack)** — Understand how layers work, how to create the most common layer types, and how to control their visibility and order.
-3. **[Keyframing and Animation](/learn/after-effects-keyframing-and-animation)** — Animate any layer property over time by setting keyframes, and control the feel of movement with easing.
-4. **[Effects and Effect Controls](/learn/after-effects-effects-and-effect-controls)** — Apply effects to layers, adjust them in the Effect Controls panel, and understand how effects stack and process.
-5. **[Masks and Shape Layers](/learn/after-effects-masks-and-shape-layers)** — Control what's visible on a layer with masks, and create standalone vector graphics with shape layers.
-6. **[Text Animation](/learn/after-effects-text-animation)** — Create animated text using After Effects' per-character Text Animator system.
-7. **[Rendering and Export](/learn/after-effects-rendering-and-export)** — Send your composition to the Render Queue or Adobe Media Encoder to produce a final output file.
+1. **[Interface and Navigation](//)** — Get oriented in After Effects and learn to move around the Composition panel and Timeline without losing your place.
+2. **[Layers and the Layer Stack](//)** — Understand how layers work, how to create the most common layer types, and how to control their visibility and order.
+3. **[Keyframing and Animation](//)** — Animate any layer property over time by setting keyframes, and control the feel of movement with easing.
+4. **[Effects and Effect Controls](//)** — Apply effects to layers, adjust them in the Effect Controls panel, and understand how effects stack and process.
+5. **[Masks and Shape Layers](//)** — Control what's visible on a layer with masks, and create standalone vector graphics with shape layers.
+6. **[Text Animation](//)** — Create animated text using After Effects' per-character Text Animator system.
+7. **[Rendering and Export](//)** — Send your composition to the Render Queue or Adobe Media Encoder to produce a final output file.
 
 ## How to use this
 

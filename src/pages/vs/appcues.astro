@@ -10,7 +10,7 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 
 const COMPETITOR = 'Appcues';
-const CTA_URL = 'https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=vs&utm_campaign=vs-appcues';
+const CTA_URL = 'https://studio.tryskilly.app/signup';
 
 const title = 'Skilly vs Appcues — voice-first guidance vs no-code tours';
 const description =
@@ -172,8 +172,10 @@ const productSchema = {
         <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Teach it from content you already have.</p>
         <a
           href={CTA_URL}
+          rel="nofollow"
           data-ph-event="web_cta_builders_signup_clicked"
           data-ph-prop-location="vs_appcues"
+          data-ph-prop-campaign="vs-appcues"
           data-ph-prop-target-funnel="builders"
           class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
         >
@@ -186,19 +188,19 @@ const productSchema = {
       <div class="max-w-[960px] mx-auto">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">More onboarding-tool comparisons</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <a href="/vs/pendo" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/pendo/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
             <p class="font-medium text-gray-900">Skilly vs Pendo</p>
             <p class="text-sm text-gray-500 mt-1">Voice guide vs analytics + guides</p>
           </a>
-          <a href="/vs/userpilot" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/userpilot/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
             <p class="font-medium text-gray-900">Skilly vs Userpilot</p>
             <p class="text-sm text-gray-500 mt-1">Voice guide vs no-code flows</p>
           </a>
-          <a href="/vs/whatfix" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/whatfix/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
             <p class="font-medium text-gray-900">Skilly vs Whatfix</p>
             <p class="text-sm text-gray-500 mt-1">Voice guide vs enterprise DAP</p>
           </a>
-          <a href="/vs/command-ai" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/command-ai/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
             <p class="font-medium text-gray-900">Skilly vs Command AI</p>
             <p class="text-sm text-gray-500 mt-1">Voice guide vs AI support copilot</p>
           </a>

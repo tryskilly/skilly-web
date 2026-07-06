@@ -48,7 +48,7 @@ relatedArticles: []
 
 Render your finished project to a file using the Deliver page. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 7 of the DaVinci Resolve curriculum.** Before this: [Audio and Fairlight](/learn/davinci-resolve-audio-and-fairlight). Next up: [null](/learn/davinci-resolve-null).
+> **Lesson 7 of the DaVinci Resolve curriculum.** Before this: [Audio and Fairlight](/learn/davinci-resolve-audio-and-fairlight/). This is the final lesson in the current DaVinci Resolve sequence.
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners)**. Previous: [Audio and Fairlight](/learn/davinci-resolve-audio-and-fairlight). Continue with [null](/learn/davinci-resolve-null).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners/)**. Previous: [Audio and Fairlight](/learn/davinci-resolve-audio-and-fairlight/). This is the final lesson in the current sequence.

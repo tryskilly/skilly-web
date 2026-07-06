@@ -45,7 +45,7 @@ relatedArticles: []
 
 Send your composition to the Render Queue or Adobe Media Encoder to produce a final output file. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 7 of the After Effects curriculum.** Before this: [Text Animation](/learn/after-effects-text-animation). Next up: [null](/learn/after-effects-null).
+> **Lesson 7 of the After Effects curriculum.** Before this: [Text Animation](/learn/after-effects-text-animation/). This is the final lesson in the current After Effects sequence.
 
 ## What you'll do
 
@@ -65,4 +65,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners)**. Previous: [Text Animation](/learn/after-effects-text-animation). Continue with [null](/learn/after-effects-null).
+This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners/)**. Previous: [Text Animation](/learn/after-effects-text-animation/). This is the final lesson in the current sequence.

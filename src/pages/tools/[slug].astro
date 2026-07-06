@@ -44,7 +44,7 @@ export function getStaticPaths() {
 }
 
 const page = pages[Astro.params.slug as keyof typeof pages];
-const auditHref = `/tools/ai-onboarding-audit?intent=${encodeURIComponent(page.intent)}`;
+const auditHref = '/tools/ai-onboarding-audit/';
 ---
 <Layout title={`${page.title} - Skilly`} description={page.description} productLine="builders" funnelStage="awareness">
   <Nav />
@@ -55,7 +55,7 @@ const auditHref = `/tools/ai-onboarding-audit?intent=${encodeURIComponent(page.i
       <p class="mt-6 max-w-2xl text-[18px] leading-relaxed text-[#6B635A]">{page.description}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a href={auditHref} class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">Run the AI audit</a>
-        <a href="https://studio.tryskilly.app/signup?utm_source=tryskilly-web&utm_medium=free-tool&utm_campaign=tools-cluster" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Open Studio</a>
+        <a href="https://studio.tryskilly.app/signup" rel="nofollow" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location={`tool_${page.intent}`} data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Open Studio</a>
       </div>
     </section>
     <section class="border-y border-[#E8E2D9] bg-white">

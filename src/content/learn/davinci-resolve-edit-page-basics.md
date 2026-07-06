@@ -50,7 +50,7 @@ relatedArticles: []
 
 Assemble your rough cut on the Edit page using the full-featured editing tools. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 3 of the DaVinci Resolve curriculum.** Before this: [Media Import](/learn/davinci-resolve-media-import). Next up: [Trimming and Transitions](/learn/davinci-resolve-trimming-and-transitions).
+> **Lesson 3 of the DaVinci Resolve curriculum.** Before this: [Media Import](//). Next up: [Trimming and Transitions](//).
 
 ## What you'll do
 
@@ -72,4 +72,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners)**. Previous: [Media Import](/learn/davinci-resolve-media-import). Continue with [Trimming and Transitions](/learn/davinci-resolve-trimming-and-transitions).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](//)**. Previous: [Media Import](//). Continue with [Trimming and Transitions](//).
