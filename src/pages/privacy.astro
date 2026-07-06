@@ -2,7 +2,7 @@
 // src/pages/privacy.astro
 // DRAFT — plain-English Privacy Policy matching the current product
 // reality. The list of data processors is authoritative: Skilly currently
-// uses PostHog, Google Analytics, OpenAI, WorkOS, Polar, Resend, and Netlify. If you add or
+// uses PostHog, Google Analytics, OpenAI, WorkOS, Polar, Resend, and Vercel. If you add or
 // remove a processor, update this page.
 //
 // Before any serious launch, replace with a generator-produced policy
@@ -11,7 +11,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const lastUpdated = 'April 12, 2026';
+const lastUpdated = 'July 4, 2026';
 
 const processors = [
   {
@@ -64,11 +64,11 @@ const processors = [
     link: 'https://resend.com/legal/privacy-policy',
   },
   {
-    name: 'Netlify',
-    purpose: 'Website hosting and the backend for the waitlist form on tryskilly.app',
-    data: 'Server access logs, IP addresses (retained by Netlify\u2019s infrastructure for short periods)',
-    location: 'United States',
-    link: 'https://www.netlify.com/privacy/',
+    name: 'Vercel',
+    purpose: 'Website hosting and serverless routes for marketing forms and tools on tryskilly.app',
+    data: 'Server access logs, IP addresses, TLS connection metadata, and serverless function request metadata',
+    location: 'Global CDN (varies)',
+    link: 'https://vercel.com/legal/privacy-policy',
   },
 ];
 ---

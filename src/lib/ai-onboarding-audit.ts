@@ -400,7 +400,7 @@ function normalizeLlmReport(parsed: LlmAuditPayload, fallback: AuditReport): Aud
 async function llmReport(input: AuditInput, pages: CrawledPage[], fallback: AuditReport): Promise<AuditReport> {
   const apiKey = (typeof process !== 'undefined' ? process.env?.OPENAI_API_KEY : undefined) ?? import.meta.env.OPENAI_API_KEY;
   if (!apiKey) {
-    console.warn('[ai-audit] OPENAI_API_KEY missing at runtime — using deterministic fallback (set it in Netlify + redeploy)');
+    console.warn('[ai-audit] OPENAI_API_KEY missing at runtime — using deterministic fallback (set it in Vercel + redeploy)');
     return fallback;
   }
 

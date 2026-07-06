@@ -120,3 +120,21 @@ After this batch (10 directories), consider: AI Search, Futurepedia alt dirs, Fi
 - **BetaList** — approval takes 1–2 weeks. Submit early.
 - **Futurepedia** — pickier; may require a demo video link. If rejected, retry later with the demo clip.
 - **TAAFT** — high intent traffic; ranks well on Google for "AI for X" searches.
+
+---
+
+## High-DR research batch (added 2026-06-30) — free dofollow, prioritized by DR
+
+Researched from founder/SEO lists (LaunchDirectories DR ranking, Graham Mann SaaS guide, FoundrList, SubmitSaaS). Rule of thumb: **below DR60 it's barely worth it.** Skilly qualifies as **open-source** (github.com/tryskilly/skilly) + dev-tool + SaaS. Write a `~/.claude/skills/dir-<name>-submit/SKILL.md` per directory as you do each (per founder request 2026-06-30). Done so far this round: **Nick Launches DR60** (☑ free, badge in footer; skill written).
+
+| Priority | Directory | DR | Submit URL | Dofollow | Friction | Status |
+|---|---|---|---|---|---|---|
+| 1 | SourceForge | 91 | https://sourceforge.net/projects/ (create project) | yes | open-source listing; heavier | ☐ |
+| 2 | G2 | 91 | https://www.g2.com/products/new | yes (product page) | vendor verification | ☐ |
+| 3 | AlternativeTo | 80 | search app → "Add it"; needs login | yes | login + moderated; **/vs synergy** | ☐ |
+| 4 | StackShare | 77 | https://stackshare.io/tools/new | yes | account | ☐ |
+| 5 | GetApp / Capterra | 78 | vendor portal (Gartner) | yes | vendor verification | ☐ |
+| 6 | SaaSHub | ~60 | https://www.saashub.com/submit | yes | account; **/vs synergy** | ☐ |
+| 7 | F6S | high | https://www.f6s.com (create company) | yes | account | ☐ |
+
+Skip / low value: Startup Fame (domain for sale), most <DR60 launch dirs. Mine more from SubmitSaaS (700+) + DofollowBack.link (280+) if needed.

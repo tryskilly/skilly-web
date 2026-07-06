@@ -119,7 +119,7 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
       (function () {
         var h = location.hostname;
         var isDev = h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0' || h.endsWith('.local');
-        var isPreview = h.endsWith('.netlify.app') || h.endsWith('.netlify.live');
+        var isPreview = h.endsWith('.netlify.app') || h.endsWith('.netlify.live') || h.endsWith('.vercel.app');
         // Stub gtag in dev/preview so any inline calls don't throw.
         if (isDev || isPreview) {
           window.dataLayer = window.dataLayer || [];
@@ -154,13 +154,13 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
     </script>
 
     <!-- PostHog: first-party product analytics for marketing attribution.
-         Skipped entirely on localhost / 127.0.0.1 / *.netlify.app preview hostnames
+         Skipped entirely on localhost / 127.0.0.1 / preview hostnames
          to keep dev + preview-deploy noise out of production analytics. -->
     <script is:inline define:vars={{ POSTHOG_KEY, POSTHOG_HOST }}>
       (function () {
         var h = location.hostname;
         var isDev = h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0' || h.endsWith('.local');
-        var isPreview = h.endsWith('.netlify.app') || h.endsWith('.netlify.live');
+        var isPreview = h.endsWith('.netlify.app') || h.endsWith('.netlify.live') || h.endsWith('.vercel.app');
         if (isDev || isPreview) {
           // Provide a no-op stub so any data-ph-event handlers don't throw.
           window.posthog = { capture: function(){}, register: function(){}, identify: function(){}, reset: function(){}, init: function(){}, __noop: true };
