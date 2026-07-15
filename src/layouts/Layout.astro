@@ -8,6 +8,11 @@ interface Props {
   ogImage?: string;
   productLine?: 'umbrella' | 'mac' | 'builders' | 'people' | 'learn' | 'legal';
   funnelStage?: 'awareness' | 'consideration' | 'conversion' | 'education' | 'legal';
+  /** Keep the page out of the index. For pages generated on demand about other
+   *  companies (audit shares) — they're share artifacts, not our content, and
+   *  letting Google index an unbounded set of LLM-written pages about third
+   *  parties is scaled content abuse under its spam policy. */
+  noindex?: boolean;
 }
 
 const {
@@ -16,6 +21,7 @@ const {
   ogImage = '/og-image.png',
   productLine = 'umbrella',
   funnelStage = 'awareness',
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = 'https://tryskilly.app';
@@ -82,6 +88,7 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/skilly-mark.png" />

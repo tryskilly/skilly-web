@@ -6,14 +6,29 @@ import { buildStudioPrefillUrl, runAudit, type ScoreKey } from '../../lib/ai-onb
 
 export const prerender = false;
 
-const slug = Astro.params.slug ?? '';
+// The audited domain travels as ?url=, NOT as a path segment.
+//
+// This was /audit/[slug] and 404'd for every real prospect: with
+// trailingSlash: 'always' the adapter puts a "this path looks like a file"
+// rule (^/(.*\.\w+)/$ -> 308 strip the slash) ahead of the render route, and
+// every domain contains a dot. /audit/linear.app/ 308'd to /audit/linear.app,
+// which nothing handled -> 404. The share link the tool hands users has
+// therefore never worked once. Keep the domain out of the path.
+const rawUrl = Astro.url.searchParams.get('url')?.trim() ?? '';
 const goal = Astro.url.searchParams.get('goal') || 'create first project';
 const productType = Astro.url.searchParams.get('type') || '';
-const report = await runAudit({
-  url: slug.includes('.') ? `https://${slug}` : slug,
-  goal,
-  productType,
-});
+
+// No URL, or a URL we can't audit: send them to the form rather than 500.
+if (!rawUrl) {
+  return Astro.redirect('/tools/ai-onboarding-audit/');
+}
+
+let report;
+try {
+  report = await runAudit({ url: rawUrl, goal, productType });
+} catch {
+  return Astro.redirect('/tools/ai-onboarding-audit/?error=audit_failed');
+}
 const studioUrl = buildStudioPrefillUrl(report, { url: `https://${report.host}`, goal, productType });
 const title = `${report.product} AI onboarding audit - ${report.score}/100`;
 const description = `${report.product} scored ${report.score}/100 on Skilly's AI onboarding audit. See onboarding gaps, dead-end questions, and a generated guide preview.`;
@@ -28,7 +43,7 @@ const pageSchema = {
 };
 const scoreEntries = Object.entries(report.scores) as Array<[ScoreKey, number]>;
 ---
-<Layout title={title} description={description} ogImage={report.ogImage} productLine="builders" funnelStage="awareness">
+<Layout title={title} description={description} ogImage={report.ogImage} productLine="builders" funnelStage="awareness" noindex>
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(pageSchema)} />
   </Fragment>

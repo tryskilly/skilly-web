@@ -27,7 +27,6 @@ export interface AuditReport {
   firstRunPath: string[];
   voiceGuideScript: string;
   skillPreview: string;
-  shareSlug: string;
   shareUrl: string;
   ogImage: string;
   usedLlm: boolean;
@@ -119,10 +118,6 @@ export function productNameFromHost(host: string): string {
     .split('.')[0]
     .replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
-function slugFromHost(host: string): string {
-  return host.replace(/^www\./, '').replace(/[^a-z0-9.-]+/gi, '-').toLowerCase();
 }
 
 async function fetchHtml(url: URL): Promise<string> {
@@ -236,8 +231,12 @@ function fallbackReport(input: AuditInput, pages: CrawledPage[]): AuditReport {
   const headings = unique(pages.flatMap((page) => page.headings), 8);
   const ctas = unique(pages.flatMap((page) => page.ctas), 8);
   const questions = unique(pages.flatMap((page) => page.questions), 5);
-  const shareSlug = slugFromHost(host);
-  const shareUrl = `${SITE_URL}/audit/${shareSlug}?goal=${encodeURIComponent(goal)}&type=${encodeURIComponent(productType)}`;
+  // The host goes in ?url=, never in the path. As /audit/<host> this 404'd for
+  // every real domain: the Vercel adapter's "looks like a file" rule (any path
+  // containing a dot) strips the trailing slash before the render route is
+  // reached, so /audit/acme.com/ -> /audit/acme.com -> nothing -> 404. Every
+  // share link this tool has ever produced was dead.
+  const shareUrl = `${SITE_URL}/audit/?url=${encodeURIComponent(host)}&goal=${encodeURIComponent(goal)}&type=${encodeURIComponent(productType)}`;
   const ogImage = `${SITE_URL}/api/ai-onboarding-audit-og?product=${encodeURIComponent(product)}&score=${score}&band=${encodeURIComponent(band)}`;
 
   return {
@@ -296,7 +295,6 @@ ${headings.slice(0, 6).map((heading) => `- ${heading}`).join('\n') || '- Add cle
 ## UI Vocabulary
 ### Primary CTA
 The first action a new user should take to reach "${goal}".`,
-    shareSlug,
     shareUrl,
     ogImage,
     usedLlm: false,
