@@ -104,7 +104,29 @@ const faqSchema = {
       <span itemprop="applicationCategory">DeveloperApplication</span>
     </div>
 
-    <section id="top" class="mx-auto max-w-6xl px-5 pb-12 pt-24 sm:px-8 sm:pt-28">
+    <!--
+      Intent router. PostHog (90d) says most arrivals want the Mac app, not the
+      widget: 42 web_cta_download_clicked and 41 push_to_talk_started, against 16
+      web_builders_studio_clicked and a single web_sdk_skill_fetched. Branded
+      search is consumer too ("skilly app", "what is skilly", "skilly ai"), and
+      Reddit/X send Mac users. This page is a B2B pitch, and "For People" in the
+      nav is easy to miss on the way to bouncing — so say it in the hero.
+    -->
+    <section class="mx-auto max-w-6xl px-5 pt-24 sm:px-8 sm:pt-28">
+      <a
+        href="/people/"
+        data-ph-event="web_nav_link_clicked"
+        data-ph-prop-link="people_from_builders_hero"
+        data-ph-prop-target-funnel="people"
+        class="group inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-[#E8E2D9] bg-white px-4 py-2 text-[13px] text-[#6B635A] transition hover:border-[#F59E0B]/50"
+      >
+        <span class="font-semibold text-[#1A1714]">Want Skilly on your own Mac?</span>
+        <span>Ask out loud, and it points at what to click.</span>
+        <span class="font-medium text-[#9A5B08] transition group-hover:brightness-110">Get the app&nbsp;→</span>
+      </a>
+    </section>
+
+    <section id="top" class="mx-auto max-w-6xl px-5 pb-12 pt-6 sm:px-8">
       <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
         <div>
           <div class="font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]">
