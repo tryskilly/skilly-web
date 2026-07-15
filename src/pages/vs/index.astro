@@ -9,6 +9,7 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { DOWNLOAD_URL } from '../../data/config.ts';
 import { buildersComparisonIndexItems } from '../../data/buildersComparisonPages.ts';
+import { buildersVersusIndexItems } from '../../data/buildersVersusPages.ts';
 
 const title = 'Skilly alternatives and comparisons — honest feature-by-feature';
 const description =
@@ -48,7 +49,7 @@ const schema = {
   name: title,
   description,
   url: 'https://tryskilly.app/vs',
-  hasPart: [...comparisons, ...buildersComparisonIndexItems].map((c) => ({
+  hasPart: [...comparisons, ...buildersComparisonIndexItems, ...buildersVersusIndexItems].map((c) => ({
     '@type': 'WebPage',
     name: c.name,
     url: 'https://tryskilly.app' + c.href,
@@ -97,6 +98,25 @@ const schema = {
         <p class="text-gray-600 text-center mb-8 max-w-[620px] mx-auto text-[15px]">Embedding Skilly in your own product? Here is how the voice guide compares to the in-app onboarding and digital adoption tools builders evaluate most. Start with the <a href="/learn/best-user-onboarding-software-2026/" class="text-amber-700 font-medium hover:underline">full roundup of the best user onboarding software</a>.</p>
         <div class="grid md:grid-cols-2 gap-5">
           {buildersComparisonIndexItems.map((c) => (
+            <a
+              href={c.href}
+              class="block bg-white border border-gray-200 rounded-xl p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition-all"
+            >
+              <p class="font-semibold text-gray-900 text-lg mb-2">{c.name}</p>
+              <p class="text-gray-600 leading-relaxed text-[15px]">{c.summary}</p>
+              <p class="text-amber-700 font-medium text-[14px] mt-4">Read the breakdown →</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-6 pb-20">
+      <div class="max-w-[880px] mx-auto">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-2 text-center">Comparing two other tools?</h2>
+        <p class="text-gray-600 text-center mb-8 max-w-[620px] mx-auto text-[15px]">Head-to-head breakdowns of the onboarding tools people weigh against each other — written to be useful even if you never pick Skilly.</p>
+        <div class="grid md:grid-cols-2 gap-5">
+          {buildersVersusIndexItems.map((c) => (
             <a
               href={c.href}
               class="block bg-white border border-gray-200 rounded-xl p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition-all"

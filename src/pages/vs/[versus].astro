@@ -1,0 +1,18 @@
+---
+// src/pages/vs/[versus].astro
+// Dynamic route — renders every competitor-vs-competitor comparison
+// ("appcues-vs-chameleon"). The Skilly-vs-X pages remain their own static
+// files in this directory; Astro gives those precedence over this route.
+import VersusComparisonTemplate from '../../components/VersusComparisonTemplate.astro';
+import { buildersVersusPages } from '../../data/buildersVersusPages.ts';
+
+export function getStaticPaths() {
+  return buildersVersusPages.map((page) => ({
+    params: { versus: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+---
+<VersusComparisonTemplate page={page} />
