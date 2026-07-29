@@ -6,7 +6,7 @@ import Layout from './Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'learn'>;
@@ -125,6 +125,35 @@ const categoryLabels: Record<string, string> = {
   concept: 'Concept',
   troubleshooting: 'Troubleshooting',
 };
+
+const allLearnEntries = await getCollection('learn');
+const explicitRelated = new Set(data.relatedArticles ?? []);
+const currentTags = new Set<string>(data.tags ?? []);
+const relatedArticles = allLearnEntries
+  .filter((candidate) => {
+    const candidateSlug = candidate.id.replace(/\.md$/, '');
+    return candidateSlug !== articleSlug;
+  })
+  .map((candidate) => {
+    const candidateData = candidate.data as any;
+    const candidateSlug = candidate.id.replace(/\.md$/, '');
+    const sharedTagCount = (candidateData.tags ?? []).filter((tag: string) => currentTags.has(tag)).length;
+    const sameSeries = Boolean(data.series && candidateData.series === data.series);
+    const lessonDistance =
+      sameSeries && data.lessonNumber && candidateData.lessonNumber
+        ? Math.abs(data.lessonNumber - candidateData.lessonNumber)
+        : Number.MAX_SAFE_INTEGER;
+
+    return {
+      entry: candidate,
+      slug: candidateSlug,
+      score: explicitRelated.has(candidateSlug) ? 1000 : (sameSeries ? 100 : 0) + sharedTagCount * 10,
+      lessonDistance,
+    };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score || a.lessonDistance - b.lessonDistance || a.slug.localeCompare(b.slug))
+  .slice(0, 4);
 ---
 <Layout
   title={`${data.title} — Skilly`}
@@ -198,6 +227,35 @@ const categoryLabels: Record<string, string> = {
                   </summary>
                   <div class="px-6 pb-6 pt-1 text-[15px] text-gray-600 leading-relaxed">{q.answer}</div>
                 </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {relatedArticles.length > 0 && (
+          <section class="mt-16 pt-10 border-t border-gray-200">
+            <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500 mb-4">
+              Keep learning
+            </p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 tracking-tight">
+              Related guides
+            </h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+              {relatedArticles.map(({ entry: relatedEntry, slug: relatedSlug }) => (
+                <a
+                  href={`/learn/${relatedSlug}/`}
+                  class="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-amber-500/50 hover:shadow-md"
+                >
+                  <span class="text-[11px] font-mono uppercase tracking-[0.08em] text-amber-700">
+                    {categoryLabels[relatedEntry.data.category] ?? relatedEntry.data.category}
+                  </span>
+                  <h3 class="mt-2 text-base font-semibold leading-snug text-gray-900 group-hover:text-amber-800">
+                    {relatedEntry.data.title}
+                  </h3>
+                  <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-600">
+                    {relatedEntry.data.description}
+                  </p>
+                </a>
               ))}
             </div>
           </section>

@@ -19,6 +19,14 @@ export default defineConfig({
   // download.ts) — the SSR function is reached at the slashed path and works.
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    sitemap(),
+    sitemap({
+      // Runtime/share artifacts and post-checkout pages are intentionally
+      // non-indexable. Keeping them out of the sitemap avoids sending Google
+      // contradictory crawl/index signals.
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        return pathname !== '/audit/' && pathname !== '/checkout-success/';
+      },
+    }),
   ],
 });
