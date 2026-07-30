@@ -1,26 +1,150 @@
 #!/usr/bin/env node
-// IndexNow submitter — instantly notifies Bing, Copilot, Perplexity, Yandex, Seznam
-// (NOT Google — Google ignores IndexNow). Run after a deploy that adds/changes pages:
-//   node scripts/indexnow.mjs
-// The key file (public/<KEY>.txt) must already be live on the domain.
+// Notify IndexNow participants after a successful production deployment.
+// This does not notify Google; Google does not support IndexNow.
+
+import { pathToFileURL } from 'node:url';
 
 const HOST = 'tryskilly.app';
 const KEY = '9fb825477617a04ec41c4958163fa3ae';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
-const SITEMAP = `https://${HOST}/sitemap-0.xml`;
+const SITEMAP = `https://${HOST}/sitemap-index.xml`;
+const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
+const MAX_BATCH_SIZE = 10_000;
 
-const sm = await fetch(SITEMAP);
-if (!sm.ok) { console.error('sitemap fetch failed:', sm.status); process.exit(1); }
-const xml = await sm.text();
-const urlList = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
-console.log(`found ${urlList.length} URLs in sitemap`);
-if (!urlList.length) process.exit(1);
+const decodeXml = (value) => value
+  .replaceAll('&amp;', '&')
+  .replaceAll('&lt;', '<')
+  .replaceAll('&gt;', '>')
+  .replaceAll('&quot;', '"')
+  .replaceAll('&apos;', "'");
 
-const res = await fetch('https://api.indexnow.org/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json; charset=utf-8' },
-  body: JSON.stringify({ host: HOST, key: KEY, keyLocation: KEY_LOCATION, urlList }),
-});
-// IndexNow returns 200 (accepted) or 202 (accepted, pending). 403 = key file not found/mismatch.
-console.log('IndexNow response:', res.status, res.statusText);
-process.exit(res.status >= 200 && res.status < 300 ? 0 : 1);
+export const parseSitemap = (xml) => {
+  const type = /<sitemapindex(?:\s|>)/i.test(xml)
+    ? 'index'
+    : /<urlset(?:\s|>)/i.test(xml)
+      ? 'urlset'
+      : undefined;
+
+  if (!type) throw new Error('Response is not a sitemap index or URL set');
+
+  const locations = [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)]
+    .map((match) => decodeXml(match[1].trim()))
+    .filter(Boolean);
+
+  return { type, locations };
+};
+
+export const collectSitemapUrls = async (
+  sitemapUrl,
+  fetchImpl = globalThis.fetch,
+  visited = new Set(),
+) => {
+  const normalizedUrl = new URL(sitemapUrl).href;
+  if (visited.has(normalizedUrl)) return [];
+  visited.add(normalizedUrl);
+
+  const response = await fetchImpl(normalizedUrl);
+  if (!response.ok) {
+    throw new Error(`Sitemap fetch failed (${response.status}): ${normalizedUrl}`);
+  }
+
+  const sitemap = parseSitemap(await response.text());
+  if (sitemap.type === 'urlset') return sitemap.locations;
+
+  const childUrls = await Promise.all(
+    sitemap.locations.map((location) => collectSitemapUrls(location, fetchImpl, visited)),
+  );
+  return [...new Set(childUrls.flat())];
+};
+
+const chunk = (values, size) => {
+  const chunks = [];
+  for (let index = 0; index < values.length; index += size) {
+    chunks.push(values.slice(index, index + size));
+  }
+  return chunks;
+};
+
+export const submitIndexNow = async ({
+  host,
+  key,
+  keyLocation,
+  urlList,
+  fetchImpl = globalThis.fetch,
+  endpoint = INDEXNOW_ENDPOINT,
+  batchSize = MAX_BATCH_SIZE,
+}) => {
+  const results = [];
+
+  for (const batch of chunk(urlList, batchSize)) {
+    const response = await fetchImpl(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({ host, key, keyLocation, urlList: batch }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`IndexNow submission failed (${response.status} ${response.statusText})`);
+    }
+
+    results.push({ status: response.status, urlCount: batch.length });
+  }
+
+  return results;
+};
+
+export const runIndexNow = async ({
+  fetchImpl = globalThis.fetch,
+  dryRun = process.argv.includes('--dry-run') || process.env.INDEXNOW_DRY_RUN === '1',
+} = {}) => {
+  const discoveredUrls = await collectSitemapUrls(SITEMAP, fetchImpl);
+  const urlList = [...new Set(discoveredUrls)].filter((url) => {
+    try {
+      return new URL(url).hostname === HOST;
+    } catch {
+      return false;
+    }
+  });
+
+  if (!urlList.length) throw new Error('No same-host URLs found in sitemap');
+
+  const summary = {
+    event: 'indexnow_submission',
+    timestamp: new Date().toISOString(),
+    host: HOST,
+    sitemap: SITEMAP,
+    urlCount: urlList.length,
+    dryRun,
+  };
+
+  if (dryRun) {
+    console.log(JSON.stringify(summary));
+    return summary;
+  }
+
+  const batches = await submitIndexNow({
+    host: HOST,
+    key: KEY,
+    keyLocation: KEY_LOCATION,
+    urlList,
+    fetchImpl,
+  });
+
+  const completedSummary = { ...summary, batches };
+  console.log(JSON.stringify(completedSummary));
+  return completedSummary;
+};
+
+const isMain = process.argv[1]
+  && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (isMain) {
+  runIndexNow().catch((error) => {
+    console.error(JSON.stringify({
+      event: 'indexnow_submission_failed',
+      timestamp: new Date().toISOString(),
+      message: error instanceof Error ? error.message : String(error),
+    }));
+    process.exitCode = 1;
+  });
+}

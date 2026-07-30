@@ -1,8 +1,14 @@
 // astro.config.mjs
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
+import { loadLearnLastmodMap } from './scripts/seo-sitemap.mjs';
+
+const learnLastmods = await loadLearnLastmodMap(
+  fileURLToPath(new URL('./src/content/learn/', import.meta.url)),
+);
 
 export default defineConfig({
   site: 'https://tryskilly.app',
@@ -26,6 +32,10 @@ export default defineConfig({
       filter: (page) => {
         const pathname = new URL(page).pathname;
         return pathname !== '/audit/' && pathname !== '/checkout-success/';
+      },
+      serialize: (item) => {
+        const lastmod = learnLastmods.get(new URL(item.url).pathname);
+        return lastmod ? { ...item, lastmod } : item;
       },
     }),
   ],
