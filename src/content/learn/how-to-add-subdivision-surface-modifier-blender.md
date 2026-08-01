@@ -2,7 +2,7 @@
 title: "How to add a Subdivision Surface modifier in Blender (5.1)"
 description: "Smooth your low-poly mesh with Subdivision Surface in Blender 5.1. The Ctrl+1 shortcut, Catmull-Clark vs Simple, and the viewport vs render trick that saves your laptop."
 pubDate: 2026-04-27
-updatedDate: 2026-04-27
+updatedDate: 2026-08-02
 author: "Mohamed Saleh Zaied"
 category: how-to
 tags:
@@ -41,9 +41,13 @@ faq:
     answer: "Depends on the target. For game engines (Unity, Unreal, Godot), apply it — runtime engines can't replicate Blender's modifier and you need the final geometry. For 3D printing, definitely apply. For another DCC tool (Maya, Houdini), most modern formats (USD, Alembic) preserve subdivision data, so leaving it as a modifier is fine. For Blender-internal use, never apply — you lose the iteration benefit."
 relatedArticles:
   - how-to-add-bevel-modifier-blender
+  - blender-modifiers
+  - blender-tutorial-for-beginners
 ---
 
 If you've added a UV Sphere or a low-poly cylinder in Blender and noticed how blocky it looks, you don't need more vertices — you need a Subdivision Surface modifier. This is how you turn a 6-face cube into a smooth ball without manually adding a thousand vertices.
+
+**Short answer:** select the mesh in Object Mode and press `Ctrl+1` to add a Subdivision Surface modifier at viewport level 1. Use `Ctrl+2` or `Ctrl+3` for higher levels, then keep Viewport around 1–2 and set Render around 3–4 for a smooth result without slowing Blender.
 
 > All UI labels and behavior verified 2026-04-27 against the official Blender 5.1 manual at [docs.blender.org/manual/en/latest/modeling/modifiers/generate/subdivision_surface.html](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/subdivision_surface.html). Blender uses Pixar's [OpenSubdiv library](https://graphics.pixar.com/opensubdiv/docs/intro.html) as the backend, so the algorithm is the same one used in feature animation.
 
@@ -149,3 +153,5 @@ If you want to add subdivision AND sculpt the resulting surface, use the **Multi
 ## Stop Googling Blender shortcuts every five minutes
 
 This whole article exists because there are 50 of these "how do I X in Blender?" moments per day when you're learning. Skilly is a voice-first AI tutor for Mac that watches your Blender window, hears your question, and points at exactly the slider or button you need — answer streaming as text right next to the cursor. **15 minutes free, no card.**
+
+Continue with the complete [Blender modifiers beginner lesson](/learn/blender-modifiers/) or follow the full [Blender beginner curriculum](/learn/blender-tutorial-for-beginners/).

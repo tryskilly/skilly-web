@@ -2,7 +2,7 @@
 title: "How to enable screen recording permission on macOS (Tahoe + Sequoia)"
 description: "Step-by-step for macOS Tahoe 26 and Sequoia 15, plus the weekly re-prompt, the + button trick when your app isn't listed, and why you must restart the app."
 pubDate: 2026-04-27
-updatedDate: 2026-04-27
+updatedDate: 2026-08-02
 author: "Mohamed Saleh Zaied"
 category: how-to
 tags:
@@ -39,7 +39,9 @@ faq:
     answer: "Screen recording captures the visible pixels — anything visible on your display, including password fields if you have 'Show password' enabled. Most password managers blur or block password reveals during active screen capture as a defense. System audio is a separate sub-permission inside the same panel on Tahoe 26 — you can grant screen-only without audio, or both. Apps must declare which one they actually need; check the app's privacy policy."
   - question: "Can I revoke screen recording permission later?"
     answer: "Yes — toggle it back off in the same panel, or click the - (minus) button below the list to remove the app entirely. Revoking takes effect immediately for new screen captures, but any active capture session continues until the app stops it."
-relatedArticles: []
+relatedArticles:
+  - screencapturekit-lid-close-fix
+  - enable-accessibility-permission-macos
 ---
 
 If you've installed any Mac app that records, mirrors, or analyzes your screen — Zoom, OBS, Loom, CleanShot, Skilly, AnyDesk — you've hit macOS's Screen Recording permission gate. This guide is the up-to-date path through it.
@@ -115,7 +117,7 @@ The panel name on Tahoe 26 — "Screen & System Audio Recording" — is precise:
 
 Skilly only captures the screen while you're holding `Control+Option` and asking a question. The capture stops the moment Skilly's done answering — it's not a continuous stream. The video frames go to OpenAI Realtime for that question, and aren't stored on Skilly's servers. We block AI training corpus crawlers (CCBot) at the site level so nothing about how Skilly works leaks into model training.
 
-If you want the technical detail, the macOS API Skilly uses is `ScreenCaptureKit` — Apple's official, sandboxed screen capture API introduced in macOS 12.3. It's the same one Apple's own Screen Saver, Migration Assistant, and Continuity tools use. No private APIs, no LSUIElement workarounds.
+If you want the technical detail, the macOS API Skilly uses is `ScreenCaptureKit` — Apple's official, sandboxed screen capture API introduced in macOS 12.3. It's the same one Apple's own Screen Saver, Migration Assistant, and Continuity tools use. No private APIs, no LSUIElement workarounds. Developers handling display changes can use the production pattern in our [ScreenCaptureKit lid-close black-frame fix](/learn/screencapturekit-lid-close-fix/).
 
 ## Try Skilly
 

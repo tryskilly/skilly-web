@@ -2,7 +2,7 @@
 title: "Blender Modifiers (beginner guide)"
 description: "Apply non-destructive operations that reshape the mesh without permanently changing the underlying geometry. — step-by-step on Mac."
 pubDate: 2026-06-29
-updatedDate: 2026-06-29
+updatedDate: 2026-08-02
 author: "Mohamed Saleh Zaied"
 category: how-to
 series: "Blender"
@@ -40,7 +40,9 @@ faq:
   - question: "Do I need the paid version of Blender?"
     answer: "No — everything in this modifiers lesson works in the standard version of Blender on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "modifiers blender"
-relatedArticles: []
+relatedArticles:
+  - how-to-add-subdivision-surface-modifier-blender
+  - how-to-add-bevel-modifier-blender
 ---
 
 Apply non-destructive operations that reshape the mesh without permanently changing the underlying geometry. Here's how to do it in **Blender** on macOS, step by step — part of the free Blender beginner curriculum.
@@ -51,11 +53,11 @@ Apply non-destructive operations that reshape the mesh without permanently chang
 
 - Open the Modifier Properties tab: the wrench icon in the Properties Editor on the right side of the screen
 - Add a modifier with the "Add Modifier" button; understand the stack runs top to bottom
-- **Subdivision Surface**: smooths and subdivides the mesh. Set Viewport level to 2 for preview, Render level to 3 for final output. Shortcut Ctrl+1 through Ctrl+5 adds one at the corresponding level
+- **[Subdivision Surface](/learn/how-to-add-subdivision-surface-modifier-blender/)**: smooths and subdivides the mesh. Set Viewport level to 2 for preview, Render level to 3 for final output. Shortcut Ctrl+1 through Ctrl+5 adds one at the corresponding level
 - **Mirror**: mirrors the mesh across an axis. Enable Clipping so vertices at the center line cannot cross. Enable Merge so center seam vertices weld automatically. Always apply scale (Ctrl+A) before adding Mirror
 - **Array**: creates repeated copies in a line. Set Count and Relative Offset to control the number and spacing
 - **Solidify**: adds thickness to flat surface meshes — useful for thin objects like walls or leaves
-- **Bevel Modifier**: non-destructive bevel based on edge angle or vertex weight, useful when stacked above Subdivision Surface for a hard-surface look
+- **[Bevel Modifier](/learn/how-to-add-bevel-modifier-blender/)**: non-destructive bevel based on edge angle or vertex weight, useful when stacked above Subdivision Surface for a hard-surface look
 - Understand that clicking Apply in the modifier header is destructive — it permanently bakes the result into the mesh. Save before applying
 - Know that export dialogs (FBX, OBJ) have an "Apply Modifiers" checkbox — verify it before exporting
 

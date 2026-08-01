@@ -2,7 +2,7 @@
 title: "How to add a bevel modifier in Blender (5.1, step-by-step)"
 description: "Add the Bevel modifier in Blender 5.1 to round or chamfer edges non-destructively. Every parameter explained, with the gotchas that catch beginners."
 pubDate: 2026-04-27
-updatedDate: 2026-04-27
+updatedDate: 2026-08-02
 author: "Mohamed Saleh Zaied"
 category: how-to
 tags:
@@ -39,7 +39,9 @@ faq:
     answer: "Width Type controls how Width is interpreted. The default Offset is in scene units (meters by default in Blender). If you want consistent visual bevel regardless of edge length, switch Width Type to Percent and use a percentage of edge length. For exact distances along edges, use Absolute — useful when matching reference geometry."
   - question: "How do I move the Bevel modifier above or below other modifiers?"
     answer: "Modifier order matters — modifiers process top-to-bottom. To reorder, click the dropdown arrow (or grip handle) next to the modifier name and select Move to Top / Move Up / Move Down. Common pattern: Bevel before Subdivision Surface for a sharper result, Bevel after Subdivision Surface for a softer one. Bevel is almost always before Mirror so it doesn't bevel the seam."
-relatedArticles: []
+relatedArticles:
+  - how-to-add-subdivision-surface-modifier-blender
+  - blender-modifiers
 ---
 
 If you've added a cube in Blender and the corners look fake — too sharp, no light catching them — you need a bevel. Real-world objects don't have perfect 90° edges. Even the laptop you're reading this on has a tiny chamfer where the lid meets the base.
@@ -131,3 +133,5 @@ If you're exporting to a game engine, baking, or sharing the .blend with someone
 ## Tired of looking up parameters every time?
 
 That's basically what built Skilly: getting tired of Googling "how do I [X] in [Blender / Figma / Xcode]" fifty times a week. Skilly watches your Blender window, hears your question out loud, and points at exactly the slider or button you need — with the answer streaming as text right next to the cursor. **15 minutes free to try.** No credit card.
+
+For the most common next step in the modifier stack, follow the [Subdivision Surface modifier guide](/learn/how-to-add-subdivision-surface-modifier-blender/) or review the broader [Blender modifiers lesson](/learn/blender-modifiers/).

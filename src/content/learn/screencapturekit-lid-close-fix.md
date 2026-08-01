@@ -2,7 +2,7 @@
 title: "Fix the SCStream lid-close black frames in ScreenCaptureKit"
 description: "Why SCStream ships 2-3 black frames after lid close, and the production fix using CGDisplay reconfig callbacks + SCFrameStatus gating."
 pubDate: 2026-04-29
-updatedDate: 2026-04-29
+updatedDate: 2026-08-02
 author: "Mohamed Saleh Zaied"
 category: troubleshooting
 tags:
@@ -48,6 +48,8 @@ relatedArticles:
 ---
 
 If you ship a Mac app that uses ScreenCaptureKit and you've ever closed your laptop lid mid-capture, you've probably seen this: 2-3 black or torn frames flash through your downstream pipeline before things recover. Maybe nobody filed a bug. Maybe they did and you couldn't reproduce it. This is the fix.
+
+**Short answer:** register a CoreGraphics display-reconfiguration callback, stop `SCStream` when configuration begins, fetch fresh `SCShareableContent`, rebuild the stream, and forward buffered frames until `SCFrameStatus.complete` arrives. This prevents lid-close and display-unplug transitions from sending black or partially initialized frames downstream.
 
 > Verified 2026-04-30 against [Apple's CGDisplayRegisterReconfigurationCallback](https://developer.apple.com/documentation/coregraphics/1455336-cgdisplayregisterreconfiguration) and [SCStreamFrameInfo](https://developer.apple.com/documentation/screencapturekit/scstreamframeinfo) reference. The architectural pattern below was crystallized through an 8-round technical discussion on r/SwiftUI with [u/Deep_Ad1959](https://reddit.com/u/Deep_Ad1959), who shared the production version after we hit the same bug. **Credit goes to them for the SCFrameStatus gating insight, the duplicate-frame dedup, and the queueDepth note** — there is no good public writeup of those details anywhere else as of this writing.
 
@@ -252,3 +254,5 @@ A few things this pattern doesn't solve:
 Skilly is the macOS app that uses this exact pattern in production. Hold Control+Option, ask "how do I do X in Xcode" out loud, and Skilly walks you through whatever code or framework you're learning — voice-first, screen-aware. **15 minutes free, no card.**
 
 The full SCStream-with-reconfig-handling implementation is open source on [github.com/tryskilly/skilly](https://github.com/tryskilly/skilly).
+
+If capture fails before the stream starts, first verify the app has [macOS Screen & System Audio Recording permission](/learn/enable-screen-recording-permission-macos/). For the AI pipeline that consumes these frames, continue with the [OpenAI Realtime API tutorial](/learn/openai-realtime-api-tutorial/).
