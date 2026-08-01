@@ -45,7 +45,7 @@ relatedArticles: []
 
 Animate any layer property over time by setting keyframes, and control the feel of movement with easing. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 3 of the After Effects curriculum.** Before this: [Layers and the Layer Stack](//). Next up: [Effects and Effect Controls](//).
+> **Lesson 3 of the After Effects curriculum.** Before this: [Layers and the Layer Stack](/learn/after-effects-layers-and-the-layer-stack/). Next up: [Effects and Effect Controls](/learn/after-effects-effects-and-effect-controls/).
 
 ## What you'll do
 
@@ -65,4 +65,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](//)**. Previous: [Layers and the Layer Stack](//). Continue with [Effects and Effect Controls](//).
+This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners/)**. Previous: [Layers and the Layer Stack](/learn/after-effects-layers-and-the-layer-stack/). Continue with [Effects and Effect Controls](/learn/after-effects-effects-and-effect-controls/).

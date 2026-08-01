@@ -45,7 +45,7 @@ relatedArticles: []
 
 Apply non-destructive operations that reshape the mesh without permanently changing the underlying geometry. Here's how to do it in **Blender** on macOS, step by step — part of the free Blender beginner curriculum.
 
-> **Lesson 5 of the Blender curriculum.** Next up: [Materials and Shading](//).
+> **Lesson 5 of the Blender curriculum.** Next up: [Materials and Shading](/learn/blender-materials-and-shading/).
 
 ## What you'll do
 
@@ -65,4 +65,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Blender beginner curriculum](//)**. Continue with [Materials and Shading](//).
+This is one stage of the full **[Blender beginner curriculum](/learn/blender-tutorial-for-beginners/)**. Continue with [Materials and Shading](/learn/blender-materials-and-shading/).

@@ -46,7 +46,7 @@ relatedArticles: []
 
 Drive a Karma render from Solaris and ship final frames. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 8 of the Houdini curriculum.** Next up: [Caching, Versioning, and Production Hygiene](//).
+> **Lesson 8 of the Houdini curriculum.** Next up: [Caching, Versioning, and Production Hygiene](/learn/houdini-caching-versioning-and-production-hygiene/).
 
 ## What you'll do
 
@@ -66,4 +66,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [Caching, Versioning, and Production Hygiene](//).
+This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners/)**. Continue with [Caching, Versioning, and Production Hygiene](/learn/houdini-caching-versioning-and-production-hygiene/).

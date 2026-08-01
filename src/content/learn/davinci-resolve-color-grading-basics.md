@@ -48,7 +48,7 @@ relatedArticles: []
 
 Move to the Color page to correct and enhance the look of your footage using DaVinci's professional grading tools. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 5 of the DaVinci Resolve curriculum.** Before this: [Trimming and Transitions](//). Next up: [Audio and Fairlight](//).
+> **Lesson 5 of the DaVinci Resolve curriculum.** Before this: [Trimming and Transitions](/learn/davinci-resolve-trimming-and-transitions/). Next up: [Audio and Fairlight](/learn/davinci-resolve-audio-and-fairlight/).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](//)**. Previous: [Trimming and Transitions](//). Continue with [Audio and Fairlight](//).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners/)**. Previous: [Trimming and Transitions](/learn/davinci-resolve-trimming-and-transitions/). Continue with [Audio and Fairlight](/learn/davinci-resolve-audio-and-fairlight/).

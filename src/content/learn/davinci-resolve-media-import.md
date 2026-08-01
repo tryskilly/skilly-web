@@ -46,7 +46,7 @@ relatedArticles: []
 
 Bring footage into your project and organize it in the Media Pool before you start editing. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 2 of the DaVinci Resolve curriculum.** Before this: [Interface and Pages](//). Next up: [Edit Page Basics](//).
+> **Lesson 2 of the DaVinci Resolve curriculum.** Before this: [Interface and Pages](/learn/davinci-resolve-interface-and-pages/). Next up: [Edit Page Basics](/learn/davinci-resolve-edit-page-basics/).
 
 ## What you'll do
 
@@ -66,4 +66,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](//)**. Previous: [Interface and Pages](//). Continue with [Edit Page Basics](//).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners/)**. Previous: [Interface and Pages](/learn/davinci-resolve-interface-and-pages/). Continue with [Edit Page Basics](/learn/davinci-resolve-edit-page-basics/).

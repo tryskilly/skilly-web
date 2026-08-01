@@ -43,7 +43,7 @@ relatedArticles: []
 
 Bring media into Premiere and organize it so editing is efficient. Here's how to do it in **Premiere Pro** on macOS, step by step — part of the free Premiere Pro beginner curriculum.
 
-> **Lesson 2 of the Premiere Pro curriculum.** Next up: [Timeline Editing](//).
+> **Lesson 2 of the Premiere Pro curriculum.** Next up: [Timeline Editing](/learn/premiere-pro-timeline-editing/).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Premiere Pro beginner curriculum](//)**. Continue with [Timeline Editing](//).
+This is one stage of the full **[Premiere Pro beginner curriculum](/learn/premiere-pro-tutorial-for-beginners/)**. Continue with [Timeline Editing](/learn/premiere-pro-timeline-editing/).

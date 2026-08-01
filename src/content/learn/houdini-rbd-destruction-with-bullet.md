@@ -46,7 +46,7 @@ relatedArticles: []
 
 Fracture geometry and run rigid-body simulations using packed primitives and the Bullet solver. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 5 of the Houdini curriculum.** Next up: [Vellum — Cloth, Soft Body, and Hair](//).
+> **Lesson 5 of the Houdini curriculum.** Next up: [Vellum — Cloth, Soft Body, and Hair](/learn/houdini-vellum-cloth-soft-body-and-hair/).
 
 ## What you'll do
 
@@ -66,4 +66,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [Vellum — Cloth, Soft Body, and Hair](//).
+This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners/)**. Continue with [Vellum — Cloth, Soft Body, and Hair](/learn/houdini-vellum-cloth-soft-body-and-hair/).

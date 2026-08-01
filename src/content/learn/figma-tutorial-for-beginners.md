@@ -20,13 +20,13 @@ Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly]
 
 ## The Figma curriculum
 
-1. **[Canvas and Navigation](//)** — Learn to move around the Figma canvas — the foundation for everything that follows.
-2. **[Shapes and the Frame Tool](//)** — Draw your first shapes and understand why Frames are the foundation of every Figma design.
-3. **[Layers Panel and Selection](//)** — Navigate the hierarchy and develop confident selection habits.
-4. **[Auto Layout](//)** — Learn Figma's flexbox-like system for responsive design. This is the single most important skill for modern Figma work.
-5. **[Components and Instances](//)** — Build your first reusable component and understand the main-vs-instance relationship.
-6. **[Variants and Component Properties](//)** — Combine related components into a component set and expose controls for consumers.
-7. **[Prototyping Basics](//)** — Connect frames into a clickable flow and present it.
+1. **[Canvas and Navigation](/learn/figma-canvas-and-navigation/)** — Learn to move around the Figma canvas — the foundation for everything that follows.
+2. **[Shapes and the Frame Tool](/learn/figma-shapes-and-the-frame-tool/)** — Draw your first shapes and understand why Frames are the foundation of every Figma design.
+3. **[Layers Panel and Selection](/learn/figma-layers-panel-and-selection/)** — Navigate the hierarchy and develop confident selection habits.
+4. **[Auto Layout](/learn/figma-auto-layout/)** — Learn Figma's flexbox-like system for responsive design. This is the single most important skill for modern Figma work.
+5. **[Components and Instances](/learn/figma-components-and-instances/)** — Build your first reusable component and understand the main-vs-instance relationship.
+6. **[Variants and Component Properties](/learn/figma-variants-and-component-properties/)** — Combine related components into a component set and expose controls for consumers.
+7. **[Prototyping Basics](/learn/figma-prototyping-basics/)** — Connect frames into a clickable flow and present it.
 
 ## How to use this
 

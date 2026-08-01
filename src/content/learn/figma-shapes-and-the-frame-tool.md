@@ -43,7 +43,7 @@ relatedArticles: []
 
 Draw your first shapes and understand why Frames are the foundation of every Figma design. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 2 of the Figma curriculum.** Before this: [Canvas and Navigation](//). Next up: [Layers Panel and Selection](//).
+> **Lesson 2 of the Figma curriculum.** Before this: [Canvas and Navigation](/learn/figma-canvas-and-navigation/). Next up: [Layers Panel and Selection](/learn/figma-layers-panel-and-selection/).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](//)**. Previous: [Canvas and Navigation](//). Continue with [Layers Panel and Selection](//).
+This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners/)**. Previous: [Canvas and Navigation](/learn/figma-canvas-and-navigation/). Continue with [Layers Panel and Selection](/learn/figma-layers-panel-and-selection/).

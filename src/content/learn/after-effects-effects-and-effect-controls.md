@@ -45,7 +45,7 @@ relatedArticles: []
 
 Apply effects to layers, adjust them in the Effect Controls panel, and understand how effects stack and process. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 4 of the After Effects curriculum.** Before this: [Keyframing and Animation](//). Next up: [Masks and Shape Layers](//).
+> **Lesson 4 of the After Effects curriculum.** Before this: [Keyframing and Animation](/learn/after-effects-keyframing-and-animation/). Next up: [Masks and Shape Layers](/learn/after-effects-masks-and-shape-layers/).
 
 ## What you'll do
 
@@ -65,4 +65,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](//)**. Previous: [Keyframing and Animation](//). Continue with [Masks and Shape Layers](//).
+This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners/)**. Previous: [Keyframing and Animation](/learn/after-effects-keyframing-and-animation/). Continue with [Masks and Shape Layers](/learn/after-effects-masks-and-shape-layers/).

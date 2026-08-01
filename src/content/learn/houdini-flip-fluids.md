@@ -46,7 +46,7 @@ relatedArticles: []
 
 Simulate water, splashes, and viscous fluids with the FLIP Solver 2.0. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 4 of the Houdini curriculum.** Next up: [RBD Destruction with Bullet](//).
+> **Lesson 4 of the Houdini curriculum.** Next up: [RBD Destruction with Bullet](/learn/houdini-rbd-destruction-with-bullet/).
 
 ## What you'll do
 
@@ -66,4 +66,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [RBD Destruction with Bullet](//).
+This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners/)**. Continue with [RBD Destruction with Bullet](/learn/houdini-rbd-destruction-with-bullet/).

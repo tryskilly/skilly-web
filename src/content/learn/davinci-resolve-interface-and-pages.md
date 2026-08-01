@@ -48,7 +48,7 @@ relatedArticles: []
 
 Understand DaVinci Resolve's unique 7-page architecture — the single most important concept for any new user. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 1 of the DaVinci Resolve curriculum.** Next up: [Media Import](//).
+> **Lesson 1 of the DaVinci Resolve curriculum.** Next up: [Media Import](/learn/davinci-resolve-media-import/).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](//)**. Continue with [Media Import](//).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners/)**. Continue with [Media Import](/learn/davinci-resolve-media-import/).

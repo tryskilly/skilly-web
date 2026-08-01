@@ -45,7 +45,7 @@ relatedArticles: []
 
 Refine your edit by trimming clips precisely and adding transitions between them. Here's how to do it in **Premiere Pro** on macOS, step by step — part of the free Premiere Pro beginner curriculum.
 
-> **Lesson 4 of the Premiere Pro curriculum.** Next up: [Effects and Color Grading](//).
+> **Lesson 4 of the Premiere Pro curriculum.** Next up: [Effects and Color Grading](/learn/premiere-pro-effects-and-color-grading/).
 
 ## What you'll do
 
@@ -65,4 +65,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Premiere Pro beginner curriculum](//)**. Continue with [Effects and Color Grading](//).
+This is one stage of the full **[Premiere Pro beginner curriculum](/learn/premiere-pro-tutorial-for-beginners/)**. Continue with [Effects and Color Grading](/learn/premiere-pro-effects-and-color-grading/).

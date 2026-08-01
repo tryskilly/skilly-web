@@ -20,13 +20,13 @@ Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly]
 
 ## The Premiere Pro curriculum
 
-1. **[Interface and Workspace](//)** — Get oriented in Premiere Pro's panel-based workspace and understand where everything lives before touching footage.
-2. **[Import and Project Organization](//)** — Bring media into Premiere and organize it so editing is efficient.
-3. **[Timeline Editing](//)** — Make your first cuts and build a rough edit in the Timeline.
-4. **[Trimming and Transitions](//)** — Refine your edit by trimming clips precisely and adding transitions between them.
-5. **[Effects and Color Grading](//)** — Apply visual effects to clips and perform basic color correction with Lumetri Color.
-6. **[Audio and Titles](//)** — Mix audio tracks and add text titles to your sequence.
-7. **[Export](//)** — Render your finished edit and export it for delivery.
+1. **[Interface and Workspace](/learn/premiere-pro-interface-and-workspace/)** — Get oriented in Premiere Pro's panel-based workspace and understand where everything lives before touching footage.
+2. **[Import and Project Organization](/learn/premiere-pro-import-and-project-organization/)** — Bring media into Premiere and organize it so editing is efficient.
+3. **[Timeline Editing](/learn/premiere-pro-timeline-editing/)** — Make your first cuts and build a rough edit in the Timeline.
+4. **[Trimming and Transitions](/learn/premiere-pro-trimming-and-transitions/)** — Refine your edit by trimming clips precisely and adding transitions between them.
+5. **[Effects and Color Grading](/learn/premiere-pro-effects-and-color-grading/)** — Apply visual effects to clips and perform basic color correction with Lumetri Color.
+6. **[Audio and Titles](/learn/premiere-pro-audio-and-titles/)** — Mix audio tracks and add text titles to your sequence.
+7. **[Export](/learn/premiere-pro-export/)** — Render your finished edit and export it for delivery.
 
 ## How to use this
 

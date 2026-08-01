@@ -41,7 +41,7 @@ relatedArticles: []
 
 Get oriented in After Effects and learn to move around the Composition panel and Timeline without losing your place. Here's how to do it in **After Effects** on macOS, step by step — part of the free After Effects beginner curriculum.
 
-> **Lesson 1 of the After Effects curriculum.** Next up: [Layers and the Layer Stack](//).
+> **Lesson 1 of the After Effects curriculum.** Next up: [Layers and the Layer Stack](/learn/after-effects-layers-and-the-layer-stack/).
 
 ## What you'll do
 
@@ -59,4 +59,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[After Effects beginner curriculum](//)**. Continue with [Layers and the Layer Stack](//).
+This is one stage of the full **[After Effects beginner curriculum](/learn/after-effects-tutorial-for-beginners/)**. Continue with [Layers and the Layer Stack](/learn/after-effects-layers-and-the-layer-stack/).

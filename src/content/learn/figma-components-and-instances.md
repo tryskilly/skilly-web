@@ -43,7 +43,7 @@ relatedArticles: []
 
 Build your first reusable component and understand the main-vs-instance relationship. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
 
-> **Lesson 5 of the Figma curriculum.** Before this: [Auto Layout](//). Next up: [Variants and Component Properties](//).
+> **Lesson 5 of the Figma curriculum.** Before this: [Auto Layout](/learn/figma-auto-layout/). Next up: [Variants and Component Properties](/learn/figma-variants-and-component-properties/).
 
 ## What you'll do
 
@@ -62,4 +62,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Figma beginner curriculum](//)**. Previous: [Auto Layout](//). Continue with [Variants and Component Properties](//).
+This is one stage of the full **[Figma beginner curriculum](/learn/figma-tutorial-for-beginners/)**. Previous: [Auto Layout](/learn/figma-auto-layout/). Continue with [Variants and Component Properties](/learn/figma-variants-and-component-properties/).

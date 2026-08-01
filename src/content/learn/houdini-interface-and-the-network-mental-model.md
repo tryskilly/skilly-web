@@ -48,7 +48,7 @@ relatedArticles: []
 
 Cross the conceptual threshold from "DCC with menus" to "graph of operators". Without this, nothing else in Houdini makes sense. Here's how to do it in **Houdini** on macOS, step by step — part of the free Houdini beginner curriculum.
 
-> **Lesson 1 of the Houdini curriculum.** Next up: [SOP Geometry Basics for FX Sources](//).
+> **Lesson 1 of the Houdini curriculum.** Next up: [SOP Geometry Basics for FX Sources](/learn/houdini-sop-geometry-basics-for-fx-sources/).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[Houdini beginner curriculum](//)**. Continue with [SOP Geometry Basics for FX Sources](//).
+This is one stage of the full **[Houdini beginner curriculum](/learn/houdini-tutorial-for-beginners/)**. Continue with [SOP Geometry Basics for FX Sources](/learn/houdini-sop-geometry-basics-for-fx-sources/).

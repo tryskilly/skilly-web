@@ -48,7 +48,7 @@ relatedArticles: []
 
 Refine your edit with precise trimming tools and add transitions between clips. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.
 
-> **Lesson 4 of the DaVinci Resolve curriculum.** Before this: [Edit Page Basics](//). Next up: [Color Grading Basics](//).
+> **Lesson 4 of the DaVinci Resolve curriculum.** Before this: [Edit Page Basics](/learn/davinci-resolve-edit-page-basics/). Next up: [Color Grading Basics](/learn/davinci-resolve-color-grading-basics/).
 
 ## What you'll do
 
@@ -69,4 +69,4 @@ Reading steps is one thing; doing them while the menus are in front of you is an
 
 ## Keep going
 
-This is one stage of the full **[DaVinci Resolve beginner curriculum](//)**. Previous: [Edit Page Basics](//). Continue with [Color Grading Basics](//).
+This is one stage of the full **[DaVinci Resolve beginner curriculum](/learn/davinci-resolve-tutorial-for-beginners/)**. Previous: [Edit Page Basics](/learn/davinci-resolve-edit-page-basics/). Continue with [Color Grading Basics](/learn/davinci-resolve-color-grading-basics/).
