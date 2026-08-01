@@ -159,6 +159,8 @@ const relatedArticles = allLearnEntries
   title={`${data.title} — Skilly`}
   description={data.description}
   ogImage={ogImage}
+  productLine="learn"
+  funnelStage="education"
 >
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />
@@ -175,7 +177,12 @@ const relatedArticles = allLearnEntries
   <Nav />
 
   <main class="overflow-x-clip">
-    <article class="max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-16">
+    <article
+      class="max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-16"
+      data-learn-article
+      data-article-slug={articleSlug}
+      data-article-category={data.category}
+    >
       <div class="max-w-[760px] mx-auto">
         <nav class="text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
           <ol class="flex items-center gap-2 flex-wrap">
@@ -244,6 +251,12 @@ const relatedArticles = allLearnEntries
               {relatedArticles.map(({ entry: relatedEntry, slug: relatedSlug }) => (
                 <a
                   href={`/learn/${relatedSlug}/`}
+                  data-ph-event="web_learn_related_clicked"
+                  data-ph-prop-location="related_guides"
+                  data-ph-prop-article-slug={articleSlug}
+                  data-ph-prop-article-category={data.category}
+                  data-ph-prop-target-article={relatedSlug}
+                  data-ph-prop-target-funnel="learn"
                   class="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-amber-500/50 hover:shadow-md"
                 >
                   <span class="text-[11px] font-mono uppercase tracking-[0.08em] text-amber-700">
@@ -275,6 +288,10 @@ const relatedArticles = allLearnEntries
               data-ph-event="web_cta_download_clicked"
               data-ph-prop-location="learn_article_cta"
               data-ph-prop-target-funnel="people"
+              data-ph-prop-article-slug={articleSlug}
+              data-ph-prop-article-category={data.category}
+              data-ph-prop-canonical-keyword={data.canonicalKeyword ?? ''}
+              data-ph-prop-cta-text="Download Skilly"
               class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 shadow-sm hover:shadow-md rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
             >
               Download Skilly
@@ -284,6 +301,11 @@ const relatedArticles = allLearnEntries
             </a>
             <a
               href="/learn/"
+              data-ph-event="web_learn_more_clicked"
+              data-ph-prop-location="learn_article_cta"
+              data-ph-prop-article-slug={articleSlug}
+              data-ph-prop-article-category={data.category}
+              data-ph-prop-target-funnel="learn"
               class="inline-flex items-center gap-1.5 bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 hover:border-gray-300 rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
             >
               More articles
@@ -295,4 +317,36 @@ const relatedArticles = allLearnEntries
   </main>
 
   <Footer />
+
+  <script is:inline define:vars={{ articleSlug, articleCategory: data.category }}>
+    (() => {
+      const article = document.querySelector('[data-learn-article]');
+      if (!article) return;
+
+      let captured = false;
+      let timer;
+
+      const captureEngagement = (trigger) => {
+        if (captured) return;
+        captured = true;
+        window.removeEventListener('scroll', checkProgress);
+        if (timer) window.clearTimeout(timer);
+        window.skillyTrack?.('web_learn_article_engaged', {
+          article_slug: articleSlug,
+          article_category: articleCategory,
+          engagement_trigger: trigger,
+        });
+      };
+
+      const checkProgress = () => {
+        const bounds = article.getBoundingClientRect();
+        const progress = (window.innerHeight - bounds.top) / Math.max(bounds.height, 1);
+        if (progress >= 0.75) captureEngagement('75_percent');
+      };
+
+      window.addEventListener('scroll', checkProgress, { passive: true });
+      timer = window.setTimeout(() => captureEngagement('45_seconds'), 45_000);
+      checkProgress();
+    })();
+  </script>
 </Layout>
