@@ -1,8 +1,8 @@
 ---
-title: "OpenAI Realtime API tutorial — what we learned in production"
-description: "Practical guide to OpenAI Realtime API in 2026 — gpt-realtime model, pricing, WebRTC vs WebSocket vs SIP, function calling, and production gotchas."
+title: "OpenAI Realtime API tutorial: a production guide for 2026"
+description: "A current OpenAI Realtime API guide covering GPT-Realtime models, WebRTC, WebSocket, SIP, function calls, interruptions, cost, and privacy."
 pubDate: 2026-04-27
-updatedDate: 2026-04-27
+updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"
 category: tutorial
 tags:
@@ -12,161 +12,177 @@ tags:
   - webrtc
   - tutorial
 canonicalKeyword: "OpenAI Realtime API tutorial"
+relatedArticles:
+  - openai-mcp-server-tutorial
+  - ai-tutor-that-sees-your-screen
 faq:
-  - question: "Which connection method should I use — WebRTC, WebSocket, or SIP?"
-    answer: "WebRTC for browsers and native apps where the user's audio device is local — it handles audio capture, encoding, and adaptive jitter buffering for you. WebSocket for server-side architectures where you control both ends of the audio pipeline (and don't mind handling the audio packetization yourself). SIP for phone-based agents (incoming/outgoing PSTN calls). For Skilly we use WebRTC because the audio source is the user's macOS microphone — letting Apple's RTC stack handle the capture saves us thousands of lines of audio code."
-  - question: "How much does Realtime API cost in production?"
-    answer: "As of 2026-04-27, gpt-realtime costs $32 per 1M audio input tokens (or $0.40 per 1M cached input tokens) and $64 per 1M audio output tokens. There's also a cheaper gpt-realtime-mini variant for cost-sensitive use cases. Audio tokens are measured in 100ms slices — a 1-minute conversation is roughly 600 input audio tokens and 600 output if both speak equally. Real production cost depends heavily on session length, function calling token volume, and how aggressively you truncate context."
-  - question: "Does Realtime API support function calling?"
-    answer: "Yes, and it improved significantly in gpt-realtime (Aug 2025 GA release). The model can call functions in the background while continuing to talk to the user — important for the 'let me look that up' moments without dead air. As of 2025, the API also supports remote MCP servers — pass an MCP URL in session config and the model auto-discovers the tools. We use this in Skilly for capturing screen frames the model requests."
-  - question: "Can I send images to a Realtime session?"
-    answer: "Yes, image input was added at the August 2025 GA release. You can include images as part of the conversation context — useful for screen-aware assistants, vision-grounded agents, or any flow where the model needs to see what the user sees. In Skilly, we send a screen capture frame along with the user's voice question, and the model can reason about both."
-  - question: "What's the difference between gpt-realtime and gpt-4o-realtime-preview?"
-    answer: "gpt-4o-realtime-preview was the public beta from October 2024. gpt-realtime is the GA model launched August 28, 2025 — 20% cheaper, better instruction following, better function calling, more natural and expressive speech, and exclusive access to two new voices (Cedar and Marin). If you're on the preview model, switching is just a model name change in your session config."
-  - question: "How do I handle interruptions when the user starts talking mid-response?"
-    answer: "The Realtime API has built-in voice activity detection (VAD) and emits an interruption event when it detects user speech overlapping with assistant output. Your client must (1) stop playing the assistant audio buffer immediately on interrupt, (2) clear the playback queue so older audio doesn't resume, and (3) tell the API which response position the user heard up to (so the model knows what was actually consumed). Skipping step 3 leads to the model 'remembering' it said something the user never heard, which produces weird inconsistencies on the next turn."
-relatedArticles: []
+  - question: "What is the OpenAI Realtime API?"
+    answer: "The Realtime API is OpenAI's low-latency interface for multimodal sessions. It supports speech-to-speech interaction plus text, image, and audio input over WebRTC, WebSocket, or SIP connections."
+  - question: "Which GPT-Realtime model should I use?"
+    answer: "As of 2026-08-04, GPT-Realtime-2.1 is the most capable current voice model, while GPT-Realtime-2.1 mini is the lower-cost option. GPT-Realtime-1.5 and the original GPT-Realtime remain documented. Test the exact model against your latency, tool-use, and recognition requirements, and pin a snapshot when reproducibility matters."
+  - question: "Should I connect with WebRTC, WebSocket, or SIP?"
+    answer: "Use WebRTC when audio originates in a browser or user device, WebSocket for server-controlled audio pipelines, and SIP for phone calls. All three are supported by current GPT-Realtime models."
+  - question: "How much does the OpenAI Realtime API cost?"
+    answer: "Pricing depends on the model and text, audio, image, and cached token usage. When checked 2026-08-04, GPT-Realtime-2.1 audio cost $32 per 1M input tokens, $0.40 per 1M cached input tokens, and $64 per 1M output tokens. GPT-Realtime-2.1 mini audio cost $10, $0.30, and $20 respectively. Verify the official model pages before budgeting."
+  - question: "Does the Realtime API support function calling?"
+    answer: "Yes. Current GPT-Realtime models support function calling. Your application must assemble streamed arguments, execute the tool, return its result to the conversation, and request or allow the response to continue."
+  - question: "Does OpenAI train on Realtime API data?"
+    answer: "OpenAI says API inputs and outputs are not used for model training by default unless the customer opts in. Its data-control documentation lists the Realtime endpoint with no application-state retention, while default abuse-monitoring logs may be retained for up to 30 days unless approved retention controls apply."
 ---
 
-If you're building anything voice-first in 2026, OpenAI's Realtime API is probably on your shortlist. We've been running it in production at Skilly for a few months — voice + screen-aware tutoring on Mac — and there's a gap between the docs and what you actually need to know to ship.
+The **OpenAI Realtime API** is for conversations where waiting for a transcription request, a text-model request, and a speech request would make the experience feel slow or unnatural. It accepts live audio and can return audio directly while also handling text, images, and tools.
 
-This is a practical tour: current model, what you connect to, how function calling actually works in a streaming voice context, and the gotchas that cost us debugging time.
+We use Realtime for Skilly's voice-and-screen tutoring. This guide focuses on the decisions that matter when moving from a demo to a product: model choice, transport, authentication, interruption handling, tools, cost, and data controls.
 
-> All facts verified 2026-04-27 against [OpenAI's gpt-realtime GA announcement](https://openai.com/index/introducing-gpt-realtime/) and [OpenAI API Pricing](https://openai.com/api/pricing/). Pricing changes — re-verify before quoting numbers in your own writeups.
+> Models, prices, connection methods, and retention details were rechecked August 4, 2026 against OpenAI's official documentation. These details change. Follow the linked model and data-control pages rather than copying values into a permanent budget.
 
-## What the Realtime API actually is
+## How the Realtime API differs from a chained voice pipeline
 
-Traditional voice AI pipelines chain three separate models:
+A traditional voice system often looks like this:
 
+```text
+microphone → speech-to-text → text model → text-to-speech → speaker
 ```
-microphone → STT (Whisper) → LLM (GPT-4) → TTS (gpt-4o-audio) → speaker
+
+That architecture remains useful when you want independent vendors, inspectable transcripts, or asynchronous processing. But it creates several network and model boundaries.
+
+Realtime can instead run a speech-to-speech session:
+
+```text
+microphone ⇄ realtime model ⇄ speaker
 ```
 
-Every hop adds latency. The Realtime API collapses this into one streaming model that takes audio in and emits audio out directly. No intermediate text. The model "hears" tone, pauses, and emphasis, and "speaks" with similar nuance — you can't get the same expressiveness from a chained pipeline because tone information is lost in the STT step.
+The same session can also receive text or image context and call tools. Choose it when conversational latency, interruptions, and vocal interaction are core to the product—not merely because the API is newer.
 
-This single-model approach is the entire point. If you don't need that — if your app is fine with traditional STT → LLM → TTS — you'll save money and complexity by skipping Realtime entirely.
+## Current GPT-Realtime models
 
-## Current model: `gpt-realtime`
+OpenAI's model catalog had several Realtime families when checked August 4, 2026:
 
-As of 2026-04-27, the production model is **`gpt-realtime`**, GA since August 28, 2025. It replaces `gpt-4o-realtime-preview` (the public beta from October 2024).
-
-What's better than the preview:
-- **20% cheaper** on audio tokens
-- **Better function calling** — calls tools with more precision, especially in multi-tool sessions
-- **Better instruction following** — system prompts and developer messages are respected more reliably (e.g., "always read disclaimers verbatim", "switch to Spanish when the user does")
-- **Two new voices** — Cedar and Marin, exclusive to the Realtime API
-
-There's also `gpt-realtime-mini` for cost-sensitive use cases — same API surface, cheaper, slightly less capable.
-
-## Pricing (verified 2026-04-27)
-
-| Token type | gpt-realtime | gpt-realtime-mini |
+| Model | Positioning | Audio input / output per 1M tokens |
 |---|---|---|
-| Audio input | $32 / 1M tokens | (cheaper, see [official pricing](https://openai.com/api/pricing/)) |
-| Audio input (cached) | $0.40 / 1M tokens | — |
-| Audio output | $64 / 1M tokens | — |
+| `gpt-realtime-2.1` | Most capable current voice model; stronger recognition, silence/noise handling, interruptions, reasoning, and tools | $32 / $64 |
+| `gpt-realtime-2.1-mini` | Faster, lower-cost 2.1 variant | $10 / $20 |
+| `gpt-realtime-1.5` | Flagship 1.5 audio model | $32 / $64 |
+| `gpt-realtime` | Original generally available Realtime model | $32 / $64 |
 
-Audio tokens are measured in roughly 100ms slices. A naive estimate: **a 1-minute back-and-forth conversation costs about $0.06** in audio I/O combined, before function calling overhead.
+Cached audio input is cheaper than uncached input. Text and image tokens are priced separately. The 2.1 models also expose a much larger context window than the original model, according to their current model pages.
 
-Real production cost depends on:
-- **Session length** — Realtime keeps full conversation context, so token cost grows linearly with session duration unless you truncate
-- **Cached inputs** — if your system prompt is identical across sessions, OpenAI caches it and charges 1/80th the rate
-- **Function calling** — every tool call adds text tokens at the standard text-token rate
-- **Image inputs** — added in Aug 2025 GA release, charged separately
+Use an alias while experimenting. For a production release where behavior must remain stable, evaluate and pin a documented snapshot rather than assuming an alias will never change.
 
-## Connection methods — pick one
+## Choose the connection method
 
-| Method | Best for | Notes |
-|---|---|---|
-| **WebRTC** | Browser apps, native mobile/desktop apps | Browser/OS handles audio capture + jitter buffering. Lowest latency in practice. |
-| **WebSocket** | Server-side voice agents, custom pipelines | You handle audio packetization yourself. More control, more code. |
-| **SIP** | Phone-based agents (PSTN, contact centers) | Plug Realtime directly into a phone number. Added Aug 2025. |
+### WebRTC for client-side voice
 
-**For Skilly we use WebRTC.** The user's microphone is local; macOS already has a hardened RTC stack. Letting Apple handle audio capture/echo cancellation/AGC saves us from rewriting the world.
+WebRTC is usually the first choice when the microphone and speaker belong to a browser, desktop app, or mobile app. It provides a media path for audio and a data channel for session events.
 
-The WebRTC handshake flow (simplified):
+A simplified setup is:
 
-1. Your client requests an ephemeral session token from OpenAI via your server (don't ship your real API key to the client)
-2. Client creates an `RTCPeerConnection`
-3. SDP offer goes to OpenAI's `/v1/realtime` endpoint
-4. OpenAI responds with SDP answer
-5. WebRTC data channel + audio tracks open
-6. Configure session with `session.update` event over the data channel
-7. Speak and listen
+1. Your backend authenticates with the OpenAI API.
+2. The client creates an `RTCPeerConnection` and local audio track.
+3. The client sends its SDP offer through the Realtime call flow.
+4. OpenAI returns an SDP answer.
+5. Audio and the event data channel become available.
 
-WebSocket is similar minus steps 2-4 and you handle PCM16 packets yourself.
+Do not embed a permanent OpenAI API key in client code. Follow the current OpenAI WebRTC guide for its supported client-secret or server-mediated authentication flow.
 
-## Function calling in a streaming voice context
+### WebSocket for server-side pipelines
 
-This is the part that tripped us up the most. Function calling in Realtime is **not** the same as function calling in chat completions.
+Use WebSocket when your server owns the audio stream or needs direct control over packetization, buffering, telephony integration, recording policy, or routing. You exchange Realtime events and audio chunks explicitly, which gives control at the cost of more audio plumbing.
 
-In chat completions: model emits a `tool_call`, you execute, you append the result, you call the model again. Linear.
+### SIP for phone calls
 
-In Realtime: model is **streaming voice output continuously**. When it decides to call a tool, it emits a `response.function_call_arguments.delta` event mid-stream, possibly while still speaking the user-facing message ("let me check that for you..."). Your client must:
+Use SIP when the product is a phone agent. OpenAI exposes call controls for accepting, rejecting, transferring, monitoring, and hanging up Realtime calls. Do not build a phone bridge around WebRTC merely to avoid learning the SIP path.
 
-1. Buffer the tool call args as deltas arrive
-2. When `response.function_call_arguments.done` fires, execute the function
-3. Send `conversation.item.create` with the tool result
-4. Send `response.create` to let the model continue
+## Configure the session deliberately
 
-If you do this naively the model goes silent waiting for the result. The pattern that works in production: have the model **announce** the tool call out loud first ("let me look that up..."), execute the function in parallel, then continue with the result. This avoids dead air during database queries or web fetches.
+A useful production session configuration defines:
 
-### Remote MCP servers (added Aug 2025)
+- The model or snapshot
+- Input and output audio configuration
+- Voice
+- Instructions and conversation policy
+- Turn detection behavior
+- Available tools
+- Context or truncation behavior
 
-The cleanest way to extend Realtime with tools is now MCP. Pass an MCP server URL in `session.update` config:
+Keep the initial instructions short and testable. Long collections of exceptions are difficult to debug in voice because a failure may sound plausible. OpenAI's current Realtime prompting guide recommends clear, structured instructions and explicit behavior for unclear audio.
 
-```json
-{
-  "type": "session.update",
-  "session": {
-    "tools": [{
-      "type": "mcp",
-      "url": "https://your-mcp-server.example.com"
-    }]
-  }
-}
-```
+## Function calling is an event loop
 
-The model auto-discovers tools from the MCP server, no per-tool wiring needed. We use this in Skilly to expose screen capture and skill-loading utilities to the model.
+Current Realtime models support function calling, but your application still owns tool execution.
 
-## What screen capture + voice looks like in practice (the Skilly architecture)
+The robust mental model is:
 
-Here's the Skilly setup, since it's a good case study for screen-aware voice agents:
+1. Receive streamed function arguments.
+2. Assemble and validate the complete arguments.
+3. Run the tool with normal authorization and timeout rules.
+4. Add the tool output to the conversation.
+5. Continue the model response.
 
-1. **User holds Control+Option** — push-to-talk, captures audio + a screen frame
-2. **Audio streams to gpt-realtime via WebRTC** — voice in, voice out
-3. **Screen frame attaches as an image input** — added at Aug 2025 GA, before that we couldn't do this without a roundtrip through gpt-4o-vision
-4. **Model decides whether to call tools** — e.g., load a skill markdown file for Blender-specific knowledge
-5. **Model speaks the answer** — through Cedar voice, streaming as it generates
-6. **Cursor moves on screen** — separate channel, model emits coordinates as a tool call alongside the voice answer
+Never execute partial arguments. Treat model-produced values as untrusted input. Validate identifiers, constrain file or network access, and return structured errors the model can explain to the user.
 
-The image input feature is what made the whole thing viable on a single API. Pre-Aug-2025 we had to chain: Realtime API for voice → separate vision model call for screen → Realtime API again to speak the answer. Latency was ~2.5 seconds. With direct image input on Realtime, we're at ~800ms end-to-end.
+If you want OpenAI to connect to a remote MCP server, use the dedicated [OpenAI MCP server tutorial](/learn/openai-mcp-server-tutorial/). MCP and local function tools solve related problems but have different execution and approval boundaries.
 
-## Production gotchas nobody warns you about
+## Handle interruptions as a product feature
 
-**1. Session token caps.** Default session size is large but not infinite. For long sessions (>10 min), enable conversation context truncation in `session.update` so older turns drop off. Otherwise you hit token limits and the model degrades.
+Voice users speak over the assistant. That is normal, not an edge case.
 
-**2. ScreenCaptureKit on macOS fires its content-invalidation callback too late on lid close.** This is Mac-specific but bit us hard — you ship 2-3 black frames before the restart catches the lid event. Fix: register `CGDisplayRegisterReconfigurationCallback` separately to get ahead of the bad frames. (Thanks to u/Deep_Ad1959 on r/SwiftUI for this one.)
+Your client needs to coordinate three views of the conversation:
 
-**3. Voice consistency across sessions.** Even with the same voice (Cedar/Marin/etc.), there can be slight tone drift between sessions. Don't rely on voice identity for security or persona signaling. Use a system prompt to reinforce persona at session start.
+- What the model generated
+- What audio the client buffered
+- What the user actually heard
 
-**4. Interrupt handling is a 3-step dance.** When the user talks over the assistant: stop playback, clear the audio buffer queue, AND send the conversation position back to the API so the model knows what was actually heard. Skipping that last step → model thinks it said things the user never heard → bizarre cross-turn inconsistencies.
+When the user interrupts, stop playback promptly, clear audio that should no longer play, and follow the current Realtime event contract so the conversation reflects the portion the user heard. Otherwise, the model may continue as though the unheard response was delivered.
 
-**5. Cached input pricing only applies to identical prefixes.** If you change your system prompt by even one character, the cache misses for the entire session. Lock the system prompt at session creation time and don't mutate.
+Test interruption during network jitter, tool execution, and long responses—not only during a clean local demo.
 
-## Should you use Realtime?
+## Send images only when they add context
 
-**Yes** if:
-- Your UX needs sub-second voice response
-- You need vocal nuance (tone, emotion, mid-sentence interruption)
-- You're building voice-first or phone-first agents
-- You need image-grounded voice responses (screen-aware, document-aware, vision-grounded agents)
+Current GPT-Realtime models accept image input. That enables screen-aware tutoring, visual support, and inspection workflows.
 
-**No** if:
-- Your UX is fine with 1-2 second response time (use chained STT → LLM → TTS, it's cheaper)
-- You don't need voice at all (just use Chat Completions)
-- You can't afford ~$0.06/min audio I/O at scale (run the math against your unit economics first)
+Do not stream unnecessary full-resolution frames by default. A better pattern is to send a relevant frame when the user asks a visual question, resize it to the resolution the task needs, and avoid unrelated windows. This controls cost and reduces privacy exposure.
 
-## Try a real Realtime app
+## Budget with measured sessions
 
-Skilly runs entirely on the OpenAI Realtime API. Hold Control+Option, ask out loud, get a voice answer with a cursor pointing at exactly what to click on your screen. **15 minutes free, no card.**
+Token prices do not translate into one universal cost per conversation. Actual cost changes with:
+
+- How much the user and model speak
+- Model choice
+- Context length and truncation
+- Cached input reuse
+- Image input
+- Tool definitions and results
+- Failed or abandoned sessions
+
+Instrument input, cached input, output, and session duration separately. Build a cost distribution from real sessions before setting a flat per-minute price.
+
+## Data retention and training are separate
+
+OpenAI's current API data-control documentation says API inputs and outputs are not used to train models by default unless the customer explicitly opts in.
+
+The same documentation says default abuse-monitoring logs may contain customer content and may be retained for up to 30 days. It lists `/v1/realtime` with no application-state retention and as eligible for Zero Data Retention, subject to OpenAI approval and endpoint limitations.
+
+So “not used for training” should not be presented as “nothing is ever retained.” Review the exact account controls and make accurate disclosures to your users.
+
+## Production checklist
+
+- Keep permanent API credentials on the server.
+- Choose WebRTC, WebSocket, or SIP based on where audio originates.
+- Validate all tool arguments and enforce authorization outside the model.
+- Test barge-in, silence, noisy audio, and reconnect behavior.
+- Bound session duration and conversation context.
+- Measure token categories and real session cost.
+- Send only the visual context the task requires.
+- Document training and retention separately.
+- Pin a model snapshot when reproducibility matters.
+- Recheck the official docs before every material launch.
+
+## Official sources
+
+- [GPT-Realtime-2.1 model](https://developers.openai.com/api/docs/models/gpt-realtime-2.1)
+- [GPT-Realtime-2.1 mini model](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini)
+- [GPT-Realtime model](https://developers.openai.com/api/docs/models/gpt-realtime)
+- [Realtime API reference](https://platform.openai.com/docs/api-reference/realtime)
+- [OpenAI API data controls](https://platform.openai.com/docs/models/default-usage-policies-by-endpoint)
+- [Realtime prompting guide](https://cdn.openai.com/API/docs/realtime-prompting-guide.pdf)

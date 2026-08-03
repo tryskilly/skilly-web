@@ -2,7 +2,7 @@
 title: "How to add a bevel modifier in Blender (5.1, step-by-step)"
 description: "Add the Bevel modifier in Blender 5.1 to round or chamfer edges non-destructively. Every parameter explained, with the gotchas that catch beginners."
 pubDate: 2026-04-27
-updatedDate: 2026-08-02
+updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"
 category: how-to
 tags:
@@ -30,13 +30,13 @@ faq:
   - question: "What's the difference between the Bevel modifier and the Bevel tool (Ctrl+B)?"
     answer: "The Bevel tool (Ctrl+B in Edit Mode) cuts geometry permanently — it bakes the bevel into the mesh. The Bevel modifier is non-destructive: you can change Width, Segments, or remove it entirely without touching the underlying geometry. Use the modifier for production work where you might iterate on design. Use the tool when you're certain about the bevel and want to manually tweak vertices afterward."
   - question: "Why does my bevel look weird or overlap itself?"
-    answer: "Two main causes. First, your Width is too high relative to nearby edges — turn on Clamp Overlap in the Geometry section to limit each beveled edge to non-overlapping size. Second, you're beveling a non-manifold or pinched mesh — the modifier can't cleanly interpret what the corner should look like. Check for doubled vertices (Mesh → Clean Up → Merge by Distance) and ensure no edge has more than two faces touching it."
+    answer: "First apply object scale and test a smaller Width. Enable Clamp Overlap when nearby bevels intersect; Blender limits the width to prevent overlapping geometry. If artifacts remain, inspect doubled vertices, non-manifold edges, very short adjacent edges, and inconsistent normals."
   - question: "How do I bevel only certain edges, not all of them?"
     answer: "Two options. The cleanest is the Weight limit method: in Edit Mode, select the edges you want, open the N-panel sidebar → Item tab, and set 'Mean Bevel Weight' to 1.0 (or any value between 0 and 1). Back in the modifier, set Limit Method to Weight. Alternatively, use Vertex Group to assign a vertex group and limit by that. Angle limit works for hard-surface modeling where you want sharp edges only."
   - question: "What's a good starting value for Segments?"
     answer: "For hard-surface modeling (mechanical parts, props), 2-3 segments gives a clean visible bevel without quad-bombing your mesh. For organic or close-up renders where the bevel will catch light, 4-6 segments gives a smoother roll. Going higher than 8 is rarely worth the geometry cost — use a Subdivision Surface modifier after the Bevel for smoother results instead."
-  - question: "Why is my bevel size in the wrong unit?"
-    answer: "Width Type controls how Width is interpreted. The default Offset is in scene units (meters by default in Blender). If you want consistent visual bevel regardless of edge length, switch Width Type to Percent and use a percentage of edge length. For exact distances along edges, use Absolute — useful when matching reference geometry."
+  - question: "Why is my bevel width inconsistent after scaling?"
+    answer: "Non-uniform object scale can distort a modifier's result. In Object Mode, apply scale with Ctrl+A → Scale, then adjust Width again. Width Type also changes what the value measures: Offset, Width, Depth, Percent, and Absolute are different geometric definitions."
   - question: "How do I move the Bevel modifier above or below other modifiers?"
     answer: "Modifier order matters — modifiers process top-to-bottom. To reorder, click the dropdown arrow (or grip handle) next to the modifier name and select Move to Top / Move Up / Move Down. Common pattern: Bevel before Subdivision Surface for a sharper result, Bevel after Subdivision Surface for a softer one. Bevel is almost always before Mirror so it doesn't bevel the seam."
 relatedArticles:
@@ -48,7 +48,7 @@ If you've added a cube in Blender and the corners look fake — too sharp, no li
 
 This guide is the fastest path to a clean bevel in Blender 5.1, plus the parameters and gotchas that aren't obvious from the panel.
 
-> All UI labels and behavior in this guide were verified against the official Blender 5.1 manual on 2026-04-27 at [docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html). Blender 4.x and earlier had slightly different UI labels — if a step doesn't match, check your version with **Help → About Blender**.
+> UI labels and behavior were rechecked August 4, 2026 against the current [official Blender Bevel modifier manual](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html). If a label differs, confirm your installed Blender version under **Help → About Blender** and select that version in the manual.
 
 ## When to use the Bevel modifier (vs the Bevel tool)
 
@@ -85,7 +85,7 @@ The Bevel modifier panel has a lot of fields. Here's what each one actually does
   - **Offset** — distance from the new edge to the original (default).
   - **Width** — distance between the two new edges formed by the bevel.
   - **Depth** — perpendicular distance from the bevel face to the original edge.
-  - **Percent** — percentage of adjacent edge length. Best for consistent visual size across mixed-scale meshes.
+  - **Percent** — percentage of adjacent edge length. The absolute result changes with the surrounding edge length.
   - **Absolute** — exact distance along the adjacent edges. Useful when adjacent edges meet at non-90° angles.
 
 - **Width** — the bevel size itself, interpreted by Width Type.
@@ -124,14 +124,40 @@ The Bevel modifier panel has a lot of fields. Here's what each one actually does
 
 **3. The bevel applies to every edge, including the ones you wanted left flat.** Set Limit Method to `Angle` (default 30° works for most hard-surface) so only the actual corners get beveled, not the seams running across faces.
 
+## Chamfer vs bevel in Blender
+
+In hard-surface modeling, **chamfer** usually means a flat cut across an edge. In Blender, that is simply a bevel with **Segments set to 1**. Raise Segments to create a rounded transition.
+
+This terminology matters when searching for help: a tutorial called “chamfer an edge” may still use Blender's Bevel tool or Bevel modifier. You do not need a separate Chamfer modifier.
+
+## Troubleshooting uneven or broken bevels
+
+### Apply object scale first
+
+If an object was stretched in Object Mode, its scale may be non-uniform. Apply it with **Ctrl+A → Scale**, then tune Width again. This is the first check when equal-looking edges receive visibly different bevels.
+
+### Reduce Width before adding geometry
+
+A bevel needs room on both sides of an edge. Very short neighboring edges can run out of space quickly. Reduce Width and inspect the corner before adding more Segments.
+
+### Understand Clamp Overlap
+
+According to Blender's manual, **Clamp Overlap** limits the width of each beveled edge so generated intersections cannot overlap nearby geometry. It prevents many self-intersections, but it can also make the visible width vary where space is tight. If a bevel unexpectedly stops growing, Clamp Overlap may be doing exactly what it is designed to do.
+
+### Use Segments for shape, not problem hiding
+
+Segments controls how many edge loops are added across the bevel face. More segments make the profile smoother; they do not fix bad topology, an oversized Width, or non-uniform scale.
+
+### Inspect topology and normals
+
+If a small bevel is still broken, check for doubled vertices, non-manifold edges, internal faces, and inconsistent normals. Clean geometry before relying on shading options to disguise the artifact.
+
 ## When to apply the modifier vs leave it as a modifier
 
 If your model is going through more iterations — texture painting, rigging, animation — leave the modifier live. You can always tweak it.
 
 If you're exporting to a game engine, baking, or sharing the .blend with someone who'll never touch the modifier stack, click the modifier dropdown → **Apply** to bake it in. After applying, it becomes regular geometry and you lose the ability to change Width or Segments.
 
-## Tired of looking up parameters every time?
+## Continue learning
 
-That's basically what built Skilly: getting tired of Googling "how do I [X] in [Blender / Figma / Xcode]" fifty times a week. Skilly watches your Blender window, hears your question out loud, and points at exactly the slider or button you need — with the answer streaming as text right next to the cursor. **15 minutes free to try.** No credit card.
-
-For the most common next step in the modifier stack, follow the [Subdivision Surface modifier guide](/learn/how-to-add-subdivision-surface-modifier-blender/) or review the broader [Blender modifiers lesson](/learn/blender-modifiers/).
+For the most common next step in the modifier stack, follow the [Subdivision Surface modifier guide](/learn/how-to-add-subdivision-surface-modifier-blender/) or review the broader [Blender modifiers lesson](/learn/blender-modifiers/). If you are still choosing what to practice next, use the [project-first Blender learning roadmap](/learn/best-way-to-learn-blender/).

@@ -2,7 +2,7 @@
 title: "Figma Auto Layout tutorial — the 2026 guide"
 description: "Master Figma Auto Layout in 10 minutes. The Shift+A shortcut, hug vs fill vs fixed, gap and padding, and the new Grid flow that replaced manually nested layouts."
 pubDate: 2026-04-27
-updatedDate: 2026-04-27
+updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"
 category: tutorial
 tags:
@@ -34,7 +34,7 @@ faq:
   - question: "How do I exclude one layer from Auto Layout (like CSS absolute position)?"
     answer: "Select the child layer and click 'Ignore auto layout' in the right sidebar. The object stays inside the auto layout frame but doesn't participate in the flow — siblings ignore it. This was previously called 'Absolute position' (still works the same, just renamed). Use it for badges, overlays, drag handles, or any element that needs to sit on top of the layout rather than within it."
   - question: "When should I use the new Grid flow vs nested vertical/horizontal frames?"
-    answer: "Grid (in open beta as of 2026-04-27) is for true 2D layouts — dashboards, photo galleries, bento boxes — where rows AND columns matter and items might span multiple cells. Use nested vertical+horizontal when you have a clear hierarchy (a row of cards, each containing a stacked title+description+button). Grid replaces the messy pattern of nesting horizontal frames inside a vertical frame to fake a grid. It's faster to build and easier to maintain."
+    answer: "Grid (still in open beta when checked 2026-08-04) is for true 2D layouts — dashboards, photo galleries, and bento boxes — where rows and columns matter and items may span cells. Use nested vertical and horizontal frames when the content has a clear one-dimensional hierarchy, such as a row of cards that each contain a vertical stack."
   - question: "Why is my Auto Layout frame growing weirdly when I add content?"
     answer: "Three usual suspects. (1) The frame is set to Hug, so it expands with content — switch to Fixed if you want a constant size. (2) A min/max constraint isn't set — open the frame's resize options and set a max width to cap growth. (3) A child is set to Fill on both axes, fighting the parent's Hug. Pick a direction and let only one axis fill. The shortcut is to enable Min/Max width or height on the parent — Min prevents shrinking below a value, Max prevents growth past it, regardless of Hug/Fill/Fixed."
   - question: "What does Wrap do, and when should I enable it?"
@@ -44,7 +44,7 @@ relatedArticles: []
 
 If you're new to Figma in 2026 and you've heard "just use auto layout for everything" without anyone explaining what that means — this is the guide. Auto Layout is Figma's responsive layout primitive. It's CSS Flexbox with a UI, plus a few Figma-specific features.
 
-> All shortcuts and properties verified 2026-04-27 against Figma's [Guide to auto layout](https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout). Auto Layout is available on every Figma plan including the free tier; works in Figma Design, Figma Sites, Figma Slides, and Figma Buzz.
+> Properties and UI labels verified August 4, 2026 against Figma's [Guide to Auto Layout](https://help.figma.com/hc/en-us/articles/360040451373-Explore-auto-layout-properties). Grid was still labeled open beta on that date.
 
 ## What auto layout actually is
 
@@ -77,6 +77,27 @@ That's the entire onboarding. Everything else is refinement.
 Switch flows anytime in the right sidebar's Auto layout panel — Figma preserves child positions and just changes the arrangement rules.
 
 Horizontal flow has one extra option: **Wrap**. When enabled, overflowing children push to a new line (CSS `flex-wrap`). Critical for tag clouds and any row that might wrap.
+
+## Wrap vs Grid: they solve different problems
+
+Both can produce multiple rows, but they do not use the same layout model.
+
+### Use Wrap for a flowing list
+
+Enable **Wrap** on a horizontal Auto Layout frame when items should keep their own width and move onto the next line as space runs out. Good examples include:
+
+- Tags and filter chips
+- Variable-length button groups
+- Avatar lists
+- A gallery where every card follows the same simple flow
+
+The container decides where each new line begins. You do not define explicit tracks or make one item span several columns.
+
+### Use Grid for rows and columns
+
+Use **Grid** when the relationship between rows and columns matters. Figma's current Grid flow supports track sizing, row and column spans, and alignment within cells. That makes it a better fit for dashboards, galleries with featured items, and bento layouts.
+
+Grid items do not use Wrap's overflow behavior. They occupy grid cells. Figma's official documentation still described Grid as open beta when this article was updated, so verify critical production workflows before rebuilding a large design system around it.
 
 ## The three resize behaviors per layer
 
@@ -134,7 +155,9 @@ Sometimes you want a child to live inside an auto layout frame but NOT participa
 
 Select the child → toggle **Ignore auto layout** in the right sidebar. The object stays in the frame but is excluded from arrangement rules. Siblings flow around it like it's not there.
 
-This was previously called "Absolute position" — Figma renamed it in 2024 but the behavior is identical. Drag-into-frame shortcut: hold **Control (Mac)** or **Shift (Windows)** while dragging an object into an auto layout frame to drop it as ignored.
+This was previously called **Absolute position**. The name changed; the layout behavior remains the same.
+
+An ignored object can use constraints relative to its parent, but it no longer gets Auto Layout resizing and spacing rules. Use it intentionally for overlays, badges, floating controls, and other elements that genuinely sit outside the content flow. Do not use it merely to force a broken layout into place.
 
 ## Common mistakes
 
@@ -148,6 +171,6 @@ This was previously called "Absolute position" — Figma renamed it in 2024 but 
 
 **5. Setting padding via the canvas drag handle on the wrong side.** Hold Option while dragging to mirror the change to the opposite side. Hold Option+Shift to apply to all four sides.
 
-## Tired of looking up Figma shortcuts every five minutes?
+## Continue learning
 
-Skilly is a voice-first AI tutor for Mac that watches your Figma window, hears your question, and points at exactly the panel or button you need — answer streaming as text right beside the cursor. Same flow for Blender, Xcode, After Effects, anything on Mac. **15 minutes free, no card.**
+If the rules make sense but applying them still feels slow, use the [project-first Figma learning roadmap](/learn/how-to-learn-figma-faster/) and rebuild one real interface with Auto Layout. The focused [components and instances lesson](/learn/figma-components-and-instances/) is the most useful next step once the spacing system works.
