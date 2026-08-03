@@ -1,8 +1,8 @@
 ---
-title: "How to set up SwiftUI previews in Xcode (#Preview macro guide)"
-description: "Set up SwiftUI previews with the modern #Preview macro in Xcode 15+. Multiple variants, UIKit/AppKit previews, and the iOS 17+ deployment gotcha."
+title: "SwiftUI #Preview traits: Xcode setup and examples"
+description: "Use SwiftUI #Preview traits in Xcode, including fixed layouts, orientation, variants, UIKit/AppKit previews, and common canvas fixes."
 pubDate: 2026-04-27
-updatedDate: 2026-04-27
+updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"
 category: tutorial
 tags:
@@ -10,7 +10,7 @@ tags:
   - xcode
   - swift
   - tutorial
-canonicalKeyword: "SwiftUI Preview macro Xcode"
+canonicalKeyword: "SwiftUI Preview traits"
 howTo:
   totalTime: "PT3M"
   tools:
@@ -40,12 +40,14 @@ faq:
     answer: "Top causes in order: (1) Your view requires a property that wasn't passed in — check the closure passes valid sample data for every required init parameter. (2) Your view depends on @Environment values that don't exist in the preview — inject them with .environment(...) modifiers in the closure. (3) Your view runs network calls or main-thread-blocking work in init — wrap with task() and use mock data in the preview. (4) The preview is using stale build cache — Editor → Canvas → Diagnostics shows the actual error; Cmd+Option+P forces a rebuild."
   - question: "How do I preview a view that needs SwiftData / Core Data / a model context?"
     answer: "Use a preview-specific in-memory model container. For SwiftData, define a static @MainActor preview container in a #Preview block: #Preview { let container = try! ModelContainer(for: Item.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true)); container.mainContext.insert(Item.sample); return ContentView().modelContainer(container) }. For Core Data, do the equivalent with NSPersistentContainer pointing at /dev/null. The point is: previews should never touch the real persistent store — that breaks reproducibility and makes previews non-deterministic."
-relatedArticles: []
+relatedArticles:
+  - ai-tutor-that-sees-your-screen
+  - chatgpt-screen-sharing-mac
 ---
 
 If you've opened a SwiftUI file in Xcode and seen `PreviewProvider` boilerplate that nobody fully understands, this is the modern replacement. The `#Preview` macro arrived in Xcode 15 and is now the standard for any project targeting iOS 17 / macOS 14 or newer.
 
-> Verified 2026-04-27 against [Apple's Previews in Xcode docs](https://developer.apple.com/documentation/swiftui/previews-in-xcode) and SwiftLee's macro deep-dive. The `#Preview` macro requires Swift 5.9+ and Xcode 15+. Xcode 26 also added a separate `#Playground` macro for canvas-based code snippets — distinct from `#Preview`.
+> Updated 2026-08-04 against [Apple's Previews in Xcode documentation](https://developer.apple.com/documentation/swiftui/previews-in-xcode). Apple's current API includes named previews, multiple `PreviewTrait` values, reusable preview modifiers, and parameterized preview arguments.
 
 ## What the #Preview macro is
 
@@ -110,6 +112,31 @@ Stack `#Preview` declarations to compare states. Pass a title as the first param
 ```
 
 Each becomes a separate card in the canvas. Use the canvas's variant picker to switch between them quickly.
+
+## SwiftUI #Preview traits: fixed size and orientation
+
+Traits configure the canvas around your view without changing production code. Apple's current macro accepts one required trait plus additional traits:
+
+```swift
+#Preview(
+    "Compact card",
+    traits: .fixedLayout(width: 320, height: 180)
+) {
+    ProfileCard(user: .sample)
+}
+```
+
+For an orientation-specific preview, use an orientation trait:
+
+```swift
+#Preview("Landscape", traits: .landscapeLeft) {
+    DashboardView()
+}
+```
+
+Use `.fixedLayout(width:height:)` for components that should be evaluated at an exact size. Use an orientation trait when the device context matters. Apple notes that a trait is ignored when it does not apply to the preview's platform or scene.
+
+In current Xcode previews, the macro also supports multiple traits and parameterized `arguments:`. That makes it possible to generate a family of previews from representative input data instead of copying nearly identical blocks.
 
 ## Previewing UIKit / AppKit views (the big upgrade over PreviewProvider)
 

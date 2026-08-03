@@ -126,6 +126,24 @@ const categoryLabels: Record<string, string> = {
   troubleshooting: 'Troubleshooting',
 };
 
+const appLabels: Record<string, string> = {
+  xcode: 'Xcode',
+  swiftui: 'Xcode',
+  blender: 'Blender',
+  figma: 'Figma',
+  houdini: 'Houdini',
+  'after-effects': 'After Effects',
+  'davinci-resolve': 'DaVinci Resolve',
+  'premiere-pro': 'Premiere Pro',
+};
+const articleApp = (data.tags ?? []).map((tag: string) => appLabels[tag]).find(Boolean);
+const ctaHeadline = articleApp
+  ? `Still stuck in ${articleApp}? Ask your screen.`
+  : 'Get live help without leaving the app.';
+const ctaDescription = articleApp
+  ? `Skilly sees your ${articleApp} window, hears your question, and points at the exact control to use. Try it for 15 minutes free — no card.`
+  : 'Skilly sees the Mac app you are using, hears your question, and points at the exact control to use. Try it for 15 minutes free — no card.';
+
 const allLearnEntries = await getCollection('learn');
 const explicitRelated = new Set(data.relatedArticles ?? []);
 const currentTags = new Set<string>(data.tags ?? []);
@@ -219,6 +237,49 @@ const relatedArticles = allLearnEntries
           <slot />
         </div>
 
+        <aside data-learn-cta class="mt-12 p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/40 border border-amber-200/60">
+          <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-amber-700 mb-3">Try it on what you are learning</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 tracking-tight">
+            {ctaHeadline}
+          </h2>
+          <p class="text-[15px] text-gray-700 leading-relaxed mb-2 max-w-[580px]">
+            {ctaDescription}
+          </p>
+          <p class="text-[13px] text-gray-600 leading-relaxed mb-6 max-w-[580px]">
+            Push-to-talk only. Nothing from your screen is saved after the session.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a
+              href={DOWNLOAD_URL}
+              data-ph-event="web_cta_download_clicked"
+              data-ph-prop-location="learn_article_cta"
+              data-ph-prop-cta-variant="contextual_article"
+              data-ph-prop-target-funnel="people"
+              data-ph-prop-article-slug={articleSlug}
+              data-ph-prop-article-category={data.category}
+              data-ph-prop-canonical-keyword={data.canonicalKeyword ?? ''}
+              data-ph-prop-cta-text="Try Skilly free on Mac"
+              class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 shadow-sm hover:shadow-md rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
+            >
+              Try Skilly free on Mac
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12L12 4M12 4H5M12 4V11"/>
+              </svg>
+            </a>
+            <a
+              href="/people/"
+              data-ph-event="web_learn_more_clicked"
+              data-ph-prop-location="learn_article_cta"
+              data-ph-prop-article-slug={articleSlug}
+              data-ph-prop-article-category={data.category}
+              data-ph-prop-target-funnel="people"
+              class="inline-flex items-center gap-1.5 bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 hover:border-gray-300 rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
+            >
+              See how it works
+            </a>
+          </div>
+        </aside>
+
         {data.faq && data.faq.length > 0 && (
           <section class="mt-16 pt-10 border-t border-gray-200">
             <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500 mb-4">FAQ</p>
@@ -274,44 +335,6 @@ const relatedArticles = allLearnEntries
           </section>
         )}
 
-        <aside class="mt-16 p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/40 border border-amber-200/60">
-          <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-amber-700 mb-3">Try Skilly</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 tracking-tight">
-            A voice-first AI tutor that watches your screen.
-          </h2>
-          <p class="text-[15px] text-gray-700 leading-relaxed mb-6 max-w-[580px]">
-            Hold Control+Option, ask out loud, and Skilly walks you through whatever app you're stuck in — Blender, Figma, Xcode, anything on Mac. 15 minutes free, no card.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a
-              href={DOWNLOAD_URL}
-              data-ph-event="web_cta_download_clicked"
-              data-ph-prop-location="learn_article_cta"
-              data-ph-prop-target-funnel="people"
-              data-ph-prop-article-slug={articleSlug}
-              data-ph-prop-article-category={data.category}
-              data-ph-prop-canonical-keyword={data.canonicalKeyword ?? ''}
-              data-ph-prop-cta-text="Download Skilly"
-              class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-gray-950 shadow-sm hover:shadow-md rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
-            >
-              Download Skilly
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 12L12 4M12 4H5M12 4V11"/>
-              </svg>
-            </a>
-            <a
-              href="/learn/"
-              data-ph-event="web_learn_more_clicked"
-              data-ph-prop-location="learn_article_cta"
-              data-ph-prop-article-slug={articleSlug}
-              data-ph-prop-article-category={data.category}
-              data-ph-prop-target-funnel="learn"
-              class="inline-flex items-center gap-1.5 bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 hover:border-gray-300 rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
-            >
-              More articles
-            </a>
-          </div>
-        </aside>
       </div>
     </article>
   </main>
@@ -322,6 +345,20 @@ const relatedArticles = allLearnEntries
     (() => {
       const article = document.querySelector('[data-learn-article]');
       if (!article) return;
+
+      const articleCta = document.querySelector('[data-learn-cta]');
+      if (articleCta && 'IntersectionObserver' in window) {
+        const ctaObserver = new IntersectionObserver((entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          ctaObserver.disconnect();
+          window.skillyTrack?.('web_learn_cta_viewed', {
+            article_slug: articleSlug,
+            article_category: articleCategory,
+            cta_variant: 'contextual_article',
+          });
+        }, { threshold: 0.5 });
+        ctaObserver.observe(articleCta);
+      }
 
       let captured = false;
       let timer;
