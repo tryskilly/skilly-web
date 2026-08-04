@@ -1,7 +1,8 @@
 ---
 // src/layouts/LearnLayout.astro
 // Wraps base Layout.astro and injects per-article Article + optional HowTo +
-// optional FAQPage + BreadcrumbList + Person schema. Used by every /learn/* page.
+// optional FAQPage + Dataset + BreadcrumbList + Person schema. Used by every
+// /learn/* page.
 import Layout from './Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -112,6 +113,39 @@ const faqSchema = data.faq && data.faq.length > 0
     }
   : null;
 
+const datasetSchema = data.dataset
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Dataset',
+      name: data.dataset.name,
+      description: data.dataset.description,
+      url: articleUrl,
+      creator: {
+        '@type': 'Organization',
+        name: 'Skilly',
+        url: siteUrl,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Skilly',
+        url: siteUrl,
+      },
+      datePublished: data.pubDate.toISOString(),
+      dateModified: (data.updatedDate ?? data.pubDate).toISOString(),
+      version: data.dataset.version,
+      license: data.dataset.license,
+      isAccessibleForFree: true,
+      keywords: data.tags.join(', '),
+      variableMeasured: data.dataset.variableMeasured,
+      isBasedOn: data.dataset.isBasedOn,
+      distribution: {
+        '@type': 'DataDownload',
+        contentUrl: new URL(data.dataset.distributionUrl, siteUrl).toString(),
+        encodingFormat: data.dataset.encodingFormat,
+      },
+    }
+  : null;
+
 const formattedDate = data.pubDate.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -214,6 +248,9 @@ const relatedArticles = allLearnEntries
     )}
     {faqSchema && (
       <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+    )}
+    {datasetSchema && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(datasetSchema)} />
     )}
   </Fragment>
 

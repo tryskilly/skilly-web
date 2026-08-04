@@ -35,6 +35,17 @@ const learn = defineCollection({
       question: z.string(),
       answer: z.string(),
     })).optional(),
+    // Optional downloadable research dataset and Dataset/DataDownload schema.
+    dataset: z.object({
+      name: z.string(),
+      description: z.string().min(50).max(5000),
+      version: z.string(),
+      license: z.string().url(),
+      distributionUrl: z.string(),
+      encodingFormat: z.string(),
+      variableMeasured: z.array(z.string()).default([]),
+      isBasedOn: z.array(z.string().url()).default([]),
+    }).optional(),
     // Hero / OG image
     heroImage: z.string().optional(),
     ogImage: z.string().optional(),
