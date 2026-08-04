@@ -43,7 +43,7 @@ faq:
 
 This 2026 edition collects the most defensible public onboarding statistics we could verify, keeps the original scope beside every number, and separates current product benchmarks from older consumer surveys.
 
-[Download the complete CSV dataset](/data/user-onboarding-statistics-2026.csv) — 13 normalized, source-linked records.
+<a href="/data/user-onboarding-statistics-2026.csv" download data-ph-event="web_learn_dataset_download_clicked" data-ph-prop-location="article_intro" data-ph-prop-article-slug="user-onboarding-statistics-2026" data-ph-prop-dataset-format="csv">Download the complete CSV dataset</a> — 13 normalized, source-linked records.
 
 > **Methodology note:** “2026” identifies this maintained edition, not the fieldwork year of every source. Userpilot's benchmark is dated 2025, Amplitude's current benchmark content uses data from more than 10,600 products, and the Wyzowl consumer survey was conducted in 2020. Do not combine these samples as if they were one study.
 
@@ -113,7 +113,7 @@ If you are choosing tooling, compare the four major guidance models in our [2026
 
 ## Download, reuse, and citation
 
-[Download user-onboarding-statistics-2026.csv](/data/user-onboarding-statistics-2026.csv). Each row includes the metric, value, unit, sample scope, source, source year, verification date, and a limitation note.
+<a href="/data/user-onboarding-statistics-2026.csv" download data-ph-event="web_learn_dataset_download_clicked" data-ph-prop-location="download_section" data-ph-prop-article-slug="user-onboarding-statistics-2026" data-ph-prop-dataset-format="csv">Download user-onboarding-statistics-2026.csv</a>. Each row includes the metric, value, unit, sample scope, source, source year, verification date, and a limitation note.
 
 Suggested citation for the compilation:
 

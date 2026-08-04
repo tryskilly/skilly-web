@@ -2,10 +2,11 @@
 title: "Onboarding without building tours"
 description: "Scripted product tours are the old way — you author and maintain every flow. The new way is voice onboarding: users ask out loud and get pointed at the exact button."
 pubDate: 2026-07-15
+updatedDate: 2026-08-04
 category: "concept"
 tags: ["voice onboarding", "user onboarding", "product tours", "ai onboarding agent", "in-app guidance", "activation"]
 canonicalKeyword: "onboarding without building tours"
-relatedArticles: ["best-user-onboarding-software-2026"]
+relatedArticles: ["user-onboarding-statistics-2026", "best-user-onboarding-software-2026"]
 faq:
   - question: "Can you do user onboarding without building product tours?"
     answer: "Yes. Instead of authoring tours in advance, an AI onboarding agent reads your existing product content and docs, then answers when a user asks — pointing their cursor at the exact button. There are no flows to build, segment, or maintain."
@@ -22,6 +23,8 @@ faq:
 **You can onboard users without building a single tour.** Instead of authoring flows in advance, an AI guide reads the product content you already have and answers when a user asks — pointing at the exact button they need. Nothing to script, nothing to maintain.
 
 That's a different category from the tooling most teams reach for. It's worth being precise about what changed.
+
+The measurement case is equally important: our [2026 user onboarding statistics](/learn/user-onboarding-statistics-2026/) reference shows that early activation is strongly associated with later retention, while checklist completion alone is not the outcome to optimize.
 
 ## The old way: you build the tour, then you maintain it forever
 

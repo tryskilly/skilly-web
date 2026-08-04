@@ -193,7 +193,12 @@ const ctaDescription = targetsBuilders
     ? `Skilly sees your ${articleApp} window, hears your question, and points at the exact control to use. Try it for 15 minutes free — no card.`
     : 'Skilly sees the Mac app you are using, hears your question, and points at the exact control to use. Try it for 15 minutes free — no card.';
 const ctaEyebrow = targetsBuilders ? 'Build on what you just learned' : 'Try it on what you are learning';
-const ctaHref = targetsBuilders ? 'https://studio.tryskilly.app/signup' : DOWNLOAD_URL;
+const studioCtaUrl = new URL('https://studio.tryskilly.app/signup');
+studioCtaUrl.searchParams.set('utm_source', 'tryskilly-web');
+studioCtaUrl.searchParams.set('utm_medium', 'referral');
+studioCtaUrl.searchParams.set('utm_campaign', 'learn-to-studio');
+studioCtaUrl.searchParams.set('utm_content', articleSlug);
+const ctaHref = targetsBuilders ? studioCtaUrl.toString() : DOWNLOAD_URL;
 const ctaEvent = targetsBuilders ? 'web_builders_studio_clicked' : 'web_cta_download_clicked';
 const ctaTargetFunnel = targetsBuilders ? 'builders' : 'people';
 const ctaText = targetsBuilders ? 'Start free in Studio' : 'Try Skilly free on Mac';
