@@ -2,7 +2,7 @@
 title: "How to enable screen recording permission on macOS (Tahoe + Sequoia)"
 description: "Step-by-step for macOS Tahoe 26 and Sequoia 15, plus the weekly re-prompt, the + button trick when your app isn't listed, and why you must restart the app."
 pubDate: 2026-04-27
-updatedDate: 2026-08-02
+updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"
 category: how-to
 tags:
@@ -46,7 +46,11 @@ relatedArticles:
 
 If you've installed any Mac app that records, mirrors, or analyzes your screen — Zoom, OBS, Loom, CleanShot, Skilly, AnyDesk — you've hit macOS's Screen Recording permission gate. This guide is the up-to-date path through it.
 
-> Verified 2026-04-27 against Apple's official guide at [support.apple.com/guide/mac-help/control-access-screen-system-audio-recording-mchld6aa7d23/mac](https://support.apple.com/guide/mac-help/control-access-screen-system-audio-recording-mchld6aa7d23/mac). The procedure changed slightly in **Tahoe 26** (the panel is now called *Screen & System Audio Recording*) and gained a weekly re-prompt in **Sequoia 15** (15.0+).
+> Updated 2026-08-04 against Apple's official guide at [support.apple.com/guide/mac-help/control-access-screen-system-audio-recording-mchld6aa7d23/mac](https://support.apple.com/guide/mac-help/control-access-screen-system-audio-recording-mchld6aa7d23/mac). The procedure changed slightly in **Tahoe 26** (the panel is now called *Screen & System Audio Recording*) and gained a weekly re-prompt in **Sequoia 15** (15.0+).
+
+## How do I allow screen recording on a Mac?
+
+Open **Apple menu → System Settings → Privacy & Security → Screen & System Audio Recording**, switch on the app that needs access, then quit it completely with `Cmd+Q` and reopen it. On Sonoma 14 and older, the panel may be named **Screen Recording** instead. If the app is missing, launch its capture feature once or add the app with the **+** button.
 
 ## What macOS version are you on?
 

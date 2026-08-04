@@ -49,6 +49,10 @@ If you've opened a SwiftUI file in Xcode and seen `PreviewProvider` boilerplate 
 
 > Updated 2026-08-04 against [Apple's Previews in Xcode documentation](https://developer.apple.com/documentation/swiftui/previews-in-xcode). Apple's current API includes named previews, multiple `PreviewTrait` values, reusable preview modifiers, and parameterized preview arguments.
 
+## How to open the SwiftUI preview in Xcode
+
+Open a SwiftUI source file, choose **Editor → Canvas**, then click **Resume** if the canvas is paused. The keyboard shortcut to show or hide the canvas is `Option+Cmd+Return`; `Option+Cmd+P` rebuilds the preview. If the canvas stays blank, confirm the file contains a valid `#Preview { ... }` block and inspect the canvas Diagnostics panel for the compile error.
+
 ## What the #Preview macro is
 
 A Swift macro (introduced in Swift 5.9) that registers a view to render in Xcode's preview canvas — without the protocol/struct/static-var boilerplate of the old `PreviewProvider`.

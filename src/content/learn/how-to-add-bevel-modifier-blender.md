@@ -73,6 +73,17 @@ Blender has two ways to bevel:
 
 That's it. You now have a non-destructive bevel.
 
+## How to bevel only selected edges in Blender
+
+Use the modifier's **Weight** limit method when only specific edges should bevel:
+
+1. Select the object and press `Tab` to enter Edit Mode.
+2. Select the edges you want to bevel.
+3. Open the `N` sidebar, go to **Item**, and set **Mean Bevel Weight** to `1.0`.
+4. Return to Object Mode, open the Bevel modifier, and set **Limit Method → Weight**.
+
+Edges at weight `0` stay unchanged; values between `0` and `1` scale the bevel's influence. This keeps the operation non-destructive. If you only need a one-time geometry edit, select the edges in Edit Mode and use `Ctrl+B` instead.
+
 ## Every Bevel modifier parameter, explained
 
 The Bevel modifier panel has a lot of fields. Here's what each one actually does, in the order they appear.
