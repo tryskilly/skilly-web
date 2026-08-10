@@ -1,5 +1,5 @@
 ---
-title: "DaVinci Resolve Audio and Fairlight (beginner guide)"
+title: "DaVinci Resolve Audio and Fairlight"
 description: "Move to the Fairlight page for professional audio mixing, EQ, and loudness monitoring. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

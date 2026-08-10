@@ -1,5 +1,5 @@
 ---
-title: "Figma Variants and Component Properties (beginner guide)"
+title: "Figma Variants and Component Properties"
 description: "Combine related components into a component set and expose controls for consumers. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

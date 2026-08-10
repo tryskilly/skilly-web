@@ -1,5 +1,5 @@
 ---
-title: "Blender Object Mode and the Scene Hierarchy (beginner guide)"
+title: "Blender Object Mode and Scene Hierarchy"
 description: "Understand how objects, collections, and the Outliner work — before touching any mesh geometry. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

@@ -1,5 +1,5 @@
 ---
-title: "Best user onboarding software in 2026 (honest comparison)"
+title: "Best User Onboarding Software in 2026"
 description: "User onboarding software splits into four types: product tours, AI assistants, demo builders, and voice-first guides. What wins each, with 2026 pricing."
 pubDate: 2026-06-28
 updatedDate: 2026-08-04

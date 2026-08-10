@@ -1,5 +1,5 @@
 ---
-title: "DaVinci Resolve Interface and Pages (beginner guide)"
+title: "DaVinci Resolve Interface and Pages"
 description: "Understand DaVinci Resolve's unique 7-page architecture — the single most important concept for any new user. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

@@ -1,5 +1,5 @@
 ---
-title: "After Effects Interface and Navigation (beginner guide)"
+title: "After Effects Interface and Navigation"
 description: "Get oriented in After Effects and learn to move around the Composition panel and Timeline without losing your place. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

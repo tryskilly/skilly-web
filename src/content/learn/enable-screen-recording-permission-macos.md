@@ -1,5 +1,5 @@
 ---
-title: "How to enable screen recording permission on macOS (Tahoe + Sequoia)"
+title: "Enable Screen Recording on macOS"
 description: "Step-by-step for macOS Tahoe 26 and Sequoia 15, plus the weekly re-prompt, the + button trick when your app isn't listed, and why you must restart the app."
 pubDate: 2026-04-27
 updatedDate: 2026-08-04

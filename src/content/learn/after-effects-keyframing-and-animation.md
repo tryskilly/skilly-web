@@ -1,5 +1,5 @@
 ---
-title: "After Effects Keyframing and Animation (beginner guide)"
+title: "After Effects Keyframing and Animation"
 description: "Animate any layer property over time by setting keyframes, and control the feel of movement with easing. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

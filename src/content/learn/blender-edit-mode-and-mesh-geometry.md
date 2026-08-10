@@ -1,5 +1,5 @@
 ---
-title: "Blender Edit Mode and Mesh Geometry (beginner guide)"
+title: "Blender Edit Mode and Mesh Geometry"
 description: "Cross the critical threshold from moving objects to editing their geometry. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

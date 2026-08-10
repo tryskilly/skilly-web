@@ -1,6 +1,6 @@
 ---
-title: "Best voice AI assistants for Mac in 2026 (honest, grouped by use case)"
-description: "Voice AI on Mac splits into four categories — dictation, meeting assistants, passive recall, and tutoring. Here's what wins each, with current pricing and tradeoffs."
+title: "Best Voice AI Assistants for Mac in 2026"
+description: "Compare voice AI assistants for Mac by use case, privacy, app support, and price, including dictation, meetings, recall, and tutoring."
 pubDate: 2026-04-27
 updatedDate: 2026-04-27
 author: "Mohamed Saleh Zaied"

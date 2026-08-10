@@ -1,5 +1,5 @@
 ---
-title: "Houdini Karma rendering tutorial: Solaris to final frames"
+title: "Houdini Karma Rendering: Solaris to Frames"
 description: "Render with Karma in Houdini: set up Solaris, choose CPU or XPU, configure samples and denoising, and export an image sequence with USD Render ROP."
 pubDate: 2026-06-29
 updatedDate: 2026-08-04

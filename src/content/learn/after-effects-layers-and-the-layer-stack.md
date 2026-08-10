@@ -1,5 +1,5 @@
 ---
-title: "After Effects Layers and the Layer Stack (beginner guide)"
+title: "After Effects Layers and Layer Stack"
 description: "Understand how layers work, how to create the most common layer types, and how to control their visibility and order. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

@@ -1,5 +1,5 @@
 ---
-title: "Houdini Caching, Versioning, and Production Hygiene (beginner guide)"
+title: "Houdini Caching and Production Hygiene"
 description: "Make the project reproducible, recoverable, and shareable. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

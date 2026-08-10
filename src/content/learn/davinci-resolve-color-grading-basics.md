@@ -1,5 +1,5 @@
 ---
-title: "DaVinci Resolve Color Grading Basics (beginner guide)"
+title: "DaVinci Resolve Color Grading Basics"
 description: "Move to the Color page to correct and enhance the look of your footage using DaVinci's professional grading tools. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

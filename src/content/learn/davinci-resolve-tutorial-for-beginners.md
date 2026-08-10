@@ -1,5 +1,5 @@
 ---
-title: "DaVinci Resolve tutorial for beginners (free curriculum)"
+title: "DaVinci Resolve Tutorial for Beginners"
 description: "A free, step-by-step DaVinci Resolve curriculum for macOS beginners — 7 lessons from interface basics to deliver and export."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

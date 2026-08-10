@@ -1,6 +1,6 @@
 ---
 title: "Figma Auto Layout tutorial — the 2026 guide"
-description: "Master Figma Auto Layout in 10 minutes. The Shift+A shortcut, hug vs fill vs fixed, gap and padding, and the new Grid flow that replaced manually nested layouts."
+description: "Master Figma Auto Layout: Shift+A, hug vs fill vs fixed, gap, padding, and Grid flow in this practical 2026 guide."
 pubDate: 2026-04-27
 updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"

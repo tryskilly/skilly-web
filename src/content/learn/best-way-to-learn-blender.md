@@ -1,5 +1,5 @@
 ---
-title: "Best way to learn Blender in 2026: a project-first roadmap"
+title: "Best Way to Learn Blender in 2026"
 description: "The best way to learn Blender is to finish small projects, practice the same core tools repeatedly, and get specific help when you are stuck."
 pubDate: 2026-08-04
 updatedDate: 2026-08-04

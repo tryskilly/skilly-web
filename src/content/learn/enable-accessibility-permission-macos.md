@@ -1,5 +1,5 @@
 ---
-title: "How to enable Accessibility permissions on macOS (Tahoe + Sequoia)"
+title: "Enable Accessibility Permissions on macOS"
 description: "Enable Accessibility for an app in macOS Tahoe 26 and Sequoia 15. What it actually grants, why apps need it, and how it differs from Screen Recording."
 pubDate: 2026-04-27
 updatedDate: 2026-04-27

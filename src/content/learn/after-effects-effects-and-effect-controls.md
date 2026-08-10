@@ -1,5 +1,5 @@
 ---
-title: "After Effects Effects and Effect Controls (beginner guide)"
+title: "After Effects Effects and Effect Controls"
 description: "Apply effects to layers, adjust them in the Effect Controls panel, and understand how effects stack and process. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

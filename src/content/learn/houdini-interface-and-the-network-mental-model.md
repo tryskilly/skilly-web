@@ -1,5 +1,5 @@
 ---
-title: "Houdini Interface and the Network Mental Model (beginner guide)"
+title: "Houdini Interface and Network Mental Model"
 description: "Cross the conceptual threshold from \"DCC with menus\" to \"graph of operators\". Without this, nothing else in Houdini makes sense. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

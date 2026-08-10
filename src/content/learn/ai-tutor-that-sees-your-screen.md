@@ -1,5 +1,5 @@
 ---
-title: "AI tutors that see your screen: an honest 2026 guide"
+title: "AI Tutors That See Your Screen: 2026 Guide"
 description: "Compare screen-aware AI tutors for Mac and Windows by pointing, voice, privacy, app support, and price—without confusing them with chatbots."
 pubDate: 2026-08-04
 updatedDate: 2026-08-04

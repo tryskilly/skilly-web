@@ -1,5 +1,5 @@
 ---
-title: "After Effects tutorial for beginners (free curriculum)"
+title: "After Effects Tutorial for Beginners"
 description: "A free, step-by-step After Effects curriculum for macOS beginners — 7 lessons from interface basics to rendering and export."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

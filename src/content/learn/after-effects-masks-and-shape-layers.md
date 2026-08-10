@@ -1,5 +1,5 @@
 ---
-title: "After Effects Masks and Shape Layers (beginner guide)"
+title: "After Effects Masks and Shape Layers"
 description: "Control what's visible on a layer with masks, and create standalone vector graphics with shape layers. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

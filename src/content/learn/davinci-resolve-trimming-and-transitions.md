@@ -1,5 +1,5 @@
 ---
-title: "DaVinci Resolve Trimming and Transitions (beginner guide)"
+title: "DaVinci Resolve Trimming and Transitions"
 description: "Refine your edit with precise trimming tools and add transitions between clips. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29
