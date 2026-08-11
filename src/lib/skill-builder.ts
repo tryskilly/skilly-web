@@ -497,6 +497,62 @@ async function cacheCourse(key: string, course: SkillCourse): Promise<void> {
   }
 }
 
+const SKILL_COURSE_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['title', 'summary', 'outcome', 'duration', 'teaching', 'lessons', 'vocabulary', 'sources'],
+  properties: {
+    title: { type: 'string' },
+    summary: { type: 'string' },
+    outcome: { type: 'string' },
+    duration: { type: 'string' },
+    teaching: {
+      type: 'object',
+      additionalProperties: false,
+      required: ['principles', 'commonMistakes', 'safetyChecks'],
+      properties: {
+        principles: { type: 'array', minItems: 4, maxItems: 8, items: { type: 'string' } },
+        commonMistakes: {
+          type: 'array', minItems: 4, maxItems: 8,
+          items: {
+            type: 'object', additionalProperties: false,
+            required: ['mistake', 'symptom', 'correction'],
+            properties: { mistake: { type: 'string' }, symptom: { type: 'string' }, correction: { type: 'string' } },
+          },
+        },
+        safetyChecks: { type: 'array', minItems: 2, maxItems: 6, items: { type: 'string' } },
+      },
+    },
+    lessons: {
+      type: 'array', minItems: LESSON_COUNT, maxItems: LESSON_COUNT,
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['title', 'duration', 'objective', 'steps', 'checkpoint', 'completionSignals'],
+        properties: {
+          title: { type: 'string' }, duration: { type: 'string' }, objective: { type: 'string' },
+          steps: { type: 'array', minItems: 5, maxItems: 8, items: { type: 'string' } },
+          checkpoint: { type: 'string' },
+          completionSignals: { type: 'array', minItems: 3, maxItems: 6, items: { type: 'string' } },
+        },
+      },
+    },
+    vocabulary: {
+      type: 'array', minItems: 8, maxItems: 18,
+      items: {
+        type: 'object', additionalProperties: false, required: ['name', 'description'],
+        properties: { name: { type: 'string' }, description: { type: 'string' } },
+      },
+    },
+    sources: {
+      type: 'array', minItems: 1, maxItems: 6,
+      items: {
+        type: 'object', additionalProperties: false, required: ['title', 'url', 'type'],
+        properties: { title: { type: 'string' }, url: { type: 'string' }, type: { type: 'string', enum: ['official', 'reference'] } },
+      },
+    },
+  },
+} as const;
+
 export async function buildSkillCourse(input: SkillBuilderInput): Promise<SkillCourse> {
   const cacheKey = skillCourseCacheKey(input);
   const cached = await readCachedCourse(cacheKey);
@@ -535,7 +591,16 @@ JSON shape: {"title":"","summary":"","outcome":"","duration":"","teaching":{"pri
           { role: 'system', content: system },
           { role: 'user', content: user },
         ],
-        max_output_tokens: 8000,
+        text: {
+          verbosity: 'low',
+          format: {
+            type: 'json_schema',
+            name: 'skilly_course',
+            strict: true,
+            schema: SKILL_COURSE_SCHEMA,
+          },
+        },
+        max_output_tokens: 10_000,
       }),
     });
     if (!response.ok) {
