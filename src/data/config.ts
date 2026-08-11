@@ -22,6 +22,31 @@ export const BETA_CAP_REACHED = false;
  */
 export const DOWNLOAD_URL = 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg';
 
+/**
+ * Public browser-extension listings. Keep these centralized so the People
+ * page and shared footer never drift to different store versions.
+ */
+export const BROWSER_EXTENSIONS = [
+  {
+    id: 'chrome',
+    name: 'Google Chrome',
+    shortName: 'Chrome',
+    href: 'https://chromewebstore.google.com/detail/bgcapjmpidlhedeeefiikkiphjmdepoh',
+  },
+  {
+    id: 'edge',
+    name: 'Microsoft Edge',
+    shortName: 'Edge',
+    href: 'https://microsoftedge.microsoft.com/addons/detail/hdekoeononcjgmfkmbdomgmdglomakfk',
+  },
+  {
+    id: 'firefox',
+    name: 'Mozilla Firefox',
+    shortName: 'Firefox',
+    href: 'https://addons.mozilla.org/en-US/firefox/addon/skilly/',
+  },
+] as const;
+
 // Skill request and beta-waitlist forms are built into the site
 // (src/components/Skills.astro and src/components/Pricing.astro)
 // and submit to our own Resend-backed API endpoints at
