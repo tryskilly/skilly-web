@@ -211,6 +211,6 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     if (message) { message.textContent = error instanceof Error ? error.message : 'Could not send your skill.'; message.className = 'mt-3 text-sm font-medium text-red-700'; }
     window.skillyTrack?.('web_skill_builder_email_failed');
   } finally {
-    if (button) { button.disabled = false; button.textContent = 'Email & download'; }
+    if (button) { button.disabled = false; button.textContent = 'Email my SKILL.md'; }
   }
 });
