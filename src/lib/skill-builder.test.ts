@@ -57,7 +57,10 @@ describe('skill builder grounding', () => {
     try {
       const course = await buildSkillCourse({ ...input, goal: 'Create a verified bevel workflow for a product mockup' });
       const tools = requestedBodies[0]?.tools as Array<{ type?: string }>;
+      const textFormat = requestedBodies[0]?.text as { format?: { type?: string; strict?: boolean } };
       expect(tools[0]?.type).toBe('web_search');
+      expect(textFormat.format?.type).toBe('json_schema');
+      expect(textFormat.format?.strict).toBe(true);
       expect(course.grounding).toBe('web_sources');
       expect(course.exportReady).toBe(true);
       expect(course.sources.map((source) => source.url)).toEqual([official]);
