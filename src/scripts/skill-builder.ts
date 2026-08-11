@@ -6,6 +6,7 @@ const form = document.querySelector<HTMLFormElement>('[data-skill-builder-form]'
 const result = document.querySelector<HTMLElement>('[data-skill-result]');
 let activeCourse: SkillCourse | null = null;
 let started = false;
+let skillDelivered = false;
 
 function currentAttribution(): Record<string, string> {
   const params = new URLSearchParams(window.location.search);
@@ -55,6 +56,7 @@ function renderLesson(lesson: SkillLesson): void {
 
 function renderCourse(course: SkillCourse): void {
   activeCourse = course;
+  skillDelivered = false;
   text('[data-skill-title]', course.title);
   text('[data-skill-lessons]', String(course.lessons.length));
   text('[data-skill-duration]', course.duration);
@@ -83,9 +85,13 @@ function renderCourse(course: SkillCourse): void {
   const exportButton = document.querySelector<HTMLButtonElement>('[data-export-open]');
   if (exportButton) {
     exportButton.disabled = !course.exportReady;
-    exportButton.textContent = course.exportReady ? 'Email me the SKILL.md' : 'Detailed export unavailable';
+    exportButton.textContent = course.exportReady ? 'Email skill & continue' : 'Detailed export unavailable';
   }
-  document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.setAttribute('hidden', '');
+  const emailForm = document.querySelector<HTMLFormElement>('[data-skill-email-form]');
+  emailForm?.setAttribute('hidden', '');
+  emailForm?.reset();
+  emailForm?.querySelector<HTMLElement>('[data-skill-email-message]')?.classList.add('hidden');
+  document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.setAttribute('hidden', '');
 
   const sourcePanel = document.querySelector<HTMLElement>('[data-skill-sources]');
   const sourceList = document.querySelector<HTMLUListElement>('[data-skill-source-list]');
@@ -178,12 +184,23 @@ form?.addEventListener('submit', async (event) => {
   }
 });
 
-document.querySelector<HTMLButtonElement>('[data-export-open]')?.addEventListener('click', () => {
+function openEmailGate(source: string): void {
   if (!activeCourse?.exportReady) return;
   const emailForm = document.querySelector<HTMLFormElement>('[data-skill-email-form]');
   emailForm?.removeAttribute('hidden');
   emailForm?.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
-  window.skillyTrack?.('web_skill_builder_export_opened');
+  emailForm?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+  window.skillyTrack?.('web_skill_builder_export_opened', { source });
+}
+
+document.querySelector<HTMLButtonElement>('[data-export-open]')?.addEventListener('click', () => openEmailGate('result'));
+
+document.addEventListener('click', (event) => {
+  const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="/dmg"]') : null;
+  if (!target || !activeCourse?.exportReady || skillDelivered) return;
+  event.preventDefault();
+  openEmailGate(target.dataset.phPropLocation || 'download');
+  window.skillyTrack?.('web_skill_builder_download_gated', { location: target.dataset.phPropLocation || 'unknown' });
 });
 
 document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventListener('submit', async (event) => {
@@ -204,13 +221,16 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     });
     const body = await response.json() as { ok?: boolean; error?: string; leadStored?: boolean };
     if (!response.ok || !body.ok) throw new Error(body.error || 'Could not send your skill.');
+    skillDelivered = true;
     if (message) { message.textContent = 'Sent. Check your inbox for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
+    document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.removeAttribute('hidden');
     window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
     window.skillyTrack?.('web_skill_builder_markdown_emailed', { delivery: 'attachment' });
+    window.skillyTrack?.('web_skill_builder_download_unlocked');
   } catch (error) {
     if (message) { message.textContent = error instanceof Error ? error.message : 'Could not send your skill.'; message.className = 'mt-3 text-sm font-medium text-red-700'; }
     window.skillyTrack?.('web_skill_builder_email_failed');
   } finally {
-    if (button) { button.disabled = false; button.textContent = 'Email my SKILL.md'; }
+    if (button) { button.disabled = false; button.textContent = 'Send skill & continue'; }
   }
 });

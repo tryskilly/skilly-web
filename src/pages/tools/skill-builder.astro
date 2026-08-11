@@ -88,8 +88,7 @@ const toolSchema = {
             <p data-skill-quality hidden class="mt-3 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-900" role="status"></p>
           </div>
           <div class="flex flex-col gap-2 sm:flex-row">
-            <a data-use-skill-link href="/dmg?utm_source=skill_builder&utm_medium=free_tool&utm_campaign=b2c_skill_builder" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="result" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Use this skill in Skilly</a>
-            <button data-export-open type="button" class="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#D8D0C5] bg-white px-5 py-3 text-sm font-semibold transition hover:border-[#F59E0B] hover:bg-[#FFF9ED] disabled:cursor-not-allowed disabled:opacity-50">Email me the SKILL.md</button>
+            <button data-export-open type="button" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05] disabled:cursor-not-allowed disabled:opacity-50">Email skill &amp; continue</button>
           </div>
         </div>
 
@@ -120,19 +119,24 @@ const toolSchema = {
 
         <form data-skill-email-form hidden class="border-t border-[#E8E2D9] bg-[#FAF8F4] p-5 sm:p-7">
           <div class="mx-auto max-w-2xl">
-            <h3 class="text-lg font-bold">Get your complete SKILL.md</h3>
-            <p class="mt-1 text-sm leading-relaxed text-[#6B635A]">We’ll send the complete Markdown file to this address as an attachment. There is no browser download. Email delivery is transactional; learning tips are optional.</p>
+            <h3 class="text-lg font-bold">Send your skill before opening Skilly</h3>
+            <p class="mt-1 text-sm leading-relaxed text-[#6B635A]">We’ll send the complete Markdown file to this address so your work is not lost. Email delivery is transactional; learning tips are optional.</p>
             <div class="mt-4 flex flex-col gap-2 sm:flex-row">
               <label class="sr-only" for="skill-email">Email address</label>
               <input id="skill-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="min-h-12 w-full rounded-lg border border-[#D8D0C5] bg-white px-4 text-[15px] outline-none focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/15" />
               <input name="website" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-              <button type="submit" class="min-h-12 shrink-0 rounded-lg bg-[#1A1714] px-6 font-semibold text-white transition hover:bg-black disabled:cursor-wait disabled:opacity-60">Email my SKILL.md</button>
+              <button type="submit" class="min-h-12 shrink-0 rounded-lg bg-[#1A1714] px-6 font-semibold text-white transition hover:bg-black disabled:cursor-wait disabled:opacity-60">Send skill &amp; continue</button>
             </div>
             <label class="mt-3 flex items-start gap-2 text-xs leading-relaxed text-[#6B635A]">
               <input name="marketingConsent" type="checkbox" class="mt-0.5 accent-[#F59E0B]" />
               Send me occasional Skilly learning tips and product updates. Optional.
             </label>
             <p data-skill-email-message class="mt-3 hidden text-sm font-medium" aria-live="polite"></p>
+            <div data-skill-delivered-next hidden class="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <h4 class="font-bold text-emerald-950">Your skill is saved in your inbox.</h4>
+              <p class="mt-1 text-sm leading-relaxed text-emerald-900/80">Download Skilly, then import the attached Markdown file from the Skills panel. Descriptive filenames are supported in the latest version.</p>
+              <a href="/dmg?utm_source=skill_builder&utm_medium=free_tool&utm_campaign=b2c_skill_builder_delivered" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="email_success" class="mt-3 inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Download Skilly for Mac</a>
+            </div>
           </div>
         </form>
       </div>

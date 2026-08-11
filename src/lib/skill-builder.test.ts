@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test';
+import type { Resend } from 'resend';
 import {
   buildSkillCourse,
   buildFallbackCourse,
@@ -7,7 +8,7 @@ import {
   skillCourseCacheKey,
   type SkillBuilderInput,
 } from './skill-builder';
-import { buildSkillLeadProperties, parseSkillLeadAttribution } from './skill-builder-lead';
+import { buildSkillLeadProperties, parseSkillLeadAttribution, persistSkillBuilderLead } from './skill-builder-lead';
 
 const input: SkillBuilderInput = {
   app: 'Blender',
@@ -127,5 +128,49 @@ describe('skill builder lead metadata', () => {
     expect(properties.skill_goal).toBe(input.goal);
     expect(properties.skill_utm_source).toBe('reddit');
     expect(properties.skill_grounding).toBe('fallback');
+  });
+
+  test('groups every requester without granting marketing consent', async () => {
+    const contactCalls: Array<{ method: string; input: Record<string, unknown> }> = [];
+    const resend = {
+      contactProperties: {
+        list: async () => ({ data: { data: [] }, error: null }),
+        create: async () => ({ data: { id: 'property' }, error: null }),
+      },
+      contacts: {
+        get: async () => ({ data: null, error: null }),
+        create: async (input: Record<string, unknown>) => {
+          contactCalls.push({ method: 'create', input });
+          return { data: { id: 'contact' }, error: null };
+        },
+        update: async (input: Record<string, unknown>) => {
+          contactCalls.push({ method: 'update', input });
+          return { data: { id: 'contact' }, error: null };
+        },
+        segments: { add: async () => ({ data: {}, error: null }) },
+      },
+    } as unknown as Resend;
+
+    const stored = await persistSkillBuilderLead(
+      resend,
+      'learner@example.com',
+      buildFallbackCourse(input),
+      parseSkillLeadAttribution({ source: 'organic' }),
+      false,
+      undefined,
+      'marketing-audience',
+      'skill-requesters',
+    );
+
+    expect(stored).toBe(true);
+    expect(contactCalls).toContainEqual({
+      method: 'create',
+      input: expect.objectContaining({ email: 'learner@example.com', unsubscribed: true }),
+    });
+    expect(contactCalls).toContainEqual({
+      method: 'update',
+      input: { audienceId: 'skill-requesters', email: 'learner@example.com', unsubscribed: true },
+    });
+    expect(contactCalls.some(({ input }) => input.audienceId === 'marketing-audience')).toBe(false);
   });
 });

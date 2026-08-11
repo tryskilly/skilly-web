@@ -84,6 +84,7 @@ export async function persistSkillBuilderLead(
   marketingConsent: boolean,
   marketingSegmentId?: string,
   legacyAudienceId?: string,
+  skillRequestsAudienceId?: string,
 ): Promise<boolean> {
   try {
     let properties: Record<string, string | number> | undefined;
@@ -105,6 +106,12 @@ export async function persistSkillBuilderLead(
         : await resend.contacts.create({ email, unsubscribed: !marketingConsent });
     }
     if (stored.error) return false;
+
+    if (skillRequestsAudienceId) {
+      const remainsSubscribed = marketingConsent || existing.data?.unsubscribed === false;
+      const skillRequester = await resend.contacts.update({ audienceId: skillRequestsAudienceId, email, unsubscribed: !remainsSubscribed });
+      if (skillRequester.error) console.warn('[skill-builder-lead] skill requester audience update failed:', skillRequester.error.message);
+    }
 
     if (marketingConsent && marketingSegmentId) {
       const segmented = await resend.contacts.segments.add({ email, segmentId: marketingSegmentId });
