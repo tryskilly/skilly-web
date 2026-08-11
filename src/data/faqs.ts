@@ -46,7 +46,7 @@ export const faqs: Faq[] = [
   {
     question: 'Which apps does Skilly work with?',
     answer:
-      'Any app on your Mac. Skilly works great even without a skill \u2014 Excel, Notion, your browser, a niche CAD tool, anything. With a skill (like Figma or Blender), it gets smarter: step-by-step courses and up-to-date knowledge beyond the AI\u2019s training data. Five skills ship today; a skill builder is coming so you can make your own.',
+      'Any app on your Mac. Skilly works great even without a skill \u2014 Excel, Notion, your browser, a niche CAD tool, anything. With a skill (like Figma or Blender), it gets smarter: step-by-step courses and up-to-date knowledge beyond the AI\u2019s training data. Five skills ship today, and the free Skill Builder can create a custom learning plan for another app.',
   },
   {
     question: 'What\u2019s a "skill"?',
@@ -61,7 +61,7 @@ export const faqs: Faq[] = [
   {
     question: 'Can I build my own skill?',
     answer:
-      'Not yet, but we\u2019re building a simple skill creator. Want early access? Just email hello@tryskilly.app.',
+      'Yes. Use the free Skill Builder to generate and preview a custom course, then have the complete SKILL.md delivered by email so you can import it into Skilly.',
   },
   {
     question: 'Which operating systems work?',
