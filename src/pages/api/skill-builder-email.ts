@@ -29,6 +29,22 @@ function safeText(value: unknown, maxLength: number): string {
   return String(value ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, maxLength);
 }
 
+function logDeliveryFailure(scope: 'recipient' | 'founder', error: { name: string; statusCode: number | null; message: string }): void {
+  console.error(`[skill-builder-email] ${scope} delivery failed`, {
+    name: error.name,
+    statusCode: error.statusCode,
+    message: safeText(error.message, 240),
+  });
+}
+
+function deliveryErrorMessage(name: string): string {
+  if (name === 'validation_error') return 'The email provider rejected this address. Check it and try again.';
+  if (name === 'rate_limit_exceeded' || name === 'daily_quota_exceeded' || name === 'monthly_quota_exceeded') {
+    return 'Email delivery is temporarily at capacity. Try again shortly.';
+  }
+  return 'Could not send the skill right now. Try again shortly.';
+}
+
 function clientKey(request: Request): string {
   return request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
 }
@@ -170,7 +186,18 @@ export const POST: APIRoute = async ({ request }) => {
     }),
   ]);
 
-  if (delivery.status === 'rejected' || delivery.value.error) return json(500, { error: 'Could not send the skill. Check the email address and try again.' });
-  if (notification.status === 'rejected' || notification.value.error) console.warn('[skill-builder-email] founder notification failed');
+  if (delivery.status === 'rejected') {
+    console.error('[skill-builder-email] recipient delivery threw', delivery.reason instanceof Error ? delivery.reason.name : 'unknown');
+    return json(500, { error: 'Could not send the skill right now. Try again shortly.' });
+  }
+  if (delivery.value.error) {
+    logDeliveryFailure('recipient', delivery.value.error);
+    return json(500, { error: deliveryErrorMessage(delivery.value.error.name) });
+  }
+  if (notification.status === 'rejected') {
+    console.warn('[skill-builder-email] founder notification threw', notification.reason instanceof Error ? notification.reason.name : 'unknown');
+  } else if (notification.value.error) {
+    logDeliveryFailure('founder', notification.value.error);
+  }
   return json(200, { ok: true, leadStored });
 };
