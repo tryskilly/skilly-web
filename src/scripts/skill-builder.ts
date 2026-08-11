@@ -63,11 +63,29 @@ function renderCourse(course: SkillCourse): void {
   text('[data-skill-summary]', course.summary);
   const grounding = document.querySelector<HTMLElement>('[data-skill-grounding]');
   if (grounding) {
-    grounding.textContent = course.grounding === 'web_sources' ? `Checked against ${course.sources.length} current source${course.sources.length === 1 ? '' : 's'}` : 'Generated from model knowledge';
+    grounding.textContent = !course.exportReady
+      ? 'Basic preview only — detailed generation incomplete'
+      : course.grounding === 'web_sources'
+      ? `Native Skilly skill · ${course.vocabulary.length} UI terms · ${course.sources.length} source${course.sources.length === 1 ? '' : 's'}`
+      : course.grounding === 'model_knowledge'
+        ? `Native Skilly skill · ${course.vocabulary.length} UI terms · model knowledge`
+        : 'Basic preview only — detailed generation unavailable';
     grounding.classList.toggle('hidden', false);
     grounding.classList.toggle('text-emerald-700', course.grounding === 'web_sources');
     grounding.classList.toggle('text-amber-700', course.grounding !== 'web_sources');
   }
+
+  const quality = document.querySelector<HTMLElement>('[data-skill-quality]');
+  if (quality) {
+    quality.textContent = course.exportReady ? '' : (course.qualityIssues[0] || 'This preview is incomplete. Regenerate it before requesting the SKILL.md.');
+    quality.toggleAttribute('hidden', course.exportReady);
+  }
+  const exportButton = document.querySelector<HTMLButtonElement>('[data-export-open]');
+  if (exportButton) {
+    exportButton.disabled = !course.exportReady;
+    exportButton.textContent = course.exportReady ? 'Email me the SKILL.md' : 'Detailed export unavailable';
+  }
+  document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.setAttribute('hidden', '');
 
   const sourcePanel = document.querySelector<HTMLElement>('[data-skill-sources]');
   const sourceList = document.querySelector<HTMLUListElement>('[data-skill-source-list]');
@@ -161,23 +179,12 @@ form?.addEventListener('submit', async (event) => {
 });
 
 document.querySelector<HTMLButtonElement>('[data-export-open]')?.addEventListener('click', () => {
+  if (!activeCourse?.exportReady) return;
   const emailForm = document.querySelector<HTMLFormElement>('[data-skill-email-form]');
   emailForm?.removeAttribute('hidden');
   emailForm?.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
   window.skillyTrack?.('web_skill_builder_export_opened');
 });
-
-function downloadMarkdown(markdown: string, filename: string): void {
-  const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = filename;
-  document.body.append(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
-}
 
 document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -195,16 +202,15 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: data.get('email'), marketingConsent: data.get('marketingConsent') === 'on', website: data.get('website'), course: activeCourse, attribution: currentAttribution() }),
     });
-    const body = await response.json() as { error?: string; markdown?: string; filename?: string; leadStored?: boolean };
-    if (!response.ok || !body.markdown) throw new Error(body.error || 'Could not send your skill.');
-    downloadMarkdown(body.markdown, body.filename || `${activeCourse.id}.md`);
-    if (message) { message.textContent = 'Sent. Your Markdown download has started.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
+    const body = await response.json() as { ok?: boolean; error?: string; leadStored?: boolean };
+    if (!response.ok || !body.ok) throw new Error(body.error || 'Could not send your skill.');
+    if (message) { message.textContent = 'Sent. Check your inbox for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
     window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
-    window.skillyTrack?.('web_skill_builder_markdown_downloaded', { delivery: 'email_gate' });
+    window.skillyTrack?.('web_skill_builder_markdown_emailed', { delivery: 'attachment' });
   } catch (error) {
     if (message) { message.textContent = error instanceof Error ? error.message : 'Could not send your skill.'; message.className = 'mt-3 text-sm font-medium text-red-700'; }
     window.skillyTrack?.('web_skill_builder_email_failed');
   } finally {
-    if (button) { button.disabled = false; button.textContent = 'Email & download'; }
+    if (button) { button.disabled = false; button.textContent = 'Email my SKILL.md'; }
   }
 });

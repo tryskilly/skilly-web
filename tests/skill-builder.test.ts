@@ -24,13 +24,18 @@ describe('fallback course', () => {
     expect(course.lessons).toHaveLength(6);
     expect(course.lessons.every((lesson) => lesson.steps.length >= 3 && lesson.checkpoint.length > 10)).toBe(true);
     expect(course.usedLlm).toBe(false);
+    expect(course.exportReady).toBe(false);
   });
 
   test('exports deterministic SKILL.md frontmatter and lessons', () => {
     const markdown = courseToMarkdown({ ...course, markdown: undefined } as never);
-    expect(markdown).toContain('name: blender-create-a-product-render');
-    expect(markdown).toContain('## Lesson 1:');
-    expect(markdown).toContain('## Lesson 6:');
+    expect(markdown).toContain('id: blender-create-a-product-render');
+    expect(markdown).toContain('format_version: "1.0"');
+    expect(markdown).toContain('bundle_id: org.blenderfoundation.blender');
+    expect(markdown).toContain('## Curriculum');
+    expect(markdown).toContain('### Stage 1:');
+    expect(markdown).toContain('### Stage 6:');
+    expect(markdown).toContain('## UI Vocabulary');
     expect(markdown).toContain('Guide the learner one observable action at a time.');
   });
 });

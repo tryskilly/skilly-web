@@ -34,7 +34,16 @@ describe('skill builder grounding', () => {
             summary: fallback.summary,
             outcome: fallback.outcome,
             duration: fallback.duration,
-            lessons: fallback.lessons,
+            lessons: fallback.lessons.map((lesson) => ({
+              ...lesson,
+              steps: [...lesson.steps, 'Use the named control to verify the result.', 'Repeat the operation from a saved checkpoint.'],
+            })),
+            teaching: {
+              principles: ['Use exact Blender labels.', 'Confirm object mode.', 'Teach modifier order.', 'Compare before and after.'],
+              commonMistakes: [1, 2, 3, 4].map((number) => ({ mistake: `Mistake ${number}`, symptom: 'The bevel is not visible.', correction: 'Apply scale and inspect the modifier stack.' })),
+              safetyChecks: ['Save before applying modifiers.', 'Verify the active object.'],
+            },
+            vocabulary: ['Properties Editor', 'Modifier tab', 'Bevel modifier', 'Segments', 'Width', 'Clamp Overlap', 'Object Mode', 'Viewport'].map((name) => ({ name, description: `${name} is used to configure and verify the bevel workflow.` })),
             sources: [
               { title: 'Blender bevel documentation', url: official, type: 'official' },
               { title: 'Unconsulted', url: 'https://example.com/unconsulted', type: 'official' },
@@ -50,6 +59,7 @@ describe('skill builder grounding', () => {
       const tools = requestedBodies[0]?.tools as Array<{ type?: string }>;
       expect(tools[0]?.type).toBe('web_search');
       expect(course.grounding).toBe('web_sources');
+      expect(course.exportReady).toBe(true);
       expect(course.sources.map((source) => source.url)).toEqual([official]);
     } finally {
       globalThis.fetch = originalFetch;
@@ -89,7 +99,7 @@ describe('skill builder grounding', () => {
       }],
     });
 
-    expect(markdown).toContain('## Sources checked');
+    expect(markdown).toContain('## Sources');
     expect(markdown).toContain('[Blender bevel documentation](https://docs.blender.org');
   });
 
