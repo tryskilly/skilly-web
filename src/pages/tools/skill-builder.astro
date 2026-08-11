@@ -1,0 +1,153 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = 'Free AI course generator for any software | Skilly Skill Builder';
+const description = 'Turn any software goal into a practical six-lesson course. Preview it free, use it with Skilly, or get the complete SKILL.md by email.';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Skilly Skill Builder',
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'Web',
+  url: 'https://tryskilly.app/tools/skill-builder/',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+<Layout title={title} description={description} productLine="people" funnelStage="awareness">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(toolSchema)} />
+  </Fragment>
+
+  <Nav />
+  <main id="top" class="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1A1714]">
+    <section class="mx-auto max-w-[1180px] px-5 pb-12 pt-24 sm:px-8 lg:pb-16 lg:pt-28">
+      <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,1.1fr)]">
+        <div>
+          <h1 class="max-w-[650px] text-[42px] font-bold leading-[1.03] tracking-[-0.035em] sm:text-[58px]">
+            Turn any software goal into a guided skill.
+          </h1>
+          <p class="mt-6 max-w-[590px] text-[18px] leading-relaxed text-[#6B635A]">
+            Tell us what you want to learn. Get a practical course plan now, then use it with Skilly beside you.
+          </p>
+          <a href="#skill-builder" data-ph-event="web_skill_builder_cta_clicked" data-ph-prop-location="hero" class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714] shadow-sm transition hover:bg-[#E78D05] hover:shadow-md">
+            Build my skill
+          </a>
+        </div>
+
+        <form id="skill-builder" data-skill-builder-form class="scroll-mt-24 rounded-2xl border border-[#E8E2D9] bg-white p-5 shadow-[0_18px_50px_rgba(49,38,24,0.07)] sm:p-7">
+          <div class="grid gap-5">
+            <label class="block">
+              <span class="text-sm font-semibold">Software or app</span>
+              <input name="app" type="text" required maxlength="80" autocomplete="off" placeholder="Blender, Figma, Xcode, Excel..." class="mt-2 w-full rounded-lg border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/15" />
+            </label>
+            <label class="block">
+              <span class="text-sm font-semibold">What do you want to accomplish?</span>
+              <textarea name="goal" required minlength="8" maxlength="240" rows="3" placeholder="Create a clean product render for my portfolio" class="mt-2 w-full resize-none rounded-lg border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none transition placeholder:text-[#8C8378] focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/15"></textarea>
+            </label>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block">
+                <span class="text-sm font-semibold">Experience level</span>
+                <select name="level" class="mt-2 w-full rounded-lg border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none focus:border-[#F59E0B]">
+                  <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
+                </select>
+              </label>
+              <label class="block">
+                <span class="text-sm font-semibold">Lesson pace</span>
+                <select name="pace" class="mt-2 w-full rounded-lg border border-[#D8D0C5] bg-[#FAF8F4] px-4 py-3 text-[15px] outline-none focus:border-[#F59E0B]">
+                  <option>Quick</option><option selected>Standard</option><option>Deep dive</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] shadow-sm transition hover:bg-[#E78D05] disabled:cursor-wait disabled:opacity-60">
+            Build my skill
+          </button>
+          <p data-skill-builder-error class="mt-3 hidden text-sm font-medium text-red-700" role="alert"></p>
+          <p class="mt-3 text-center text-xs leading-relaxed text-[#766D63]">No account or email required to see your course.</p>
+        </form>
+      </div>
+    </section>
+
+    <section data-skill-result hidden class="mx-auto max-w-[1180px] scroll-mt-20 px-5 pb-16 sm:px-8" aria-live="polite">
+      <div class="rounded-2xl border border-[#E4DDD3] bg-white shadow-[0_18px_55px_rgba(49,38,24,0.07)]">
+        <div class="flex flex-col gap-5 border-b border-[#E8E2D9] p-5 sm:p-7 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.09em] text-[#9A5B08]">Your generated skill</p>
+            <h2 data-skill-title class="mt-2 text-2xl font-bold tracking-tight sm:text-3xl"></h2>
+            <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#6B635A]">
+              <span><strong data-skill-lessons class="font-semibold text-[#1A1714]">6</strong> lessons</span>
+              <span data-skill-duration></span>
+              <span data-skill-level></span>
+              <span data-skill-app></span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 sm:flex-row">
+            <a data-use-skill-link href="/dmg?utm_source=skill_builder&utm_medium=free_tool&utm_campaign=b2c_skill_builder" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="result" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Use this skill in Skilly</a>
+            <button data-export-open type="button" class="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#D8D0C5] bg-white px-5 py-3 text-sm font-semibold transition hover:border-[#F59E0B] hover:bg-[#FFF9ED]">Email me the SKILL.md</button>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.28fr)]">
+          <ol data-lesson-list class="border-b border-[#E8E2D9] p-4 sm:p-6 lg:border-b-0 lg:border-r"></ol>
+          <div class="p-5 sm:p-7">
+            <p data-skill-summary class="text-[16px] leading-relaxed text-[#6B635A]"></p>
+            <div class="mt-6 rounded-xl bg-[#FAF8F4] p-5">
+              <div class="flex items-center justify-between gap-4">
+                <h3 data-active-title class="text-lg font-bold"></h3>
+                <span data-active-duration class="shrink-0 font-mono text-xs text-[#9A5B08]"></span>
+              </div>
+              <p data-active-objective class="mt-3 text-[15px] leading-relaxed text-[#5F574F]"></p>
+              <h4 class="mt-5 text-sm font-bold">Step by step</h4>
+              <ol data-active-steps class="mt-3 space-y-2 text-[14px] leading-relaxed text-[#4E463D]"></ol>
+              <div class="mt-5 border-l-2 border-[#F59E0B] pl-4">
+                <div class="text-xs font-bold uppercase tracking-wide text-[#9A5B08]">Checkpoint</div>
+                <p data-active-checkpoint class="mt-1 text-sm leading-relaxed text-[#5F574F]"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form data-skill-email-form hidden class="border-t border-[#E8E2D9] bg-[#FAF8F4] p-5 sm:p-7">
+          <div class="mx-auto max-w-2xl">
+            <h3 class="text-lg font-bold">Get your complete SKILL.md</h3>
+            <p class="mt-1 text-sm leading-relaxed text-[#6B635A]">We’ll email a copy and immediately download the Markdown file. Email delivery is transactional; learning tips are optional.</p>
+            <div class="mt-4 flex flex-col gap-2 sm:flex-row">
+              <label class="sr-only" for="skill-email">Email address</label>
+              <input id="skill-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="min-h-12 w-full rounded-lg border border-[#D8D0C5] bg-white px-4 text-[15px] outline-none focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/15" />
+              <input name="website" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+              <button type="submit" class="min-h-12 shrink-0 rounded-lg bg-[#1A1714] px-6 font-semibold text-white transition hover:bg-black disabled:cursor-wait disabled:opacity-60">Email & download</button>
+            </div>
+            <label class="mt-3 flex items-start gap-2 text-xs leading-relaxed text-[#6B635A]">
+              <input name="marketingConsent" type="checkbox" class="mt-0.5 accent-[#F59E0B]" />
+              Send me occasional Skilly learning tips and product updates. Optional.
+            </label>
+            <p data-skill-email-message class="mt-3 hidden text-sm font-medium" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="border-y border-[#E8E2D9] bg-white">
+      <div class="mx-auto grid max-w-[1180px] gap-8 px-5 py-14 sm:px-8 md:grid-cols-3">
+        <div><div class="text-3xl font-bold text-[#D28A0A]">1</div><h2 class="mt-3 text-lg font-bold">Tell us your goal</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Choose the app, outcome, experience level, and pace. Specific goals create better courses.</p></div>
+        <div><div class="text-3xl font-bold text-[#D28A0A]">2</div><h2 class="mt-3 text-lg font-bold">Get a useful plan</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Preview six project-based lessons, concrete actions, and checkpoints before giving us an email.</p></div>
+        <div><div class="text-3xl font-bold text-[#D28A0A]">3</div><h2 class="mt-3 text-lg font-bold">Learn beside your work</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Use Skilly to ask questions aloud while it sees the app and points to the controls you need.</p></div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 sm:py-20">
+      <div class="flex flex-col gap-6 rounded-2xl border border-[#E8E2D9] bg-[#1A1714] p-7 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
+        <div><h2 class="text-3xl font-bold tracking-tight">Keep the plan. Get guidance while you work.</h2><p class="mt-3 max-w-2xl text-[16px] leading-relaxed text-white/65">The Markdown gives you the roadmap. Skilly adds voice, screen context, checkpoints, and answers inside the app you are learning.</p></div>
+        <a href="/dmg?utm_source=skill_builder&utm_medium=free_tool&utm_campaign=b2c_skill_builder_bottom" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="bottom" class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg bg-[#F59E0B] px-7 font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Download Skilly</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script>
+    import '../../scripts/skill-builder.ts';
+  </script>
+</Layout>
