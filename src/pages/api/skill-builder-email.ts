@@ -151,6 +151,7 @@ export const POST: APIRoute = async ({ request }) => {
     body.marketingConsent === true,
     env('RESEND_MARKETING_SEGMENT_ID'),
     env('RESEND_AUDIENCE_ID'),
+    env('RESEND_SKILL_REQUESTS_AUDIENCE_ID'),
   );
   if (!leadStored) console.warn('[skill-builder-email] durable lead storage failed');
 
