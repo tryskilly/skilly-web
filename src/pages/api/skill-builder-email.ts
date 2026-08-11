@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import { courseToMarkdown, parseSkillBuilderInput, type SkillCourse } from '../../lib/skill-builder';
+import { parseSkillLeadAttribution, persistSkillBuilderLead } from '../../lib/skill-builder-lead';
 
 export const prerender = false;
 
@@ -67,6 +68,18 @@ function normalizeCourse(value: unknown): SkillCourse {
     duration: safeText(source.duration, 40),
     lessons,
     usedLlm: Boolean(source.usedLlm),
+    usedWebSearch: Boolean(source.usedWebSearch),
+    grounding: (source.grounding === 'web_sources' || source.grounding === 'model_knowledge' ? source.grounding : 'fallback') as SkillCourse['grounding'],
+    sources: Array.isArray(source.sources) ? source.sources.slice(0, 6).flatMap((item) => {
+      try {
+        if (!item?.url || !item?.title) return [];
+        const url = new URL(item.url);
+        if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) return [];
+        return [{ title: safeText(item.title, 140), url: url.toString(), domain: url.hostname.replace(/^www\./, ''), type: item.type === 'official' ? 'official' as const : 'reference' as const }];
+      } catch { return []; }
+    }) : [],
+    generatedAt: safeText(source.generatedAt, 40) || new Date().toISOString(),
+    cacheHit: Boolean(source.cacheHit),
   };
   return { ...base, markdown: courseToMarkdown(base) };
 }
@@ -76,7 +89,7 @@ export const POST: APIRoute = async ({ request }) => {
   const apiKey = env('RESEND_API_KEY');
   if (!apiKey) return json(500, { error: 'Email delivery is not configured.' });
 
-  let body: { email?: unknown; course?: unknown; marketingConsent?: unknown; website?: unknown };
+  let body: { email?: unknown; course?: unknown; marketingConsent?: unknown; website?: unknown; attribution?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -95,16 +108,17 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const resend = new Resend(apiKey);
-  if (body.marketingConsent === true) {
-    const audienceId = env('RESEND_AUDIENCE_ID');
-    if (audienceId) {
-      try {
-        await resend.contacts.create({ email, audienceId, unsubscribed: false });
-      } catch (error) {
-        console.warn('[skill-builder-email] audience contact skipped:', (error as Error).message);
-      }
-    }
-  }
+  const attribution = parseSkillLeadAttribution(body.attribution);
+  const leadStored = await persistSkillBuilderLead(
+    resend,
+    email,
+    course,
+    attribution,
+    body.marketingConsent === true,
+    env('RESEND_MARKETING_SEGMENT_ID'),
+    env('RESEND_AUDIENCE_ID'),
+  );
+  if (!leadStored) console.warn('[skill-builder-email] durable lead storage failed');
 
   const safeTitle = escapeHtml(course.title);
   const safeMarkdown = escapeHtml(course.markdown);
@@ -127,12 +141,12 @@ export const POST: APIRoute = async ({ request }) => {
       replyTo: email,
       to: FOUNDER,
       subject: `[Skilly] Skill Builder lead: ${course.app}`,
-      html: `<p><b>${escapeHtml(email)}</b> generated <b>${safeTitle}</b> for ${escapeHtml(course.app)}.</p>`,
-      text: `${email} generated ${course.title} for ${course.app}.`,
+      html: `<p><b>${escapeHtml(email)}</b> generated <b>${safeTitle}</b> for ${escapeHtml(course.app)}.</p><p>Grounding: ${escapeHtml(course.grounding)} · ${course.sources.length} sources · campaign: ${escapeHtml(attribution.campaign || 'direct')}</p>`,
+      text: `${email} generated ${course.title} for ${course.app}. Grounding: ${course.grounding}; sources: ${course.sources.length}; campaign: ${attribution.campaign || 'direct'}.`,
     }),
   ]);
 
   if (delivery.status === 'rejected') return json(500, { error: 'Could not send the skill. Try again.' });
   if (notification.status === 'rejected') console.warn('[skill-builder-email] founder notification failed');
-  return json(200, { ok: true, markdown: course.markdown, filename: `${course.id || 'skilly-skill'}.md` });
+  return json(200, { ok: true, leadStored, markdown: course.markdown, filename: `${course.id || 'skilly-skill'}.md` });
 };

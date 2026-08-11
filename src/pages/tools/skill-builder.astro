@@ -83,6 +83,7 @@ const toolSchema = {
               <span data-skill-duration></span>
               <span data-skill-level></span>
               <span data-skill-app></span>
+              <span data-skill-grounding class="hidden font-medium text-emerald-700"></span>
             </div>
           </div>
           <div class="flex flex-col gap-2 sm:flex-row">
@@ -95,6 +96,11 @@ const toolSchema = {
           <ol data-lesson-list class="border-b border-[#E8E2D9] p-4 sm:p-6 lg:border-b-0 lg:border-r"></ol>
           <div class="p-5 sm:p-7">
             <p data-skill-summary class="text-[16px] leading-relaxed text-[#6B635A]"></p>
+            <div data-skill-sources hidden class="mt-5 border-l-2 border-emerald-500 bg-emerald-50/60 px-4 py-3">
+              <div class="text-xs font-bold uppercase tracking-wide text-emerald-800">Sources checked</div>
+              <ul data-skill-source-list class="mt-2 space-y-1.5 text-sm"></ul>
+              <p class="mt-2 text-xs leading-relaxed text-[#6B635A]">Open the references to confirm instructions against your installed app version.</p>
+            </div>
             <div class="mt-6 rounded-xl bg-[#FAF8F4] p-5">
               <div class="flex items-center justify-between gap-4">
                 <h3 data-active-title class="text-lg font-bold"></h3>

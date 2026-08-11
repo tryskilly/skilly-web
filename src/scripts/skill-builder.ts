@@ -7,6 +7,19 @@ const result = document.querySelector<HTMLElement>('[data-skill-result]');
 let activeCourse: SkillCourse | null = null;
 let started = false;
 
+function currentAttribution(): Record<string, string> {
+  const params = new URLSearchParams(window.location.search);
+  let referrer = '';
+  try { referrer = document.referrer ? new URL(document.referrer).hostname : ''; } catch { referrer = ''; }
+  return {
+    source: params.get('utm_source') || '',
+    medium: params.get('utm_medium') || '',
+    campaign: params.get('utm_campaign') || '',
+    referrer,
+    landingPage: `${window.location.pathname}${window.location.search}`.slice(0, 180),
+  };
+}
+
 function text(selector: string, value: string): void {
   const element = document.querySelector<HTMLElement>(selector);
   if (element) element.textContent = value;
@@ -48,6 +61,34 @@ function renderCourse(course: SkillCourse): void {
   text('[data-skill-level]', course.level);
   text('[data-skill-app]', course.app);
   text('[data-skill-summary]', course.summary);
+  const grounding = document.querySelector<HTMLElement>('[data-skill-grounding]');
+  if (grounding) {
+    grounding.textContent = course.grounding === 'web_sources' ? `Checked against ${course.sources.length} current source${course.sources.length === 1 ? '' : 's'}` : 'Generated from model knowledge';
+    grounding.classList.toggle('hidden', false);
+    grounding.classList.toggle('text-emerald-700', course.grounding === 'web_sources');
+    grounding.classList.toggle('text-amber-700', course.grounding !== 'web_sources');
+  }
+
+  const sourcePanel = document.querySelector<HTMLElement>('[data-skill-sources]');
+  const sourceList = document.querySelector<HTMLUListElement>('[data-skill-source-list]');
+  if (sourcePanel && sourceList) {
+    sourceList.replaceChildren();
+    course.sources.forEach((source) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = source.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'font-medium text-emerald-800 underline decoration-emerald-300 underline-offset-2 hover:text-emerald-950';
+      link.textContent = source.title;
+      const meta = document.createElement('span');
+      meta.className = 'ml-2 text-xs text-[#766D63]';
+      meta.textContent = `${source.type === 'official' ? 'Official' : 'Reference'} · ${source.domain}`;
+      item.append(link, meta);
+      sourceList.append(item);
+    });
+    sourcePanel.toggleAttribute('hidden', course.sources.length === 0);
+  }
 
   const list = document.querySelector<HTMLOListElement>('[data-lesson-list]');
   if (list) {
@@ -110,7 +151,7 @@ form?.addEventListener('submit', async (event) => {
     const body = await response.json() as { course?: SkillCourse; error?: string };
     if (!response.ok || !body.course) throw new Error(body.error || 'Could not build your skill.');
     renderCourse(body.course);
-    window.skillyTrack?.('web_skill_builder_generated', { level: body.course.level, pace: body.course.pace, lesson_count: body.course.lessons.length, used_llm: body.course.usedLlm });
+    window.skillyTrack?.('web_skill_builder_generated', { level: body.course.level, pace: body.course.pace, lesson_count: body.course.lessons.length, used_llm: body.course.usedLlm, used_web_search: body.course.usedWebSearch, source_count: body.course.sources.length, grounding: body.course.grounding, cache_hit: body.course.cacheHit });
   } catch (error) {
     showError(error instanceof Error ? error.message : 'Could not build your skill.');
     window.skillyTrack?.('web_skill_builder_failed');
@@ -152,13 +193,13 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     const response = await fetch('/api/skill-builder-email/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: data.get('email'), marketingConsent: data.get('marketingConsent') === 'on', website: data.get('website'), course: activeCourse }),
+      body: JSON.stringify({ email: data.get('email'), marketingConsent: data.get('marketingConsent') === 'on', website: data.get('website'), course: activeCourse, attribution: currentAttribution() }),
     });
-    const body = await response.json() as { error?: string; markdown?: string; filename?: string };
+    const body = await response.json() as { error?: string; markdown?: string; filename?: string; leadStored?: boolean };
     if (!response.ok || !body.markdown) throw new Error(body.error || 'Could not send your skill.');
     downloadMarkdown(body.markdown, body.filename || `${activeCourse.id}.md`);
     if (message) { message.textContent = 'Sent. Your Markdown download has started.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
-    window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on' });
+    window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
     window.skillyTrack?.('web_skill_builder_markdown_downloaded', { delivery: 'email_gate' });
   } catch (error) {
     if (message) { message.textContent = error instanceof Error ? error.message : 'Could not send your skill.'; message.className = 'mt-3 text-sm font-medium text-red-700'; }
