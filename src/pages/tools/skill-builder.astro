@@ -33,7 +33,7 @@ const faqItems = [
   },
   {
     question: 'Do I need an account to generate a course?',
-    answer: 'No. You can generate and preview the course without an account or email. An email address is only required when you want the complete SKILL.md file delivered to your inbox.',
+    answer: 'No account is required. You can generate the course outline and preview the first lesson without an email. Enter your email to unlock all six lessons and receive the complete SKILL.md file.',
   },
   {
     question: 'Which software can I create a course for?',
@@ -107,7 +107,7 @@ const faqSchema = {
             Build my skill
           </button>
           <p data-skill-builder-error class="mt-3 hidden text-sm font-medium text-red-700" role="alert"></p>
-          <p class="mt-3 text-center text-xs leading-relaxed text-[#766D63]">No account or email required to see your course.</p>
+          <p class="mt-3 text-center text-xs leading-relaxed text-[#766D63]">No account or email required to see the outline and first lesson.</p>
         </form>
       </div>
     </section>
@@ -128,9 +128,34 @@ const faqSchema = {
             <p data-skill-quality hidden class="mt-3 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-900" role="status"></p>
           </div>
           <div class="flex flex-col gap-2 sm:flex-row">
-            <button data-export-open type="button" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05] disabled:cursor-not-allowed disabled:opacity-50">Email skill &amp; continue</button>
+            <button data-export-open type="button" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05] disabled:cursor-not-allowed disabled:opacity-50">Unlock the full course</button>
           </div>
         </div>
+
+        <form data-skill-email-form hidden class="border-b border-[#E8E2D9] bg-[#FFF8E8] p-5 sm:p-7">
+          <div class="mx-auto max-w-2xl">
+            <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.09em] text-[#9A5B08]">Your first lesson is ready</p>
+            <h3 class="mt-2 text-xl font-bold">Unlock all six lessons and keep the skill</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[#6B635A]">Enter one email address. We’ll unlock the complete course here and send its importable SKILL.md attachment so your work is not lost.</p>
+            <div class="mt-4 flex flex-col gap-2 sm:flex-row">
+              <label class="sr-only" for="skill-email">Email address</label>
+              <input id="skill-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@example.com" class="min-h-12 w-full rounded-lg border border-[#D8D0C5] bg-white px-4 text-[15px] outline-none focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/15" />
+              <input name="website" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+              <button type="submit" class="min-h-12 shrink-0 rounded-lg bg-[#1A1714] px-6 font-semibold text-white transition hover:bg-black disabled:cursor-wait disabled:opacity-60">Email &amp; unlock course</button>
+            </div>
+            <p class="mt-2 text-xs leading-relaxed text-[#766D63]">Free. No account required. The course email verifies that the address works.</p>
+            <label class="mt-3 flex items-start gap-2 text-xs leading-relaxed text-[#6B635A]">
+              <input name="marketingConsent" type="checkbox" class="mt-0.5 accent-[#F59E0B]" />
+              Send me occasional Skilly learning tips and product updates. Optional.
+            </label>
+            <p data-skill-email-message class="mt-3 hidden text-sm font-medium" aria-live="polite"></p>
+            <div data-skill-delivered-next hidden class="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <h4 class="font-bold text-emerald-950">All lessons unlocked. Your skill is saved in your inbox.</h4>
+              <p class="mt-1 text-sm leading-relaxed text-emerald-900/80">Download Skilly, then import the attached Markdown file from the Skills panel. Descriptive filenames are supported in the latest version.</p>
+              <a href="/dmg?utm_source=skill_builder&utm_medium=free_tool&utm_campaign=b2c_skill_builder_delivered" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="email_success" class="mt-3 inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Download Skilly for Mac</a>
+            </div>
+          </div>
+        </form>
 
         <div class="grid lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.28fr)]">
           <ol data-lesson-list class="border-b border-[#E8E2D9] p-4 sm:p-6 lg:border-b-0 lg:border-r"></ol>
@@ -157,35 +182,13 @@ const faqSchema = {
           </div>
         </div>
 
-        <form data-skill-email-form hidden class="border-t border-[#E8E2D9] bg-[#FAF8F4] p-5 sm:p-7">
-          <div class="mx-auto max-w-2xl">
-            <h3 class="text-lg font-bold">Send your skill before opening Skilly</h3>
-            <p class="mt-1 text-sm leading-relaxed text-[#6B635A]">We’ll send the complete Markdown file to this address so your work is not lost. Email delivery is transactional; learning tips are optional.</p>
-            <div class="mt-4 flex flex-col gap-2 sm:flex-row">
-              <label class="sr-only" for="skill-email">Email address</label>
-              <input id="skill-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="min-h-12 w-full rounded-lg border border-[#D8D0C5] bg-white px-4 text-[15px] outline-none focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/15" />
-              <input name="website" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-              <button type="submit" class="min-h-12 shrink-0 rounded-lg bg-[#1A1714] px-6 font-semibold text-white transition hover:bg-black disabled:cursor-wait disabled:opacity-60">Send skill &amp; continue</button>
-            </div>
-            <label class="mt-3 flex items-start gap-2 text-xs leading-relaxed text-[#6B635A]">
-              <input name="marketingConsent" type="checkbox" class="mt-0.5 accent-[#F59E0B]" />
-              Send me occasional Skilly learning tips and product updates. Optional.
-            </label>
-            <p data-skill-email-message class="mt-3 hidden text-sm font-medium" aria-live="polite"></p>
-            <div data-skill-delivered-next hidden class="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-              <h4 class="font-bold text-emerald-950">Your skill is saved in your inbox.</h4>
-              <p class="mt-1 text-sm leading-relaxed text-emerald-900/80">Download Skilly, then import the attached Markdown file from the Skills panel. Descriptive filenames are supported in the latest version.</p>
-              <a href="/dmg?utm_source=skill_builder&utm_medium=free_tool&utm_campaign=b2c_skill_builder_delivered" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="email_success" class="mt-3 inline-flex min-h-11 items-center justify-center rounded-lg bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Download Skilly for Mac</a>
-            </div>
-          </div>
-        </form>
       </div>
     </section>
 
     <section class="border-y border-[#E8E2D9] bg-white">
       <div class="mx-auto grid max-w-[1180px] gap-8 px-5 py-14 sm:px-8 md:grid-cols-3">
         <div><div class="text-3xl font-bold text-[#D28A0A]">1</div><h2 class="mt-3 text-lg font-bold">Tell us your goal</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Choose the app, outcome, experience level, and pace. Specific goals create better courses.</p></div>
-        <div><div class="text-3xl font-bold text-[#D28A0A]">2</div><h2 class="mt-3 text-lg font-bold">Get a useful plan</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Preview six project-based lessons, concrete actions, and checkpoints before giving us an email.</p></div>
+        <div><div class="text-3xl font-bold text-[#D28A0A]">2</div><h2 class="mt-3 text-lg font-bold">Preview before you share</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Review the complete lesson outline and first step-by-step lesson before entering an email.</p></div>
         <div><div class="text-3xl font-bold text-[#D28A0A]">3</div><h2 class="mt-3 text-lg font-bold">Learn beside your work</h2><p class="mt-2 text-[15px] leading-relaxed text-[#6B635A]">Use Skilly to ask questions aloud while it sees the app and points to the controls you need.</p></div>
       </div>
     </section>
