@@ -54,6 +54,50 @@ function renderLesson(lesson: SkillLesson): void {
   });
 }
 
+function renderLessonList(course: SkillCourse): void {
+  const list = document.querySelector<HTMLOListElement>('[data-lesson-list]');
+  if (!list) return;
+  list.replaceChildren();
+  course.lessons.forEach((lesson, index) => {
+    const locked = index > 0 && !skillDelivered;
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `group flex w-full items-center gap-3 border-b border-[#EEE8E0] px-2 py-4 text-left last:border-0 ${index === 0 ? 'text-[#9A5B08]' : locked ? 'text-[#8C8378]' : 'text-[#4E463D]'}`;
+    if (locked) button.setAttribute('aria-label', `Unlock lesson ${index + 1}: ${lesson.title}`);
+    const number = document.createElement('span');
+    number.className = `grid h-7 w-7 shrink-0 place-items-center rounded-full border font-mono text-xs ${index === 0 ? 'border-[#F59E0B] bg-[#F59E0B] text-[#1A1714]' : 'border-[#D8D0C5] bg-white'}`;
+    number.textContent = String(index + 1);
+    const copy = document.createElement('span');
+    copy.className = 'min-w-0 flex-1';
+    const title = document.createElement('strong');
+    title.className = 'block truncate text-sm font-semibold';
+    title.textContent = lesson.title;
+    const duration = document.createElement('small');
+    duration.className = 'mt-1 block text-xs text-[#8C8378]';
+    duration.textContent = locked ? `${lesson.duration} · Email to unlock` : lesson.duration;
+    copy.append(title, duration);
+    button.append(number, copy);
+    button.addEventListener('click', () => {
+      if (locked) {
+        openEmailGate('locked_lesson');
+        window.skillyTrack?.('web_skill_builder_locked_lesson_clicked', { lesson_number: index + 1 });
+        return;
+      }
+      list.querySelectorAll('button').forEach((candidate) => candidate.classList.remove('text-[#9A5B08]'));
+      list.querySelectorAll('button > span:first-child').forEach((candidate) => {
+        candidate.className = 'grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#D8D0C5] bg-white font-mono text-xs';
+      });
+      button.classList.add('text-[#9A5B08]');
+      number.className = 'grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#F59E0B] bg-[#F59E0B] font-mono text-xs text-[#1A1714]';
+      renderLesson(lesson);
+      window.skillyTrack?.('web_skill_builder_lesson_opened', { lesson_number: index + 1, unlocked: skillDelivered });
+    });
+    item.append(button);
+    list.append(item);
+  });
+}
+
 function renderCourse(course: SkillCourse): void {
   activeCourse = course;
   skillDelivered = false;
@@ -85,12 +129,12 @@ function renderCourse(course: SkillCourse): void {
   const exportButton = document.querySelector<HTMLButtonElement>('[data-export-open]');
   if (exportButton) {
     exportButton.disabled = !course.exportReady;
-    exportButton.textContent = course.exportReady ? 'Email skill & continue' : 'Detailed export unavailable';
+    exportButton.textContent = course.exportReady ? 'Unlock the full course' : 'Detailed export unavailable';
   }
   const emailForm = document.querySelector<HTMLFormElement>('[data-skill-email-form]');
-  emailForm?.setAttribute('hidden', '');
   emailForm?.reset();
   emailForm?.querySelector<HTMLElement>('[data-skill-email-message]')?.classList.add('hidden');
+  emailForm?.toggleAttribute('hidden', !course.exportReady);
   document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.setAttribute('hidden', '');
 
   const sourcePanel = document.querySelector<HTMLElement>('[data-skill-sources]');
@@ -114,44 +158,11 @@ function renderCourse(course: SkillCourse): void {
     sourcePanel.toggleAttribute('hidden', course.sources.length === 0);
   }
 
-  const list = document.querySelector<HTMLOListElement>('[data-lesson-list]');
-  if (list) {
-    list.replaceChildren();
-    course.lessons.forEach((lesson, index) => {
-      const item = document.createElement('li');
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = `group flex w-full items-center gap-3 border-b border-[#EEE8E0] px-2 py-4 text-left last:border-0 ${index === 0 ? 'text-[#9A5B08]' : 'text-[#4E463D]'}`;
-      const number = document.createElement('span');
-      number.className = `grid h-7 w-7 shrink-0 place-items-center rounded-full border font-mono text-xs ${index === 0 ? 'border-[#F59E0B] bg-[#F59E0B] text-[#1A1714]' : 'border-[#D8D0C5] bg-white'}`;
-      number.textContent = String(index + 1);
-      const copy = document.createElement('span');
-      copy.className = 'min-w-0 flex-1';
-      const title = document.createElement('strong');
-      title.className = 'block truncate text-sm font-semibold';
-      title.textContent = lesson.title;
-      const duration = document.createElement('small');
-      duration.className = 'mt-1 block text-xs text-[#8C8378]';
-      duration.textContent = lesson.duration;
-      copy.append(title, duration);
-      button.append(number, copy);
-      button.addEventListener('click', () => {
-        list.querySelectorAll('button').forEach((candidate) => candidate.classList.remove('text-[#9A5B08]'));
-        list.querySelectorAll('button > span:first-child').forEach((candidate) => {
-          candidate.className = 'grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#D8D0C5] bg-white font-mono text-xs';
-        });
-        button.classList.add('text-[#9A5B08]');
-        number.className = 'grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#F59E0B] bg-[#F59E0B] font-mono text-xs text-[#1A1714]';
-        renderLesson(lesson);
-        window.skillyTrack?.('web_skill_builder_lesson_opened', { lesson_number: index + 1 });
-      });
-      item.append(button);
-      list.append(item);
-    });
-  }
+  renderLessonList(course);
 
   renderLesson(course.lessons[0]);
   result?.removeAttribute('hidden');
+  if (course.exportReady) window.skillyTrack?.('web_skill_builder_email_gate_viewed', { trigger: 'generation', lesson_count: course.lessons.length });
   result?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 
@@ -174,8 +185,8 @@ form?.addEventListener('submit', async (event) => {
     const response = await fetch('/api/skill-builder/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     const body = await response.json() as { course?: SkillCourse; error?: string };
     if (!response.ok || !body.course) throw new Error(body.error || 'Could not build your skill.');
-    renderCourse(body.course);
     window.skillyTrack?.('web_skill_builder_generated', { level: body.course.level, pace: body.course.pace, lesson_count: body.course.lessons.length, used_llm: body.course.usedLlm, used_web_search: body.course.usedWebSearch, source_count: body.course.sources.length, grounding: body.course.grounding, cache_hit: body.course.cacheHit });
+    renderCourse(body.course);
   } catch (error) {
     showError(error instanceof Error ? error.message : 'Could not build your skill.');
     window.skillyTrack?.('web_skill_builder_failed');
@@ -205,7 +216,7 @@ document.addEventListener('click', (event) => {
 
 document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!activeCourse) return;
+  if (!activeCourse || skillDelivered) return;
   const emailForm = event.currentTarget as HTMLFormElement;
   const button = emailForm.querySelector<HTMLButtonElement>('button[type="submit"]');
   const message = emailForm.querySelector<HTMLElement>('[data-skill-email-message]');
@@ -222,6 +233,9 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     const body = await response.json() as { ok?: boolean; error?: string; leadStored?: boolean };
     if (!response.ok || !body.ok) throw new Error(body.error || 'Could not send your skill.');
     skillDelivered = true;
+    renderLessonList(activeCourse);
+    const exportButton = document.querySelector<HTMLButtonElement>('[data-export-open]');
+    if (exportButton) { exportButton.disabled = true; exportButton.textContent = 'Course unlocked'; }
     if (message) { message.textContent = 'Sent. Check your inbox for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
     document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.removeAttribute('hidden');
     window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
@@ -231,6 +245,6 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     if (message) { message.textContent = error instanceof Error ? error.message : 'Could not send your skill.'; message.className = 'mt-3 text-sm font-medium text-red-700'; }
     window.skillyTrack?.('web_skill_builder_email_failed');
   } finally {
-    if (button) { button.disabled = false; button.textContent = 'Send skill & continue'; }
+    if (button) { button.disabled = skillDelivered; button.textContent = skillDelivered ? 'Course unlocked' : 'Email & unlock course'; }
   }
 });
