@@ -1,4 +1,5 @@
 import type { SkillCourse, SkillLesson } from '../lib/skill-builder';
+import { BROWSER_EXTENSIONS } from '../data/config';
 
 export {};
 
@@ -7,6 +8,52 @@ const result = document.querySelector<HTMLElement>('[data-skill-result]');
 let activeCourse: SkillCourse | null = null;
 let started = false;
 let skillDelivered = false;
+
+type ClientPlatform = 'macos' | 'windows' | 'other';
+
+function clientPlatform(): ClientPlatform {
+  const userAgent = navigator.userAgent.toLowerCase();
+  if (userAgent.includes('macintosh') || userAgent.includes('mac os x')) return 'macos';
+  if (userAgent.includes('windows')) return 'windows';
+  return 'other';
+}
+
+function preferredBrowserExtension(): (typeof BROWSER_EXTENSIONS)[number] {
+  const userAgent = navigator.userAgent.toLowerCase();
+  if (userAgent.includes('firefox')) return BROWSER_EXTENSIONS.find((item) => item.id === 'firefox') ?? BROWSER_EXTENSIONS[0];
+  if (userAgent.includes('edg/')) return BROWSER_EXTENSIONS.find((item) => item.id === 'edge') ?? BROWSER_EXTENSIONS[0];
+  return BROWSER_EXTENSIONS.find((item) => item.id === 'chrome') ?? BROWSER_EXTENSIONS[0];
+}
+
+function configureActivationHandoff(): void {
+  const platform = clientPlatform();
+  const installCta = document.querySelector<HTMLAnchorElement>('[data-skill-install-cta]');
+  const openAppCta = document.querySelector<HTMLAnchorElement>('[data-skill-open-app]');
+  const platformNote = document.querySelector<HTMLElement>('[data-skill-platform-note]');
+  let nextAction = 'open_native_app';
+
+  if (platform !== 'macos') {
+    const extension = preferredBrowserExtension();
+    if (installCta) {
+      installCta.href = extension.href;
+      installCta.textContent = `Use Skilly in ${extension.shortName}`;
+      installCta.dataset.phEvent = 'web_skill_builder_extension_clicked';
+      installCta.dataset.phPropBrowser = extension.id;
+    }
+    openAppCta?.setAttribute('hidden', '');
+    if (platformNote) {
+      platformNote.textContent = 'The generated SKILL.md imports into the Mac app today. Keep the email for later; the browser extension can still guide you on webpages now.';
+    }
+    nextAction = `install_${extension.id}_extension`;
+  } else {
+    openAppCta?.removeAttribute('hidden');
+  }
+
+  window.skillyTrack?.('web_skill_builder_activation_handoff_viewed', {
+    platform,
+    next_action: nextAction,
+  });
+}
 
 function currentAttribution(): Record<string, string> {
   const params = new URLSearchParams(window.location.search);
@@ -238,6 +285,7 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     if (exportButton) { exportButton.disabled = true; exportButton.textContent = 'Course unlocked'; }
     if (message) { message.textContent = 'Sent. Check your inbox for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
     document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.removeAttribute('hidden');
+    configureActivationHandoff();
     window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
     window.skillyTrack?.('web_skill_builder_markdown_emailed', { delivery: 'attachment' });
     window.skillyTrack?.('web_skill_builder_download_unlocked');
@@ -247,4 +295,12 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
   } finally {
     if (button) { button.disabled = skillDelivered; button.textContent = skillDelivered ? 'Course unlocked' : 'Email & unlock course'; }
   }
+});
+
+document.querySelector<HTMLAnchorElement>('[data-skill-install-cta]')?.addEventListener('click', () => {
+  if (clientPlatform() !== 'macos') return;
+  window.skillyTrack?.('web_skill_builder_app_download_clicked', {
+    platform: 'macos',
+    location: 'email_success',
+  });
 });
