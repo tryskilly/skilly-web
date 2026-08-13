@@ -227,12 +227,13 @@ form?.addEventListener('submit', async (event) => {
   showError('');
   if (button) { button.disabled = true; button.textContent = 'Building your skill…'; }
   window.skillyTrack?.('web_skill_builder_submitted', { level: payload.level, pace: payload.pace });
+  const generationStartedAt = performance.now();
 
   try {
     const response = await fetch('/api/skill-builder/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     const body = await response.json() as { course?: SkillCourse; error?: string };
     if (!response.ok || !body.course) throw new Error(body.error || 'Could not build your skill.');
-    window.skillyTrack?.('web_skill_builder_generated', { level: body.course.level, pace: body.course.pace, lesson_count: body.course.lessons.length, used_llm: body.course.usedLlm, used_web_search: body.course.usedWebSearch, source_count: body.course.sources.length, grounding: body.course.grounding, cache_hit: body.course.cacheHit });
+    window.skillyTrack?.('web_skill_builder_generated', { level: body.course.level, pace: body.course.pace, lesson_count: body.course.lessons.length, used_llm: body.course.usedLlm, used_web_search: body.course.usedWebSearch, source_count: body.course.sources.length, grounding: body.course.grounding, cache_hit: body.course.cacheHit, export_ready: body.course.exportReady, generation_duration_ms: Math.round(performance.now() - generationStartedAt) });
     renderCourse(body.course);
   } catch (error) {
     showError(error instanceof Error ? error.message : 'Could not build your skill.');
