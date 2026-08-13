@@ -62,6 +62,7 @@ describe('skill builder grounding', () => {
       expect(tools[0]?.type).toBe('web_search');
       expect(textFormat.format?.type).toBe('json_schema');
       expect(textFormat.format?.strict).toBe(true);
+      expect(requestedBodies[0]?.max_output_tokens).toBe(4_500);
       expect(course.grounding).toBe('web_sources');
       expect(course.exportReady).toBe(true);
       expect(course.sources.map((source) => source.url)).toEqual([official]);

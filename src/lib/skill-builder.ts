@@ -66,6 +66,7 @@ export interface SkillCourse {
 }
 
 const OPENAI_TIMEOUT_MS = 45_000;
+const OPENAI_MAX_OUTPUT_TOKENS = 4_500;
 const CACHE_TTL_SECONDS = 7 * 24 * 60 * 60;
 const MEMORY_CACHE_MAX = 250;
 const LESSON_COUNT = 6;
@@ -600,7 +601,7 @@ JSON shape: {"title":"","summary":"","outcome":"","duration":"","teaching":{"pri
             schema: SKILL_COURSE_SCHEMA,
           },
         },
-        max_output_tokens: 10_000,
+        max_output_tokens: OPENAI_MAX_OUTPUT_TOKENS,
       }),
     });
     if (!response.ok) {
