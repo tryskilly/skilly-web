@@ -28,4 +28,10 @@ describe('skill builder lead gate', () => {
     expect(page).toContain("web_skill_builder_open_app_clicked");
     expect(emailApi).toContain('skilly://skills');
   });
+
+  test('records email delivery before showing the activation handoff', () => {
+    const successStart = client.indexOf('skillDelivered = true;');
+    const successPath = client.slice(successStart, client.indexOf('} catch (error)', successStart));
+    expect(successPath.indexOf("web_skill_builder_email_submitted")).toBeLessThan(successPath.indexOf('configureActivationHandoff();'));
+  });
 });

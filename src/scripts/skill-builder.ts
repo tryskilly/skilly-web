@@ -286,8 +286,8 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
     if (exportButton) { exportButton.disabled = true; exportButton.textContent = 'Course unlocked'; }
     if (message) { message.textContent = 'Sent. Check your inbox for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
     document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.removeAttribute('hidden');
-    configureActivationHandoff();
     window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
+    configureActivationHandoff();
     window.skillyTrack?.('web_skill_builder_markdown_emailed', { delivery: 'attachment' });
     window.skillyTrack?.('web_skill_builder_download_unlocked');
   } catch (error) {
