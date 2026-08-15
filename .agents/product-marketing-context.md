@@ -69,7 +69,7 @@
 ## Objections
 | Objection | Response |
 |-----------|----------|
-| "Privacy — it's watching my screen?" | Audio + a screenshot go to OpenAI only while you're talking. Nothing saved after the session. OpenAI contractually can't train on Skilly sessions. Our analytics are anonymous usage metrics only. |
+| "Privacy — it's watching my screen?" | Audio + screen context go to OpenAI only while you're asking for help. Conversation history and optional replay audio stay locally on the device; message contents never go to analytics. OpenAI can't train on Skilly API traffic. |
 | "$19/mo is steep for an AI tool" | $0.63/day — less than a coffee. One human tutor hour = $50–100; one month of Skilly = 3 live hours. Real-time voice+vision is expensive to run and we're honest about it. |
 | "Only 3 hours? I'll blow through that." | Most users don't. We email at 80% and 100%. No surprise charges — it just pauses. |
 | "Only 5 apps?" | Works in *any* app without a skill. Skills add deeper courses and updated knowledge for specific apps. Skill builder shipping so users can create their own. |
@@ -122,11 +122,16 @@
 | "Speaks your language" | 16 languages / 8 voices, auto-detect |
 | "Moves the cursor" | Hero animation shows it pointing at exact UI |
 | "Price locked for life" | Only 50 beta seats; explicit in pricing card |
-| "Privacy-safe" | OpenAI contractually blocked from training; nothing saved post-session |
+| "Privacy-safe" | OpenAI blocked from training on API traffic; conversation history stays local; message contents are excluded from analytics |
 
 ## Goals
 **Business goal:** Establish two evidence-backed funnels: activated individual users for the desktop app and installed, useful guides for Builders. Collect attributed feedback and activation evidence before making quantitative performance claims.
 **Conversion action (homepage / Builders):** Try the live guide → create a free Studio guide → publish a project → install the widget.
-**Conversion action (People):** Visit `/people` → download the desktop app → complete the free trial → subscribe.
+**Conversion action (People):** Visit `/people` → download the desktop app → complete the free trial → subscribe. Chrome, Edge, and Firefox store links are a secondary install path for visitors who prefer browser-only help; track each store separately without diluting the Mac download as the primary CTA.
 **Funnel architecture:** `/` is the outcome-led Builders homepage. `/people` is the desktop-app path. Free tools and comparison/learn pages route visitors to the matching funnel. Analytics should include `product_line`, `funnel_stage`, `page_path`, and `target_funnel` where applicable.
 **Current metrics:** PostHog tracking is in place, but the external-user sample is still too small for conversion claims. Treat sessions, project creation, widget installation, downloads, and paid conversion as separate stages rather than one blended traffic metric.
+
+## Current People Landing Page
+**Live direction:** Warm coral consumer visual system with the concrete promise “Ask your apps what to do next.” The hero must demonstrate voice plus pointer guidance inside a recognizable software canvas, not an abstract AI graphic.
+**Conversion structure:** Mac download first, short demo second, browser-store links later in the page, followed by comparison, transparent BYOK/hosted pricing, trust, and FAQ objections. Preserve all CTA analytics locations and browser IDs when iterating.
+**Claim guardrail:** The Mac product points and guides; do not claim it clicks controls for the user. Browser actions are a separate capability and must keep confirmation guardrails.
