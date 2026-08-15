@@ -1,6 +1,6 @@
 ---
 title: "How to add a Subdivision Surface modifier in Blender (5.1)"
-description: "Smooth your low-poly mesh with Subdivision Surface in Blender 5.1. The Ctrl+1 shortcut, Catmull-Clark vs Simple, and the viewport vs render trick that saves your laptop."
+description: "Smooth a low-poly mesh with Subdivision Surface in Blender 5.1. Learn Ctrl+1, Catmull-Clark vs Simple, and practical viewport and render levels."
 pubDate: 2026-04-27
 updatedDate: 2026-08-02
 author: "Mohamed Saleh Zaied"

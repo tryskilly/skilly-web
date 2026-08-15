@@ -5,6 +5,7 @@ import {
   skillRequestConfirmation,
   skillRequestNotification,
 } from '../../lib/email-templates';
+import { resendAccepted, resendFailureMessage } from '../../lib/resend-result';
 
 export const prerender = false;
 
@@ -89,13 +90,13 @@ export const POST: APIRoute = async ({ request }) => {
     }),
   ]);
 
-  if (confirmResult.status === 'rejected') {
-    console.error('[skill-request] confirmation email failed:', confirmResult.reason);
+  if (confirmResult.status === 'rejected' || !resendAccepted(confirmResult.value)) {
+    console.error('[skill-request] confirmation email failed:', confirmResult.status === 'rejected' ? confirmResult.reason : resendFailureMessage(confirmResult.value));
     return jsonResponse(500, { error: 'Failed to send confirmation email' });
   }
 
-  if (notifyResult.status === 'rejected') {
-    console.error('[skill-request] notification email failed:', notifyResult.reason);
+  if (notifyResult.status === 'rejected' || !resendAccepted(notifyResult.value)) {
+    console.error('[skill-request] notification email failed:', notifyResult.status === 'rejected' ? notifyResult.reason : resendFailureMessage(notifyResult.value));
   }
 
   return jsonResponse(200, { ok: true });

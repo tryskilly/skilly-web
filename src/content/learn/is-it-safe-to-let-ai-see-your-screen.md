@@ -1,5 +1,5 @@
 ---
-title: "Is it safe to let AI see your screen? A Mac privacy checklist"
+title: "Is it safe to let AI see your screen on Mac?"
 description: "Screen-aware AI can be useful, but permission is only the first question. Check capture scope, retention, training, controls, and sensitive-screen habits."
 pubDate: 2026-08-04
 updatedDate: 2026-08-04

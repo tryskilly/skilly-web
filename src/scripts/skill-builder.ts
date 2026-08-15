@@ -278,17 +278,17 @@ document.querySelector<HTMLFormElement>('[data-skill-email-form]')?.addEventList
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: data.get('email'), marketingConsent: data.get('marketingConsent') === 'on', website: data.get('website'), course: activeCourse, attribution: currentAttribution() }),
     });
-    const body = await response.json() as { ok?: boolean; error?: string; leadStored?: boolean };
+    const body = await response.json() as { ok?: boolean; error?: string; leadStored?: boolean; deliveryStatus?: string };
     if (!response.ok || !body.ok) throw new Error(body.error || 'Could not send your skill.');
     skillDelivered = true;
     renderLessonList(activeCourse);
     const exportButton = document.querySelector<HTMLButtonElement>('[data-export-open]');
     if (exportButton) { exportButton.disabled = true; exportButton.textContent = 'Course unlocked'; }
-    if (message) { message.textContent = 'Sent. Check your inbox for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
+    if (message) { message.textContent = 'Accepted by the email provider. Check your inbox and spam folder for the SKILL.md attachment.'; message.className = 'mt-3 text-sm font-medium text-emerald-700'; }
     document.querySelector<HTMLElement>('[data-skill-delivered-next]')?.removeAttribute('hidden');
     window.skillyTrack?.('web_skill_builder_email_submitted', { marketing_consent: data.get('marketingConsent') === 'on', lead_stored: body.leadStored === true, grounding: activeCourse.grounding, source_count: activeCourse.sources.length });
     configureActivationHandoff();
-    window.skillyTrack?.('web_skill_builder_markdown_emailed', { delivery: 'attachment' });
+    window.skillyTrack?.('web_skill_builder_email_accepted', { provider: 'resend', delivery: 'attachment' });
     window.skillyTrack?.('web_skill_builder_download_unlocked');
   } catch (error) {
     if (message) { message.textContent = error instanceof Error ? error.message : 'Could not send your skill.'; message.className = 'mt-3 text-sm font-medium text-red-700'; }

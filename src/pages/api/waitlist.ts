@@ -6,6 +6,7 @@ import {
   notificationEmail,
   type WaitlistPlatform,
 } from '../../lib/email-templates';
+import { resendAccepted, resendFailureMessage } from '../../lib/resend-result';
 
 export const prerender = false;
 
@@ -93,14 +94,14 @@ export const POST: APIRoute = async ({ request }) => {
     }),
   ]);
 
-  if (confirmResult.status === 'rejected') {
-    console.error('[waitlist] confirmation email failed:', confirmResult.reason);
+  if (confirmResult.status === 'rejected' || !resendAccepted(confirmResult.value)) {
+    console.error('[waitlist] confirmation email failed:', confirmResult.status === 'rejected' ? confirmResult.reason : resendFailureMessage(confirmResult.value));
     return jsonResponse(500, { error: 'Failed to send confirmation email' });
   }
 
-  if (notifyResult.status === 'rejected') {
+  if (notifyResult.status === 'rejected' || !resendAccepted(notifyResult.value)) {
     // Don't fail the user-facing flow if only the founder notification failed.
-    console.error('[waitlist] notification email failed:', notifyResult.reason);
+    console.error('[waitlist] notification email failed:', notifyResult.status === 'rejected' ? notifyResult.reason : resendFailureMessage(notifyResult.value));
   }
 
   return jsonResponse(200, { ok: true });
