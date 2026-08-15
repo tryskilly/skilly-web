@@ -1,5 +1,5 @@
 ---
-title: "Premiere Pro Import and Project Organization (beginner guide)"
+title: "Premiere Pro Import and Project Organization Guide"
 description: "Bring media into Premiere and organize it so editing is efficient. — step-by-step on Mac."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29

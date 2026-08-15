@@ -1,6 +1,6 @@
 ---
 title: "OpenAI MCP server tutorial — building tools for voice agents"
-description: "How to attach a remote MCP server to OpenAI's Realtime API. Session vs per-turn tools, the lifecycle events, approval flow, and the gotchas that tripped us up."
+description: "Attach a remote MCP server to OpenAI's Realtime API. Learn session and per-turn tools, lifecycle events, approvals, and common integration pitfalls."
 pubDate: 2026-04-27
 updatedDate: 2026-04-27
 author: "Mohamed Saleh Zaied"

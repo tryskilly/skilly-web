@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import { assessCourseQuality, courseToMarkdown, parseSkillBuilderInput, type SkillCourse } from '../../lib/skill-builder';
 import { parseSkillLeadAttribution, persistSkillBuilderLead } from '../../lib/skill-builder-lead';
+import { resendAccepted, resendFailureMessage } from '../../lib/resend-result';
 
 export const prerender = false;
 
@@ -194,14 +195,16 @@ export const POST: APIRoute = async ({ request }) => {
     console.error('[skill-builder-email] recipient delivery threw', delivery.reason instanceof Error ? delivery.reason.name : 'unknown');
     return json(500, { error: 'Could not send the skill right now. Try again shortly.' });
   }
-  if (delivery.value.error) {
-    logDeliveryFailure('recipient', delivery.value.error);
-    return json(500, { error: deliveryErrorMessage(delivery.value.error.name) });
+  if (!resendAccepted(delivery.value)) {
+    if (delivery.value.error) logDeliveryFailure('recipient', delivery.value.error);
+    else console.error('[skill-builder-email] recipient delivery was not accepted', resendFailureMessage(delivery.value));
+    return json(500, { error: deliveryErrorMessage(delivery.value.error?.name || 'unknown') });
   }
   if (notification.status === 'rejected') {
     console.warn('[skill-builder-email] founder notification threw', notification.reason instanceof Error ? notification.reason.name : 'unknown');
-  } else if (notification.value.error) {
-    logDeliveryFailure('founder', notification.value.error);
+  } else if (!resendAccepted(notification.value)) {
+    console.warn('[skill-builder-email] founder notification not accepted', resendFailureMessage(notification.value));
   }
-  return json(200, { ok: true, leadStored });
+  console.info('[skill-builder-email] recipient accepted', { messageId: delivery.value.data.id });
+  return json(200, { ok: true, leadStored, deliveryStatus: 'accepted' });
 };

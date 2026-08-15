@@ -1,6 +1,6 @@
 ---
 title: "Onboarding without building tours"
-description: "Scripted product tours are the old way — you author and maintain every flow. The new way is voice onboarding: users ask out loud and get pointed at the exact button."
+description: "Replace rigid product tours with voice onboarding. Users ask what to do next and get guided to the exact button without prebuilt flows."
 pubDate: 2026-07-15
 updatedDate: 2026-08-04
 category: "concept"

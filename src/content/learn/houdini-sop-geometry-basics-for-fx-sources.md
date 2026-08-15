@@ -1,6 +1,6 @@
 ---
 title: "Houdini SOP Geometry Basics for FX Sources (beginner guide)"
-description: "Build the source geometry every simulation needs. The point of this stage is not modeling — it is producing clean, attribute-rich geometry to feed into DOPs."
+description: "Build clean, attribute-rich Houdini source geometry for simulations and learn how to prepare reliable inputs for DOP networks."
 pubDate: 2026-06-29
 updatedDate: 2026-06-29
 author: "Mohamed Saleh Zaied"

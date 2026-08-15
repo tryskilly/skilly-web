@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import { auditReportEmail, type AuditEmailReport } from '../../lib/email-templates';
+import { resendAccepted, resendFailureMessage } from '../../lib/resend-result';
 
 export const prerender = false;
 
@@ -65,12 +66,12 @@ export const POST: APIRoute = async ({ request }) => {
     }),
   ]);
 
-  if (userRes.status === 'rejected') {
-    console.error('[audit-email] report email failed:', userRes.reason);
+  if (userRes.status === 'rejected' || !resendAccepted(userRes.value)) {
+    console.error('[audit-email] report email failed:', userRes.status === 'rejected' ? userRes.reason : resendFailureMessage(userRes.value));
     return json(500, { error: 'Failed to send the report' });
   }
-  if (notifyRes.status === 'rejected') {
-    console.error('[audit-email] founder notification failed:', notifyRes.reason);
+  if (notifyRes.status === 'rejected' || !resendAccepted(notifyRes.value)) {
+    console.error('[audit-email] founder notification failed:', notifyRes.status === 'rejected' ? notifyRes.reason : resendFailureMessage(notifyRes.value));
   }
 
   return json(200, { ok: true });
