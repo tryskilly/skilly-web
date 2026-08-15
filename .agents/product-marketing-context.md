@@ -1,17 +1,17 @@
 # Product Marketing Context
 
-*Last updated: 2026-06-22 (builders intro CRO pass)*
+*Last updated: 2026-08-15 (outcome-led Builders homepage pass)*
 
 ## Product Overview
-**One-liner:** A voice-and-pointer tutor for software, available as a native Mac companion and as an embeddable website guide for builders.
+**One-liner:** Skilly helps people finish work in unfamiliar software and helps product teams guide stuck users through onboarding, using voice answers that point to the next step.
 **What it does:** On Mac, Skilly lives in the menu bar. You press a shortcut (or enable Live Tutor) and ask out loud — "how do I add a bevel?" — and it screenshots your active app, moves the cursor to the exact UI element, and narrates the answer in your language. For builders, Skilly for Web lets website owners create a Studio project, import site/docs context, preview a website skill, and install a CDN widget so customers can ask questions inside their site.
 **Product category:** Voice-first learning assistant for software and customer education. Adjacent to AI tutors, website onboarding widgets, product copilots, and one-on-one video tutorials.
 **Product type:** Native macOS app plus Studio-managed web widget, subscription/usage SaaS.
 **Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, roughly $0.11 per included minute. 15 min free (no card). Beta capped at 50 users with price locked for life. Builders/Web pricing should be framed separately around Studio projects and usage, not borrowed from Mac hosted minutes.
 
 ## Target Audience
-**Target companies:** Individual creators and knowledge workers (not enterprise yet). Solo freelancers, indie makers, small teams. People who pay for their own tools.
-**Decision-makers:** End user = buyer. No committee.
+**Target companies:** For People: individual creators and knowledge workers. For Builders: early-stage SaaS teams, indie founders, and small product/support teams with repetitive onboarding questions. Enterprise requirements such as SSO/SOC 2 are not the current target.
+**Decision-makers:** For People, the end user is the buyer. For Builders, the likely buyer is a founder, product owner, growth lead, or support lead who can install a script and wants better activation without adding support load.
 **Primary use case:** "I'm stuck in [Blender / Figma / Excel / a new tool] and hunting through menus to figure out how to do the thing I want."
 **Jobs to be done:**
 - Get unstuck in a creative or productivity app without leaving the app to Google / YouTube
@@ -125,8 +125,8 @@
 | "Privacy-safe" | OpenAI contractually blocked from training; nothing saved post-session |
 
 ## Goals
-**Business goal:** Fill the 50-seat beta with activated paying users who'd rate 9+/10, so the post-beta launch has real testimonials, usage data, and word-of-mouth.
-**Conversion action (primary):** Download DMG → complete 15-min free trial → subscribe inside the app.
-**Conversion action (secondary):** Start in Studio for Skilly for Builders, plus cross-platform waitlist signup (Windows / Linux / iOS) for native clients.
-**Funnel architecture:** Homepage is the umbrella. `/mac` converts Mac learners to download. `/builders` converts website/app owners to Studio signup. `/people` explains guided skills and routes back to the Mac app. Analytics should include `product_line`, `funnel_stage`, `page_path`, and `target_funnel` where applicable.
-**Current metrics:** *Unknown — baseline being established; PostHog tracking in place. Landing page is live at tryskilly.app. Beta status: BETA_ACTIVE, 0 early-access users counted on site.*
+**Business goal:** Establish two evidence-backed funnels: activated individual users for the desktop app and installed, useful guides for Builders. Collect attributed feedback and activation evidence before making quantitative performance claims.
+**Conversion action (homepage / Builders):** Try the live guide → create a free Studio guide → publish a project → install the widget.
+**Conversion action (People):** Visit `/people` → download the desktop app → complete the free trial → subscribe.
+**Funnel architecture:** `/` is the outcome-led Builders homepage. `/people` is the desktop-app path. Free tools and comparison/learn pages route visitors to the matching funnel. Analytics should include `product_line`, `funnel_stage`, `page_path`, and `target_funnel` where applicable.
+**Current metrics:** PostHog tracking is in place, but the external-user sample is still too small for conversion claims. Treat sessions, project creation, widget installation, downloads, and paid conversion as separate stages rather than one blended traffic metric.
