@@ -1,0 +1,89 @@
+---
+type ButtonVariant =
+  | 'builders-primary'
+  | 'builders-accent'
+  | 'people-primary'
+  | 'secondary'
+  | 'inverse'
+  | 'ghost';
+
+type ButtonSize = 'sm' | 'md' | 'lg' | 'xl' | 'icon';
+
+interface Props {
+  href?: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  fullWidth?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'builders-primary',
+  size = 'md',
+  fullWidth = false,
+  type = 'button',
+  disabled = false,
+  class: className,
+  ...attributes
+} = Astro.props;
+
+const variants: Record<ButtonVariant, string> = {
+  'builders-primary':
+    'bg-[#161515] text-white shadow-[0_10px_22px_rgba(22,21,21,0.14)] hover:bg-[#252321] focus-visible:ring-[#161515]/35',
+  'builders-accent':
+    'bg-[#F59E0B] text-[#1A1714] shadow-[0_8px_18px_rgba(245,158,11,0.18)] hover:brightness-105 focus-visible:ring-[#F59E0B]/45',
+  'people-primary':
+    'bg-[#ff6246] text-white shadow-[0_8px_20px_rgba(255,98,70,0.2)] hover:bg-[#f45136] focus-visible:ring-[#ff6246]/40',
+  secondary:
+    'border border-[#D7D0C4] bg-white text-[#161515] hover:border-[#D78A0C]/45 hover:bg-[#FFFCF7] focus-visible:ring-[#D78A0C]/35',
+  inverse:
+    'border border-white/70 bg-white text-[#1A1714] shadow-[0_8px_18px_rgba(30,24,20,0.1)] hover:bg-[#FFF7F2] focus-visible:ring-white/70',
+  ghost:
+    'bg-transparent text-[#1A1714] hover:bg-black/[0.045] focus-visible:ring-black/20',
+};
+
+const sizes: Record<ButtonSize, string> = {
+  sm: 'min-h-10 rounded-lg px-4 py-2 text-[13px]',
+  md: 'min-h-11 rounded-[12px] px-5 py-2.5 text-[14px]',
+  lg: 'min-h-12 rounded-[12px] px-6 py-3 text-[16px]',
+  xl: 'min-h-14 rounded-[14px] px-7 py-3.5 text-[17px]',
+  icon: 'h-10 w-10 rounded-full p-0',
+};
+
+const classes = [
+  'inline-flex items-center justify-center gap-2 font-semibold whitespace-nowrap transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-px disabled:pointer-events-none disabled:opacity-50',
+  variants[variant],
+  sizes[size],
+  fullWidth && 'w-full',
+  className,
+];
+---
+
+{
+  href ? (
+    <a
+      href={disabled ? undefined : href}
+      aria-disabled={disabled ? 'true' : undefined}
+      tabindex={disabled ? -1 : undefined}
+      class:list={classes}
+      data-button-variant={variant}
+      {...attributes}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={type}
+      disabled={disabled}
+      class:list={classes}
+      data-button-variant={variant}
+      {...attributes}
+    >
+      <slot />
+    </button>
+  )
+}

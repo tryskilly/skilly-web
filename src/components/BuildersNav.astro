@@ -1,0 +1,414 @@
+---
+import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
+import Button from './Button.astro';
+import { DOWNLOAD_URL } from '../data/config.ts';
+import {
+  audienceNavigation,
+  getMarketingVariant,
+  productNavigation,
+  useCaseNavigation,
+} from '../data/siteNavigation.ts';
+import { ArrowUpRight, ChevronDown, Download, Menu } from 'lucide-astro';
+
+const path = Astro.url.pathname;
+const variant = getMarketingVariant(path);
+const isPeople = variant === 'people';
+const isPeopleHome = path.startsWith('/people');
+const isBuilderHome = path === '/';
+---
+
+<header data-nav-variant={variant} class="sticky top-0 z-50 border-b border-black/[0.04] bg-[#fffefa]/95 shadow-[0_8px_24px_rgba(38,30,22,0.035)] backdrop-blur-md">
+  <div class="mx-auto flex h-[72px] max-w-[1360px] items-center justify-between px-6 lg:px-7">
+    <a href="/" class="flex shrink-0 items-center gap-2.5" aria-label="Skilly home">
+      <Logo size={40} variant="amber" alt="" />
+      <Wordmark size="lg" />
+    </a>
+
+    <details class="nav-mobile relative">
+      <summary class="grid h-10 w-10 cursor-pointer list-none place-items-center rounded-lg border border-black/10 bg-white text-[#24211f]" aria-label="Open navigation">
+        <Menu size={19} strokeWidth={1.8} aria-hidden="true" />
+      </summary>
+      <nav class="fixed right-3 top-[68px] z-50 w-[min(92vw,380px)] overflow-y-auto rounded-[16px] border border-[var(--marketing-border)] bg-[#fffefa] p-3 shadow-[var(--marketing-shadow-overlay)]" aria-label="Mobile navigation">
+        <div class="mobile-nav-section">
+          <p>Product</p>
+          {productNavigation.slice(0, 2).map((item) => (
+            <a href={item.href}>
+              <span>{item.label}</span>
+              <small>{item.description}</small>
+            </a>
+          ))}
+        </div>
+
+        {!isPeople && (
+          <div class="mobile-nav-section">
+            <p>Use cases</p>
+            {[...useCaseNavigation, ...audienceNavigation].map((item) => (
+              <a href={item.href}>
+                <span>{item.label}</span>
+                <small>{item.description}</small>
+              </a>
+            ))}
+          </div>
+        )}
+
+        <div class="mobile-nav-section mobile-nav-section--compact">
+          <p>{isPeople ? 'Explore People' : 'Explore Builders'}</p>
+          {isPeople ? (
+            <>
+              <a href={isPeopleHome ? '#how' : '/people/#how'}><span>How it works</span></a>
+              <a href={isPeopleHome ? '#use-cases' : '/people/#use-cases'}><span>Use cases</span></a>
+              <a href={isPeopleHome ? '#pricing' : '/people/#pricing'}><span>Pricing</span></a>
+              <a href={DOWNLOAD_URL}><span>Download</span></a>
+            </>
+          ) : (
+            <>
+              <a href={isBuilderHome ? '#how' : '/#how'}><span>How it works</span></a>
+              <a href={isBuilderHome ? '#pricing' : '/#pricing'}><span>Pricing</span></a>
+              <a href="/learn/"><span>Learn</span></a>
+            </>
+          )}
+        </div>
+      </nav>
+    </details>
+
+    {isPeople ? (
+      <>
+        <nav class="hidden items-center gap-8 min-[900px]:flex" aria-label="People navigation">
+          <details class="nav-dropdown" data-nav-menu="product">
+            <summary>Product <ChevronDown size={13} strokeWidth={1.8} aria-hidden="true" /></summary>
+            <div class="nav-panel nav-panel--product">
+              <p class="nav-panel-kicker">Two ways to use Skilly</p>
+              <div class="nav-product-grid">
+                {productNavigation.map((item, index) => (
+                  <a href={item.href} class:list={['nav-panel-link', { 'nav-panel-link--primary': index < 2 }]}>
+                    <span>{item.label}<ArrowUpRight size={13} strokeWidth={1.8} aria-hidden="true" /></span>
+                    <small>{item.description}</small>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </details>
+          <a href={isPeopleHome ? '#how' : '/people/#how'}>How it works</a>
+          <a href={isPeopleHome ? '#use-cases' : '/people/#use-cases'}>Use cases</a>
+          <a href={isPeopleHome ? '#pricing' : '/people/#pricing'}>Pricing</a>
+          <a href={DOWNLOAD_URL}>Download</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <Button
+            href={DOWNLOAD_URL}
+            variant="people-primary"
+            size="sm"
+            data-ph-event="web_cta_download_clicked"
+            data-ph-prop-location="nav"
+            data-ph-prop-target-funnel="people"
+            class="h-11"
+          >
+            <Download size={15} strokeWidth={1.8} aria-hidden="true" />
+            <span class="hidden sm:inline">Download for Mac</span><span class="sm:hidden">Download</span>
+          </Button>
+        </div>
+      </>
+    ) : (
+      <>
+        <nav class="hidden items-center gap-7 min-[900px]:flex" aria-label="Builders navigation">
+          <details class="nav-dropdown" data-nav-menu="product">
+            <summary>Product <ChevronDown size={13} strokeWidth={1.8} aria-hidden="true" /></summary>
+            <div class="nav-panel nav-panel--product">
+              <p class="nav-panel-kicker">Two ways to use Skilly</p>
+              <div class="nav-product-grid">
+                {productNavigation.map((item, index) => (
+                  <a href={item.href} class:list={['nav-panel-link', { 'nav-panel-link--primary': index < 2 }]}>
+                    <span>{item.label}<ArrowUpRight size={13} strokeWidth={1.8} aria-hidden="true" /></span>
+                    <small>{item.description}</small>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </details>
+
+          <details class="nav-dropdown" data-nav-menu="use-cases">
+            <summary>Use cases <ChevronDown size={13} strokeWidth={1.8} aria-hidden="true" /></summary>
+            <div class="nav-panel nav-panel--use-cases">
+              <div>
+                <p class="nav-panel-kicker">Use cases</p>
+                {useCaseNavigation.map((item) => (
+                  <a href={item.href} class="nav-panel-link">
+                    <span>{item.label}</span>
+                    <small>{item.description}</small>
+                  </a>
+                ))}
+              </div>
+              <div>
+                <p class="nav-panel-kicker">Built for</p>
+                {audienceNavigation.map((item) => (
+                  <a href={item.href} class="nav-panel-link">
+                    <span>{item.label}</span>
+                    <small>{item.description}</small>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </details>
+
+          <a href={isBuilderHome ? '#how' : '/#how'}>How it works</a>
+          <a href={isBuilderHome ? '#pricing' : '/#pricing'}>Pricing</a>
+          <a href="/learn/">Learn</a>
+        </nav>
+
+        <div class="flex items-center gap-5">
+          <a href="https://studio.tryskilly.app/" class="hidden text-[13px] font-medium text-[#282522] hover:text-black min-[900px]:inline">Log in</a>
+          <Button
+            href="https://cal.com/moelabs.dev"
+            variant="builders-primary"
+            size="sm"
+            data-ph-event="web_builders_demo_clicked"
+            data-ph-prop-location="nav"
+            data-ph-prop-target-funnel="builders"
+          >Book a demo</Button>
+        </div>
+      </>
+    )}
+  </div>
+</header>
+
+<script>
+  const dropdowns = Array.from(document.querySelectorAll<HTMLDetailsElement>('.nav-dropdown'));
+
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener('toggle', () => {
+      if (!dropdown.open) return;
+      dropdowns.forEach((other) => {
+        if (other !== dropdown) other.removeAttribute('open');
+      });
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(event.target as Node)) dropdown.removeAttribute('open');
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') dropdowns.forEach((dropdown) => dropdown.removeAttribute('open'));
+  });
+
+  document.querySelectorAll<HTMLDetailsElement>('.nav-mobile').forEach((menu) => {
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => menu.removeAttribute('open'));
+    });
+  });
+</script>
+
+<style>
+  .nav-mobile {
+    display: none;
+  }
+
+  .nav-mobile summary::-webkit-details-marker,
+  .nav-dropdown summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-mobile nav {
+    max-height: calc(100vh - 88px);
+  }
+
+  .mobile-nav-section {
+    display: grid;
+    gap: 2px;
+    padding: 8px 0;
+  }
+
+  .mobile-nav-section + .mobile-nav-section {
+    border-top: 1px solid var(--marketing-border);
+  }
+
+  .mobile-nav-section > p,
+  .nav-panel-kicker {
+    margin: 0;
+    padding: 4px 10px 6px;
+    color: var(--marketing-muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mobile-nav-section a {
+    display: grid;
+    gap: 2px;
+    border-radius: 10px;
+    padding: 9px 10px;
+    color: var(--marketing-text);
+  }
+
+  .mobile-nav-section a:hover {
+    background: var(--marketing-accent-soft);
+  }
+
+  .mobile-nav-section a span {
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  .mobile-nav-section a small {
+    color: var(--marketing-muted);
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .mobile-nav-section--compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobile-nav-section--compact > p {
+    grid-column: 1 / -1;
+  }
+
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown > summary,
+  nav[aria-label$="navigation"] > a {
+    display: inline-flex;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    gap: 4px;
+    color: #282522;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 160ms ease;
+  }
+
+  .nav-dropdown > summary:hover,
+  .nav-dropdown[open] > summary,
+  nav[aria-label$="navigation"] > a:hover {
+    color: var(--marketing-accent-strong);
+  }
+
+  .nav-dropdown[open] > summary svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown > summary svg {
+    transition: transform 160ms ease;
+  }
+
+  .nav-panel {
+    position: absolute;
+    top: calc(100% + 20px);
+    left: 50%;
+    z-index: 60;
+    border: 1px solid var(--marketing-border);
+    border-radius: 16px;
+    background: var(--marketing-surface);
+    box-shadow: var(--marketing-shadow-overlay);
+    transform: translateX(-50%);
+  }
+
+  .nav-panel::before {
+    position: absolute;
+    inset: -20px 0 auto;
+    height: 20px;
+    content: '';
+  }
+
+  .nav-panel--product {
+    width: 560px;
+    padding: 14px;
+  }
+
+  .nav-product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .nav-panel--use-cases {
+    display: grid;
+    width: 700px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .nav-panel--use-cases > div + div {
+    border-left: 1px solid var(--marketing-border);
+    padding-left: 12px;
+  }
+
+  .nav-panel-link {
+    display: grid;
+    gap: 3px;
+    border-radius: 12px;
+    padding: 11px 12px;
+    transition: background-color 160ms ease;
+  }
+
+  .nav-panel-link:hover,
+  .nav-panel-link:focus-visible {
+    background: var(--marketing-accent-soft);
+    outline: none;
+  }
+
+  .nav-panel-link > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--marketing-text);
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  .nav-panel-link > small {
+    color: var(--marketing-muted);
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .nav-panel-link--primary {
+    border: 1px solid var(--marketing-accent-border-soft);
+    background: color-mix(in srgb, var(--marketing-accent-soft) 55%, white);
+  }
+
+  :global(section[id]) {
+    scroll-margin-top: 80px;
+  }
+
+  @media (max-width: 899px) {
+    .nav-mobile {
+      display: block;
+      margin-left: auto;
+    }
+  }
+
+  @media (max-width: 420px) {
+    header > div {
+      gap: 8px;
+      padding-inline: 14px;
+    }
+
+    header > div > a:first-child {
+      gap: 6px;
+    }
+
+    header > div > a:first-child img {
+      width: 32px;
+      height: 32px;
+    }
+
+    header > div > a:first-child span {
+      font-size: 22px;
+    }
+
+    header > div > div:last-child a {
+      padding-inline: 12px;
+    }
+  }
+</style>
