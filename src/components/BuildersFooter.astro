@@ -1,0 +1,204 @@
+---
+// src/components/Footer.astro
+import Badge from './Badge.astro';
+import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
+import { BETA_STATUS, BROWSER_EXTENSIONS } from '../data/config.ts';
+import { getMarketingVariant } from '../data/siteNavigation.ts';
+import { Github, MessageCircle, Twitter } from 'lucide-astro';
+
+const footerVariant = getMarketingVariant(Astro.url.pathname);
+const statusBadgeVariant =
+  BETA_STATUS === 'BETA_ACTIVE'
+    ? 'success'
+    : BETA_STATUS === 'BETA_FULL'
+      ? 'accent'
+      : 'neutral';
+
+type FooterLink = [href: string, label: string];
+type FooterGroup = {
+  label: string;
+  links: FooterLink[];
+  cta?: FooterLink;
+};
+
+const footerGroups: FooterGroup[] = [
+  {
+    label: 'Get Skilly',
+    links: [
+      ['/people/', 'Mac app'],
+      ...BROWSER_EXTENSIONS.map((extension) => [extension.href, `${extension.shortName} extension`] as FooterLink),
+    ],
+  },
+  {
+    label: 'Free tools',
+    links: [
+      ['/tools/skill-builder/', 'AI course generator for software'],
+      ['/tools/ai-onboarding-audit/', 'AI onboarding audit'],
+    ],
+  },
+  {
+    label: 'Learn',
+    links: [
+      ['/learn/how-to-add-bevel-modifier-blender/', 'Bevel modifier in Blender'],
+      ['/learn/figma-auto-layout-tutorial/', 'Figma Auto Layout'],
+      ['/learn/swiftui-preview-macro-xcode/', 'SwiftUI #Preview'],
+      ['/learn/openai-realtime-api-tutorial/', 'OpenAI Realtime API'],
+      ['/learn/enable-screen-recording-permission-macos/', 'macOS Screen Recording'],
+    ],
+    cta: ['/learn/', 'All articles'],
+  },
+  {
+    label: 'Compare',
+    links: [
+      ['/vs/cluely/', 'Skilly vs Cluely'],
+      ['/vs/rewind/', 'Skilly vs Rewind'],
+      ['/vs/raycast-ai/', 'Skilly vs Raycast AI'],
+      ['/vs/gemini-live/', 'Skilly vs Gemini Live'],
+      ['/vs/clicky/', 'Skilly vs Clicky'],
+    ],
+    cta: ['/vs/', 'All comparisons'],
+  },
+  {
+    label: 'Builders',
+    links: [
+      ['/vs/appcues/', 'vs Appcues'],
+      ['/vs/pendo/', 'vs Pendo'],
+      ['/vs/walkme/', 'vs WalkMe'],
+      ['/vs/intercom-fin/', 'vs Intercom Fin'],
+      ['/use-cases/voice-onboarding/', 'Voice onboarding'],
+      ['/use-cases/ai-product-tours/', 'AI product tours'],
+      ['/use-cases/reduce-support-tickets/', 'Reduce support tickets'],
+      ['/use-cases/in-app-guidance-for-saas/', 'In-app guidance'],
+      ['/for/devtools/', 'For devtools'],
+      ['/for/ai-saas/', 'For AI SaaS'],
+      ['/for/nocode-tools/', 'For no-code tools'],
+      ['/for/education-platforms/', 'For education'],
+    ],
+  },
+];
+---
+<footer
+  class:list={[
+    'marketing-footer border-t px-6 py-10',
+    { 'marketing-footer--builders': footerVariant === 'builders' },
+  ]}
+>
+  <div class="mx-auto flex max-w-site flex-col gap-8">
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <div class="flex items-center gap-2.5">
+        <Logo size={20} variant="amber" alt="Skilly" />
+        <Wordmark size="sm" />
+        <span class="footer-muted ml-2 text-[13px]">
+          by
+          <a href="https://moelabs.dev/" target="_blank" rel="noopener noreferrer" class="footer-link underline decoration-dashed underline-offset-2">moelabs.dev</a>
+        </span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+        <a href="/terms" class="footer-link text-sm">Terms</a>
+        <a href="/privacy" class="footer-link text-sm">Privacy</a>
+        <span class="footer-divider block h-3 w-px" aria-hidden="true"></span>
+        <a href="https://x.com/tryskilly" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+          <Twitter size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>X / Twitter</span>
+        </a>
+        <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+          <Github size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>GitHub</span>
+        </a>
+        <a href="https://discord.gg/NbRVfUtwfn" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+          <MessageCircle size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>Discord</span>
+        </a>
+      </div>
+    </div>
+
+    {footerGroups.map((group) => (
+      <div class="footer-group flex flex-col items-center gap-2 border-t pt-6 sm:items-start">
+        <p class="footer-heading font-mono text-[11px] uppercase tracking-[0.08em]">{group.label}</p>
+        <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:justify-start">
+          {group.links.map(([href, label]) => (
+            <a href={href} class="footer-link text-sm">
+              {label}
+            </a>
+          ))}
+          {group.cta && (
+            <>
+              <span class="footer-divider block h-3 w-px" aria-hidden="true"></span>
+              <a href={group.cta[0]} class="footer-link text-sm underline underline-offset-2">{group.cta[1]}</a>
+            </>
+          )}
+        </div>
+      </div>
+    ))}
+
+    <div class="flex justify-center sm:justify-start">
+      <Badge
+        variant={statusBadgeVariant}
+        uppercase={true}
+        dot={true}
+        pulse={true}
+        aria-label={`Beta program status: ${BETA_STATUS}`}
+      >
+        Status: {BETA_STATUS}
+      </Badge>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .marketing-footer {
+    border-color: #e5e5e0;
+    background: #fafaf8;
+    color: #525250;
+  }
+
+  .marketing-footer--builders {
+    border-color: var(--marketing-border);
+    background: var(--marketing-section);
+    color: var(--marketing-muted);
+  }
+
+  .footer-muted,
+  .footer-heading {
+    color: inherit;
+  }
+
+  .footer-heading {
+    opacity: 0.8;
+  }
+
+  .footer-group {
+    border-color: color-mix(in srgb, currentColor 18%, transparent);
+  }
+
+  .footer-divider {
+    background: color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+  .footer-link,
+  .footer-social-link {
+    color: inherit;
+    transition: color 160ms ease, background-color 160ms ease;
+  }
+
+  .footer-link:hover,
+  .footer-social-link:hover {
+    color: var(--marketing-text);
+  }
+
+  .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 12px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .footer-social-link:hover {
+    background: var(--marketing-accent-soft);
+  }
+</style>

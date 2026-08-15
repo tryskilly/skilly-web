@@ -1,88 +1,62 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import Nav from '../components/BuildersNav.astro';
+import Badge from '../components/Badge.astro';
+import Footer from '../components/BuildersFooter.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BadgeCheck,
+  ChartNoAxesColumn,
+  ChevronRight,
+  CircleHelp,
+  CircleX,
+  Clock,
+  Database,
+  Code2,
+  CreditCard,
+  FileText,
+  Frown,
+  GraduationCap,
+  Headset,
+  House,
+  LayoutDashboard,
+  Lock,
+  Map,
+  MessageSquareDot,
+  Mic,
+  MousePointerClick,
+  Redo2,
+  RefreshCw,
+  Rocket,
+  Settings,
+  ShieldCheck,
+  Snowflake,
+  SquareCode,
+  Target,
+  VolumeX,
+  X,
+} from 'lucide-astro';
 
-const STUDIO_URL = 'https://studio.tryskilly.app/signup';
 const BOOKING_URL = 'https://cal.com/moelabs.dev';
+const AUDIT_URL = '/tools/ai-onboarding-audit/';
+const DEFAULT_DEMO_GOAL = 'Guide a new user to connect data, create a workspace, and invite a teammate.';
 
-const builderPlans = [
-  {
-    id: 'early',
-    name: 'EARLY ACCESS',
-    price: 'Free',
-    minutes: '30 minutes',
-    cap: 'Hard cap: 30 minutes/month',
-    body: 'Try it live on your own site',
-    cta: 'Start free',
-  },
-  {
-    id: 'starter',
-    name: 'STARTER',
-    price: '$29',
-    minutes: '400 minutes',
-    cap: 'Hard cap: 400 minutes/month',
-    body: 'For one early product surface',
-    cta: 'Start',
-  },
-  {
-    id: 'studio',
-    name: 'STUDIO',
-    price: '$99',
-    minutes: '1,500 minutes',
-    cap: 'Hard cap: 1,500 minutes/month',
-    body: 'For active product onboarding',
-    cta: 'Open Studio',
-    popular: true,
-  },
-  {
-    id: 'scale',
-    name: 'SCALE',
-    price: '$299',
-    minutes: '5,000 minutes',
-    cap: 'Hard cap: 5,000 minutes/month',
-    body: 'For higher-volume support flows',
-    cta: 'Talk to us',
-    href: BOOKING_URL,
-  },
+const comparisonRows = [
+  { label: 'Answers follow-up questions', tour: 'x', chatbot: 'check', skilly: 'check' },
+  { label: 'Understands current page', tour: 'x', chatbot: 'warn', skilly: 'check' },
+  { label: 'Points to exact UI action', tour: 'warn', chatbot: 'x', skilly: 'check' },
+  { label: "Adapts to user's question", tour: 'x', chatbot: 'warn', skilly: 'check' },
+  { label: 'Measures completed tasks', tour: 'warn', chatbot: 'warn', skilly: 'check' },
 ];
 
-const faqs = [
-  {
-    question: 'How much work is it to install?',
-    answer: 'For web, installation is one script tag plus a Studio project. The skill, style, allowed domains, and usage are managed in Studio.',
-  },
-  {
-    question: 'Does it work on mobile apps?',
-    answer: 'The product architecture is built for web and mobile SDK surfaces. Web is the first builder surface; mobile SDK support is part of the same project model as it matures.',
-  },
-  {
-    question: 'What does it cost per minute?',
-    answer: 'Early Access is free with 30 minutes/month, so you can try Skilly live on your own site with no card. Beyond that, builder sessions draw from your plan\'s pooled minutes: Starter is $29/mo for 400 minutes, Studio is $99/mo for 1,500 minutes, and Scale is $299/mo for 5,000 minutes. Every plan is hard-capped during beta, so there are no automatic overage surprises.',
-  },
-  {
-    question: 'Is customer data safe?',
-    answer: 'The widget is locked to approved domains and app IDs. Provider keys stay on Skilly backend infrastructure rather than being exposed in the browser or SDK.',
-  },
-  {
-    question: 'How is this different from Skilly for People?',
-    answer: 'Skilly for People is a personal desktop tutor. Skilly for Builders embeds a guide in your website or app to help your users complete tasks inside your product.',
-  },
+const pricingFacts = [
+  { name: 'Early Access', value: '$0', detail: '30 teaching minutes per month' },
+  { name: 'Starter', value: '$29', detail: '400 teaching minutes per month' },
+  { name: 'Studio', value: '$99', detail: '1,500 teaching minutes per month' },
+  { name: 'Scale', value: '$299', detail: '5,000 teaching minutes per month' },
 ];
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.answer,
-    },
-  })),
-};
 ---
 <Layout
   title="Voice onboarding that helps users finish setup | Skilly"
@@ -90,288 +64,1092 @@ const faqSchema = {
   productLine="builders"
   funnelStage="conversion"
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
-  </Fragment>
-
   <Nav />
-  <main class="overflow-x-clip bg-[#FAF8F4] text-[#1A1714]">
+
+  <main class="overflow-x-clip bg-[#FEFDFB] text-[#161515]">
     <div class="sr-only" itemscope itemtype="https://schema.org/SoftwareApplication">
       <span itemprop="name">Skilly for Builders</span>
       <p itemprop="description">
-        Skilly for Builders is an embeddable voice-and-pointer assistant for website, SaaS, and app owners. Builders create a Studio project, teach Skilly from website content and docs, lock it to allowed domains or app IDs, and install it as a guided assistant for their users.
+        Skilly is an embeddable voice-and-pointer assistant for onboarding flows, product education, and activation inside websites and SaaS products.
       </p>
-      <span itemprop="applicationCategory">DeveloperApplication</span>
+      <span itemprop="applicationCategory">BusinessApplication</span>
     </div>
 
-    <!--
-      Intent router. PostHog (90d) says most arrivals want the Mac app, not the
-      widget: 42 web_cta_download_clicked and 41 push_to_talk_started, against 16
-      web_builders_studio_clicked and a single web_sdk_skill_fetched. Branded
-      search is consumer too ("skilly app", "what is skilly", "skilly ai"), and
-      Reddit/X send Mac users. This page is a B2B pitch, and "For People" in the
-      nav is easy to miss on the way to bouncing — so say it in the hero.
-    -->
-    <section class="mx-auto max-w-6xl px-5 pt-24 sm:px-8 sm:pt-28">
-      <a
-        href="/people/"
-        data-ph-event="web_nav_link_clicked"
-        data-ph-prop-link="people_from_builders_hero"
-        data-ph-prop-target-funnel="people"
-        class="group inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-[#E8E2D9] bg-white px-4 py-2 text-[13px] text-[#6B635A] transition hover:border-[#F59E0B]/50"
-      >
-        <span class="font-semibold text-[#1A1714]">Want Skilly on your own Mac?</span>
-        <span>Ask out loud, and it points at what to click.</span>
-        <span class="font-medium text-[#9A5B08] transition group-hover:brightness-110">Get the app&nbsp;→</span>
-      </a>
-    </section>
-
-    <section id="top" data-skilly="for-builders" class="mx-auto max-w-6xl px-5 pb-12 pt-6 sm:px-8">
-      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
-        <div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-[#F59E0B]/25 bg-[#F59E0B]/10 px-3 py-1.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-[#9A5B08]">
-            <span class="h-1.5 w-1.5 rounded-full bg-[#F59E0B]"></span>
-            VOICE ONBOARDING FOR SAAS
-          </div>
-          <h1 class="mt-5 max-w-[700px] text-[42px] font-bold leading-[1.03] tracking-tight text-[#1A1714] sm:text-[56px]">
-            Help more users finish onboarding—without more support tickets.
-          </h1>
-          <p class="mt-6 max-w-lg text-[18px] leading-relaxed text-[#6B635A]">
-            Skilly answers questions inside your product, speaks the next step, and points to the exact button. Users keep moving instead of opening another tab—or quietly leaving.
-          </p>
-          <div data-skilly="primary-cta" class="mt-8 flex flex-wrap gap-3">
-            <button
-              type="button"
-              data-builders-widget-demo
-              data-ph-event="web_builders_widget_demo_clicked"
-              data-ph-prop-location="builders_hero"
-              data-ph-prop-target-funnel="builders"
-              class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105"
-            >
-              Try the live guide
-            </button>
-            <a
-              href={STUDIO_URL}
-              data-ph-event="web_builders_studio_clicked"
-              data-ph-prop-location="builders_hero"
-              data-ph-prop-target-funnel="builders"
-              class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40"
-            >
-              Create a free guide
-            </a>
-          </div>
-          <div class="mt-4 flex flex-wrap gap-2 text-[12px] font-medium text-[#6B635A]">
-            <span class="rounded-full border border-[#E8E2D9] bg-white px-3 py-1.5">30 free minutes/month</span>
-            <span class="rounded-full border border-[#E8E2D9] bg-white px-3 py-1.5">No card</span>
-            <span class="rounded-full border border-[#E8E2D9] bg-white px-3 py-1.5">One script tag</span>
-            <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[#E8E2D9] bg-white px-3 py-1.5 transition hover:border-[#F59E0B]/50">Open-source engine</a>
-          </div>
-          <p class="mt-3 text-[13px] text-[#6B635A]">
-            Want a hand setting it up? <a href={BOOKING_URL} data-ph-event="web_builders_book_clicked" data-ph-prop-location="builders_hero" data-ph-prop-target-funnel="builders" class="font-medium text-[#9A5B08] underline underline-offset-2 hover:brightness-110">Book 15 min with the founder</a>
-          </p>
-        </div>
-
-        <div class="rounded-3xl border border-[#E8E2D9] bg-[#FAF8F4] p-5 sm:p-6">
-          <div class="relative min-h-[320px] overflow-hidden rounded-2xl border border-[#E8E2D9] bg-white shadow-sm">
-            <div class="flex h-11 items-center gap-4 border-b border-[#E8E2D9] px-5 text-[13px] text-[#6B635A]">
-              <span class="font-semibold text-[#1A1714]">yourapp.com</span>
-              <span class="ml-auto hidden sm:inline">Product</span>
-              <span class="hidden sm:inline">Pricing</span>
-              <span class="hidden sm:inline">Support</span>
+    <section id="top" data-skilly="for-builders" class="builders-hero relative border-b border-[var(--marketing-border)] bg-[var(--marketing-canvas)]">
+      <div class="absolute inset-x-0 top-0 h-[520px] bg-[#FEFDFB]"></div>
+      <div class="builders-hero-inner relative mx-auto max-w-[1360px] px-5 pb-8 pt-20 md:px-6 md:pb-[8.75rem] md:pt-[4.5rem]">
+        <div class="builders-hero-grid grid items-center gap-8 md:grid-cols-[minmax(0,610px)_minmax(0,1fr)]">
+          <div class="builders-hero-copy max-w-[610px]">
+            <div class="inline-flex rounded-full border border-[var(--marketing-accent-border)] bg-white/90 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.04em] text-[var(--marketing-accent)]">
+              Voice onboarding for SaaS
             </div>
-            <div class="p-6">
-              <div class="font-mono text-[10px] font-semibold tracking-[0.08em] text-[#9A5B08]">ACTIVATION · STEP 1 OF 3</div>
-              <div class="mt-2 text-[22px] font-bold">Welcome to your dashboard</div>
-              <p class="mt-2 max-w-xs text-[14px] text-[#6B635A]">New here? Ask Skilly where to start instead of searching the docs.</p>
-              <div class="mt-5 grid max-w-xs grid-cols-2 gap-2.5">
-                <div class="h-16 rounded-lg bg-[#F2EEE6]"></div>
-                <div class="h-16 rounded-lg bg-[#F2EEE6]"></div>
-              </div>
-            </div>
-            <div class="absolute bottom-5 right-5 flex items-end gap-2">
-              <div class="max-w-[200px] rounded-2xl rounded-br-sm border border-[#E8E2D9] bg-white px-3.5 py-2.5 text-[12.5px] shadow">
-                <span class="mb-0.5 block font-mono text-[10px] tracking-[0.04em] text-[#2563EB]">SKILLY</span>
-                Start with <b class="text-[#9A5B08]">Connect data</b>. I’ll point to it.
-              </div>
-              <button class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#F59E0B] shadow-lg" aria-label="Skilly launcher preview">
-                <svg width="18" height="18" viewBox="0 0 80 80" fill="#1A1714" aria-hidden="true"><path d="M20 8C18 7 16 9 16 11L16 60C16 62 18 64 20 63L34 52C35 51 37 51 38 52L50 66C51 67 53 68 55 67L61 61C63 59 62 57 61 56L49 44C48 43 48 41 49 40L58 38C60 37 61 35 59 34L20 8Z"/></svg>
+
+            <h1 class="builders-hero-title mt-5 max-w-[610px] text-[41px] font-bold leading-[0.96] tracking-[-0.05em] text-[#161515] md:text-[58px]">
+              Help users finish{' '}<br class="hidden md:block" />complex <span class="text-[var(--marketing-accent)]">onboarding.</span>
+            </h1>
+
+            <p class="mt-5 max-w-[550px] text-[16px] leading-[1.48] text-[#5F584F] md:text-[17.5px]">
+              Skilly speaks the next step, understands the page, and points to the exact action inside your product.
+            </p>
+
+            <div data-skilly="primary-cta" class="builders-hero-actions mt-6 flex flex-wrap gap-2.5">
+              <a
+                href={AUDIT_URL}
+                data-ph-event="web_nav_link_clicked"
+                data-ph-prop-link="ai_onboarding_audit"
+                data-ph-prop-location="builders_hero_primary"
+                data-ph-prop-target-funnel="builders"
+                class="inline-flex min-h-11 items-center justify-center rounded-[12px] bg-[#161515] px-[18px] py-2.5 text-[14px] font-semibold text-white shadow-[0_10px_22px_rgba(22,21,21,0.14)] transition hover:bg-[#252321] active:translate-y-px"
+              >
+                Generate my guide
+                <ArrowRight size={15} strokeWidth={1.8} class="ml-2" aria-hidden="true" />
+              </a>
+              <button
+                type="button"
+                data-builders-widget-demo
+                data-ph-event="web_builders_widget_demo_clicked"
+                data-ph-prop-location="builders_hero_secondary"
+                data-ph-prop-target-funnel="builders"
+                class="inline-flex min-h-11 items-center justify-center rounded-[12px] border border-[#D7D0C4] bg-white px-[18px] py-2.5 text-[14px] font-semibold text-[#161515] transition hover:border-[var(--marketing-accent)] active:translate-y-px"
+              >
+                Try it live
               </button>
             </div>
+
+            <div class="builders-hero-assurances mt-6 flex flex-wrap gap-x-4 gap-y-2 text-[12px] text-[#6A6257]">
+              <div class="inline-flex items-center gap-2">
+                <BadgeCheck size={15} strokeWidth={1.8} class="text-[#8A816F]" aria-hidden="true" />
+                No signup for preview
+              </div>
+              <div class="inline-flex items-center gap-2">
+                <Clock size={15} strokeWidth={1.8} class="text-[#8A816F]" aria-hidden="true" />
+                Takes 2 minutes
+              </div>
+              <div class="inline-flex items-center gap-2">
+                <CreditCard size={15} strokeWidth={1.8} class="text-[#8A816F]" aria-hidden="true" />
+                No credit card
+              </div>
+            </div>
+          </div>
+
+          <div class="builders-hero-scene relative md:pl-2">
+            <div class="hero-product-card relative flex min-h-[580px] max-w-[550px] flex-col rounded-[24px] border border-[#E5DDD0] bg-[#F8F5EF] p-3 shadow-[0_24px_64px_rgba(41,33,20,0.10)] md:-translate-x-[84px]">
+              <div class="rounded-[20px] border border-[#DFD5C7] bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <div class="acme-titlebar flex items-center gap-2 border-b border-[#EAE2D6] px-3.5 py-2.5">
+                  <span class="h-2.5 w-2.5 rounded-full bg-[#D9CDC0]"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-[#E7DDD1]"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-[#EFE7DC]"></span>
+                  <span class="ml-2.5 text-[12px] font-semibold text-[#47413A]">Your product</span>
+                </div>
+
+                <div class="acme-body grid min-h-[470px] gap-0 md:grid-cols-[102px_minmax(0,1fr)]">
+                  <aside class="border-b border-r border-[#EAE2D6] bg-[#FAF8F4] px-3.5 py-4 md:border-b-0">
+                    <div class="acme-nav space-y-3.5 text-[11px] text-[#71695F]">
+                      <div class="flex items-center gap-2 font-medium text-[#262320]"><House size={13} strokeWidth={1.8} aria-hidden="true" />Home</div>
+                      <div class="flex items-center gap-2 font-medium text-[#262320]"><LayoutDashboard size={13} strokeWidth={1.8} aria-hidden="true" />Dashboards</div>
+                      <div class="flex items-center gap-2 font-medium text-[#262320]"><FileText size={13} strokeWidth={1.8} aria-hidden="true" />Reports</div>
+                      <div class="flex items-center gap-2 rounded-[10px] bg-[#ECE7DF] px-2.5 py-2 font-semibold text-[#262320]"><Database size={13} strokeWidth={1.8} aria-hidden="true" />Data</div>
+                      <div class="flex items-center gap-2 font-medium text-[#262320]"><Settings size={13} strokeWidth={1.8} aria-hidden="true" />Settings</div>
+                    </div>
+                  </aside>
+
+                  <div class="acme-main flex flex-col px-4 py-4">
+                    <p class="text-[14px] font-semibold text-[#161515]">Connect your data</p>
+                    <p class="mt-1 text-[11px] text-[#6F675C]">Choose a data source to get started.</p>
+
+                    <div class="acme-source-list mt-3 space-y-2.5">
+                      <div class="flex items-center justify-between rounded-[16px] border border-[#E7E0D5] bg-[#FCFBF8] px-3.5 py-2.5 shadow-[0_10px_18px_rgba(28,22,15,0.04)]">
+                        <div class="flex items-center gap-3">
+                          <div class="grid h-9 w-9 place-items-center rounded-[11px] bg-[#EDF2FF] text-[#3851A6]"><Database size={20} strokeWidth={1.8} aria-hidden="true" /></div>
+                          <div>
+                            <p class="text-[13px] font-semibold text-[#161515]">PostgreSQL</p>
+                            <p class="text-[11px] text-[#7D7468]">Connect your PostgreSQL database.</p>
+                          </div>
+                        </div>
+                        <button class="hero-connect-button is-highlighted" type="button">Connect</button>
+                      </div>
+
+                      <div class="flex items-center justify-between rounded-[16px] border border-[#E7E0D5] bg-[#FCFBF8] px-3.5 py-2.5">
+                        <div class="flex items-center gap-3">
+                          <div class="grid h-9 w-9 place-items-center rounded-[11px] bg-[#EEF4FF] text-[#406DD7]"><ChartNoAxesColumn size={20} strokeWidth={1.8} aria-hidden="true" /></div>
+                          <div>
+                            <p class="text-[13px] font-semibold text-[#161515]">BigQuery</p>
+                            <p class="text-[11px] text-[#7D7468]">Connect your BigQuery project.</p>
+                          </div>
+                        </div>
+                        <button class="hero-connect-button" type="button">Connect</button>
+                      </div>
+
+                      <div class="flex items-center justify-between rounded-[16px] border border-[#E7E0D5] bg-[#FCFBF8] px-3.5 py-2.5">
+                        <div class="flex items-center gap-3">
+                          <div class="grid h-9 w-9 place-items-center rounded-[11px] bg-[#ECF9FA] text-[#1593A0]"><Snowflake size={20} strokeWidth={1.8} aria-hidden="true" /></div>
+                          <div>
+                            <p class="text-[13px] font-semibold text-[#161515]">Snowflake</p>
+                            <p class="text-[11px] text-[#7D7468]">Connect your Snowflake account.</p>
+                          </div>
+                        </div>
+                        <button class="hero-connect-button" type="button">Connect</button>
+                      </div>
+                    </div>
+
+                    <div class="acme-footer mt-auto flex items-center justify-between pt-4 text-[11px] text-[#6E665B]">
+                      <span>Need help choosing?</span>
+                      <span class="inline-flex items-center gap-1 font-medium text-[#4F483F]">View our docs <ArrowRight size={12} strokeWidth={1.8} aria-hidden="true" /></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-caption">
+                <Redo2 size={52} strokeWidth={0.65} class="shrink-0 text-[#6D665B]" aria-hidden="true" />
+                <p class="text-[12px] leading-[1.4] text-[#3D3833]">
+                  Skilly speaks, understands the page,
+                  <br />
+                  and points to the next action.
+                </p>
+              </div>
+            </div>
+
+            <div class="hero-widget-card">
+              <div class="hero-widget-header flex items-center justify-between">
+                <span class="font-bold tracking-[-0.04em] text-[var(--marketing-text)]">skilly</span>
+                <div class="flex items-center gap-3 text-[var(--marketing-muted)]">
+                  <ArrowUpRight size={15} strokeWidth={1.8} aria-hidden="true" />
+                  <X size={15} strokeWidth={1.8} aria-hidden="true" />
+                </div>
+              </div>
+
+              <div class="hero-widget-progress mt-5 flex items-center justify-between text-[12px] text-[#332F2B]">
+                <span class="font-semibold">Step 1 of 3</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="h-2 w-2 rounded-full bg-[var(--marketing-accent)]"></span>
+                  <span class="h-1.5 w-7 rounded-full bg-[#E7DFD3]"></span>
+                  <span class="h-1.5 w-7 rounded-full bg-[#E7DFD3]"></span>
+                </div>
+              </div>
+
+              <div class="hero-widget-user-card mt-5 rounded-[16px] bg-[#F4F1EC] px-4 py-3 text-[#746B5F]">
+                <span>(You spoken)</span>
+                <p class="text-[#1A1714]">How do I connect my database?</p>
+                <time>0:04</time>
+              </div>
+
+              <div class="hero-widget-voice-meta mt-4 flex items-center justify-between text-[12px]">
+                <span class="font-semibold text-[var(--marketing-accent)]">Voice reply</span>
+                <span class="text-[#8A8175]">Speaking...</span>
+              </div>
+
+              <p class="hero-widget-answer mt-3 text-[14px] leading-[1.55] text-[#3E3934]">
+                Choose PostgreSQL here.<br />I'll guide you through<br />the next step.
+              </p>
+
+              <div class="hero-widget-waveform mt-5 flex h-[64px] items-center justify-center gap-[3px]">
+                {[18, 28, 42, 58, 46, 64, 38, 53, 34, 45, 30, 40, 26, 22, 27, 35, 29, 38, 46, 52, 60, 48, 40, 32, 24, 18].map((height, index) => (
+                  <span class={index > 12 ? 'voice-bar is-muted' : 'voice-bar'} style={`height:${height}px`}></span>
+                ))}
+              </div>
+
+              <div class="hero-widget-mic mx-auto mt-5 grid h-20 w-20 place-items-center rounded-full border border-[#F2CB7B] bg-[#FFF2D8] shadow-[0_0_0_10px_rgba(245,158,11,0.11)]">
+                <span class="grid h-14 w-14 place-items-center rounded-full border border-[#E6A421] bg-[#FFE6B2] text-[#1A1714]"><Mic size={20} strokeWidth={1.8} fill="#1A1714" aria-hidden="true" /></span>
+              </div>
+
+              <div class="hero-widget-controls mt-5 grid grid-cols-3 text-center text-[12px] text-[#3D3934]">
+                <div class="flex flex-col items-center justify-center gap-2"><VolumeX size={16} strokeWidth={1.8} aria-hidden="true" /><span>Mute</span></div>
+                <div class="flex flex-col items-center justify-center gap-2"><RefreshCw size={16} strokeWidth={1.8} aria-hidden="true" /><span>Replay</span></div>
+                <div class="flex flex-col items-center justify-center gap-2"><Mic size={16} strokeWidth={1.8} aria-hidden="true" /><span>Mic on</span></div>
+              </div>
+            </div>
+
+            <span class="hero-guidance-path" aria-hidden="true"></span>
+            <img class="hero-scene-pointer" src="/skilly-mark.png" width="72" height="72" alt="" loading="eager" decoding="async" />
           </div>
         </div>
       </div>
     </section>
 
-    <section data-skilly="the-problem" class="border-y border-[#E8E2D9] bg-white">
-      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-        <div class="mb-3 font-mono text-[11px] font-semibold tracking-[0.08em] text-[#9A5B08]">FROM FRICTION TO PROGRESS</div>
-        <h2 class="max-w-2xl text-[28px] font-bold leading-tight tracking-tight sm:text-[36px]">Every unanswered “where do I…?” is an activation risk.</h2>
-        <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#6B635A]">Give users the next useful step while they are still inside your product and ready to act.</p>
-        <div class="grid gap-8 md:grid-cols-3">
-          <div class="reveal mt-8 rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="mb-3 font-mono text-[10px] font-semibold tracking-[0.08em] text-[#9A5B08]">ACTIVATION</div><div class="mb-1.5 text-[16px] font-bold">Move users to the next setup step</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Guide the moment they get stuck instead of discovering the drop-off after they leave.</p></div>
-          <div class="reveal mt-8 rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="mb-3 font-mono text-[10px] font-semibold tracking-[0.08em] text-[#9A5B08]">ADOPTION</div><div class="mb-1.5 text-[16px] font-bold">Turn documentation into an answer</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Answer from approved content without sending users away from the work they are doing.</p></div>
-          <div class="reveal mt-8 rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="mb-3 font-mono text-[10px] font-semibold tracking-[0.08em] text-[#9A5B08]">SUPPORT</div><div class="mb-1.5 text-[16px] font-bold">Handle repetitive navigation questions</div><p class="text-[14px] leading-relaxed text-[#6B635A]">Keep common “where is it?” questions inside the product so support can focus on harder problems.</p></div>
-        </div>
-      </div>
-    </section>
+    <section data-skilly="the-problem" class="border-b border-[var(--marketing-border)] bg-[var(--marketing-section)]">
+      <div class="builders-section-inner builders-problem-inner mx-auto max-w-[1360px] px-5 py-7 md:px-6 md:py-12">
+        <h2 class="builders-problem-title mx-auto max-w-[18ch] text-center text-[24px] font-bold leading-[1.16] tracking-[-0.04em] text-[var(--marketing-text)] md:text-[28px]">
+          Your users don’t complain when onboarding fails. They <span class="text-[var(--marketing-accent)]">disappear.</span>
+        </h2>
 
-    <section id="how" data-skilly="how-it-works" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-16 sm:px-8 sm:py-20">
-      <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#9A5B08]"><span class="text-[#1A1714]">[</span>POINT: how-it-works<span class="text-[#1A1714]">]</span></div>
-      <h2 class="mb-3 text-[32px] font-bold leading-[1.03] tracking-tight sm:text-[40px]">Teach once. Install on your product. Manage from Studio.</h2>
-      <p class="mb-10 max-w-xl text-[16px] text-[#6B635A]">Your guide is a Studio project: one skill, approved surfaces, widget config, usage, and preview workflow.</p>
-      <div class="grid gap-6 md:grid-cols-3">
-        <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-white p-6">
-          <span class="mb-4 grid h-9 w-9 place-items-center rounded-xl bg-[#F59E0B]/15 font-bold text-[#9A5B08]">1</span>
-          <h3 class="text-[17px] font-bold">Teach the project</h3>
-          <p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Give Studio a URL, docs, or notes. It drafts the first project skill, and you edit the markdown before publishing.</p>
-        </div>
-        <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-white p-6">
-          <span class="mb-4 grid h-9 w-9 place-items-center rounded-xl bg-[#F59E0B]/15 font-bold text-[#9A5B08]">2</span>
-          <h3 class="text-[17px] font-bold">Preview the experience</h3>
-          <p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Check how Skilly answers, speaks, and points using your website content before you put it in front of customers.</p>
-        </div>
-        <div class="card-lift rounded-2xl border border-[#E8E2D9] bg-white p-6">
-          <span class="mb-4 grid h-9 w-9 place-items-center rounded-xl bg-[#F59E0B]/15 font-bold text-[#9A5B08]">3</span>
-          <h3 class="text-[17px] font-bold">Install in one line</h3>
-          <p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Drop in the snippet, lock it to your domains, and keep every future change managed from Studio.</p>
-        </div>
-      </div>
-      <div class="mt-8 max-w-2xl overflow-hidden rounded-2xl border border-[#E8E2D9] bg-[#1A1714]">
-        <div class="flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-[12px] tracking-[0.04em] text-[#FAF8F4]/50">
-          <span>install · one line</span><span>HTML</span>
-        </div>
-        <pre class="overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed text-[#FAF8F4]/90">&lt;script src=<span class="text-[#F59E0B]">"https://cdn.tryskilly.app/web/v1.js"</span>
-  data-skilly-key=<span class="text-[#F59E0B]">"pk_live_..."</span>
-  data-skilly-site=<span class="text-[#F59E0B]">"app"</span> defer&gt;&lt;/script&gt;</pre>
-      </div>
-    </section>
-
-    <section data-skilly="managed" class="border-y border-[#E8E2D9] bg-white">
-      <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-        <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: managed<span class="text-[#9A5B08]">]</span></div>
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <div><h3 class="mb-1.5 text-[15px] font-bold">Domain-locked</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">The widget only runs on origins and app IDs you approve.</p></div>
-          <div><h3 class="mb-1.5 text-[15px] font-bold">Keys stay safe</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">Provider keys live on Skilly backend infrastructure, not inside browser code.</p></div>
-          <div><h3 class="mb-1.5 text-[15px] font-bold">Usage you can see</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">Minutes, sessions, top pages, domains, and health per project.</p></div>
-          <div><h3 class="mb-1.5 text-[15px] font-bold">Preview before live</h3><p class="text-[13.5px] leading-relaxed text-[#6B635A]">Test how Skilly speaks, answers, and points before visitors see it.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section data-skilly="use-cases" class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-      <div class="mb-6 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: use-cases<span class="text-[#9A5B08]">]</span></div>
-      <div class="grid gap-6 md:grid-cols-3">
-        <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="text-[16px] font-bold">Onboarding</div><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Walk new users to their first win: connect data, create a project, invite a teammate, or finish setup.</p></div>
-        <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="text-[16px] font-bold">Support deflection</div><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Answer repetitive “where do I...” questions inside the product before they become tickets.</p></div>
-        <div class="rounded-2xl border border-[#E8E2D9] bg-[#FAF8F4] p-6"><div class="text-[16px] font-bold">Feature discovery</div><p class="mt-1.5 text-[14px] leading-relaxed text-[#6B635A]">Point existing users at settings and features they have not found yet.</p></div>
-      </div>
-    </section>
-
-    <section id="pricing" data-skilly="pricing" class="scroll-mt-20 border-y border-[#E8E2D9] bg-white">
-      <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: pricing<span class="text-[#9A5B08]">]</span></div>
-        <h2 class="mb-2 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">One pool of minutes, every project.</h2>
-        <p class="mb-9 max-w-xl text-[15px] text-[#6B635A]">Builder pricing is separate from the individual desktop plan. Each plan has a hard monthly minute cap during beta; when the cap is reached, new widget sessions pause until you upgrade or the next period starts.</p>
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {builderPlans.map((plan) => (
-            <div class={`relative rounded-2xl ${plan.popular ? 'border-2 border-[#F59E0B]' : 'border border-[#E8E2D9]'} bg-[#FAF8F4] p-6`}>
-              {plan.popular && <span class="absolute -top-2.5 left-6 rounded bg-[#F59E0B] px-2 py-0.5 font-mono text-[10px] tracking-[0.04em] text-[#1A1714]">POPULAR</span>}
-              <div class="font-mono text-[11px] tracking-[0.04em] text-[#6B635A]">{plan.name}</div>
-              <div class="mt-2 flex items-baseline gap-1.5"><span class="text-[32px] font-bold leading-none tracking-tight">{plan.price}</span>{plan.price !== 'Free' && <span class="text-[13px] text-[#6B635A]">/mo</span>}</div>
-              <div class="mt-2 text-[14px] font-medium">{plan.minutes}</div>
-              <div class="mt-1 text-[12px] font-medium text-[#9A5B08]">{plan.cap}</div>
-              <div class="mt-2 text-[13px] text-[#6B635A]">{plan.body}</div>
-              <a href={plan.href ?? STUDIO_URL} data-ph-event={plan.href ? 'web_builders_book_clicked' : 'web_builders_studio_clicked'} data-ph-prop-location={`builders_pricing_${plan.id}`} data-ph-prop-target-funnel="builders" class={`mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-[14px] font-semibold ${plan.popular ? 'bg-[#F59E0B] text-[#1A1714]' : 'border border-[#E8E2D9] bg-white hover:border-[#F59E0B]/40'}`}>{plan.cta}</a>
+        <div class="builders-problem-grid mt-5 grid gap-3 md:grid-cols-4">
+          <article class="rounded-[18px] border border-[var(--marketing-surface-border)] bg-white px-4 py-6 text-center shadow-[var(--marketing-shadow-card)]">
+            <div class="mx-auto grid h-14 w-14 place-items-center rounded-full border border-[var(--marketing-border)] bg-[var(--marketing-section)] text-[#201D1A]">
+              <Frown size={28} strokeWidth={1.8} aria-hidden="true" />
             </div>
-          ))}
+            <h3 class="mt-3 text-[16px] font-semibold tracking-[-0.02em] text-[var(--marketing-text)]">Users get stuck</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">Complex products overwhelm new users early.</p>
+          </article>
+
+          <article class="rounded-[18px] border border-[var(--marketing-surface-border)] bg-white px-4 py-6 text-center shadow-[var(--marketing-shadow-card)]">
+            <div class="mx-auto grid h-14 w-14 place-items-center rounded-full border border-[var(--marketing-border)] bg-[var(--marketing-section)] text-[#201D1A]">
+              <Map size={28} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-3 text-[16px] font-semibold tracking-[-0.02em] text-[var(--marketing-text)]">Static tours fall short</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">Linear flows can’t adapt to real questions.</p>
+          </article>
+
+          <article class="rounded-[18px] border border-[var(--marketing-surface-border)] bg-white px-4 py-6 text-center shadow-[var(--marketing-shadow-card)]">
+            <div class="mx-auto grid h-14 w-14 place-items-center rounded-full border border-[var(--marketing-border)] bg-[var(--marketing-section)] text-[#201D1A]">
+              <MessageSquareDot size={28} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-3 text-[16px] font-semibold tracking-[-0.02em] text-[var(--marketing-text)]">Chatbots can’t point</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">They answer, but can’t show exactly what to click.</p>
+          </article>
+
+          <article class="rounded-[18px] border border-[var(--marketing-surface-border)] bg-white px-4 py-6 text-center shadow-[var(--marketing-shadow-card)]">
+            <div class="mx-auto grid h-14 w-14 place-items-center rounded-full border border-[var(--marketing-border)] bg-[var(--marketing-section)] text-[#201D1A]">
+              <Headset size={28} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-3 text-[16px] font-semibold tracking-[-0.02em] text-[var(--marketing-text)]">Support sees the aftermath</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">Your team becomes the fallback plan.</p>
+          </article>
         </div>
-        <p class="mt-5 text-[13px] leading-relaxed text-[#6B635A]">
-          Included minutes are metered as active Skilly widget session time across all projects in the workspace. Automatic overages are disabled for beta.
-        </p>
       </div>
     </section>
 
-    <section id="faq" data-skilly="faq" class="mx-auto max-w-3xl scroll-mt-20 px-5 py-14 sm:px-8">
-      <div class="mb-4 font-mono text-[12px] tracking-[0.04em] text-[#6B635A]"><span class="text-[#9A5B08]">[</span>POINT: faq<span class="text-[#9A5B08]">]</span></div>
-      <h2 class="mb-7 text-[30px] font-bold leading-tight tracking-tight sm:text-[38px]">For builders, answered.</h2>
-      <div class="divide-y divide-[#E8E2D9] border-y border-[#E8E2D9]">
-        {faqs.map((faq) => (
-          <details class="group py-5">
-            <summary class="flex cursor-pointer list-none items-center justify-between text-[16px] font-semibold">
-              {faq.question}
-              <span class="text-[22px] leading-none text-[#6B635A] transition-transform group-open:rotate-45">+</span>
-            </summary>
-            <p class="mt-3 text-[14.5px] leading-relaxed text-[#6B635A]">{faq.answer}</p>
-          </details>
-        ))}
+    <section id="how" data-skilly="how-it-works" class="border-b border-[var(--marketing-border)] bg-[var(--marketing-section)]">
+      <div class="builders-section-inner builders-how-inner mx-auto max-w-[1360px] px-5 py-6 md:px-6 md:py-11">
+        <h2 class="text-center text-[25px] font-bold tracking-[-0.04em] text-[var(--marketing-text)] md:text-[27px]">How Skilly works</h2>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-4 md:gap-2.5">
+          <article class="relative text-center">
+            <div class="how-step-dot">1</div>
+            <div class="how-step-line hidden md:block"></div>
+            <div class="how-step-icon mx-auto mt-5 grid h-14 w-14 place-items-center rounded-full text-[#221E19]">
+              <GraduationCap size={29} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-2.5 text-[16px] font-semibold tracking-[-0.03em] text-[var(--marketing-text)]">Teach Skilly</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">Show Skilly your product and key activation tasks.</p>
+          </article>
+
+          <article class="relative text-center">
+            <div class="how-step-dot">2</div>
+            <div class="how-step-line hidden md:block"></div>
+            <div class="how-step-icon mx-auto mt-5 grid h-14 w-14 place-items-center rounded-full text-[#221E19]">
+              <Target size={29} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-2.5 text-[16px] font-semibold tracking-[-0.03em] text-[var(--marketing-text)]">Choose an activation goal</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">Pick the outcome you want users to achieve.</p>
+          </article>
+
+          <article class="relative text-center">
+            <div class="how-step-dot">3</div>
+            <div class="how-step-line hidden md:block"></div>
+            <div class="how-step-icon mx-auto mt-5 grid h-14 w-14 place-items-center rounded-full text-[#221E19]">
+              <MousePointerClick size={29} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-2.5 text-[16px] font-semibold tracking-[-0.03em] text-[var(--marketing-text)]">Preview it on your product</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">See Skilly guide users and point to UI actions.</p>
+          </article>
+
+          <article class="relative text-center">
+            <div class="how-step-dot">4</div>
+            <div class="how-step-icon mx-auto mt-5 grid h-14 w-14 place-items-center rounded-full text-[#221E19]">
+              <SquareCode size={29} strokeWidth={1.8} aria-hidden="true" />
+            </div>
+            <h3 class="mt-2.5 text-[16px] font-semibold tracking-[-0.03em] text-[var(--marketing-text)]">Install in one script</h3>
+            <p class="mt-1.5 text-[13px] leading-[1.45] text-[var(--marketing-muted)]">Add a snippet and go live in minutes.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="border-t border-[#E8E2D9] bg-[#1A1714] text-[#FAF8F4]">
-      <div class="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8">
-        <h2 class="mx-auto max-w-xl text-[30px] font-bold leading-tight tracking-tight sm:text-[40px]">Give your product a voice that points.</h2>
-        <p class="mt-4 text-[15px] text-[#FAF8F4]/60">Draft your first skill in Studio. Preview before anyone sees it.</p>
-        <div class="mt-7 flex flex-wrap justify-center gap-3">
-          <a href={STUDIO_URL} data-ph-event="web_builders_studio_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="inline-flex rounded-xl bg-[#F59E0B] px-7 py-3.5 font-semibold text-[#1A1714]">Open Studio</a>
-          <a href={BOOKING_URL} data-ph-event="web_builders_book_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="builders" class="inline-flex rounded-xl border border-[#FAF8F4]/25 px-7 py-3.5 font-semibold text-[#FAF8F4] transition hover:border-[#FAF8F4]/55">Book 15 min with the founder</a>
+    <section id="use-cases" data-skilly="use-cases" class="border-b border-[var(--marketing-border)] bg-[var(--marketing-section)]">
+      <div class="builders-section-inner builders-impact-inner mx-auto max-w-[1360px] px-5 py-7 md:px-6 md:py-8">
+        <div class="builders-impact-grid grid items-start gap-5 md:grid-cols-[300px_minmax(0,1fr)]">
+          <h2 class="builders-impact-heading text-[26px] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--marketing-text)] md:col-span-2 md:text-[28px]">Where Skilly drives impact</h2>
+
+          <div class="space-y-2.5">
+              <article class="relative rounded-[18px] border border-[var(--marketing-accent-border)] bg-white px-4 py-3.5 shadow-[var(--marketing-shadow-card)]">
+                <div class="flex items-start gap-3.5">
+                  <div class="grid h-10 w-10 place-items-center rounded-full border border-[#E7DDCF] bg-[#FFFBF3] text-[#221E19]">
+                    <Rocket size={19} strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-start justify-between gap-3">
+                      <h3 class="text-[16px] font-semibold text-[var(--marketing-text)]">New user activation</h3>
+                      <Badge
+                        variant="featured"
+                        size="xs"
+                        uppercase={false}
+                        class="shrink-0 uppercase tracking-[0.04em]"
+                      >
+                        Most common
+                      </Badge>
+                    </div>
+                    <div class="mt-1 flex items-start justify-between gap-3">
+                      <p class="min-w-0 text-[13px] leading-[1.4] text-[var(--marketing-muted)]">Guide new users to their first “aha” moment.</p>
+                      <ChevronRight size={18} strokeWidth={1.8} class="impact-featured-chevron mt-0.5 shrink-0 text-[#312C27]" aria-hidden="true" />
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="rounded-[18px] border border-[var(--marketing-surface-border)] bg-white px-4 py-3.5 shadow-[var(--marketing-shadow-card)]">
+                <div class="flex items-start gap-3.5">
+                  <div class="grid h-10 w-10 place-items-center rounded-full border border-[var(--marketing-border)] bg-[var(--marketing-section)] text-[#221E19]">
+                    <ChartNoAxesColumn size={19} strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-[16px] font-semibold text-[var(--marketing-text)]">Feature adoption</h3>
+                    <p class="mt-1 text-[13px] leading-[1.4] text-[var(--marketing-muted)]">Increase usage of underused features you’ve already built.</p>
+                  </div>
+                  <ChevronRight size={18} strokeWidth={1.8} class="mt-1 text-[#312C27]" aria-hidden="true" />
+                </div>
+              </article>
+
+              <article class="rounded-[18px] border border-[var(--marketing-surface-border)] bg-white px-4 py-3.5 shadow-[var(--marketing-shadow-card)]">
+                <div class="flex items-start gap-3.5">
+                  <div class="grid h-10 w-10 place-items-center rounded-full border border-[var(--marketing-border)] bg-[var(--marketing-section)] text-[#221E19]">
+                    <Headset size={19} strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-[16px] font-semibold text-[var(--marketing-text)]">Support deflection</h3>
+                    <p class="mt-1 text-[13px] leading-[1.4] text-[var(--marketing-muted)]">Answer questions in context and reduce repetitive tickets.</p>
+                  </div>
+                  <ChevronRight size={18} strokeWidth={1.8} class="mt-1 text-[#312C27]" aria-hidden="true" />
+                </div>
+              </article>
+          </div>
+
+          <div class="overflow-hidden rounded-[18px] border border-[var(--marketing-surface-border)] bg-white shadow-[var(--marketing-shadow-card)]">
+            <div class="grid grid-cols-[minmax(0,1.35fr)_92px_92px_104px] border-b border-[#EAE2D6] bg-[#FFFEFC] text-[13px] font-semibold text-[#1B1816]">
+              <div class="px-4 py-3"></div>
+              <div class="px-2 py-3 text-center">Static tour</div>
+              <div class="px-2 py-3 text-center">Chatbot</div>
+              <div class="border-l border-[var(--marketing-accent-border)] bg-[var(--marketing-accent-soft)] px-2 py-3 text-center">Skilly</div>
+            </div>
+
+            <div class="divide-y divide-[#EAE2D6]">
+              {comparisonRows.map((row) => (
+                <div class="grid grid-cols-[minmax(0,1.35fr)_92px_92px_104px] text-[14px]">
+                  <div class="px-4 py-3 font-medium text-[#26211E]">{row.label}</div>
+                  <div class="grid place-items-center px-2 py-3 text-[#1F1B17]">
+                    {row.tour === 'x' ? <CircleX size={18} strokeWidth={1.8} aria-hidden="true" /> : row.tour === 'warn' ? <CircleHelp size={18} strokeWidth={1.8} aria-hidden="true" /> : <BadgeCheck size={18} strokeWidth={1.8} aria-hidden="true" />}
+                  </div>
+                  <div class="grid place-items-center px-2 py-3 text-[#1F1B17]">
+                    {row.chatbot === 'x' ? <CircleX size={18} strokeWidth={1.8} aria-hidden="true" /> : row.chatbot === 'warn' ? <CircleHelp size={18} strokeWidth={1.8} aria-hidden="true" /> : <BadgeCheck size={18} strokeWidth={1.8} aria-hidden="true" />}
+                  </div>
+                  <div class="grid place-items-center border-l border-[var(--marketing-accent-border)] bg-[var(--marketing-accent-soft)] px-2 py-3 text-[var(--marketing-accent)]">
+                    <BadgeCheck size={19} strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <p class="mx-auto mt-8 max-w-xl text-[13.5px] leading-relaxed text-[#FAF8F4]/55">Built solo by Mohamed and fully open source — <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-[#FAF8F4]/85">inspect the engine</a> before you put it in front of your users. Questions about your use case? <a href="mailto:mohamed@tryskilly.app" class="underline underline-offset-2 hover:text-[#FAF8F4]/85">mohamed@tryskilly.app</a></p>
-        <p class="mt-5 text-[13px] text-[#FAF8F4]/35">Using Skilly personally on your Mac? <a href="/people" data-ph-event="web_people_crosslink_clicked" data-ph-prop-location="builders_bottom" data-ph-prop-target-funnel="people" class="text-[#FAF8F4]/55 underline underline-offset-2 hover:text-[#FAF8F4]/80 transition-colors">Skilly for People</a> is the desktop tutor.</p>
+      </div>
+    </section>
+
+    <section id="pricing" data-skilly="pricing" class="bg-[var(--marketing-section)]">
+      <div class="builders-section-inner builders-pilot-inner mx-auto max-w-[1360px] px-5 py-6 md:px-6 md:py-7">
+        <div class="rounded-[24px] border border-[var(--marketing-accent-border-soft)] bg-[var(--marketing-accent-soft)] px-4 py-4 shadow-[var(--marketing-shadow-card)] md:px-5">
+          <div class="builders-pilot-grid grid gap-4 md:grid-cols-[1.02fr_0.82fr_0.82fr]">
+            <div class="builders-pilot-copy pr-0 md:pr-2">
+              <p class="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--marketing-accent-strong)]">Founder-led pilot</p>
+              <h2 class="builders-pilot-title mt-2.5 max-w-[11ch] text-[26px] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--marketing-text)] md:text-[28px]">
+                Your first <span class="text-[var(--marketing-accent)]">activation</span> guide, live in your product.
+              </h2>
+
+              <ul class="mt-3.5 space-y-2 text-[13px] text-[#4D453C]">
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Map one critical onboarding task</span></li>
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Build the first guide with you</span></li>
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Help install it</span></li>
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Review real usage before scale</span></li>
+              </ul>
+            </div>
+
+            <article class="builders-pilot-quote rounded-[18px] border border-[#ECE2CF] bg-white px-4 py-4 shadow-[0_12px_24px_rgba(36,28,18,0.05)]">
+              <p class="text-[28px] leading-none text-[var(--marketing-text)]">“</p>
+              <p class="mt-1.5 text-[14px] leading-[1.48] text-[#26211E]">
+                Start with the audit, preview the guide on your own flow, then launch with one path that protects activation.
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <div class="grid h-10 w-10 place-items-center rounded-full bg-[#F4E0B1] text-[14px] font-semibold text-[#6E4505]">MS</div>
+                <div>
+                  <p class="text-[13px] font-semibold text-[var(--marketing-text)]">Mohamed Saleh</p>
+                  <p class="text-[12px] text-[#6B6258]">Founder, Skilly</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="builders-pilot-apply rounded-[18px] border border-[#ECE2CF] bg-white px-4 py-4 shadow-[0_12px_24px_rgba(36,28,18,0.05)]">
+              <h3 class="text-[17px] font-semibold tracking-[-0.03em] text-[var(--marketing-text)]">Apply for a founding pilot</h3>
+              <ul class="mt-3 space-y-2 text-[13px] text-[#4D453C]">
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Founder-led setup</span></li>
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Preview before publish</span></li>
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Beta plans stay hard-capped</span></li>
+                <li class="flex items-start gap-2"><BadgeCheck size={16} strokeWidth={1.8} class="mt-0.5 shrink-0 text-[var(--marketing-accent)]" aria-hidden="true" /><span>Pricing after pilot starts at {pricingFacts[0].value} and scales to {pricingFacts[3].value}</span></li>
+              </ul>
+
+              <a
+                href={BOOKING_URL}
+                data-ph-event="web_builders_book_clicked"
+                data-ph-prop-location="builders_pilot_card"
+                data-ph-prop-target-funnel="builders"
+                class="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-[12px] bg-[#161515] px-5 py-2.5 text-[14px] font-semibold text-white transition hover:bg-[#252321] active:translate-y-px"
+              >
+                Apply for pilot
+                <ArrowRight size={15} strokeWidth={1.8} class="ml-2" aria-hidden="true" />
+              </a>
+
+              <p class="builders-pilot-pricing-note mt-2.5 text-[11px] leading-[1.45] text-[#6B6258]">
+                Builder pricing today: {pricingFacts.map((plan) => `${plan.name} ${plan.value}`).join(' · ')}.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="mt-4 grid gap-3 border-t border-[var(--marketing-border)] pt-4 md:grid-cols-4">
+          <article class="flex items-start gap-3">
+            <div class="trust-icon"><Code2 size={16} strokeWidth={1.8} aria-hidden="true" /></div>
+            <div>
+              <h3 class="text-[14px] font-semibold text-[var(--marketing-text)]">Open source</h3>
+              <p class="mt-1 text-[12px] leading-[1.4] text-[var(--marketing-muted)]">Transparent by default. Built in the open.</p>
+            </div>
+          </article>
+
+          <article class="flex items-start gap-3">
+            <div class="trust-icon"><Lock size={16} strokeWidth={1.8} aria-hidden="true" /></div>
+            <div>
+              <h3 class="text-[14px] font-semibold text-[var(--marketing-text)]">Built for privacy</h3>
+              <p class="mt-1 text-[12px] leading-[1.4] text-[var(--marketing-muted)]">No customer data used to train models.</p>
+            </div>
+          </article>
+
+          <article class="flex items-start gap-3">
+            <div class="trust-icon"><ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" /></div>
+            <div>
+              <h3 class="text-[14px] font-semibold text-[var(--marketing-text)]">Real results</h3>
+              <p class="mt-1 text-[12px] leading-[1.4] text-[var(--marketing-muted)]">Measurable activation work from day one.</p>
+            </div>
+          </article>
+
+          <article class="flex items-start gap-3">
+            <div class="trust-icon"><ShieldCheck size={16} strokeWidth={1.8} aria-hidden="true" /></div>
+            <div>
+              <h3 class="text-[14px] font-semibold text-[var(--marketing-text)]">Founder-led rollout</h3>
+              <p class="mt-1 text-[12px] leading-[1.4] text-[var(--marketing-muted)]">Direct support while the first guide goes live.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
+
   <Footer />
   <SkillyWebWidget />
 
-  <script>
-    document.querySelector('[data-builders-widget-demo]')?.addEventListener('click', () => {
-      const goal = 'Explain how Skilly for Builders helps a website or app guide users, and point at the most relevant section on this page.';
-      const skilly = (window as unknown as { Skilly?: { start?: (goal?: string) => void } }).Skilly;
+  <script is:inline define:vars={{ DEFAULT_DEMO_GOAL }}>
+    const launchDemo = (goal) => {
+      const skilly = window.Skilly;
       if (skilly?.start) {
         skilly.start(goal);
       } else {
         window.dispatchEvent(new CustomEvent('skilly:demo-requested', { detail: { goal } }));
       }
+    };
+
+    document.querySelectorAll('[data-builders-widget-demo]').forEach((button) => {
+      button.addEventListener('click', () => launchDemo(DEFAULT_DEMO_GOAL));
     });
   </script>
 
-  <script>
-    const buildersObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          buildersObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach((el, index) => {
-      if (el instanceof HTMLElement) {
-        el.style.transitionDelay = `${(index % 3) * 90}ms`;
-        buildersObserver.observe(el);
+  <style is:global>
+    .hero-connect-button {
+      border-radius: 12px;
+      border: 1px solid #ddd3c6;
+      background: white;
+      padding: 0.55rem 0.85rem;
+      font-size: 12px;
+      font-weight: 600;
+      color: #27221d;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .hero-connect-button.is-highlighted {
+      border-color: #f1cf8c;
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.16);
+    }
+
+    .hero-widget-card {
+      position: absolute;
+      right: -10px;
+      top: 18px;
+      width: min(300px, 52%);
+      border-radius: 20px;
+      border: 1px solid #e0d6ca;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 0.95rem 0.9rem 0.9rem;
+      box-shadow: 0 20px 48px rgba(42, 32, 20, 0.11);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-caption {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding-left: 1.5rem;
+      padding-top: 0.8rem;
+    }
+
+    .hero-scene-pointer {
+      position: absolute;
+      z-index: 30;
+      top: 146px;
+      left: 239px;
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 1px rgba(109, 77, 18, 0.22));
+    }
+
+    .hero-guidance-path {
+      display: none;
+    }
+
+    .voice-bar {
+      width: 6px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #f59e0b 0%, #f0bd50 100%);
+      display: block;
+    }
+
+    .voice-bar.is-muted {
+      background: #d9d1c6;
+    }
+
+    .how-step-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: var(--marketing-accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      margin: 0 auto;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 0 7px var(--marketing-section);
+    }
+
+    .how-step-line {
+      position: absolute;
+      top: 15px;
+      left: calc(50% + 16px);
+      width: calc(100% - 24px);
+      border-top: 2px dotted #b8aa94;
+    }
+
+    .trust-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid #e1d9cd;
+      background: white;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      color: #1d1a17;
+    }
+
+    /* The supplied Builders artboard is 948px wide. Keep that canvas as the
+       desktop baseline, then let the existing large-desktop values take over. */
+    @media (min-width: 900px) and (max-width: 1100px) {
+      header[data-nav-variant='builders'] > div {
+        position: relative;
+        height: 60px;
+        padding-inline: 26px;
       }
-    });
-  </script>
 
-  <style>
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: all 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-    .reveal.in {
-      opacity: 1;
-      transform: none;
-    }
-    .card-lift {
-      transition: transform 0.25s ease;
-    }
-    .card-lift:hover {
-      transform: translateY(-3px);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .reveal {
-        opacity: 1;
+      header[data-nav-variant='builders'] nav {
+        position: absolute;
+        left: calc(50% - 11px);
+        gap: 16px;
+        transform: translateX(-50%);
+      }
+
+      header[data-nav-variant='builders'] > div > div:last-child > a:last-child {
+        padding-inline: 14px;
+        font-size: 11px;
+      }
+
+      .builders-hero-inner {
+        padding: 28px 26px 40px;
+      }
+
+      .builders-hero-grid {
+        grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+        gap: 20px;
+      }
+
+      .builders-hero-title {
+        max-width: 360px;
+        font-size: 39px;
+      }
+
+      .builders-hero-copy > p {
+        max-width: 380px;
+        font-size: 15.5px;
+      }
+
+      .builders-hero-copy {
+        transform: translateY(-3px);
+      }
+
+      .builders-hero-copy > div:first-child {
+        padding: 5px 12px;
+        font-size: 10.5px;
+      }
+
+      .builders-hero-title + p {
+        margin-top: 28px;
+      }
+
+      .builders-hero-actions {
+        margin-top: 29px;
+        flex-wrap: nowrap;
+        gap: 11px;
+      }
+
+      .builders-hero-actions > a,
+      .builders-hero-actions > button {
+        height: 36px;
+        min-height: 36px;
+        padding: 0 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .builders-hero-actions > a {
+        width: 212px;
+      }
+
+      .builders-hero-actions > button {
+        width: 136px;
+      }
+
+      .builders-hero-assurances {
+        margin-top: 27px;
+        flex-wrap: nowrap;
+        gap: 12px;
+        font-size: 10.5px;
+      }
+
+      .builders-hero-scene {
+        height: 430px;
+        padding-left: 0;
         transform: none;
+      }
+
+      .hero-product-card {
+        width: 530px;
+        max-width: none;
+        min-height: 580px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        transform: translate(-13px, -2px) scale(0.66);
+        transform-origin: top left;
+      }
+
+      .hero-product-card > div:first-child {
+        box-shadow: 0 24px 64px rgba(41, 33, 20, 0.1);
+      }
+
+      .acme-titlebar {
+        padding-block: 13px;
+      }
+
+      .acme-titlebar > span:not(:last-child) {
+        width: 12px;
+        height: 12px;
+      }
+
+      .acme-titlebar > span:last-child {
+        font-size: 16px;
+      }
+
+      .acme-body {
+        min-height: 528px;
+        grid-template-columns: 114px minmax(0, 1fr);
+      }
+
+      .acme-body > aside {
+        padding-top: 23px;
+      }
+
+      .acme-nav {
+        font-size: 15px;
+      }
+
+      .acme-nav svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .acme-nav > :not([hidden]) ~ :not([hidden]) {
+        margin-top: 31px;
+      }
+
+      .acme-nav > div:nth-child(4) {
+        margin-top: 8px;
+        margin-inline: -14px -11px;
+        padding-left: 24px;
+        padding-block: 14px;
+      }
+
+      .acme-nav > div:nth-child(5) {
+        margin-top: 10px;
+      }
+
+      .acme-main {
+        padding: 38px 28px 18px;
+      }
+
+      .acme-main > h3 {
+        font-size: 22px;
+      }
+
+      .acme-main > h3 + p {
+        font-size: 14px;
+      }
+
+      .acme-source-list {
+        margin-top: 24px;
+        margin-right: 49px;
+      }
+
+      .acme-source-list > :not([hidden]) ~ :not([hidden]) {
+        margin-top: 23px;
+      }
+
+      .acme-source-list > div {
+        padding-block: 20px;
+      }
+
+      .acme-source-list p:first-child {
+        font-size: 16px;
+      }
+
+      .acme-source-list p:last-child {
+        font-size: 9.5px;
+        white-space: nowrap;
+      }
+
+      .acme-source-list + div {
+        margin-top: 30px;
+        padding-top: 0;
+      }
+
+      .hero-connect-button {
+        border-radius: 8px;
+        padding: 0.75rem 0.6rem;
+        font-size: 13px;
+      }
+
+      .hero-widget-card {
+        top: 18px;
+        right: -2px;
+        width: 300px;
+        min-height: 640px;
+        padding: 0;
+        transform: scale(0.68);
+        transform-origin: top right;
+      }
+
+      .hero-widget-header,
+      .hero-widget-progress,
+      .hero-widget-user-card,
+      .hero-widget-voice-meta,
+      .hero-widget-answer,
+      .hero-widget-waveform,
+      .hero-widget-mic,
+      .hero-widget-controls {
+        position: absolute;
+        margin: 0;
+      }
+
+      .hero-widget-header {
+        top: 24px;
+        right: 24px;
+        left: 24px;
+      }
+
+      .hero-widget-header > span {
+        font-size: 32px;
+      }
+
+      .hero-widget-header svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .hero-widget-progress {
+        top: 88px;
+        right: 24px;
+        left: 24px;
+        font-size: 15px;
+      }
+
+      .hero-widget-user-card {
+        top: 132px;
+        right: 24px;
+        left: 24px;
+        height: 112px;
+        padding: 20px;
+        font-size: 14px;
+      }
+
+      .hero-widget-user-card > p {
+        margin-top: 13px;
+        font-size: 17px;
+      }
+
+      .hero-widget-user-card > time {
+        position: absolute;
+        right: 16px;
+        bottom: 12px;
+        font-size: 13px;
+      }
+
+      .hero-widget-voice-meta {
+        top: 276px;
+        right: 24px;
+        left: 24px;
+        font-size: 14px;
+      }
+
+      .hero-widget-answer {
+        top: 306px;
+        right: 24px;
+        left: 24px;
+        font-size: 20px;
+        line-height: 1.55;
+      }
+
+      .hero-widget-waveform {
+        top: 411px;
+        right: 24px;
+        left: 24px;
+        height: 68px;
+        gap: 6.4px;
+      }
+
+      .hero-widget-waveform .voice-bar {
+        width: 3px;
+      }
+
+      .hero-widget-mic {
+        top: 463px;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        transform: translateX(-50%);
+      }
+
+      .hero-widget-mic > span {
+        width: 70px;
+        height: 70px;
+      }
+
+      .hero-widget-controls {
+        right: 24px;
+        bottom: 10px;
+        left: 24px;
+        height: 72px;
+        font-size: 14px;
+      }
+
+      .hero-widget-controls svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .hero-scene-pointer {
+        top: 146px;
+        left: 239px;
+        width: 72px;
+        height: 72px;
+      }
+
+      .hero-guidance-path {
+        position: absolute;
+        z-index: 20;
+        top: 164px;
+        left: 293px;
+        display: block;
+        width: 20px;
+        height: 152px;
+        border-bottom: 2px solid #f59e0b;
+        border-left: 2px solid #f59e0b;
+        border-bottom-left-radius: 16px;
+        pointer-events: none;
+      }
+
+      .hero-guidance-path::before {
+        position: absolute;
+        top: 0;
+        left: -18px;
+        width: 18px;
+        height: 16px;
+        border-top: 2px solid #f59e0b;
+        border-right: 2px solid #f59e0b;
+        border-top-right-radius: 14px;
+        content: '';
+      }
+
+      .acme-footer {
+        margin-right: 49px;
+      }
+
+      .hero-caption {
+        gap: 64px;
+        padding-top: 20px;
+        padding-left: 8px;
+      }
+
+      .hero-caption > svg {
+        width: 60px;
+        height: 60px;
+        transform: translateX(-8px) scaleX(1.9) rotate(-15deg);
+        transform-origin: left center;
+      }
+
+      .hero-caption > p {
+        padding-top: 38px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .builders-section-inner {
+        width: auto;
+        max-width: none;
+        margin-inline: auto;
+        zoom: 0.8;
+      }
+
+      .builders-problem-inner {
+        padding-top: 49px;
+        padding-bottom: 5px;
+      }
+
+      .builders-problem-title {
+        max-width: 30ch;
+      }
+
+      .builders-problem-grid {
+        margin-top: 24px;
+      }
+
+      .builders-how-inner {
+        padding-block: 18px;
+      }
+
+      .how-step-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .how-step-icon > svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      .builders-impact-grid {
+        grid-template-columns: 390px minmax(0, 1fr);
+        column-gap: 46px;
+        row-gap: 16px;
+      }
+
+      .builders-impact-inner {
+        padding: 25px 54px 25px 34px;
+      }
+
+      .builders-pilot-inner {
+        padding-block: 6px;
+        padding-inline: 18px;
+      }
+
+      .builders-pilot-inner > div:first-child {
+        height: 286px;
+        padding-right: 40px;
+        box-sizing: border-box;
+      }
+
+      .builders-pilot-grid {
+        gap: 0;
+        grid-template-columns: 372.5px 20px 300px 48px minmax(0, 1fr);
+      }
+
+      .builders-pilot-copy {
+        grid-column: 1;
+        padding-left: 27px;
+        padding-right: 0;
+      }
+
+      .builders-pilot-quote {
+        grid-column: 3;
+      }
+
+      .builders-pilot-apply {
+        grid-column: 5;
+      }
+
+      .builders-pilot-pricing-note {
+        display: none;
+      }
+
+      .builders-pilot-title {
+        max-width: 18ch;
+      }
+    }
+
+    @media (min-width: 1101px) {
+      .builders-impact-grid {
+        grid-template-columns: minmax(360px, 0.58fr) minmax(0, 1fr);
+        column-gap: clamp(40px, 3.8vw, 56px);
+        row-gap: 16px;
+      }
+
+      .builders-problem-title {
+        max-width: 30ch;
+      }
+
+      .builders-pilot-title {
+        max-width: 17ch;
+      }
+    }
+
+    @media (max-width: 899px) {
+      .hero-scene-pointer {
+        display: none;
+      }
+
+      .hero-widget-card {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        max-width: 360px;
+        margin: 1rem auto 0;
+      }
+
+      .hero-caption {
+        padding-left: 0;
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-connect-button {
+        transition: none;
       }
     }
   </style>

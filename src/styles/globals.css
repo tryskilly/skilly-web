@@ -12,6 +12,23 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --marketing-canvas: #FEFDFB;
+    --marketing-section: #FCFAF6;
+    --marketing-surface: #FFFEFC;
+    --marketing-text: #171513;
+    --marketing-muted: #6A6258;
+    --marketing-border: #E7E0D3;
+    --marketing-surface-border: #E8DFCF;
+    --marketing-accent: #D78A0C;
+    --marketing-accent-strong: #9E640C;
+    --marketing-accent-soft: #FFF8E7;
+    --marketing-accent-border: #E0A738;
+    --marketing-accent-border-soft: #E7D6A8;
+    --marketing-shadow-card: 0 12px 24px rgba(36, 28, 18, 0.04);
+    --marketing-shadow-overlay: 0 20px 48px rgba(42, 32, 20, 0.11);
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -32,7 +49,7 @@
   button:focus-visible,
   input:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid #F59E0B;
+    outline: 2px solid var(--marketing-accent);
     outline-offset: 2px;
   }
 }
@@ -134,6 +151,74 @@
     background-color: rgba(250, 250, 248, 0.93);
     border-bottom-color: #E5E5E0;
   }
+}
+
+/* Shared Builders marketing language. Kept outside Tailwind layers so these
+ * semantic classes remain authoritative on older content templates. */
+body[data-product-line="builders"] {
+  background: var(--marketing-canvas);
+  color: var(--marketing-text);
+}
+
+.marketing-page {
+  background: var(--marketing-canvas);
+  color: var(--marketing-text);
+}
+
+.marketing-hero {
+  padding-top: clamp(5.5rem, 8vw, 7.5rem);
+  padding-bottom: 2.5rem;
+}
+
+.marketing-eyebrow {
+  color: var(--marketing-accent-strong);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.marketing-title,
+.marketing-section-heading {
+  color: var(--marketing-text);
+}
+
+.marketing-copy,
+.marketing-meta {
+  color: var(--marketing-muted);
+}
+
+.marketing-card {
+  border: 1px solid var(--marketing-surface-border);
+  border-radius: 16px;
+  background: var(--marketing-surface);
+  box-shadow: var(--marketing-shadow-card);
+}
+
+.marketing-card--accent {
+  border-color: var(--marketing-accent-border-soft);
+  background: var(--marketing-accent-soft);
+  box-shadow: none;
+}
+
+.marketing-link-card {
+  border: 1px solid var(--marketing-surface-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--marketing-surface) 82%, transparent);
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.marketing-link-card:hover {
+  border-color: var(--marketing-accent-border);
+  background: var(--marketing-accent-soft);
+  transform: translateY(-1px);
+}
+
+.marketing-cta {
+  border: 1px solid var(--marketing-accent-border-soft);
+  border-radius: 20px;
+  background: linear-gradient(145deg, var(--marketing-accent-soft), var(--marketing-surface));
 }
 
 @media (prefers-reduced-motion: reduce) {
