@@ -315,7 +315,7 @@ const suggestedQuestions = [
         const tryStart = () => {
           bindSkillyEvents();
           if (window.Skilly?.start) {
-            setStartState('Starting…');
+            setStartState('Continue in Skilly');
             window.Skilly.start(question);
             launchRequested = false;
             return;
