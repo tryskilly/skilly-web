@@ -269,6 +269,7 @@ const suggestedQuestions = [
       const actionButtons = Array.from(document.querySelectorAll('[data-demo-action]'));
       let skillyEventsBound = false;
       let launchRequested = false;
+      let demoSessionActive = false;
 
       const capture = (eventName, properties = {}) => {
         window.posthog?.capture?.(eventName, { surface: 'browser_demo', ...properties });
@@ -284,6 +285,7 @@ const suggestedQuestions = [
         if (skillyEventsBound || !window.Skilly?.on) return Boolean(window.Skilly?.on);
         skillyEventsBound = true;
         window.Skilly.on('turn', () => {
+          demoSessionActive = true;
           setStartState('Stop voice demo');
           capture('web_browser_demo_session_started');
         });
@@ -292,11 +294,13 @@ const suggestedQuestions = [
           capture('web_browser_demo_point_completed', { target_label: label });
         });
         window.Skilly.on('complete', () => {
+          demoSessionActive = false;
           setStartState('Start another demo');
           if (progressLabel) progressLabel.textContent = 'Demo complete. Choose another task or start again.';
           capture('web_browser_demo_session_completed');
         });
         window.Skilly.on('error', () => {
+          demoSessionActive = false;
           setStartState('Try voice demo again');
           if (progressLabel) progressLabel.textContent = 'The voice session could not start. Please try again.';
           capture('web_browser_demo_session_error');
@@ -306,6 +310,7 @@ const suggestedQuestions = [
 
       const startDemo = (question) => {
         launchRequested = true;
+        const sessionWasActive = demoSessionActive;
         setStartState('Preparing microphone…', true);
         if (promptHint) {
           promptHint.textContent = question ? `Say: “${question}”` : 'Ask one of the questions below when the mic opens.';
@@ -315,8 +320,13 @@ const suggestedQuestions = [
         const tryStart = () => {
           bindSkillyEvents();
           if (window.Skilly?.start) {
-            setStartState('Continue in Skilly');
             window.Skilly.start(question);
+            window.setTimeout(() => {
+              if (demoSessionActive === sessionWasActive) {
+                if (sessionWasActive) demoSessionActive = false;
+                setStartState(sessionWasActive ? 'Start another demo' : 'Start voice demo');
+              }
+            }, 0);
             launchRequested = false;
             return;
           }
