@@ -158,7 +158,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (!leadStored) console.warn('[skill-builder-email] durable lead storage failed');
 
   const safeTitle = escapeHtml(course.title);
-  const downloadUrl = 'https://tryskilly.app/dmg?utm_source=skill_builder_email&utm_medium=email&utm_campaign=b2c_skill_builder';
+  const downloadUrl = 'https://tryskilly.app/dmg/?utm_source=skill_builder_email&utm_medium=email&utm_campaign=b2c_skill_builder';
   const openAppUrl = 'skilly://skills';
   const chromeExtensionUrl = BROWSER_EXTENSIONS.find((extension) => extension.id === 'chrome')?.href ?? 'https://tryskilly.app/for-people/';
   const edgeExtensionUrl = BROWSER_EXTENSIONS.find((extension) => extension.id === 'edge')?.href ?? 'https://tryskilly.app/for-people/';

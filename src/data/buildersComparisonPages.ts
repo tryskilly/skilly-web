@@ -26,9 +26,9 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
   {
     slug: 'walkme',
     competitor: 'WalkMe',
-    title: 'Skilly vs WalkMe - voice guide vs enterprise digital adoption',
+    title: 'Skilly vs WalkMe: Voice Guide or Enterprise DAP?',
     description:
-      'WalkMe is an enterprise digital adoption platform for complex organizations. Skilly is a self-serve voice-and-pointer guide for SaaS teams that want users to ask out loud and be shown the exact button.',
+      "Compare Skilly's self-serve voice-and-pointer onboarding with WalkMe's enterprise digital adoption platform for complex, multi-app workflows.",
     targetQueries: ['skilly vs walkme', 'walkme alternative', 'walkme alternative for startups'],
     competitorLabel: 'enterprise DAP',
     competitorSummary:
@@ -58,9 +58,9 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
   {
     slug: 'chameleon',
     competitor: 'Chameleon',
-    title: 'Skilly vs Chameleon - voice onboarding vs no-code product tours',
+    title: 'Skilly vs Chameleon: AI Voice or Product Tours?',
     description:
-      'Chameleon helps product teams build no-code tours, surveys, and launchers. Skilly is a voice-first guide users ask questions to, then it points at the exact place to click.',
+      "Compare Skilly's conversational voice onboarding with Chameleon's authored product tours, surveys, launchers, and checklists for SaaS teams.",
     targetQueries: ['skilly vs chameleon', 'chameleon alternative', 'chameleon product tour alternative'],
     competitorLabel: 'no-code product tours',
     competitorSummary:
@@ -92,7 +92,7 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
     competitor: 'Intercom Fin',
     title: 'Skilly vs Intercom Fin - voice guidance vs AI support agent',
     description:
-      'Intercom Fin is an AI support agent for answering customer questions. Skilly is in-product voice guidance that speaks back and points users to the exact UI element.',
+      "Compare Skilly's in-product voice guidance with Intercom Fin's AI support agent for answering questions, resolving issues, and deflecting tickets.",
     targetQueries: ['skilly vs intercom fin', 'intercom fin alternative', 'ai support agent vs product onboarding'],
     competitorLabel: 'AI support agent',
     competitorSummary:
@@ -122,7 +122,7 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
   {
     slug: 'storylane',
     competitor: 'Storylane',
-    title: 'Skilly vs Storylane - live voice guidance vs interactive demos',
+    title: 'Skilly vs Storylane: Voice Guide or Demo?',
     description:
       'Storylane creates interactive product demos for sales and marketing. Skilly guides real users inside the live product with voice answers and cursor pointing.',
     targetQueries: ['skilly vs storylane', 'storylane alternative', 'interactive demo vs product onboarding'],
@@ -154,7 +154,7 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
   {
     slug: 'arcade',
     competitor: 'Arcade',
-    title: 'Skilly vs Arcade - embedded voice help vs interactive demo storytelling',
+    title: 'Skilly vs Arcade: Voice Guide or Interactive Demo?',
     description:
       'Arcade helps teams create polished interactive demos. Skilly embeds in the live product so users can ask out loud and be guided to the next click.',
     targetQueries: ['skilly vs arcade', 'arcade software alternative', 'arcade interactive demo alternative'],
@@ -186,7 +186,7 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
   {
     slug: 'navattic',
     competitor: 'Navattic',
-    title: 'Skilly vs Navattic - live product guide vs interactive product demo',
+    title: 'Skilly vs Navattic: Live Guide or Product Demo?',
     description:
       'Navattic is built for interactive product demos that qualify and educate buyers. Skilly is built for live voice guidance inside your actual product.',
     targetQueries: ['skilly vs navattic', 'navattic alternative', 'navattic onboarding alternative'],
