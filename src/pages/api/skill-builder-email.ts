@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { BROWSER_EXTENSIONS } from '../../data/config';
 import { assessCourseQuality, courseToMarkdown, parseSkillBuilderInput, type SkillCourse } from '../../lib/skill-builder';
 import { parseSkillLeadAttribution, persistSkillBuilderLead } from '../../lib/skill-builder-lead';
 import { resendAccepted, resendFailureMessage } from '../../lib/resend-result';
@@ -159,6 +160,9 @@ export const POST: APIRoute = async ({ request }) => {
   const safeTitle = escapeHtml(course.title);
   const downloadUrl = 'https://tryskilly.app/dmg?utm_source=skill_builder_email&utm_medium=email&utm_campaign=b2c_skill_builder';
   const openAppUrl = 'skilly://skills';
+  const chromeExtensionUrl = BROWSER_EXTENSIONS.find((extension) => extension.id === 'chrome')?.href ?? 'https://tryskilly.app/for-people/';
+  const edgeExtensionUrl = BROWSER_EXTENSIONS.find((extension) => extension.id === 'edge')?.href ?? 'https://tryskilly.app/for-people/';
+  const firefoxExtensionUrl = BROWSER_EXTENSIONS.find((extension) => extension.id === 'firefox')?.href ?? 'https://tryskilly.app/for-people/';
   const subject = `Your Skilly course: ${course.title}`;
   const html = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:640px;margin:0 auto;color:#1A1714;line-height:1.55">
     <p style="font-family:monospace;font-size:12px;color:#9A5B08">SKILLY SKILL BUILDER</p>
@@ -167,9 +171,10 @@ export const POST: APIRoute = async ({ request }) => {
     <ol><li>Save the attached Markdown file.</li><li>Open Skilly.</li><li>Choose <b>Import skill</b> and select the saved file.</li></ol>
     <p><a href="${openAppUrl}" style="display:inline-block;background:#1A1714;color:#FFFFFF;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:700">Open Skilly to import</a></p>
     <p><a href="${downloadUrl}" style="color:#9A5B08;font-weight:700">Need Skilly? Download the Mac app</a></p>
+    <p>Learning a website? Use Skilly in <a href="${chromeExtensionUrl}">Chrome</a>, <a href="${edgeExtensionUrl}">Edge</a>, or <a href="${firefoxExtensionUrl}">Firefox</a> for voice-and-pointer guidance on webpages. Custom SKILL.md files still import into the Mac app.</p>
     <p style="font-size:12px;color:#6B635A">This transactional email was requested from the free Skill Builder. Marketing emails are sent only when separately selected.</p>
   </div>`;
-  const text = `${course.title}\n\nYour SKILL.md is attached. Save it, open Skilly, choose Import skill, and select the file.\n\nOpen Skilly: ${openAppUrl}\nDownload Skilly: ${downloadUrl}`;
+  const text = `${course.title}\n\nYour SKILL.md is attached. Save it, open Skilly, choose Import skill, and select the file.\n\nOpen Skilly: ${openAppUrl}\nDownload Skilly: ${downloadUrl}\n\nLearning a website? Skilly is available for Chrome, Edge, or Firefox. Custom SKILL.md files still import into the Mac app.\nChrome: ${chromeExtensionUrl}\nEdge: ${edgeExtensionUrl}\nFirefox: ${firefoxExtensionUrl}`;
 
   const [delivery, notification] = await Promise.allSettled([
     resend.emails.send({
