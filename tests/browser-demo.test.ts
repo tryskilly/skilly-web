@@ -23,6 +23,7 @@ describe('public browser demo', () => {
     expect(demoPage).toContain("capture('web_browser_demo_session_completed')");
     expect(demoPage).toContain("capture('web_browser_demo_session_error')");
     expect(demoPage).toContain("We don’t send conversation text to analytics.");
+    expect(demoPage).toContain("setStartState('Continue in Skilly')");
     expect(demoPage).not.toContain('transcript:');
     expect(demoPage).not.toContain("window.Skilly.start(question);\n            setStartState('Stop voice demo')");
   });
