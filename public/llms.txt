@@ -12,6 +12,8 @@
 - [Terms](https://tryskilly.app/terms)
 - [Download macOS app (GitHub release)](https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg)
 - [Machine-readable pricing](https://tryskilly.app/pricing.md)
+- [Skilly for Builders — machine-readable product facts](https://tryskilly.app/products/skilly-builders.md)
+- [Skilly for People — machine-readable product facts](https://tryskilly.app/products/skilly-people.md)
 - [Learn hub](https://tryskilly.app/learn): long-form tutorials covering macOS permissions, creative-tool workflows, and OpenAI Realtime API integration
 
 ## What Skilly for Builders does

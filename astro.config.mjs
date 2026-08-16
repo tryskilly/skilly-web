@@ -26,6 +26,14 @@ export default defineConfig({
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
+      // Public Markdown files are copied as static assets, so Astro cannot
+      // discover them from routes. List the product facts explicitly for AI
+      // agents and crawlers that use the sitemap as their URL inventory.
+      customPages: [
+        'https://tryskilly.app/pricing.md',
+        'https://tryskilly.app/products/skilly-builders.md',
+        'https://tryskilly.app/products/skilly-people.md',
+      ],
       // Runtime/share artifacts and post-checkout pages are intentionally
       // non-indexable. Keeping them out of the sitemap avoids sending Google
       // contradictory crawl/index signals.
