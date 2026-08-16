@@ -8,6 +8,14 @@ const result = document.querySelector<HTMLElement>('[data-skill-result]');
 let activeCourse: SkillCourse | null = null;
 let started = false;
 let skillDelivered = false;
+let generationProgressTimers: number[] = [];
+
+const generationProgress = [
+  { delay: 0, label: 'Understanding your goal…', value: 12 },
+  { delay: 900, label: 'Checking current product documentation…', value: 38 },
+  { delay: 3_500, label: 'Building the right-sized learning path…', value: 68 },
+  { delay: 8_500, label: 'Adding checkpoints and exact controls…', value: 88 },
+] as const;
 
 type ClientPlatform = 'macos' | 'windows' | 'other';
 
@@ -80,6 +88,48 @@ function showError(message: string): void {
   error.classList.toggle('hidden', !message);
 }
 
+function clearGenerationProgressTimers(): void {
+  generationProgressTimers.forEach((timer) => window.clearTimeout(timer));
+  generationProgressTimers = [];
+}
+
+function updateGenerationProgress(label: string, value: number): void {
+  const panel = document.querySelector<HTMLElement>('[data-skill-build-progress]');
+  const progressLabel = document.querySelector<HTMLElement>('[data-skill-build-progress-label]');
+  const progressValue = document.querySelector<HTMLElement>('[data-skill-build-progress-value]');
+  const progressBar = document.querySelector<HTMLElement>('[data-skill-build-progress-bar]');
+  const boundedValue = Math.max(0, Math.min(value, 100));
+
+  panel?.removeAttribute('hidden');
+  if (progressLabel) progressLabel.textContent = label;
+  if (progressValue) progressValue.textContent = `${boundedValue}%`;
+  if (progressBar) progressBar.style.width = `${boundedValue}%`;
+}
+
+function startGenerationProgress(): void {
+  clearGenerationProgressTimers();
+  generationProgress.forEach((progressStep) => {
+    const timer = window.setTimeout(() => {
+      updateGenerationProgress(progressStep.label, progressStep.value);
+    }, progressStep.delay);
+    generationProgressTimers.push(timer);
+  });
+}
+
+function completeGenerationProgress(): void {
+  clearGenerationProgressTimers();
+  updateGenerationProgress('Your learning path is ready.', 100);
+  const timer = window.setTimeout(() => {
+    document.querySelector<HTMLElement>('[data-skill-build-progress]')?.setAttribute('hidden', '');
+  }, 700);
+  generationProgressTimers.push(timer);
+}
+
+function stopGenerationProgress(): void {
+  clearGenerationProgressTimers();
+  document.querySelector<HTMLElement>('[data-skill-build-progress]')?.setAttribute('hidden', '');
+}
+
 function renderLesson(lesson: SkillLesson): void {
   text('[data-active-title]', lesson.title);
   text('[data-active-duration]', lesson.duration);
@@ -150,6 +200,7 @@ function renderCourse(course: SkillCourse): void {
   skillDelivered = false;
   text('[data-skill-title]', course.title);
   text('[data-skill-lessons]', String(course.lessons.length));
+  text('[data-skill-lessons-label]', course.lessons.length === 1 ? 'lesson' : 'lessons');
   text('[data-skill-duration]', course.duration);
   text('[data-skill-level]', course.level);
   text('[data-skill-app]', course.app);
@@ -226,6 +277,7 @@ form?.addEventListener('submit', async (event) => {
   const payload = { app: data.get('app'), goal: data.get('goal'), level: data.get('level'), pace: data.get('pace') };
   showError('');
   if (button) { button.disabled = true; button.textContent = 'Building your skill…'; }
+  startGenerationProgress();
   window.skillyTrack?.('web_skill_builder_submitted', { level: payload.level, pace: payload.pace });
   const generationStartedAt = performance.now();
 
@@ -234,8 +286,10 @@ form?.addEventListener('submit', async (event) => {
     const body = await response.json() as { course?: SkillCourse; error?: string };
     if (!response.ok || !body.course) throw new Error(body.error || 'Could not build your skill.');
     window.skillyTrack?.('web_skill_builder_generated', { level: body.course.level, pace: body.course.pace, lesson_count: body.course.lessons.length, used_llm: body.course.usedLlm, used_web_search: body.course.usedWebSearch, source_count: body.course.sources.length, grounding: body.course.grounding, cache_hit: body.course.cacheHit, export_ready: body.course.exportReady, generation_duration_ms: Math.round(performance.now() - generationStartedAt) });
+    completeGenerationProgress();
     renderCourse(body.course);
   } catch (error) {
+    stopGenerationProgress();
     showError(error instanceof Error ? error.message : 'Could not build your skill.');
     window.skillyTrack?.('web_skill_builder_failed');
   } finally {
