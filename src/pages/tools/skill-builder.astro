@@ -193,7 +193,7 @@ const faqSchema = {
               </ol>
               <div class="mt-4 flex flex-col gap-2 sm:flex-row">
                 <a href="skilly://skills" data-skill-open-app data-ph-event="web_skill_builder_open_app_clicked" data-ph-prop-location="email_success" class="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#1A1714] px-5 py-3 text-sm font-semibold text-white transition hover:bg-black">Open Skilly to import</a>
-                <a href="/dmg?utm_source=skill_builder&amp;utm_medium=free_tool&amp;utm_campaign=b2c_skill_builder_delivered" data-skill-install-cta data-ph-event="web_cta_download_clicked" data-ph-prop-location="skill_builder_email_success" data-ph-prop-target-funnel="people" class="inline-flex min-h-11 items-center justify-center rounded-lg border border-emerald-300 bg-white px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:border-emerald-500">Download Skilly for Mac</a>
+                <a href="/dmg/?utm_source=skill_builder&amp;utm_medium=free_tool&amp;utm_campaign=b2c_skill_builder_delivered" data-skill-install-cta data-ph-event="web_cta_download_clicked" data-ph-prop-location="skill_builder_email_success" data-ph-prop-target-funnel="people" class="inline-flex min-h-11 items-center justify-center rounded-lg border border-emerald-300 bg-white px-5 py-3 text-sm font-semibold text-[#1A1714] transition hover:border-emerald-500">Download Skilly for Mac</a>
               </div>
               <p data-skill-platform-note class="mt-3 text-xs leading-relaxed text-emerald-900/70">Already installed? Open Skilly directly, then select the attachment from your Downloads folder.</p>
 
@@ -270,7 +270,7 @@ const faqSchema = {
       <div class="flex flex-col gap-6 rounded-2xl border border-[#E8E2D9] bg-[#1A1714] p-7 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between">
         <div><h2 class="text-3xl font-bold tracking-tight">Keep the plan. Get guidance while you work.</h2><p class="mt-3 max-w-2xl text-[16px] leading-relaxed text-white/65">Import custom skills into the Mac app, or use Skilly's published browser extensions for voice-and-pointer guidance on websites.</p></div>
         <div class="flex shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap lg:max-w-sm lg:justify-end">
-          <a href="/dmg?utm_source=skill_builder&amp;utm_medium=free_tool&amp;utm_campaign=b2c_skill_builder_bottom" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="bottom" class="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#F59E0B] px-7 font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Download for Mac</a>
+          <a href="/dmg/?utm_source=skill_builder&amp;utm_medium=free_tool&amp;utm_campaign=b2c_skill_builder_bottom" data-ph-event="web_skill_builder_download_clicked" data-ph-prop-location="bottom" class="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#F59E0B] px-7 font-semibold text-[#1A1714] transition hover:bg-[#E78D05]">Download for Mac</a>
           {BROWSER_EXTENSIONS.map((extension) => (
             <a href={extension.href} target="_blank" rel="noopener noreferrer" data-ph-event="web_skill_builder_extension_clicked" data-ph-prop-location="bottom" data-ph-prop-browser={extension.id} class="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/20 px-5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5">
               {extension.shortName}
