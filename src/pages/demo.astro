@@ -1,0 +1,407 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SkillyWebWidget from '../components/SkillyWebWidget.astro';
+import {
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  Clock3,
+  Database,
+  FolderKanban,
+  HelpCircle,
+  Home,
+  LayoutDashboard,
+  Mic,
+  Settings,
+  ShieldCheck,
+  Sparkles,
+  Users,
+} from 'lucide-astro';
+
+const STUDIO_URL = 'https://studio.tryskilly.app/signup';
+const MAC_URL = '/download';
+
+const setupSteps = [
+  {
+    id: 'connect-data',
+    title: 'Connect data',
+    description: 'Link a source so your workspace has something to explore.',
+    buttonLabel: 'Connect data',
+    icon: Database,
+  },
+  {
+    id: 'create-workspace',
+    title: 'Create workspace',
+    description: 'Organize a project and keep its work in one place.',
+    buttonLabel: 'Create workspace',
+    icon: FolderKanban,
+  },
+  {
+    id: 'invite-teammate',
+    title: 'Invite teammate',
+    description: 'Bring someone in when the workspace is ready to share.',
+    buttonLabel: 'Invite teammate',
+    icon: Users,
+  },
+];
+
+const suggestedQuestions = [
+  'Where do I connect my data?',
+  'How do I create a workspace?',
+  'How do I invite a teammate?',
+];
+---
+
+<Layout
+  title="Try Skilly in your browser — no signup or installation"
+  description="Try Skilly's live voice-and-pointer guidance directly in your browser. Ask a question and watch Skilly point to the next action—no signup or installation required."
+  productLine="builders"
+  funnelStage="conversion"
+>
+  <Nav />
+
+  <main class="demo-page min-h-screen overflow-x-clip bg-[var(--marketing-canvas)] text-[var(--marketing-text)]">
+    <section class="mx-auto max-w-[1440px] px-5 pb-10 pt-10 sm:px-8 lg:pb-14 lg:pt-12">
+      <div class="mb-7 max-w-[720px] lg:hidden">
+        <h1 class="text-[40px] font-bold leading-[0.98] tracking-[-0.05em] sm:text-[48px]">Try Skilly in your browser</h1>
+        <p class="mt-4 max-w-[600px] text-[16px] leading-[1.55] text-[var(--marketing-muted)]">
+          No signup. No installation. Click once, allow microphone access, and ask where to go next.
+        </p>
+      </div>
+
+      <div class="grid items-stretch gap-6 lg:grid-cols-[minmax(0,1fr)_370px] xl:gap-8">
+        <section
+          aria-label="Interactive product demo"
+          class="overflow-hidden rounded-[22px] border border-[var(--marketing-border)] bg-white shadow-[var(--marketing-shadow-card)]"
+        >
+          <div class="grid min-h-[650px] md:grid-cols-[190px_minmax(0,1fr)]">
+            <aside class="hidden border-r border-[var(--marketing-border)] bg-[#FCFAF6] p-4 md:flex md:flex-col">
+              <a href="/demo" class="mb-7 flex items-center gap-2.5 px-2 text-[15px] font-bold tracking-[-0.03em]">
+                <span class="grid h-7 w-7 place-items-center rounded-[9px] bg-[var(--marketing-accent)] text-white">
+                  <Sparkles size={15} strokeWidth={2} aria-hidden="true" />
+                </span>
+                yourapp.com
+              </a>
+
+              <nav aria-label="Demo product navigation" class="space-y-1 text-[13px] text-[#5F584F]">
+                <a href="#getting-started" class="flex items-center gap-2.5 rounded-[10px] bg-[#EEE9DF] px-3 py-2.5 font-semibold text-[var(--marketing-text)]">
+                  <Home size={16} strokeWidth={1.8} aria-hidden="true" />
+                  Getting started
+                </a>
+                <a href="#projects" class="flex items-center gap-2.5 rounded-[10px] px-3 py-2.5 transition hover:bg-[#F3EFE7] hover:text-[var(--marketing-text)]">
+                  <LayoutDashboard size={16} strokeWidth={1.8} aria-hidden="true" />
+                  Projects
+                </a>
+                <a href="#data" class="flex items-center gap-2.5 rounded-[10px] px-3 py-2.5 transition hover:bg-[#F3EFE7] hover:text-[var(--marketing-text)]">
+                  <Database size={16} strokeWidth={1.8} aria-hidden="true" />
+                  Data
+                </a>
+                <a href="#team" class="flex items-center gap-2.5 rounded-[10px] px-3 py-2.5 transition hover:bg-[#F3EFE7] hover:text-[var(--marketing-text)]">
+                  <Users size={16} strokeWidth={1.8} aria-hidden="true" />
+                  Team
+                </a>
+                <a href="#settings" class="flex items-center gap-2.5 rounded-[10px] px-3 py-2.5 transition hover:bg-[#F3EFE7] hover:text-[var(--marketing-text)]">
+                  <Settings size={16} strokeWidth={1.8} aria-hidden="true" />
+                  Settings
+                </a>
+              </nav>
+
+              <div class="mt-auto flex items-center gap-2.5 border-t border-[var(--marketing-border)] px-2 pt-4">
+                <span class="grid h-8 w-8 place-items-center rounded-full bg-[#EEE9DF] text-[11px] font-semibold">JD</span>
+                <div class="min-w-0">
+                  <p class="truncate text-[12px] font-semibold">Jane Doe</p>
+                  <p class="truncate text-[10px] text-[var(--marketing-muted)]">jane@yourapp.com</p>
+                </div>
+              </div>
+            </aside>
+
+            <div class="min-w-0">
+              <div class="flex h-14 items-center justify-between border-b border-[var(--marketing-border)] px-4 sm:px-6">
+                <span class="inline-flex items-center gap-2 text-[12px] font-medium text-[var(--marketing-muted)]">
+                  <HelpCircle size={16} strokeWidth={1.8} aria-hidden="true" />
+                  Get help
+                </span>
+                <span class="inline-flex items-center gap-2 text-[11px] text-[var(--marketing-muted)]">
+                  <span class="h-2 w-2 rounded-full bg-[#55A96A]"></span>
+                  Demo workspace
+                </span>
+              </div>
+
+              <div id="getting-started" class="px-4 py-7 sm:px-7 sm:py-9 lg:px-9">
+                <h2 class="text-[28px] font-bold leading-tight tracking-[-0.04em] sm:text-[32px]">Welcome to your dashboard</h2>
+                <p class="mt-2 text-[14px] text-[var(--marketing-muted)]">Let’s get you set up in a few simple steps.</p>
+
+                <ol class="mt-7 space-y-3.5" data-demo-step-list>
+                  {setupSteps.map((step, index) => {
+                    const StepIcon = step.icon;
+                    return (
+                      <li
+                        class="demo-step relative grid gap-4 rounded-[16px] border border-[var(--marketing-border)] bg-[#FFFEFC] p-4 transition sm:grid-cols-[40px_minmax(0,1fr)_auto] sm:items-center sm:p-5"
+                        data-demo-step={step.id}
+                      >
+                        <span class="demo-step-number grid h-10 w-10 place-items-center rounded-full border border-[var(--marketing-border)] bg-white text-[13px] font-semibold">
+                          {index + 1}
+                        </span>
+                        <div class="flex min-w-0 items-start gap-3.5">
+                          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] bg-[#F2EEE6] text-[#3F3A34]">
+                            <StepIcon size={21} strokeWidth={1.7} aria-hidden="true" />
+                          </span>
+                          <div class="min-w-0">
+                            <h3 class="text-[15px] font-semibold tracking-[-0.02em]">{step.title}</h3>
+                            <p class="mt-1 max-w-[330px] text-[12px] leading-[1.45] text-[var(--marketing-muted)]">{step.description}</p>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          data-skilly={step.id}
+                          data-demo-action={step.id}
+                          aria-pressed="false"
+                          class="demo-step-action inline-flex min-h-10 items-center justify-center gap-2 rounded-[10px] border border-[#DDCFAA] bg-white px-3.5 text-[12px] font-semibold text-[var(--marketing-accent-strong)] shadow-[0_6px_14px_rgba(58,42,17,0.04)] transition hover:-translate-y-0.5 hover:border-[var(--marketing-accent)]"
+                        >
+                          <span data-action-label>{step.buttonLabel}</span>
+                          <Check size={15} strokeWidth={2} class="hidden" data-action-check aria-hidden="true" />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ol>
+
+                <div class="mt-6 flex items-center gap-3 border-t border-[var(--marketing-border)] pt-5 text-[12px] text-[var(--marketing-muted)]" aria-live="polite">
+                  <CheckCircle2 size={18} strokeWidth={1.8} class="text-[#799280]" aria-hidden="true" />
+                  <span data-demo-progress>Choose a task—or ask Skilly where to begin.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="flex flex-col rounded-[22px] border border-[var(--marketing-border)] bg-white p-5 shadow-[var(--marketing-shadow-card)] sm:p-7 lg:min-h-[650px]">
+          <div class="hidden lg:block">
+            <h1 class="text-[40px] font-bold leading-[0.98] tracking-[-0.05em]">Try Skilly in your browser</h1>
+            <p class="mt-4 text-[16px] leading-[1.5] text-[var(--marketing-muted)]">No signup. No installation. Just click and start talking.</p>
+          </div>
+
+          <button
+            type="button"
+            data-demo-start
+            data-ph-event="web_browser_demo_started"
+            data-ph-prop-location="browser_demo_panel"
+            data-ph-prop-target-funnel="builders"
+            class="mt-1 inline-flex min-h-14 w-full items-center justify-center gap-2.5 rounded-[12px] bg-[var(--marketing-accent)] px-5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(215,138,12,0.20)] transition hover:-translate-y-0.5 hover:bg-[var(--marketing-accent-strong)] lg:mt-7"
+          >
+            <Mic size={19} strokeWidth={1.9} aria-hidden="true" />
+            <span data-demo-start-label>Start voice demo</span>
+          </button>
+          <p class="mt-2.5 text-[12px] text-[var(--marketing-muted)]">We’ll ask for microphone access when you start.</p>
+
+          <div class="mt-6 border-t border-[var(--marketing-border)] pt-5">
+            <h2 class="text-[13px] font-semibold">Try asking Skilly:</h2>
+            <div class="mt-3 space-y-2">
+              {suggestedQuestions.map((question) => (
+                <button
+                  type="button"
+                  data-demo-question={question}
+                  data-ph-event="web_browser_demo_prompt_selected"
+                  data-ph-prop-prompt={question}
+                  class="flex w-full items-center justify-between gap-3 rounded-[10px] border border-[var(--marketing-border)] bg-[#FCFAF6] px-3.5 py-2.5 text-left text-[12px] font-medium text-[#484139] transition hover:border-[var(--marketing-accent-border)] hover:bg-[var(--marketing-accent-soft)]"
+                >
+                  <span>{question}</span>
+                  <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+            <p class="mt-3 min-h-5 text-[12px] font-medium text-[var(--marketing-accent-strong)]" data-demo-prompt-hint aria-live="polite"></p>
+          </div>
+
+          <div class="mt-5 space-y-4 border-t border-[var(--marketing-border)] pt-5">
+            <div class="flex items-start gap-3">
+              <Clock3 size={18} strokeWidth={1.8} class="mt-0.5 shrink-0" aria-hidden="true" />
+              <div>
+                <h2 class="text-[12px] font-semibold">Short guest demo</h2>
+                <p class="mt-1 text-[11px] leading-[1.45] text-[var(--marketing-muted)]">The session ends automatically when the guest limit is reached.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <ShieldCheck size={18} strokeWidth={1.8} class="mt-0.5 shrink-0" aria-hidden="true" />
+              <div>
+                <h2 class="text-[12px] font-semibold">Your privacy matters</h2>
+                <p class="mt-1 text-[11px] leading-[1.45] text-[var(--marketing-muted)]">Audio and page context are processed only for this live session. We don’t send conversation text to analytics.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-auto grid gap-2 border-t border-[var(--marketing-border)] pt-5 sm:grid-cols-2 lg:grid-cols-1">
+            <a
+              href={STUDIO_URL}
+              data-ph-event="web_cta_builders_signup_clicked"
+              data-ph-prop-location="browser_demo_panel"
+              data-ph-prop-target-funnel="builders"
+              class="inline-flex min-h-11 items-center justify-center rounded-[10px] bg-[#171513] px-4 text-[13px] font-semibold text-white transition hover:bg-[#2B2824]"
+            >
+              Add Skilly to my product
+            </a>
+            <a
+              href={MAC_URL}
+              data-ph-event="web_cta_download_clicked"
+              data-ph-prop-location="browser_demo_panel"
+              data-ph-prop-target-funnel="people"
+              class="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-[var(--marketing-border)] bg-white px-4 text-[13px] font-semibold transition hover:border-[var(--marketing-accent-border)]"
+            >
+              Get Skilly for Mac
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <SkillyWebWidget />
+
+  <script is:inline>
+    (() => {
+      const demoStartButton = document.querySelector('[data-demo-start]');
+      const demoStartLabel = document.querySelector('[data-demo-start-label]');
+      const promptHint = document.querySelector('[data-demo-prompt-hint]');
+      const progressLabel = document.querySelector('[data-demo-progress]');
+      const actionButtons = Array.from(document.querySelectorAll('[data-demo-action]'));
+      let skillyEventsBound = false;
+      let launchRequested = false;
+
+      const capture = (eventName, properties = {}) => {
+        window.posthog?.capture?.(eventName, { surface: 'browser_demo', ...properties });
+        window.gtag?.('event', eventName, properties);
+      };
+
+      const setStartState = (label, disabled = false) => {
+        if (demoStartLabel) demoStartLabel.textContent = label;
+        if (demoStartButton instanceof HTMLButtonElement) demoStartButton.disabled = disabled;
+      };
+
+      const bindSkillyEvents = () => {
+        if (skillyEventsBound || !window.Skilly?.on) return Boolean(window.Skilly?.on);
+        skillyEventsBound = true;
+        window.Skilly.on('turn', () => {
+          setStartState('Stop voice demo');
+          capture('web_browser_demo_session_started');
+        });
+        window.Skilly.on('point', ({ label }) => {
+          if (progressLabel) progressLabel.textContent = `Skilly pointed to ${label}.`;
+          capture('web_browser_demo_point_completed', { target_label: label });
+        });
+        window.Skilly.on('complete', () => {
+          setStartState('Start another demo');
+          if (progressLabel) progressLabel.textContent = 'Demo complete. Choose another task or start again.';
+          capture('web_browser_demo_session_completed');
+        });
+        window.Skilly.on('error', () => {
+          setStartState('Try voice demo again');
+          if (progressLabel) progressLabel.textContent = 'The voice session could not start. Please try again.';
+          capture('web_browser_demo_session_error');
+        });
+        return true;
+      };
+
+      const startDemo = (question) => {
+        launchRequested = true;
+        setStartState('Preparing microphone…', true);
+        if (promptHint) {
+          promptHint.textContent = question ? `Say: “${question}”` : 'Ask one of the questions below when the mic opens.';
+        }
+
+        const startedAt = Date.now();
+        const tryStart = () => {
+          bindSkillyEvents();
+          if (window.Skilly?.start) {
+            setStartState('Starting…');
+            window.Skilly.start(question);
+            launchRequested = false;
+            return;
+          }
+          if (Date.now() - startedAt < 10000) {
+            window.setTimeout(tryStart, 150);
+            return;
+          }
+          setStartState('Try voice demo again');
+          if (progressLabel) progressLabel.textContent = 'The demo took too long to load. Check your connection and try again.';
+          capture('web_browser_demo_load_timeout');
+          launchRequested = false;
+        };
+        tryStart();
+      };
+
+      demoStartButton?.addEventListener('click', () => {
+        if (launchRequested) return;
+        startDemo();
+      });
+
+      document.querySelectorAll('[data-demo-question]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (launchRequested) return;
+          const question = button.getAttribute('data-demo-question') || '';
+          startDemo(question);
+        });
+      });
+
+      actionButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          if (!(button instanceof HTMLButtonElement) || button.getAttribute('aria-pressed') === 'true') return;
+          button.setAttribute('aria-pressed', 'true');
+          button.querySelector('[data-action-label]').textContent = 'Done';
+          button.querySelector('[data-action-check]')?.classList.remove('hidden');
+          button.closest('[data-demo-step]')?.classList.add('is-complete');
+
+          const completedCount = actionButtons.filter((candidate) => candidate.getAttribute('aria-pressed') === 'true').length;
+          if (progressLabel) {
+            progressLabel.textContent = completedCount === actionButtons.length
+              ? 'All set. You completed the demo workspace.'
+              : `${completedCount} of ${actionButtons.length} setup tasks complete.`;
+          }
+          capture('web_browser_demo_task_completed', { task: button.dataset.demoAction, completed_count: completedCount });
+        });
+      });
+
+      capture('web_browser_demo_viewed');
+      const readyTimer = window.setInterval(() => {
+        if (bindSkillyEvents()) window.clearInterval(readyTimer);
+      }, 250);
+      window.setTimeout(() => window.clearInterval(readyTimer), 10000);
+    })();
+  </script>
+
+  <style is:global>
+    .demo-step.is-complete {
+      border-color: #BFD4C3;
+      background: #FAFCFA;
+    }
+
+    .demo-step.is-complete .demo-step-number {
+      border-color: #A8C2AE;
+      background: #EAF4EC;
+      color: #426B4B;
+    }
+
+    .demo-step-action[aria-pressed='true'] {
+      border-color: #A8C2AE;
+      background: #EAF4EC;
+      color: #426B4B;
+    }
+
+    [data-demo-start]:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .demo-page *,
+      .demo-page *::before,
+      .demo-page *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</Layout>
