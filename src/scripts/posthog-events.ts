@@ -76,4 +76,10 @@ document.addEventListener('click', (e) => {
   }
 
   window.skillyTrack?.(eventName, props);
+
+  // Keep the page-specific event for existing dashboards, while also giving
+  // Learn articles one stable conversion event across Mac and Studio CTAs.
+  if (el.dataset.phLearnCta === 'true') {
+    window.skillyTrack?.('web_learn_cta_clicked', props);
+  }
 });
