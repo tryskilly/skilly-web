@@ -1,24 +1,4 @@
-export {};
-
-type ScoreKey = 'Activation clarity' | 'CTA clarity' | 'Help availability' | 'Docs friction' | 'AI-guidability';
-
-interface AuditReport {
-  product: string;
-  host?: string;
-  title: string;
-  score: number;
-  band: string;
-  scores: Record<ScoreKey, number>;
-  scoreJustifications?: Record<ScoreKey, string>;
-  gaps: string[];
-  questions?: Array<{ question: string; answered: boolean }>;
-  firstRunPath?: string[];
-  voiceGuideScript?: string;
-  skillPreview: string;
-  shareUrl?: string;
-  studioUrl?: string;
-  usedLlm?: boolean;
-}
+import { requestAuditReport, type AuditReport, type ScoreKey } from "../lib/audit-client";
 
 const scoreLabels: ScoreKey[] = [
   'Activation clarity',
@@ -27,30 +7,6 @@ const scoreLabels: ScoreKey[] = [
   'Docs friction',
   'AI-guidability',
 ];
-
-function hostFromUrl(rawUrl: string): string {
-  const withProtocol = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
-  return new URL(withProtocol).host.replace(/^www\./, '');
-}
-
-function productNameFromHost(host: string): string {
-  return host
-    .split('.')[0]
-    .replace(/[-_]+/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
-function scoreFor(goal: string, productType: string): Record<ScoreKey, number> {
-  const base = productType.trim() ? 68 : 61;
-  const goalBonus = goal.includes('project') ? 6 : goal.includes('data') ? 3 : 1;
-  return {
-    'Activation clarity': Math.min(20, 11 + goalBonus),
-    'CTA clarity': Math.min(20, base > 65 ? 15 : 12),
-    'Help availability': Math.min(20, productType ? 13 : 10),
-    'Docs friction': Math.min(20, goal.includes('publish') ? 11 : 14),
-    'AI-guidability': Math.min(20, productType ? 15 : 12),
-  };
-}
 
 function renderList(container: Element, items: string[]): void {
   container.innerHTML = '';
@@ -68,51 +24,6 @@ function renderOrderedList(container: Element, items: string[]): void {
     li.textContent = item;
     container.appendChild(li);
   }
-}
-
-function localReport(rawUrl: string, goal: string, productType: string): AuditReport {
-  const host = hostFromUrl(rawUrl);
-  const product = productNameFromHost(host);
-  const scores = scoreFor(goal, productType);
-  const total = Object.values(scores).reduce((sum, value) => sum + value, 0);
-  const band = total >= 71 ? 'AI-ready' : total >= 41 ? 'Needs work' : 'Users will get stuck';
-  return {
-    product,
-    host,
-    title: `${product} is ${band.toLowerCase()} for "${goal}".`,
-    score: total,
-    band,
-    scores,
-    gaps: [
-      `Make the path to "${goal}" explicit on the first product screen.`,
-      'Answer what happens after the primary CTA before users commit.',
-      'Add one contextual help entry for the first confused-user question.',
-      'Expose product vocabulary an AI guide can reuse when pointing.',
-    ],
-    questions: [
-      { question: `How do I ${goal}?`, answered: false },
-      { question: 'What happens after I click the primary CTA?', answered: false },
-      { question: 'Where should a new user start?', answered: false },
-    ],
-    firstRunPath: [
-      `Open ${product} and confirm the user's goal.`,
-      `Point to the first action related to "${goal}".`,
-      'Explain the next screen in plain language.',
-    ],
-    voiceGuideScript: `User asks: "Where do I start?"\nSkilly says: "Start with ${goal}. I will point to the first action, explain why it matters, then confirm what you should see next."`,
-    skillPreview: `---
-name: ${product.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-onboarding
-description: Guide new ${productType || 'product'} users to ${goal}.
----
-
-## Teaching Instructions
-Help a new user reach "${goal}" without leaving the product.
-
-## First-run Path
-1. Confirm the user's goal.
-2. Point to the primary setup action.
-3. Explain the next screen in plain language.`,
-  };
 }
 
 let lastReport: AuditReport | null = null;
@@ -181,6 +92,7 @@ function renderReport(report: AuditReport, rawUrl: string, goal: string, product
     used_llm: Boolean(report.usedLlm),
   });
 
+  document.querySelector<HTMLElement>('[data-audit-actions]')?.classList.remove('hidden');
   lastReport = report;
   lastAuditUrl = rawUrl;
   document.querySelector<HTMLElement>('[data-audit-email-form]')?.classList.remove('hidden');
@@ -208,23 +120,24 @@ document.addEventListener('submit', async (event) => {
       button.textContent = 'Auditing...';
     }
 
-    let report: AuditReport;
-    try {
-      const response = await fetch('/api/ai-onboarding-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: rawUrl, goal, type: productType, docsUrl, email }),
-      });
-      if (!response.ok) throw new Error('Audit API unavailable');
-      report = (await response.json()) as AuditReport;
-    } catch {
-      report = localReport(rawUrl, goal, productType);
+    lastReport = null;
+    const resultTitle = document.querySelector<HTMLElement>('[data-audit-title]');
+    if (resultTitle) resultTitle.textContent = 'Auditing your public pages…';
+    for (const selector of ['[data-audit-score]', '[data-audit-engine]', '[data-audit-scores]', '[data-audit-gaps]', '[data-audit-questions]', '[data-audit-path]', '[data-audit-script]', '[data-audit-skill]']) {
+      const element = document.querySelector<HTMLElement>(selector);
+      if (element) element.textContent = '';
     }
-
+    document.querySelector<HTMLElement>('[data-audit-actions]')?.classList.add('hidden');
+    document.querySelector<HTMLElement>('[data-audit-email-form]')?.classList.add('hidden');
+    window.skillyTrack?.('web_ai_audit_started', { tool: 'ai_onboarding_audit' });
+    const report = await requestAuditReport({ url: rawUrl, goal, type: productType, docsUrl, email });
     renderReport(report, rawUrl, goal, productType);
-  } catch {
+  } catch (failure) {
+    const title = document.querySelector<HTMLElement>('[data-audit-title]');
+    if (title) title.textContent = 'No report generated. Please try again.';
+    window.skillyTrack?.('web_ai_audit_failed', { tool: 'ai_onboarding_audit' });
     if (error) {
-      error.textContent = 'Enter a valid public website URL.';
+      error.textContent = failure instanceof Error ? failure.message : 'The audit could not finish. Please try again.';
       error.classList.remove('hidden');
     }
   } finally {
@@ -260,7 +173,7 @@ document.addEventListener('submit', async (event) => {
     button.textContent = 'Sending...';
   }
   try {
-    const response = await fetch('/api/ai-onboarding-audit-email', {
+    const response = await fetch('/api/ai-onboarding-audit-email/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, url: lastAuditUrl, report: lastReport }),
