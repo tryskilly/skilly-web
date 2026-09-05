@@ -11,6 +11,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
 import { DOWNLOAD_URL } from '../../data/config.ts';
 
 const title = 'Skilly vs Clicky — what the fork adds on top of Farza\'s original';
@@ -155,26 +157,13 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[960px] mx-auto">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
-        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table class="w-full text-left text-[15px]">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[28%]">Feature</th>
-                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
-                <th class="px-5 py-3.5 font-semibold text-gray-600">Clicky</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row) => (
-                <tr class="border-b border-gray-100 last:border-b-0 align-top">
-                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
-                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
-                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.clicky}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ComparisonTable
+          columns={[
+            { key: 'skilly', label: 'Skilly', isSkilly: true },
+            { key: 'clicky', label: 'Clicky' },
+          ]}
+          rows={comparisonRows}
+        />
       </div>
     </section>
 
@@ -207,15 +196,16 @@ const productSchema = {
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try the fork</h2>
         <p class="text-gray-600 mb-6">15 minutes free, no card. Source on <a href="https://github.com/tryskilly/skilly" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">github.com/tryskilly/skilly</a>.</p>
-        <a
+        <Button
           href={DOWNLOAD_URL}
+          variant="builders-accent"
+          size="xl"
           data-ph-event="web_cta_download_clicked"
           data-ph-prop-location="vs_clicky"
           data-ph-prop-target-funnel="people"
-          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
         >
           Download Skilly
-        </a>
+        </Button>
       </div>
     </section>
 

@@ -1,0 +1,64 @@
+---
+type BadgeVariant = 'neutral' | 'accent' | 'people' | 'success' | 'featured';
+type BadgeSize = 'xs' | 'sm' | 'md';
+
+interface Props {
+  href?: string;
+  variant?: BadgeVariant;
+  size?: BadgeSize;
+  dot?: boolean;
+  pulse?: boolean;
+  uppercase?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'neutral',
+  size = 'sm',
+  dot = false,
+  pulse = false,
+  uppercase = false,
+  class: className,
+  ...attributes
+} = Astro.props;
+
+const variants: Record<BadgeVariant, string> = {
+  neutral: 'border-[#DDD6CC] bg-white text-[#5F574F]',
+  accent: 'border-[#F1CF91] bg-[#FFF7E8] text-[#98600A]',
+  people: 'border-[#FFD0C1] bg-[#FFF3EE] text-[#C44A2D]',
+  success: 'border-[#B9DEC8] bg-[#EFFAF3] text-[#277247]',
+  featured: 'border-[#E9B554] bg-[#F8D892] text-[#754703]',
+};
+
+const dotColors: Record<BadgeVariant, string> = {
+  neutral: 'bg-[#8A8178]',
+  accent: 'bg-[#D88A0C]',
+  people: 'bg-[#FF6246]',
+  success: 'bg-[#31A261]',
+  featured: 'bg-[#B96F00]',
+};
+
+const sizes: Record<BadgeSize, string> = {
+  xs: 'min-h-5 px-2 py-0.5 text-[9px]',
+  sm: 'min-h-6 px-2.5 py-1 text-[10px]',
+  md: 'min-h-7 px-3 py-1.5 text-[12px]',
+};
+
+const classes = [
+  'inline-flex items-center gap-1.5 rounded-full border font-semibold leading-none whitespace-nowrap',
+  variants[variant],
+  sizes[size],
+  uppercase && 'font-mono uppercase tracking-[0.08em]',
+  href && 'transition-colors hover:brightness-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D88A0C]/35 focus-visible:ring-offset-2',
+  className,
+];
+
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag href={href} class:list={classes} data-badge-variant={variant} {...attributes}>
+  {dot && <span class:list={['h-1.5 w-1.5 rounded-full', dotColors[variant], pulse && 'animate-pulse-soft']} aria-hidden="true"></span>}
+  <slot />
+</Tag>

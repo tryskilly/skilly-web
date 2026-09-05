@@ -1,5 +1,7 @@
 ---
 // src/components/Waitlist.astro
+import Button from './Button.astro';
+
 const platforms = [
   { id: 'windows', label: 'Windows' },
   { id: 'linux', label: 'Linux' },
@@ -80,13 +82,14 @@ const platformStatus = [
             required
             class="flex-1 px-4 py-3 rounded-lg text-[15px] bg-white border border-gray-300 text-gray-900 placeholder-gray-400 outline-none focus:border-amber-500 transition-colors"
           />
-          <button
+          <Button
             type="submit"
             disabled
-            class="bg-amber-500 hover:bg-amber-600 text-gray-950 shadow-sm border-none rounded-lg px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-all opacity-50 cursor-not-allowed"
+            variant="builders-accent"
+            size="lg"
           >
             Join waitlist
-          </button>
+          </Button>
         </div>
         <p class="text-xs text-gray-500 mt-3">No spam. One email when your platform launches. That's it.</p>
       </form>

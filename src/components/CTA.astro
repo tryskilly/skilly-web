@@ -4,6 +4,7 @@
 // feel ~2x stronger than equivalent gains). One loss frame per page, used
 // here at the last decision moment.
 import Logo from './Logo.astro';
+import Button from './Button.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
 ---
 <section
@@ -29,18 +30,20 @@ import { DOWNLOAD_URL } from '../data/config.ts';
     <p class="text-lg text-gray-600 mb-9 leading-relaxed">
       Skilly answers in seconds — out loud — while you stay in any app on your Mac.
     </p>
-    <a
+    <Button
       href={DOWNLOAD_URL}
+      variant="people-primary"
+      size="xl"
       data-ph-event="web_cta_download_clicked"
       data-ph-prop-location="bottom"
       data-ph-prop-target-funnel="people"
-      class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-lg hover:shadow-xl rounded-lg px-10 py-4 text-lg font-semibold transition-all"
+      class="shadow-lg hover:shadow-xl"
     >
       Download for Mac — Free
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M4 12L12 4M12 4H5M12 4V11"/>
       </svg>
-    </a>
+    </Button>
 
     <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-[13px] text-gray-600 mt-6">
       <span class="inline-flex items-center gap-1.5">

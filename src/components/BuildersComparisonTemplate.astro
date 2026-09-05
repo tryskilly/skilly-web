@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from './Nav.astro';
 import Footer from './Footer.astro';
+import Button from './Button.astro';
+import ComparisonTable from './ComparisonTable.astro';
 import { buildersComparisonIndexItems, type BuildersComparisonPage } from '../data/buildersComparisonPages.ts';
 
 interface Props {
@@ -27,6 +29,10 @@ const schema = {
   })),
 };
 const related = buildersComparisonIndexItems.filter((item) => item.href !== `/vs/${page.slug}`).slice(0, 4);
+const comparisonColumns = [
+  { key: 'skilly', label: 'Skilly', isSkilly: true },
+  { key: 'competitor', label: page.competitor },
+];
 ---
 <Layout title={page.title} description={page.description} productLine="builders" funnelStage="consideration">
   <Fragment slot="head">
@@ -41,14 +47,14 @@ const related = buildersComparisonIndexItems.filter((item) => item.href !== `/vs
     <p>{page.targetQueries.join(', ')}</p>
   </div>
 
-  <main class="overflow-x-clip">
-    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
+  <main class="marketing-page overflow-x-clip">
+    <section class="marketing-hero relative max-w-site mx-auto px-6">
       <div class="max-w-[840px] mx-auto text-center">
-        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest comparison</p>
-        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
+        <p class="marketing-eyebrow mb-4">Honest comparison</p>
+        <h1 class="marketing-title text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight mb-6">
           Skilly <span class="text-gray-400">vs</span> {page.competitor}
         </h1>
-        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[700px] mx-auto">
+        <p class="marketing-copy text-lg lg:text-xl leading-relaxed mb-8 max-w-[700px] mx-auto">
           {page.quickTake}
         </p>
       </div>
@@ -56,61 +62,42 @@ const related = buildersComparisonIndexItems.filter((item) => item.href !== `/vs
 
     <section class="max-w-site mx-auto px-6 pb-12">
       <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
-        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+        <div class="marketing-card p-7">
           <div class="flex items-center gap-2 mb-3">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-            <span class="font-semibold text-gray-900">Pick Skilly if</span>
+            <span class="marketing-section-heading font-semibold">Pick Skilly if</span>
           </div>
-          <p class="text-gray-600 leading-relaxed text-[15px]">{page.pickSkilly}</p>
+          <p class="marketing-copy leading-relaxed text-[15px]">{page.pickSkilly}</p>
         </div>
-        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+        <div class="marketing-card p-7">
           <div class="flex items-center gap-2 mb-3">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
-            <span class="font-semibold text-gray-900">Pick {page.competitor} if</span>
+            <span class="marketing-section-heading font-semibold">Pick {page.competitor} if</span>
           </div>
-          <p class="text-gray-600 leading-relaxed text-[15px]">{page.pickCompetitor}</p>
+          <p class="marketing-copy leading-relaxed text-[15px]">{page.pickCompetitor}</p>
         </div>
       </div>
     </section>
 
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[960px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-6 items-start">
-        <div class="bg-amber-50/70 border border-amber-200/70 rounded-xl p-7">
-          <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-amber-700 mb-3">Best read</p>
-          <h2 class="text-2xl font-semibold text-gray-900 mb-3">Different jobs, different tools</h2>
-          <p class="text-gray-700 leading-relaxed mb-5">{page.skillySummary}</p>
-          <p class="text-gray-700 leading-relaxed">{page.competitorSummary}</p>
+        <div class="marketing-card marketing-card--accent p-7">
+          <p class="marketing-eyebrow mb-3">Best read</p>
+          <h2 class="marketing-section-heading text-2xl font-semibold mb-3">Different jobs, different tools</h2>
+          <p class="marketing-copy leading-relaxed mb-5">{page.skillySummary}</p>
+          <p class="marketing-copy leading-relaxed">{page.competitorSummary}</p>
         </div>
-        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table class="w-full text-left text-[15px]">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-5 py-3.5 font-semibold text-gray-700 w-[24%]">Feature</th>
-                <th class="px-5 py-3.5 font-semibold text-amber-700">Skilly</th>
-                <th class="px-5 py-3.5 font-semibold text-gray-600">{page.competitor}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {page.rows.map((row) => (
-                <tr class="border-b border-gray-100 last:border-b-0 align-top">
-                  <td class="px-5 py-4 font-medium text-gray-900">{row.feature}</td>
-                  <td class="px-5 py-4 text-gray-700 leading-relaxed">{row.skilly}</td>
-                  <td class="px-5 py-4 text-gray-600 leading-relaxed">{row.competitor}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ComparisonTable columns={comparisonColumns} rows={page.rows} />
       </div>
       <p class="text-xs text-gray-400 mt-3 text-center">{page.sourceNote}</p>
     </section>
 
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+        <h2 class="marketing-section-heading text-2xl lg:text-3xl font-semibold mb-8 text-center">Common questions</h2>
         <div class="space-y-5">
           {page.faqs.map((faq) => (
-            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="marketing-card p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
               <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">{faq.question}</h3>
               <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                 <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">{faq.answer}</p>
@@ -122,29 +109,31 @@ const related = buildersComparisonIndexItems.filter((item) => item.href !== `/vs
     </section>
 
     <section class="max-w-site mx-auto px-6 pb-16">
-      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
+      <div class="marketing-cta max-w-[680px] mx-auto text-center p-10">
+        <h2 class="marketing-section-heading text-2xl lg:text-3xl font-semibold mb-3">Add a voice guide to your product</h2>
         <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Voice-first, no sales call.</p>
-        <a
+        <Button
           href={ctaUrl}
+          variant="builders-accent"
+          size="xl"
           data-ph-event="web_cta_builders_signup_clicked"
           data-ph-prop-location={`vs_${page.slug.replaceAll('-', '_')}`}
           data-ph-prop-campaign={`vs-${page.slug}`}
           data-ph-prop-target-funnel="builders"
           rel="nofollow"
-          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
+          class="shadow-md hover:shadow-lg"
         >
           Start free in Studio
-        </a>
+        </Button>
       </div>
     </section>
 
     <section class="max-w-site mx-auto px-6 pb-20">
       <div class="max-w-[960px] mx-auto">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">More onboarding-tool comparisons</h2>
+        <h2 class="marketing-section-heading text-xl font-semibold mb-4">More onboarding-tool comparisons</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {related.map((item) => (
-            <a href={item.href} class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+            <a href={item.href} class="marketing-link-card block px-5 py-4">
               <p class="font-medium text-gray-900">{item.name}</p>
               <p class="text-sm text-gray-500 mt-1">{item.summary}</p>
             </a>

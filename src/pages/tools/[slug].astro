@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button.astro';
 
 const pages = {
   'product-tour-script-generator': {
@@ -54,8 +55,8 @@ const auditHref = '/tools/ai-onboarding-audit/';
       <h1 class="mt-5 max-w-3xl text-[42px] font-bold leading-[1.03] tracking-tight sm:text-[56px]">{page.h1}</h1>
       <p class="mt-6 max-w-2xl text-[18px] leading-relaxed text-[#6B635A]">{page.description}</p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a href={auditHref} class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">Run the AI audit</a>
-        <a href="https://studio.tryskilly.app/signup" rel="nofollow" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location={`tool_${page.intent}`} data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Open Studio</a>
+        <Button href={auditHref} variant="builders-accent" size="lg">Run the AI audit</Button>
+        <Button href="https://studio.tryskilly.app/signup" variant="secondary" size="lg" rel="nofollow" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location={`tool_${page.intent}`} data-ph-prop-target-funnel="builders">Open Studio</Button>
       </div>
     </section>
     <section class="border-y border-[#E8E2D9] bg-white">
@@ -69,7 +70,7 @@ const auditHref = '/tools/ai-onboarding-audit/';
     <section class="mx-auto max-w-5xl px-5 py-14 sm:px-8">
       <h2 class="text-2xl font-bold tracking-tight">Best next step</h2>
       <p class="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#6B635A]">The audit looks at your public site first, then turns the gaps into a script, checklist, and SKILL.md preview.</p>
-      <a href={auditHref} class="mt-6 inline-flex items-center rounded-xl bg-[#1A1714] px-6 py-3.5 font-semibold text-white transition hover:bg-[#2A251F] active:scale-[0.98]">Audit my product</a>
+      <Button href={auditHref} variant="builders-primary" size="lg" class="mt-6">Audit my product</Button>
     </section>
   </main>
   <Footer />

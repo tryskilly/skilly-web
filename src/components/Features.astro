@@ -16,6 +16,25 @@
 // Icon convention: all SVGs come from Lucide (lucide.dev) with
 // viewBox="0 0 24 24", stroke-width="2", round caps/joins, 20×20 display
 // size (24×24 for the hero cell).
+import ComparisonTable from './ComparisonTable.astro';
+
+const assistantColumns = [
+  { key: 'skilly', label: 'Skilly', isSkilly: true },
+  { key: 'cluely', label: 'Cluely' },
+  { key: 'chatgpt', label: 'ChatGPT Desktop' },
+  { key: 'rewind', label: 'Rewind' },
+];
+
+const assistantRows = [
+  { feature: 'Voice-first interaction', skilly: 'Yes', cluely: 'No', chatgpt: 'Text-first', rewind: 'No' },
+  { feature: 'Sees your screen in real time', skilly: 'Yes', cluely: 'Yes', chatgpt: 'Yes', rewind: 'Yes' },
+  { feature: 'Moves your cursor to point', skilly: 'Yes', cluely: 'No', chatgpt: 'No', rewind: 'No' },
+  { feature: 'Open source', skilly: 'Apache-2.0', cluely: 'No', chatgpt: 'No', rewind: 'No' },
+  { feature: 'Native Mac app (no Electron)', skilly: 'Native Swift', cluely: 'Electron', chatgpt: 'Native', rewind: 'Native' },
+  { feature: 'Multilingual (16+ languages)', skilly: 'Yes', cluely: 'No', chatgpt: 'Partial', rewind: 'No' },
+  { feature: 'Pricing', skilly: '$19/mo', cluely: '$20/mo', chatgpt: '$20/mo', rewind: '$9.99/mo' },
+  { feature: 'Free trial without credit card', skilly: '15 min', cluely: 'No', chatgpt: 'Yes', rewind: 'Yes' },
+];
 ---
 <section id="features" data-skilly="features" class="relative py-24 lg:py-32 px-6">
   <div
@@ -215,77 +234,7 @@
           Honest comparison. Skilly isn't the only AI tool for Mac — but it's the only voice-first, screen-aware, open-source one that physically points at the screen.
         </p>
       </div>
-      <div class="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
-        <table class="w-full text-[14px] text-left">
-          <thead class="bg-gray-50 text-gray-700 text-[13px] font-semibold">
-            <tr>
-              <th class="py-3 px-4">Feature</th>
-              <th class="py-3 px-4 text-amber-700">Skilly</th>
-              <th class="py-3 px-4">Cluely</th>
-              <th class="py-3 px-4">ChatGPT Desktop</th>
-              <th class="py-3 px-4">Rewind</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100 text-gray-700">
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Voice-first interaction</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">Yes</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-gray-500">Text-first</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Sees your screen in real time</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">Yes</td>
-              <td class="py-2.5 px-4 text-emerald-600">Yes</td>
-              <td class="py-2.5 px-4 text-emerald-600">Yes</td>
-              <td class="py-2.5 px-4 text-emerald-600">Yes</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Moves your cursor to point</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">Yes</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Open source</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">Apache-2.0</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Native Mac app (no Electron)</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">Native Swift</td>
-              <td class="py-2.5 px-4 text-gray-500">Electron</td>
-              <td class="py-2.5 px-4 text-emerald-600">Native</td>
-              <td class="py-2.5 px-4 text-emerald-600">Native</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Multilingual (16+ languages)</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">Yes</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-gray-500">Partial</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Pricing</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">$19/mo</td>
-              <td class="py-2.5 px-4 text-gray-700">$20/mo</td>
-              <td class="py-2.5 px-4 text-gray-700">$20/mo</td>
-              <td class="py-2.5 px-4 text-gray-700">$9.99/mo</td>
-            </tr>
-            <tr>
-              <td class="py-2.5 px-4 font-medium">Free trial without credit card</td>
-              <td class="py-2.5 px-4 text-emerald-600 font-semibold">15 min</td>
-              <td class="py-2.5 px-4 text-gray-400">No</td>
-              <td class="py-2.5 px-4 text-emerald-600">Yes</td>
-              <td class="py-2.5 px-4 text-emerald-600">Yes</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <ComparisonTable columns={assistantColumns} rows={assistantRows} extraWide={true} />
       <p class="mt-4 text-[12px] text-gray-500 text-center">
         Comparisons reflect publicly-listed features as of May 2026. If anything's wrong, <a href="mailto:hello@tryskilly.app" class="underline underline-offset-2 decoration-dashed decoration-gray-400 hover:text-gray-700">tell us</a>.
       </p>

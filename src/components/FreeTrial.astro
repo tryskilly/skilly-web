@@ -1,5 +1,6 @@
 ---
 // src/components/FreeTrial.astro
+import Button from './Button.astro';
 import { primaryCta } from '../data/config.ts';
 
 const steps = [
@@ -48,18 +49,19 @@ const cta = primaryCta();
     </div>
 
     <div class="flex flex-col items-center mt-14 lg:mt-16">
-      <a
+      <Button
         href={cta.href}
+        variant="people-primary"
+        size="xl"
         data-ph-event="web_cta_download_clicked"
         data-ph-prop-location="free_trial"
         data-ph-prop-target-funnel="people"
-        class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 rounded-lg px-8 py-3.5 text-[17px] font-semibold transition-all"
       >
         {cta.label}
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 12L12 4M12 4H5M12 4V11"/>
         </svg>
-      </a>
+      </Button>
       <p class="text-[13px] text-gray-500 mt-4 max-w-[420px] text-center leading-relaxed">
         The free trial is 15 minutes total, one-time per user. It's enough to know if Skilly is for you.
       </p>

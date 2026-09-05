@@ -5,6 +5,8 @@
 // is fixed and doesn't name any specific app. Both files remain in the
 // repo in case we revive the rotation pattern for a different component.
 import VideoModal from './VideoModal.astro';
+import Badge from './Badge.astro';
+import Button from './Button.astro';
 
 // YouTube ID for the main 16:9 product demo. The 9:16 Short lives inside
 // VideoModal.astro as a secondary link — keeps the homepage focused on
@@ -64,28 +66,29 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
         desktop; on mobile the GitHub pill drops below the beta pill.
       -->
       <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
-        <span class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full pl-2.5 pr-4 py-1.5">
-          <span class="block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-soft"></span>
-          <span class="text-[13px] font-medium text-amber-700">Founder beta — 5 skills live</span>
-        </span>
-        <a
+        <Badge variant="accent" size="md" dot={true} pulse={true}>
+          Founder beta — 5 skills live
+        </Badge>
+        <Badge
           href="#builders"
+          variant="neutral"
+          size="md"
           data-ph-event="web_builders_hero_pill_clicked"
-          class="inline-flex items-center gap-1.5 bg-white hover:bg-gray-50 border border-gray-300 hover:border-gray-400 rounded-full pl-3 pr-3.5 py-1.5 transition-colors"
         >
-          <span class="text-[13px] font-medium text-gray-800">New: Skilly for Web</span>
-        </a>
-        <a
+          New: Skilly for Web
+        </Badge>
+        <Badge
           href="https://github.com/tryskilly/skilly"
+          variant="neutral"
+          size="md"
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center gap-1.5 bg-gray-900/5 hover:bg-gray-900/10 border border-gray-300 hover:border-gray-400 rounded-full pl-2.5 pr-3 py-1.5 transition-colors group"
         >
           <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" class="text-gray-700" aria-hidden="true">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
           </svg>
-          <span class="text-[13px] font-medium text-gray-800 group-hover:text-gray-900">Open source · Apache-2.0</span>
-        </a>
+          <span>Open source · Apache-2.0</span>
+        </Badge>
       </div>
 
       <h1 class="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.08] tracking-tight text-gray-900 mb-6">
@@ -149,41 +152,47 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
             placeholder="you@example.com"
             class="flex-1 min-w-0 px-4 py-3.5 text-[15px] rounded-lg border border-gray-300 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 bg-white"
           />
-          <button
+          <Button
             type="submit"
+            variant="builders-accent"
+            size="lg"
             data-ph-event="web_hero_download_emailed"
-            class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+            class="whitespace-nowrap shadow-md hover:shadow-lg"
           >
             Download for Mac
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 12L12 4M12 4H5M12 4V11"/>
             </svg>
-          </button>
+          </Button>
         </form>
         <p data-hero-download-status class="text-[12px] text-center min-h-[14px]" aria-live="polite"></p>
         <div class="flex items-center gap-3 text-[12px] text-gray-500">
-          <a
+          <Button
             href="/dmg"
+            variant="ghost"
+            size="sm"
             data-ph-event="web_cta_download_clicked"
             data-ph-prop-location="hero_skip"
-            class="underline underline-offset-2 decoration-gray-300 hover:decoration-gray-600 hover:text-gray-700"
+            class="min-h-0 px-0 py-0 text-[12px] font-medium text-gray-500 underline underline-offset-2 decoration-gray-300 hover:bg-transparent hover:text-gray-700 hover:decoration-gray-600 focus-visible:ring-0 focus-visible:ring-offset-0"
           >
             Just download (no email)
-          </a>
+          </Button>
           <span class="text-gray-300">·</span>
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="sm"
             data-skilly="demo-video"
             data-video-modal-open={DEMO_VIDEO_ID}
             data-ph-event="web_demo_video_played"
             data-ph-prop-location="hero_button"
-            class="inline-flex items-center gap-1 hover:text-gray-700 underline underline-offset-2 decoration-gray-300 hover:decoration-gray-600"
+            class="min-h-0 px-0 py-0 text-[12px] font-medium text-gray-500 underline underline-offset-2 decoration-gray-300 hover:bg-transparent hover:text-gray-700 hover:decoration-gray-600 focus-visible:ring-0 focus-visible:ring-offset-0"
           >
             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
             </svg>
             Watch 90-sec demo
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -262,26 +271,31 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
             placeholder="you@example.com"
             class="flex-1 px-4 py-3 text-[15px] rounded-lg border border-gray-300 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 bg-white"
           />
-          <button
+          <Button
             type="submit"
-            class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md rounded-lg px-5 py-3 text-[15px] font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            variant="builders-accent"
+            size="lg"
+            class="shadow-md"
           >
             Notify me
-          </button>
+          </Button>
         </form>
         <p data-hero-mobile-status class="text-[13px] text-center min-h-[16px]" aria-live="polite"></p>
-        <button
+        <Button
           type="button"
+          variant="secondary"
+          size="lg"
+          fullWidth={true}
           data-video-modal-open={DEMO_VIDEO_ID}
           data-ph-event="web_demo_video_played"
           data-ph-prop-location="hero_mobile_button"
-          class="w-full mt-2 inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-6 py-3 text-[15px] font-semibold transition-all"
+          class="mt-2"
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M3 2.5v11a.5.5 0 0 0 .77.42l9-5.5a.5.5 0 0 0 0-.84l-9-5.5A.5.5 0 0 0 3 2.5z"/>
           </svg>
           Watch 90-sec demo first
-        </button>
+        </Button>
       </div>
 
       <!--

@@ -8,6 +8,7 @@
 // - Early-access counter triggers Bandwagon / Mimetic Desire
 // - Repeated CTA at a natural decision point (page-cro dimension #3)
 import { DOWNLOAD_URL } from '../data/config.ts';
+import Button from './Button.astro';
 
 // No early-access users yet. Below 50, the component flips to an
 // exclusivity frame ("Be one of the first to try Skilly") instead of a
@@ -76,18 +77,20 @@ const showCounter = earlyAccessCount >= 50;
       )}
     </p>
 
-    <a
+    <Button
       href={DOWNLOAD_URL}
+      variant="people-primary"
+      size="lg"
       data-ph-event="web_cta_download_clicked"
       data-ph-prop-location="social_proof_band"
       data-ph-prop-target-funnel="people"
-      class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3 text-[15px] font-semibold transition-all"
+      class="shadow-md hover:shadow-lg"
     >
       Download for Mac — Free
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M4 12L12 4M12 4H5M12 4V11"/>
       </svg>
-    </a>
+    </Button>
     <p class="text-[12px] text-gray-500 mt-3">Free 15 min · No card · macOS 14+</p>
   </div>
 </section>
