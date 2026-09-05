@@ -27,6 +27,8 @@ const {
 const siteUrl = 'https://tryskilly.app';
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = new URL(ogImage, siteUrl).toString();
+const isPrimaryProductPage = Astro.url.pathname === '/'
+  || Astro.url.pathname === '/people/';
 
 // Schema.org structured data — applies to every page via Layout.astro.
 // Per the final launch audit (docs/2026-04-16-final-launch-audit.md), these
@@ -47,27 +49,71 @@ const organizationSchema = {
   description: 'Skilly is a voice-first AI tutor for Mac users and web builders. It sees the screen, hears your voice, answers out loud, and points at exactly what to click.',
 };
 
-const softwareApplicationSchema = {
+const buildersOffers = [
+  { name: 'Early Access', price: '0' },
+  { name: 'Starter', price: '29' },
+  { name: 'Studio', price: '99' },
+  { name: 'Scale', price: '299' },
+].map(({ name, price }) => ({
+  '@type': 'Offer',
+  name,
+  price,
+  priceCurrency: 'USD',
+  url: `${siteUrl}/#pricing`,
+  priceSpecification: {
+    '@type': 'UnitPriceSpecification',
+    price,
+    priceCurrency: 'USD',
+    billingDuration: 'P1M',
+    unitText: 'MONTH',
+  },
+}));
+
+const buildersApplicationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Skilly',
+  '@id': `${siteUrl}/#skilly-for-builders`,
+  name: 'Skilly for Builders',
+  url: `${siteUrl}/`,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  description: 'An embeddable voice-and-pointer onboarding assistant for websites and SaaS products. Users ask questions out loud, hear an answer grounded in the product content, and see where to click next.',
+  ...(isPrimaryProductPage ? { offers: buildersOffers } : {}),
+};
+
+const peopleApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': `${siteUrl}/people/#skilly-for-people`,
+  name: 'Skilly for People',
+  url: `${siteUrl}/people/`,
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'macOS 14.0+',
-  offers: {
-    '@type': 'Offer',
-    price: '19',
-    priceCurrency: 'USD',
-    priceSpecification: {
-      '@type': 'UnitPriceSpecification',
+  description: 'A voice-first AI tutor for Mac apps. Ask out loud, see a live transcript, and watch Skilly point at the exact control to use next.',
+  downloadUrl: 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg',
+  ...(isPrimaryProductPage ? {
+    offers: {
+      '@type': 'Offer',
+      name: 'Skilly for People Beta',
       price: '19',
       priceCurrency: 'USD',
-      billingDuration: 'P1M',
-      unitText: 'MONTH',
+      url: `${siteUrl}/people/`,
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '19',
+        priceCurrency: 'USD',
+        billingDuration: 'P1M',
+        unitText: 'MONTH',
+      },
     },
-  },
-  description: 'Voice-first AI tutor for Mac apps and websites. Ask out loud, see a live transcript, and watch Skilly point at exactly what you need.',
-  downloadUrl: 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg',
+  } : {}),
 };
+
+const softwareApplicationSchema = productLine === 'builders'
+  ? buildersApplicationSchema
+  : productLine === 'people' || productLine === 'mac'
+    ? peopleApplicationSchema
+    : undefined;
 
 // PostHog public project key — same project as the Skilly macOS app.
 // Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
@@ -114,8 +160,10 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
     <!-- Schema.org — Organization (sitewide) -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
 
-    <!-- Schema.org — SoftwareApplication (sitewide) -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(softwareApplicationSchema)} />
+    <!-- Product-aware schema: do not describe Builders pages as the macOS app. -->
+    {softwareApplicationSchema && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(softwareApplicationSchema)} />
+    )}
 
     <!-- Page-specific head injection slot (e.g. index.astro uses this for FAQPage schema) -->
     <slot name="head" />

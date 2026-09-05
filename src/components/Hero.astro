@@ -168,7 +168,7 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
         <p data-hero-download-status class="text-[12px] text-center min-h-[14px]" aria-live="polite"></p>
         <div class="flex items-center gap-3 text-[12px] text-gray-500">
           <Button
-            href="/dmg"
+            href="/dmg/"
             variant="ghost"
             size="sm"
             data-ph-event="web_cta_download_clicked"
@@ -236,13 +236,13 @@ const DEMO_VIDEO_ID = 'M29K4g5Z_NA';
               });
             }
             // Trigger download via the /dmg route (302 to GitHub Releases)
-            window.location.href = '/dmg';
+            window.location.href = '/dmg/';
           } catch {
             if (heroStatus) {
               heroStatus.textContent = 'Network error — downloading anyway.';
               heroStatus.style.color = '#B45309';
             }
-            window.location.href = '/dmg';
+            window.location.href = '/dmg/';
           }
         });
       </script>

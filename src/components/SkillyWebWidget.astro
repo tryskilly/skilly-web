@@ -32,7 +32,7 @@ const SKILLY_WEB_CORE_URL = import.meta.env.PUBLIC_SKILLY_WEB_CORE_URL || 'https
     script.dataset.skillyCoreUrl = SKILLY_WEB_CORE_URL;
     var isPeople = window.location.pathname.startsWith('/people');
     var isBuilders = window.location.pathname === '/' || window.location.pathname.startsWith('/builders');
-    script.dataset.skillyAccent = isPeople ? '#F05B3F' : '#F59E0B';
+    script.dataset.skillyAccent = isPeople ? '#ff6f3f' : '#f59e0b';
     script.dataset.skillyLauncher = isBuilders
       ? 'Ask Skilly about builders'
       : isPeople

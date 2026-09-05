@@ -1,12 +1,12 @@
 ---
 title: "Onboarding without building tours"
-description: "Scripted product tours are the old way — you author and maintain every flow. The new way is voice onboarding: users ask out loud and get pointed at the exact button."
+description: "Replace rigid product tours with voice onboarding. Users ask what to do next and get guided to the exact button without prebuilt flows."
 pubDate: 2026-07-15
 updatedDate: 2026-08-04
 category: "concept"
 tags: ["voice onboarding", "user onboarding", "product tours", "ai onboarding agent", "in-app guidance", "activation"]
 canonicalKeyword: "onboarding without building tours"
-relatedArticles: ["user-onboarding-statistics-2026", "best-user-onboarding-software-2026"]
+relatedArticles: ["user-onboarding-statistics-2026", "best-user-onboarding-software-2026", "voice-guided-product-onboarding", "ai-onboarding-guide-vs-product-tour", "reduce-saas-onboarding-drop-off"]
 faq:
   - question: "Can you do user onboarding without building product tours?"
     answer: "Yes. Instead of authoring tours in advance, an AI onboarding agent reads your existing product content and docs, then answers when a user asks — pointing their cursor at the exact button. There are no flows to build, segment, or maintain."

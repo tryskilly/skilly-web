@@ -1,17 +1,17 @@
 # Product Marketing Context
 
-*Last updated: 2026-06-22 (builders intro CRO pass)*
+*Last updated: 2026-08-15 (outcome-led Builders homepage pass)*
 
 ## Product Overview
-**One-liner:** A voice-and-pointer tutor for software, available as a native Mac companion and as an embeddable website guide for builders.
+**One-liner:** Skilly helps people finish work in unfamiliar software and helps product teams guide stuck users through onboarding, using voice answers that point to the next step.
 **What it does:** On Mac, Skilly lives in the menu bar. You press a shortcut (or enable Live Tutor) and ask out loud — "how do I add a bevel?" — and it screenshots your active app, moves the cursor to the exact UI element, and narrates the answer in your language. For builders, Skilly for Web lets website owners create a Studio project, import site/docs context, preview a website skill, and install a CDN widget so customers can ask questions inside their site.
 **Product category:** Voice-first learning assistant for software and customer education. Adjacent to AI tutors, website onboarding widgets, product copilots, and one-on-one video tutorials.
 **Product type:** Native macOS app plus Studio-managed web widget, subscription/usage SaaS.
 **Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, roughly $0.11 per included minute. 15 min free (no card). Beta capped at 50 users with price locked for life. Builders/Web pricing should be framed separately around Studio projects and usage, not borrowed from Mac hosted minutes.
 
 ## Target Audience
-**Target companies:** Individual creators and knowledge workers (not enterprise yet). Solo freelancers, indie makers, small teams. People who pay for their own tools.
-**Decision-makers:** End user = buyer. No committee.
+**Target companies:** For People: individual creators and knowledge workers. For Builders: early-stage SaaS teams, indie founders, and small product/support teams with repetitive onboarding questions. Enterprise requirements such as SSO/SOC 2 are not the current target.
+**Decision-makers:** For People, the end user is the buyer. For Builders, the likely buyer is a founder, product owner, growth lead, or support lead who can install a script and wants better activation without adding support load.
 **Primary use case:** "I'm stuck in [Blender / Figma / Excel / a new tool] and hunting through menus to figure out how to do the thing I want."
 **Jobs to be done:**
 - Get unstuck in a creative or productivity app without leaving the app to Google / YouTube
@@ -69,7 +69,7 @@
 ## Objections
 | Objection | Response |
 |-----------|----------|
-| "Privacy — it's watching my screen?" | Audio + a screenshot go to OpenAI only while you're talking. Nothing saved after the session. OpenAI contractually can't train on Skilly sessions. Our analytics are anonymous usage metrics only. |
+| "Privacy — it's watching my screen?" | Audio + screen context go to OpenAI only while you're asking for help. Conversation history and optional replay audio stay locally on the device; message contents never go to analytics. OpenAI can't train on Skilly API traffic. |
 | "$19/mo is steep for an AI tool" | $0.63/day — less than a coffee. One human tutor hour = $50–100; one month of Skilly = 3 live hours. Real-time voice+vision is expensive to run and we're honest about it. |
 | "Only 3 hours? I'll blow through that." | Most users don't. We email at 80% and 100%. No surprise charges — it just pauses. |
 | "Only 5 apps?" | Works in *any* app without a skill. Skills add deeper courses and updated knowledge for specific apps. Skill builder shipping so users can create their own. |
@@ -122,11 +122,16 @@
 | "Speaks your language" | 16 languages / 8 voices, auto-detect |
 | "Moves the cursor" | Hero animation shows it pointing at exact UI |
 | "Price locked for life" | Only 50 beta seats; explicit in pricing card |
-| "Privacy-safe" | OpenAI contractually blocked from training; nothing saved post-session |
+| "Privacy-safe" | OpenAI blocked from training on API traffic; conversation history stays local; message contents are excluded from analytics |
 
 ## Goals
-**Business goal:** Fill the 50-seat beta with activated paying users who'd rate 9+/10, so the post-beta launch has real testimonials, usage data, and word-of-mouth.
-**Conversion action (primary):** Download DMG → complete 15-min free trial → subscribe inside the app.
-**Conversion action (secondary):** Start in Studio for Skilly for Builders, plus cross-platform waitlist signup (Windows / Linux / iOS) for native clients.
-**Funnel architecture:** Homepage is the umbrella. `/mac` converts Mac learners to download. `/builders` converts website/app owners to Studio signup. `/people` explains guided skills and routes back to the Mac app. Analytics should include `product_line`, `funnel_stage`, `page_path`, and `target_funnel` where applicable.
-**Current metrics:** *Unknown — baseline being established; PostHog tracking in place. Landing page is live at tryskilly.app. Beta status: BETA_ACTIVE, 0 early-access users counted on site.*
+**Business goal:** Establish two evidence-backed funnels: activated individual users for the desktop app and installed, useful guides for Builders. Collect attributed feedback and activation evidence before making quantitative performance claims.
+**Conversion action (homepage / Builders):** Try the live guide → create a free Studio guide → publish a project → install the widget.
+**Conversion action (People):** Visit `/people` → download the desktop app → complete the free trial → subscribe. Chrome, Edge, and Firefox store links are a secondary install path for visitors who prefer browser-only help; track each store separately without diluting the Mac download as the primary CTA.
+**Funnel architecture:** `/` is the outcome-led Builders homepage. `/people` is the desktop-app path. Free tools and comparison/learn pages route visitors to the matching funnel. Analytics should include `product_line`, `funnel_stage`, `page_path`, and `target_funnel` where applicable.
+**Current metrics:** PostHog tracking is in place, but the external-user sample is still too small for conversion claims. Treat sessions, project creation, widget installation, downloads, and paid conversion as separate stages rather than one blended traffic metric.
+
+## Current People Landing Page
+**Live direction:** Warm coral consumer visual system with the concrete promise “Ask your apps what to do next.” The hero must demonstrate voice plus pointer guidance inside a recognizable software canvas, not an abstract AI graphic.
+**Conversion structure:** Mac download first, short demo second, browser-store links later in the page, followed by comparison, transparent BYOK/hosted pricing, trust, and FAQ objections. Preserve all CTA analytics locations and browser IDs when iterating.
+**Claim guardrail:** The Mac product points and guides; do not claim it clicks controls for the user. Browser actions are a separate capability and must keep confirmation guardrails.

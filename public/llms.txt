@@ -12,6 +12,8 @@
 - [Terms](https://tryskilly.app/terms)
 - [Download macOS app (GitHub release)](https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg)
 - [Machine-readable pricing](https://tryskilly.app/pricing.md)
+- [Skilly for Builders — machine-readable product facts](https://tryskilly.app/products/skilly-builders.md)
+- [Skilly for People — machine-readable product facts](https://tryskilly.app/products/skilly-people.md)
 - [Learn hub](https://tryskilly.app/learn): long-form tutorials covering macOS permissions, creative-tool workflows, and OpenAI Realtime API integration
 
 ## What Skilly for Builders does
@@ -114,6 +116,11 @@ For builders, the same skill format (editable markdown) powers each Studio proje
 - [OpenAI Realtime API tutorial — voice + screen apps](https://tryskilly.app/learn/openai-realtime-api-tutorial)
 - [OpenAI MCP server tutorial — building tools for voice agents](https://tryskilly.app/learn/openai-mcp-server-tutorial)
 - [Best voice AI assistant for Mac in 2026](https://tryskilly.app/learn/best-voice-ai-assistant-mac-2026)
+- [Voice-guided product onboarding: definition and evaluation](https://tryskilly.app/learn/voice-guided-product-onboarding)
+- [AI onboarding guide vs product tour](https://tryskilly.app/learn/ai-onboarding-guide-vs-product-tour)
+- [How to reduce SaaS onboarding drop-off](https://tryskilly.app/learn/reduce-saas-onboarding-drop-off)
+- [User onboarding statistics 2026](https://tryskilly.app/learn/user-onboarding-statistics-2026)
+- [Best user onboarding software in 2026](https://tryskilly.app/learn/best-user-onboarding-software-2026)
 - [ScreenCaptureKit lid-close fix](https://tryskilly.app/learn/screencapturekit-lid-close-fix)
 
 ## Tech stack

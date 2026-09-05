@@ -9,13 +9,13 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const lastUpdated = 'August 4, 2026';
+const lastUpdated = 'August 11, 2026';
 
 const processors = [
   {
     name: 'OpenAI',
-    purpose: 'Real-time voice and visual-context inference — the model that powers Skilly\u2019s teaching in the macOS app and browser extension',
-    data: 'Audio, visible screen or webpage context, and model prompts, sent only during an active teaching session. OpenAI processes these to generate responses and is contractually prohibited from using them for training.',
+    purpose: 'Real-time voice and visual-context inference in the macOS app and browser extension, plus course generation in the website Skill Builder',
+    data: 'Audio, visible screen or webpage context, model prompts, and the software/learning goal entered into Skill Builder. These are sent only for the requested operation. OpenAI processes them to generate responses and is contractually prohibited from using API data for training.',
     location: 'United States',
     link: 'https://openai.com/policies/privacy-policy',
   },
@@ -49,8 +49,8 @@ const processors = [
   },
   {
     name: 'Cloudflare',
-    purpose: 'Backend infrastructure for the macOS app (API requests, edge functions, DDoS protection)',
-    data: 'Server access logs, IP addresses (retained by Cloudflare\u2019s infrastructure for short periods), TLS connection metadata',
+    purpose: 'Static asset CDN and DDoS protection for the marketing site and Builders assets; Studio is the application backend',
+    data: 'Static asset request logs, IP addresses retained by Cloudflare\u2019s infrastructure for short periods, and TLS connection metadata',
     location: 'Global CDN (varies)',
     link: 'https://www.cloudflare.com/privacypolicy/',
   },
@@ -102,6 +102,7 @@ const processors = [
             <li><strong class="text-gray-900">Billing data</strong> — subscription status, held by Polar. We never see your full card number.</li>
             <li><strong class="text-gray-900">Usage metrics</strong> — per-session numbers: session length, turn count, token counts, costs, feature usage, and account or tenant identifiers when available</li>
             <li><strong class="text-gray-900">Browser extension session data</strong> — the active page URL, visible page text and interface structure, your spoken request, and requested page actions while you explicitly run a Skilly session. This context lets Skilly answer questions, point to controls, and perform limited actions during that session.</li>
+            <li><strong class="text-gray-900">Skill Builder data</strong> — the software, learning goal, level, and pace you submit are processed to generate your course. If you request the Markdown by email, Resend processes your email address and generated course for delivery. Marketing consent is separate and optional.</li>
             <li><strong class="text-gray-900">Website analytics</strong> — page views, campaign parameters, click events, conversion events, and session replays of website visits via PostHog. Replays show scroll and cursor paths to help us find UX problems; all input fields are automatically masked.</li>
             <li><strong class="text-gray-900">Waitlist data</strong> — if you join the waitlist, we store your email and chosen platform in our Resend audience</li>
             <li><strong class="text-gray-900">Lead attribution data</strong> — if you submit a waitlist, newsletter, skill-request, or checkout form, we may send your email address to PostHog so we can connect marketing activity to product signup and subscription funnels. We do not send that email address to Google Analytics.</li>

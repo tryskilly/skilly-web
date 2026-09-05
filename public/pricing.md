@@ -4,6 +4,8 @@ Machine-readable pricing for AI agents and API consumers. See also:
 - [Human-readable pricing section](https://tryskilly.app/#pricing)
 - [Landing page](https://tryskilly.app/)
 - [llms.txt](https://tryskilly.app/llms.txt)
+- [Skilly for Builders product facts](https://tryskilly.app/products/skilly-builders.md)
+- [Skilly for People product facts](https://tryskilly.app/products/skilly-people.md)
 
 ## Skilly for Builders
 

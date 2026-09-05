@@ -3,7 +3,7 @@
 import Badge from './Badge.astro';
 import Logo from './Logo.astro';
 import Wordmark from './Wordmark.astro';
-import { BETA_STATUS } from '../data/config.ts';
+import { BETA_STATUS, BROWSER_EXTENSIONS } from '../data/config.ts';
 import { getMarketingVariant } from '../data/siteNavigation.ts';
 import { Github, MessageCircle, Twitter } from 'lucide-astro';
 
@@ -60,6 +60,20 @@ const footerGroups: FooterGroup[] = [
       ['/for/ai-saas/', 'For AI SaaS'],
       ['/for/nocode-tools/', 'For no-code tools'],
       ['/for/education-platforms/', 'For education'],
+    ],
+  },
+  {
+    label: 'Get Skilly',
+    links: [
+      ['/people/', 'Mac app'],
+      ...BROWSER_EXTENSIONS.map((extension) => [extension.href, `${extension.shortName} extension`] as FooterLink),
+    ],
+  },
+  {
+    label: 'Free tools',
+    links: [
+      ['/tools/skill-builder/', 'AI course generator'],
+      ['/tools/ai-onboarding-audit/', 'AI onboarding audit'],
     ],
   },
 ];

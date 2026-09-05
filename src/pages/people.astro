@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import Logo from '../components/Logo.astro';
+import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 import VideoModal from '../components/VideoModal.astro';
-import { DOWNLOAD_URL } from '../data/config.ts';
+import { BROWSER_EXTENSIONS, DOWNLOAD_URL } from '../data/config.ts';
 import { betaTier } from '../data/tiers.ts';
 import {
   Apple,
@@ -162,6 +164,43 @@ const trustBar = [
     icon: Apple,
   },
 ];
+
+const faqs = [
+  {
+    question: 'How long is the free trial?',
+    answer: 'Skilly includes 15 minutes of real hosted usage with no card required. Most people know within the first session whether voice guidance and pointing are useful for them.',
+  },
+  {
+    question: 'Which apps does Skilly work with?',
+    answer: 'Skilly works in any app on your Mac. App-specific skills make it better by adding lessons, vocabulary, and current documentation.',
+  },
+  {
+    question: 'Can I use Skilly in my browser?',
+    answer: 'Yes. Skilly is available as an extension for Google Chrome, Microsoft Edge, and Mozilla Firefox. The extension provides voice guidance and pointing on the webpage you choose.',
+  },
+  {
+    question: 'Is Skilly private?',
+    answer: 'Audio and screen context are sent only while you ask for help. Message contents are not sent to analytics. Conversation history, including optional replay audio, stays locally on your device.',
+  },
+  {
+    question: 'Can I build my own skill?',
+    answer: 'Yes. You can create private skills for the tools you want to learn, refine them during lessons, and share the best ones later.',
+  },
+  {
+    question: 'What happens when I hit my hosted minutes?',
+    answer: 'Hosted usage pauses until the next cycle. There are no surprise overage charges, and Skilly warns you as you approach the limit.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 ---
 <Layout
   title="Skilly for Mac - Ask your apps what to do next"
@@ -169,6 +208,9 @@ const trustBar = [
   productLine="people"
   funnelStage="conversion"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
   <Nav />
 
   <main class="people-page overflow-x-clip bg-[#fffaf6] text-[#231d1a]">
@@ -177,8 +219,8 @@ const trustBar = [
       <p itemprop="description">
         Skilly listens to your question, answers in voice, and points at the exact control to use next inside the app you are already using.
       </p>
-      <span itemprop="operatingSystem">macOS 14+</span>
-      <span itemprop="applicationCategory">ProductivityApplication</span>
+      <span itemprop="operatingSystem">macOS 14+, Google Chrome, Microsoft Edge, Mozilla Firefox</span>
+      <span itemprop="applicationCategory">EducationalApplication</span>
     </div>
 
     <section class="people-hero relative isolate border-b border-[#f4e7df]">
@@ -361,6 +403,32 @@ const trustBar = [
       </div>
     </section>
 
+    <section class="people-extensions mx-auto max-w-[1360px] px-5 pb-10 sm:px-8" aria-labelledby="browser-extension-heading">
+      <div class="grid items-center gap-7 overflow-hidden rounded-[26px] border border-[#f0ddd4] bg-[#2a2421] px-6 py-7 text-white shadow-[0_18px_40px_rgba(67,36,23,0.12)] md:grid-cols-[1fr_auto] md:px-8">
+        <div>
+          <div class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ff9f70]">Already in your browser</div>
+          <h2 id="browser-extension-heading" class="mt-3 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] sm:text-[38px]">Ask the page you are on.</h2>
+          <p class="mt-3 max-w-[620px] text-[15px] leading-[1.65] text-white/65">Use Skilly on the web without leaving your tab. Ask by voice, hear the answer, and follow the pointer to the right control.</p>
+        </div>
+        <div class="grid gap-2.5 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
+          {BROWSER_EXTENSIONS.map((extension) => (
+            <a
+              href={extension.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ph-event="web_extension_store_clicked"
+              data-ph-prop-browser={extension.id}
+              data-ph-prop-location="people_extensions"
+              class="inline-flex min-w-[142px] items-center justify-between gap-3 rounded-[13px] border border-white/10 bg-white/[0.08] px-4 py-3 text-[14px] font-semibold text-white transition hover:-translate-y-0.5 hover:border-[#ff9f70]/50 hover:bg-white/[0.12]"
+            >
+              <span>{extension.shortName}</span>
+              <span aria-hidden="true" class="text-[#ff9f70]">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="people-comparison mx-auto max-w-[1360px] px-5 pb-10 sm:px-8">
       <div class="overflow-hidden rounded-[24px] border border-[#f0ddd4] bg-white shadow-[0_12px_32px_rgba(111,73,48,0.05)]">
         <div class="overflow-x-auto">
@@ -477,9 +545,29 @@ const trustBar = [
         ))}
       </div>
     </section>
+
+    <section class="people-faq mx-auto max-w-[960px] px-5 pb-16 pt-4 sm:px-8" aria-labelledby="people-faq-heading">
+      <div class="text-center">
+        <div class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ff6f3f]">Questions, answered</div>
+        <h2 id="people-faq-heading" class="mt-3 text-[38px] font-bold leading-none tracking-[-0.04em] text-[#2a2421]">Before you download.</h2>
+      </div>
+      <div class="mt-8 grid gap-3">
+        {faqs.map((faq) => (
+          <details class="group rounded-[18px] border border-[#f0e0d7] bg-white px-5 py-4 shadow-[0_8px_22px_rgba(111,73,48,0.035)]">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-5 text-[16px] font-semibold text-[#2a2421]">
+              <span>{faq.question}</span>
+              <span aria-hidden="true" class="text-[22px] font-normal text-[#ff6f3f] transition group-open:rotate-45">+</span>
+            </summary>
+            <p class="max-w-[760px] pt-3 text-[14px] leading-[1.65] text-[#5f534d]">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
   </main>
 
+  <Footer />
   <VideoModal />
+  <SkillyWebWidget />
 
   <style>
     .device-shell::after {

@@ -16,6 +16,11 @@ describe('public browser demo', () => {
     expect(demoPage).toContain('data-demo-start');
   });
 
+  test('reserves space below the fixed marketing navigation', () => {
+    expect(demoPage).toContain(
+      '<main class="demo-page min-h-screen overflow-x-clip bg-[var(--marketing-canvas)] pt-16 text-[var(--marketing-text)]">',
+    );
+  });
   test('tracks the conversion funnel without sending conversation content', () => {
     expect(demoPage).toContain("capture('web_browser_demo_viewed')");
     expect(demoPage).toContain("capture('web_browser_demo_session_started')");

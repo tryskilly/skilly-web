@@ -6,7 +6,7 @@ updatedDate: 2026-08-04
 category: "concept"
 tags: ["builders", "user onboarding", "saas", "statistics", "activation", "retention"]
 canonicalKeyword: "user onboarding statistics 2026"
-relatedArticles: ["onboarding-without-building-tours", "best-user-onboarding-software-2026"]
+relatedArticles: ["onboarding-without-building-tours", "best-user-onboarding-software-2026", "voice-guided-product-onboarding", "ai-onboarding-guide-vs-product-tour", "reduce-saas-onboarding-drop-off"]
 dataset:
   name: "User onboarding statistics 2026"
   description: "A curated, source-linked compilation of SaaS activation, onboarding checklist, time-to-value, feature adoption, retention, loyalty, and onboarding-content statistics maintained by Skilly."
