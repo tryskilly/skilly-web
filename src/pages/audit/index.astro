@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button.astro';
 import { buildStudioPrefillUrl, runAudit, type ScoreKey } from '../../lib/ai-onboarding-audit';
 
 export const prerender = false;
@@ -57,8 +58,8 @@ const scoreEntries = Object.entries(report.scores) as Array<[ScoreKey, number]>;
           <h1 class="mt-4 max-w-3xl text-[40px] font-bold leading-[1.04] tracking-tight sm:text-[56px]">{report.product} scored {report.score}/100.</h1>
           <p class="mt-5 max-w-2xl text-[18px] leading-relaxed text-[#6B635A]">{description}</p>
           <div class="mt-7 flex flex-wrap gap-3">
-            <a href={studioUrl} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="share_page" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">Preview in Studio</a>
-            <a href="/tools/ai-onboarding-audit/" class="inline-flex items-center rounded-xl border border-[#E8E2D9] bg-white px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Run your audit</a>
+            <Button href={studioUrl} variant="builders-accent" size="lg" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="share_page" data-ph-prop-target-funnel="builders">Preview in Studio</Button>
+            <Button href="/tools/ai-onboarding-audit/" variant="secondary" size="lg">Run your audit</Button>
           </div>
         </div>
         <div class="rounded-3xl border border-[#E8E2D9] bg-white p-6 shadow-sm">
@@ -111,8 +112,8 @@ const scoreEntries = Object.entries(report.scores) as Array<[ScoreKey, number]>;
         <h2 class="text-2xl font-bold tracking-tight">Generated SKILL.md preview</h2>
         <pre class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-[#FAF8F4] p-5 font-mono text-[13px] leading-relaxed text-[#4E463D]">{report.skillPreview}</pre>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href={studioUrl} data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="skill_preview" data-ph-prop-target-funnel="builders" class="inline-flex items-center rounded-xl bg-[#F59E0B] px-6 py-3.5 font-semibold text-[#1A1714] transition hover:brightness-105 active:scale-[0.98]">Open Studio</a>
-          <a href="mailto:hello@tryskilly.app?subject=Remove%20Skilly%20audit%20page" class="inline-flex items-center rounded-xl border border-[#E8E2D9] px-5 py-3.5 font-semibold transition hover:border-[#F59E0B]/40 active:scale-[0.98]">Claim or remove</a>
+          <Button href={studioUrl} variant="builders-accent" size="lg" data-ph-event="web_ai_audit_studio_clicked" data-ph-prop-location="skill_preview" data-ph-prop-target-funnel="builders">Open Studio</Button>
+          <Button href="mailto:hello@tryskilly.app?subject=Remove%20Skilly%20audit%20page" variant="secondary" size="lg">Claim or remove</Button>
         </div>
       </div>
     </section>

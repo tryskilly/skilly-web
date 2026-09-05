@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/BuildersNav.astro';
-import Footer from '../components/BuildersFooter.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import Logo from '../components/Logo.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 import VideoModal from '../components/VideoModal.astro';
@@ -53,7 +53,7 @@ const stepRail = [
   {
     number: '3',
     title: 'Follow the pointer',
-    description: 'Skilly highlights the right controls so you always know what to do next.',
+    description: 'Skilly highlights the right controls and clicks when helpful so you never get lost.',
     icon: MousePointer2,
   },
 ];
@@ -211,7 +211,6 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
   </Fragment>
-
   <Nav />
 
   <main class="people-page overflow-x-clip bg-[#fffaf6] text-[#231d1a]">
@@ -408,14 +407,9 @@ const faqSchema = {
       <div class="grid items-center gap-7 overflow-hidden rounded-[26px] border border-[#f0ddd4] bg-[#2a2421] px-6 py-7 text-white shadow-[0_18px_40px_rgba(67,36,23,0.12)] md:grid-cols-[1fr_auto] md:px-8">
         <div>
           <div class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ff9f70]">Already in your browser</div>
-          <h2 id="browser-extension-heading" class="mt-3 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] sm:text-[38px]">
-            Ask the page you are on.
-          </h2>
-          <p class="mt-3 max-w-[620px] text-[15px] leading-[1.65] text-white/65">
-            Use Skilly on the web without leaving your tab. Ask by voice, hear the answer, and follow the pointer to the right control.
-          </p>
+          <h2 id="browser-extension-heading" class="mt-3 text-[30px] font-bold leading-[1.05] tracking-[-0.04em] sm:text-[38px]">Ask the page you are on.</h2>
+          <p class="mt-3 max-w-[620px] text-[15px] leading-[1.65] text-white/65">Use Skilly on the web without leaving your tab. Ask by voice, hear the answer, and follow the pointer to the right control.</p>
         </div>
-
         <div class="grid gap-2.5 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
           {BROWSER_EXTENSIONS.map((extension) => (
             <a
@@ -555,9 +549,7 @@ const faqSchema = {
     <section class="people-faq mx-auto max-w-[960px] px-5 pb-16 pt-4 sm:px-8" aria-labelledby="people-faq-heading">
       <div class="text-center">
         <div class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ff6f3f]">Questions, answered</div>
-        <h2 id="people-faq-heading" class="mt-3 text-[38px] font-bold leading-none tracking-[-0.04em] text-[#2a2421]">
-          Before you download.
-        </h2>
+        <h2 id="people-faq-heading" class="mt-3 text-[38px] font-bold leading-none tracking-[-0.04em] text-[#2a2421]">Before you download.</h2>
       </div>
       <div class="mt-8 grid gap-3">
         {faqs.map((faq) => (
@@ -585,6 +577,80 @@ const faqSchema = {
       border-radius: 28px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       pointer-events: none;
+    }
+
+    .step-badge::before,
+    .step-badge::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      opacity: 0.95;
+    }
+
+    .step-badge {
+      position: relative;
+    }
+
+    .step-badge--mic::before {
+      width: 12px;
+      height: 18px;
+      border-radius: 999px;
+      top: 14px;
+      left: 21px;
+      box-shadow: 0 0 0 2px currentColor inset;
+      background: transparent;
+    }
+
+    .step-badge--mic::after {
+      width: 18px;
+      height: 10px;
+      left: 18px;
+      top: 31px;
+      border-radius: 0 0 12px 12px;
+      background: transparent;
+      box-shadow: 0 -2px 0 0 currentColor inset;
+    }
+
+    .step-badge--wave::before {
+      width: 4px;
+      height: 24px;
+      left: 18px;
+      top: 15px;
+      border-radius: 999px;
+      box-shadow:
+        9px -5px 0 0 currentColor,
+        18px 0 0 0 currentColor;
+    }
+
+    .step-badge--wave::after {
+      width: 4px;
+      height: 18px;
+      left: 36px;
+      top: 18px;
+      border-radius: 999px;
+      box-shadow: -9px 5px 0 0 currentColor;
+    }
+
+    .step-badge--cursor::before {
+      width: 0;
+      height: 0;
+      top: 15px;
+      left: 21px;
+      border-top: 0 solid transparent;
+      border-right: 0 solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 16px solid currentColor;
+      background: transparent;
+      transform: rotate(-24deg);
+    }
+
+    .step-badge--cursor::after {
+      width: 12px;
+      height: 4px;
+      left: 28px;
+      top: 33px;
+      transform: rotate(35deg);
+      border-radius: 999px;
     }
 
     .use-case-art {

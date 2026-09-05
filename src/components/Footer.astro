@@ -1,147 +1,204 @@
 ---
 // src/components/Footer.astro
+import Badge from './Badge.astro';
 import Logo from './Logo.astro';
 import Wordmark from './Wordmark.astro';
 import { BETA_STATUS, BROWSER_EXTENSIONS } from '../data/config.ts';
+import { getMarketingVariant } from '../data/siteNavigation.ts';
+import { Github, MessageCircle, Twitter } from 'lucide-astro';
 
-const statusDotClass =
+const footerVariant = getMarketingVariant(Astro.url.pathname);
+const statusBadgeVariant =
   BETA_STATUS === 'BETA_ACTIVE'
-    ? 'bg-green-500'
+    ? 'success'
     : BETA_STATUS === 'BETA_FULL'
-      ? 'bg-amber-500'
-      : 'bg-gray-500';
+      ? 'accent'
+      : 'neutral';
+
+type FooterLink = [href: string, label: string];
+type FooterGroup = {
+  label: string;
+  links: FooterLink[];
+  cta?: FooterLink;
+};
+
+const footerGroups: FooterGroup[] = [
+  {
+    label: 'Learn',
+    links: [
+      ['/learn/how-to-add-bevel-modifier-blender/', 'Bevel modifier in Blender'],
+      ['/learn/figma-auto-layout-tutorial/', 'Figma Auto Layout'],
+      ['/learn/swiftui-preview-macro-xcode/', 'SwiftUI #Preview'],
+      ['/learn/openai-realtime-api-tutorial/', 'OpenAI Realtime API'],
+      ['/learn/enable-screen-recording-permission-macos/', 'macOS Screen Recording'],
+    ],
+    cta: ['/learn/', 'All articles'],
+  },
+  {
+    label: 'Compare',
+    links: [
+      ['/vs/cluely/', 'Skilly vs Cluely'],
+      ['/vs/rewind/', 'Skilly vs Rewind'],
+      ['/vs/raycast-ai/', 'Skilly vs Raycast AI'],
+      ['/vs/gemini-live/', 'Skilly vs Gemini Live'],
+      ['/vs/clicky/', 'Skilly vs Clicky'],
+    ],
+    cta: ['/vs/', 'All comparisons'],
+  },
+  {
+    label: 'Builders',
+    links: [
+      ['/vs/appcues/', 'vs Appcues'],
+      ['/vs/pendo/', 'vs Pendo'],
+      ['/vs/walkme/', 'vs WalkMe'],
+      ['/vs/intercom-fin/', 'vs Intercom Fin'],
+      ['/use-cases/voice-onboarding/', 'Voice onboarding'],
+      ['/use-cases/ai-product-tours/', 'AI product tours'],
+      ['/use-cases/reduce-support-tickets/', 'Reduce support tickets'],
+      ['/use-cases/in-app-guidance-for-saas/', 'In-app guidance'],
+      ['/for/devtools/', 'For devtools'],
+      ['/for/ai-saas/', 'For AI SaaS'],
+      ['/for/nocode-tools/', 'For no-code tools'],
+      ['/for/education-platforms/', 'For education'],
+    ],
+  },
+  {
+    label: 'Get Skilly',
+    links: [
+      ['/people/', 'Mac app'],
+      ...BROWSER_EXTENSIONS.map((extension) => [extension.href, `${extension.shortName} extension`] as FooterLink),
+    ],
+  },
+  {
+    label: 'Free tools',
+    links: [
+      ['/tools/skill-builder/', 'AI course generator'],
+      ['/tools/ai-onboarding-audit/', 'AI onboarding audit'],
+    ],
+  },
+];
 ---
-<footer class="border-t border-gray-200 py-12 px-6">
-  <div class="max-w-site mx-auto flex flex-col gap-8">
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+<footer
+  class:list={[
+    'marketing-footer border-t px-6 py-10',
+    { 'marketing-footer--builders': footerVariant === 'builders' },
+  ]}
+>
+  <div class="mx-auto flex max-w-site flex-col gap-8">
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
       <div class="flex items-center gap-2.5">
         <Logo size={20} variant="amber" alt="Skilly" />
         <Wordmark size="sm" />
-        <span class="text-[13px] text-gray-500 ml-2">by <a href="https://moelabs.dev/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-900 underline underline-offset-2 decoration-dashed decoration-gray-400 transition-colors">moelabs.dev</a></span>
-      </div>
-      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-        <a href="/terms" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Terms</a>
-        <a href="/privacy" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Privacy</a>
-        <span class="block w-px h-3 bg-gray-200" aria-hidden="true"></span>
-        <a href="https://x.com/tryskilly" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">X / Twitter</a>
-        <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">GitHub</a>
-        <a href="https://discord.gg/NbRVfUtwfn" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Discord</a>
-      </div>
-    </div>
-
-    <div class="border-t border-gray-200/60 pt-6 flex flex-col gap-2 items-center sm:items-start">
-      <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">Get Skilly</p>
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2">
-        <a href="/people/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Mac app</a>
-        {BROWSER_EXTENSIONS.map((extension) => (
-          <a
-            href={extension.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-ph-event="web_extension_store_clicked"
-            data-ph-prop-store={extension.id}
-            data-ph-prop-location="footer"
-            class="text-gray-600 hover:text-gray-900 text-sm transition-colors"
-          >
-            {extension.shortName} extension
-          </a>
-        ))}
-      </div>
-    </div>
-
-    <div class="border-t border-gray-200/60 pt-6 flex flex-col gap-2 items-center sm:items-start">
-      <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">Free tools</p>
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2">
-        <a href="/tools/skill-builder/" data-ph-event="web_skill_builder_cta_clicked" data-ph-prop-location="footer" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">AI course generator for software</a>
-        <a href="/tools/ai-onboarding-audit/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">AI onboarding audit</a>
-      </div>
-    </div>
-
-    <div class="border-t border-gray-200/60 pt-6 flex flex-col gap-2 items-center sm:items-start">
-      <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">Learn</p>
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2">
-        <a href="/learn/how-to-add-bevel-modifier-blender/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Bevel modifier in Blender</a>
-        <a href="/learn/figma-auto-layout-tutorial/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Figma Auto Layout</a>
-        <a href="/learn/swiftui-preview-macro-xcode/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">SwiftUI #Preview</a>
-        <a href="/learn/openai-realtime-api-tutorial/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">OpenAI Realtime API</a>
-        <a href="/learn/enable-screen-recording-permission-macos/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">macOS Screen Recording</a>
-        <span class="block w-px h-3 bg-gray-200" aria-hidden="true"></span>
-        <a href="/learn/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors underline underline-offset-2 decoration-gray-300">All articles</a>
-      </div>
-    </div>
-
-    <div class="border-t border-gray-200/60 pt-6 flex flex-col gap-2 items-center sm:items-start">
-      <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">Compare</p>
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2">
-        <a href="/vs/cluely/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Skilly vs Cluely</a>
-        <a href="/vs/rewind/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Skilly vs Rewind</a>
-        <a href="/vs/raycast-ai/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Skilly vs Raycast AI</a>
-        <a href="/vs/gemini-live/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Skilly vs Gemini Live</a>
-        <a href="/vs/clicky/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Skilly vs Clicky</a>
-        <span class="block w-px h-3 bg-gray-200" aria-hidden="true"></span>
-        <a href="/vs/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors underline underline-offset-2 decoration-gray-300">All comparisons</a>
-      </div>
-    </div>
-
-    <div class="border-t border-gray-200/60 pt-6 flex flex-col gap-2 items-center sm:items-start">
-      <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-gray-500">Builders</p>
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2">
-        <a href="/vs/appcues/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">vs Appcues</a>
-        <a href="/vs/pendo/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">vs Pendo</a>
-        <a href="/vs/walkme/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">vs WalkMe</a>
-        <a href="/vs/intercom-fin/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">vs Intercom Fin</a>
-        <a href="/use-cases/voice-onboarding/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Voice onboarding</a>
-        <a href="/use-cases/ai-product-tours/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">AI product tours</a>
-        <a href="/use-cases/reduce-support-tickets/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">Reduce support tickets</a>
-        <a href="/use-cases/in-app-guidance-for-saas/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">In-app guidance</a>
-        <a href="/for/devtools/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">For devtools</a>
-        <a href="/for/ai-saas/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">For AI SaaS</a>
-        <a href="/for/nocode-tools/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">For no-code tools</a>
-        <a href="/for/education-platforms/" class="text-gray-600 hover:text-gray-900 text-sm transition-colors">For education</a>
-      </div>
-    </div>
-
-    <div class="flex justify-center sm:justify-start">
-      <div
-        class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full pl-2.5 pr-3 py-1"
-        aria-label={`Beta program status: ${BETA_STATUS}`}
-      >
-        <span class={`block w-1.5 h-1.5 rounded-full ${statusDotClass} animate-pulse-soft`} aria-hidden="true"></span>
-        <span class="font-mono text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-600">
-          Status: {BETA_STATUS}
+        <span class="footer-muted ml-2 text-[13px]">
+          by
+          <a href="https://moelabs.dev/" target="_blank" rel="noopener noreferrer" class="footer-link underline decoration-dashed underline-offset-2">moelabs.dev</a>
         </span>
       </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+        <a href="/terms" class="footer-link text-sm">Terms</a>
+        <a href="/privacy" class="footer-link text-sm">Privacy</a>
+        <span class="footer-divider block h-3 w-px" aria-hidden="true"></span>
+        <a href="https://x.com/tryskilly" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+          <Twitter size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>X / Twitter</span>
+        </a>
+        <a href="https://github.com/tryskilly/skilly" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+          <Github size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>GitHub</span>
+        </a>
+        <a href="https://discord.gg/NbRVfUtwfn" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+          <MessageCircle size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>Discord</span>
+        </a>
+      </div>
     </div>
 
-    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-      <a
-        href="https://nicklaunches.com/products/skilly-for-builders/?utm_source=tryskilly.app&utm_medium=badge&utm_campaign=featured"
-        target="_blank"
-        rel="noopener"
-        aria-label="Skilly for Builders — featured on Nick Launches"
+    {footerGroups.map((group) => (
+      <div class="footer-group flex flex-col items-center gap-2 border-t pt-6 sm:items-start">
+        <p class="footer-heading font-mono text-[11px] uppercase tracking-[0.08em]">{group.label}</p>
+        <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:justify-start">
+          {group.links.map(([href, label]) => (
+            <a href={href} class="footer-link text-sm">
+              {label}
+            </a>
+          ))}
+          {group.cta && (
+            <>
+              <span class="footer-divider block h-3 w-px" aria-hidden="true"></span>
+              <a href={group.cta[0]} class="footer-link text-sm underline underline-offset-2">{group.cta[1]}</a>
+            </>
+          )}
+        </div>
+      </div>
+    ))}
+
+    <div class="flex justify-center sm:justify-start">
+      <Badge
+        variant={statusBadgeVariant}
+        uppercase={true}
+        dot={true}
+        pulse={true}
+        aria-label={`Beta program status: ${BETA_STATUS}`}
       >
-        <img
-          src="https://nicklaunches.com/badges/featured.png"
-          alt="Skilly for Builders on Nick Launches"
-          width="244"
-          height="56"
-          loading="lazy"
-        />
-      </a>
-      <a
-        href="https://smollaunch.com"
-        target="_blank"
-        rel="noopener"
-        aria-label="Skilly — featured on Smol Launch"
-      >
-        <img
-          src="https://smollaunch.com/badges/featured.svg"
-          alt="Skilly — Featured on Smol Launch"
-          width="250"
-          height="60"
-          loading="lazy"
-        />
-      </a>
+        Status: {BETA_STATUS}
+      </Badge>
     </div>
   </div>
 </footer>
+
+<style>
+  .marketing-footer {
+    border-color: #e5e5e0;
+    background: #fafaf8;
+    color: #525250;
+  }
+
+  .marketing-footer--builders {
+    border-color: var(--marketing-border);
+    background: var(--marketing-section);
+    color: var(--marketing-muted);
+  }
+
+  .footer-muted,
+  .footer-heading {
+    color: inherit;
+  }
+
+  .footer-heading {
+    opacity: 0.8;
+  }
+
+  .footer-group {
+    border-color: color-mix(in srgb, currentColor 18%, transparent);
+  }
+
+  .footer-divider {
+    background: color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+  .footer-link,
+  .footer-social-link {
+    color: inherit;
+    transition: color 160ms ease, background-color 160ms ease;
+  }
+
+  .footer-link:hover,
+  .footer-social-link:hover {
+    color: var(--marketing-text);
+  }
+
+  .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 12px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .footer-social-link:hover {
+    background: var(--marketing-accent-soft);
+  }
+</style>

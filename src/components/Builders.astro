@@ -1,4 +1,5 @@
 ---
+import Button from './Button.astro';
 const STUDIO_URL = 'https://studio.tryskilly.app/signup';
 ---
 <section id="builders" data-skilly="builders" class="relative py-16 lg:py-20 px-6 bg-white overflow-hidden">
@@ -33,24 +34,28 @@ const STUDIO_URL = 'https://studio.tryskilly.app/signup';
       </div>
 
       <div class="mt-8 flex flex-col sm:flex-row gap-3">
-        <a
+        <Button
           href={STUDIO_URL}
+          variant="builders-accent"
+          size="lg"
           data-ph-event="web_builders_studio_clicked"
           data-ph-prop-location="builders_section"
           data-ph-prop-target-funnel="builders"
-          class="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-gray-950 shadow-md hover:shadow-lg rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap"
+          class="whitespace-nowrap shadow-md hover:shadow-lg"
         >
           Create a Studio project
-        </a>
-        <a
+        </Button>
+        <Button
           href="#top"
+          variant="secondary"
+          size="lg"
           data-ph-event="web_builders_mac_clicked"
           data-ph-prop-location="builders_section"
           data-ph-prop-target-funnel="mac"
-          class="inline-flex items-center justify-center border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 active:scale-[0.98] text-gray-800 rounded-lg px-7 py-3.5 text-[16px] font-semibold transition-all whitespace-nowrap"
+          class="whitespace-nowrap"
         >
           I want Skilly for Mac
-        </a>
+        </Button>
       </div>
     </div>
 

@@ -21,7 +21,6 @@ describe('public browser demo', () => {
       '<main class="demo-page min-h-screen overflow-x-clip bg-[var(--marketing-canvas)] pt-16 text-[var(--marketing-text)]">',
     );
   });
-
   test('tracks the conversion funnel without sending conversation content', () => {
     expect(demoPage).toContain("capture('web_browser_demo_viewed')");
     expect(demoPage).toContain("capture('web_browser_demo_session_started')");

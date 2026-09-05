@@ -15,6 +15,9 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   trailingSlash: 'always',
+  devToolbar: {
+    enabled: false,
+  },
   // NOTE: do NOT use the `redirects` config with trailingSlash: 'always'.
   // The Vercel adapter emits a 308 slash-enforcer route AHEAD of these 301s, and
   // Astro normalises the key's trailing slash away, so '/builders' compiles to

@@ -1,0 +1,93 @@
+---
+interface Column {
+  key: string;
+  label: string;
+  isSkilly?: boolean;
+}
+
+interface Row {
+  feature: string;
+  [key: string]: string;
+}
+
+interface Props {
+  columns: Column[];
+  rows: Row[];
+  featureLabel?: string;
+  wide?: boolean;
+  extraWide?: boolean;
+  class?: string;
+}
+
+const {
+  columns,
+  rows,
+  featureLabel = 'Feature',
+  wide = false,
+  extraWide = false,
+  class: className,
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'overflow-x-auto rounded-[16px] border border-[#E3DDD4] bg-white shadow-[0_10px_28px_rgba(49,38,29,0.05)]',
+    className,
+  ]}
+  data-comparison-table
+>
+  <table
+    class:list={[
+      'w-full text-left text-[15px]',
+      extraWide ? 'min-w-[900px]' : wide ? 'min-w-[720px]' : 'min-w-[680px]',
+    ]}
+  >
+    <thead class="border-b border-[#E3DDD4] bg-[#F8F6F2]">
+      <tr>
+        <th
+          scope="col"
+          class="sticky left-0 z-10 w-[24%] bg-[#F8F6F2] px-5 py-3.5 font-semibold text-[#4F4943]"
+        >
+          {featureLabel}
+        </th>
+        {columns.map((column) => (
+          <th
+            scope="col"
+            class:list={[
+              'px-5 py-3.5 font-semibold',
+              column.isSkilly
+                ? 'is-skilly border-l border-[#E9C987] bg-[#FFF8E9] text-[#98600A]'
+                : 'text-[#6A625B]',
+            ]}
+          >
+            {column.label}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr class="border-b border-[#EEE9E2] align-top last:border-b-0">
+          <th
+            scope="row"
+            class="sticky left-0 z-[1] bg-white px-5 py-4 font-medium text-[#2A2724]"
+          >
+            {row.feature}
+          </th>
+          {columns.map((column) => (
+            <td
+              class:list={[
+                'px-5 py-4 leading-relaxed',
+                column.isSkilly
+                  ? 'is-skilly border-l border-[#F0DDAF] bg-[#FFFCF4] font-medium text-[#332B20]'
+                  : 'text-[#655E57]',
+              ]}
+            >
+              {row[column.key]}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

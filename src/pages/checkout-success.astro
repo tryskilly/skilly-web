@@ -3,25 +3,28 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
 ---
 <Layout title="Welcome to Skilly Pro" description="Your subscription is active." productLine="people" funnelStage="conversion" noindex>
   <Nav />
-  <main class="min-h-[70vh] flex items-center justify-center px-6">
+  <main class="flex min-h-[70vh] items-center justify-center bg-[#fffefa] px-6">
     <div class="text-center max-w-md">
       <div class="text-5xl mb-6">
         <img src="/skilly-mark.png" alt="Skilly" class="w-16 h-16 mx-auto" onerror="this.style.display='none'" />
       </div>
-      <h1 class="text-3xl font-bold text-white mb-3">You're in!</h1>
-      <p class="text-zinc-400 text-lg mb-6">
+      <h1 class="mb-3 text-3xl font-bold text-[#24211f]">You're in!</h1>
+      <p class="mb-6 text-lg text-[#6f6864]">
         Skilly Pro is now active. You've got 3 hours of AI tutoring this month — open the app and start learning.
       </p>
-      <a
+      <Button
         href="skilly://checkout-success"
-        class="inline-block bg-amber-500 hover:bg-amber-400 text-black font-semibold px-8 py-3 rounded-full transition-colors mb-4"
+        variant="people-primary"
+        size="lg"
+        class="mb-4"
       >
         Open Skilly
-      </a>
-      <p class="text-zinc-500 text-sm">
+      </Button>
+      <p class="text-sm text-[#756e69]">
         Skilly should refresh your plan automatically. If it doesn't, quit and reopen the app.
       </p>
     </div>

@@ -17,10 +17,13 @@
 export const BETA_CAP_REACHED = false;
 
 /**
- * Direct link to the macOS app download. The trial starts on first
- * launch inside the app; there is no subscription step on the website.
+ * Attribution-aware download handoff. The handoff page starts the release
+ * download and exposes a `skilly://attribution` link for the first app launch.
  */
-export const DOWNLOAD_URL = 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg';
+export const DOWNLOAD_URL = '/download';
+
+/** Canonical release asset used only by the handoff endpoint. */
+export const RELEASE_ASSET_URL = 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg';
 
 /**
  * Public browser-extension listings. Keep these centralized so the People
