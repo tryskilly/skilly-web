@@ -49,9 +49,9 @@ const processors = [
   },
   {
     name: 'Cloudflare',
-    purpose: 'Static asset CDN and DDoS protection for the marketing site and Builders assets; Studio is the application backend',
-    data: 'Static asset request logs, IP addresses retained by Cloudflare\u2019s infrastructure for short periods, and TLS connection metadata',
-    location: 'Global CDN (varies)',
+    purpose: 'Static asset CDN and DDoS protection for the marketing site and Builders assets; during the staged migration, legacy desktop clients may still use Cloudflare as an API relay while Studio becomes the application backend',
+    data: 'Static asset and legacy API request logs, IP addresses retained by Cloudflare\u2019s infrastructure for short periods, and TLS connection metadata',
+    location: 'Global CDN/edge network (varies)',
     link: 'https://www.cloudflare.com/privacypolicy/',
   },
   {
