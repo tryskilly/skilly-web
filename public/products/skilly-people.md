@@ -6,7 +6,7 @@
 - Audience: People learning software and completing unfamiliar workflows
 - macOS requirement: macOS 14.0 or later
 - Mac download: https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg
-- Product page: https://tryskilly.app/people/
+- Product page: https://tryskilly.app/
 - Pricing: https://tryskilly.app/pricing.md
 
 ## What it does

@@ -4,8 +4,8 @@
 
 ## Core pages
 
-- [Skilly for Builders (homepage)](https://tryskilly.app/): embeddable voice-and-pointer assistant for websites, SaaS, and apps — overview, how it works, pricing
-- [Skilly for People](https://tryskilly.app/people): the macOS AI tutor for individual learners
+- [Skilly for Builders](https://tryskilly.app/builders/): embeddable voice-and-pointer assistant for websites, SaaS, and apps — overview, how it works, pricing
+- [Skilly for People (homepage)](https://tryskilly.app/): the macOS AI tutor for individual learners
 - [Studio (builder dashboard)](https://studio.tryskilly.app/signup): create a project, teach Skilly from your content, manage allowed domains, widget config, and usage
 - [Book a call (design partners)](https://cal.com/moelabs.dev): 15-minute conversation for builders evaluating Skilly for their product
 - [Privacy policy](https://tryskilly.app/privacy): data handling, PostHog, OpenAI, WorkOS

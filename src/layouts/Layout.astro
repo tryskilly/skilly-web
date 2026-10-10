@@ -1,6 +1,7 @@
 ---
 // src/layouts/Layout.astro
 import '../styles/globals.css';
+import { POSTHOG_HOST, POSTHOG_KEY } from '../data/config.ts';
 
 interface Props {
   title?: string;
@@ -28,7 +29,7 @@ const siteUrl = 'https://tryskilly.app';
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = new URL(ogImage, siteUrl).toString();
 const isPrimaryProductPage = Astro.url.pathname === '/'
-  || Astro.url.pathname === '/people/';
+  || Astro.url.pathname === '/builders/';
 
 // Schema.org structured data — applies to every page via Layout.astro.
 // Per the final launch audit (docs/2026-04-16-final-launch-audit.md), these
@@ -59,7 +60,7 @@ const buildersOffers = [
   name,
   price,
   priceCurrency: 'USD',
-  url: `${siteUrl}/#pricing`,
+  url: `${siteUrl}/builders/#pricing`,
   priceSpecification: {
     '@type': 'UnitPriceSpecification',
     price,
@@ -72,9 +73,9 @@ const buildersOffers = [
 const buildersApplicationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  '@id': `${siteUrl}/#skilly-for-builders`,
+  '@id': `${siteUrl}/builders/#skilly-for-builders`,
   name: 'Skilly for Builders',
-  url: `${siteUrl}/`,
+  url: `${siteUrl}/builders/`,
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web',
   description: 'An embeddable voice-and-pointer onboarding assistant for websites and SaaS products. Users ask questions out loud, hear an answer grounded in the product content, and see where to click next.',
@@ -84,9 +85,9 @@ const buildersApplicationSchema = {
 const peopleApplicationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  '@id': `${siteUrl}/people/#skilly-for-people`,
+  '@id': `${siteUrl}/#skilly-for-people`,
   name: 'Skilly for People',
-  url: `${siteUrl}/people/`,
+  url: `${siteUrl}/`,
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'macOS 14.0+',
   description: 'A voice-first AI tutor for Mac apps. Ask out loud, see a live transcript, and watch Skilly point at the exact control to use next.',
@@ -97,7 +98,7 @@ const peopleApplicationSchema = {
       name: 'Skilly for People Beta',
       price: '19',
       priceCurrency: 'USD',
-      url: `${siteUrl}/people/`,
+      url: `${siteUrl}/`,
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
         price: '19',
@@ -114,11 +115,6 @@ const softwareApplicationSchema = productLine === 'builders'
   : productLine === 'people' || productLine === 'mac'
     ? peopleApplicationSchema
     : undefined;
-
-// PostHog public project key — same project as the Skilly macOS app.
-// Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
-const POSTHOG_KEY = 'phc_D46KQXyPXhmRabFDiL3KUZTWJcmjyqhpGJfpH7H48Sso';
-const POSTHOG_HOST = 'https://us.i.posthog.com';
 
 // Google Analytics 4 measurement ID.
 // Allow overriding through env for safe stream swaps without code edits.

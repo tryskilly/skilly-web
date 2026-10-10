@@ -207,8 +207,17 @@ const ctaHref = targetsBuilders ? studioCtaUrl.toString() : DOWNLOAD_URL;
 const ctaEvent = targetsBuilders ? 'web_builders_studio_clicked' : 'web_cta_download_clicked';
 const ctaTargetFunnel = targetsBuilders ? 'builders' : 'people';
 const ctaText = targetsBuilders ? 'Start free in Studio' : 'Try Skilly free on Mac';
-const secondaryHref = targetsBuilders ? '/' : '/people/';
+const secondaryHref = targetsBuilders ? '/builders/' : '/';
 const secondaryText = targetsBuilders ? 'See Skilly for Builders' : 'See how it works';
+// Readers arrive mid-task from search and rarely reach the end-of-article CTA
+// (433 Learn visitors → 1 download in 90 days), so the same offer also appears
+// right under the header and as a sticky bar once they are reading.
+const earlyCtaText = targetsBuilders
+  ? 'Building onboarding for your own product? Skilly drafts a voice guide from your docs.'
+  : `Doing this in ${articleApp ?? 'a Mac app'} right now? Skilly sees your screen and points at the exact button.`;
+const stickyCtaShortText = targetsBuilders
+  ? 'Guide your own users with Skilly.'
+  : `Stuck in ${articleApp ?? 'an app'}? Skilly points at the button.`;
 const privacyNote = targetsBuilders
   ? 'Start free. Import public content first; add private sources only when you are ready.'
   : 'Push-to-talk only. Nothing from your screen is saved after the session.';
@@ -264,7 +273,7 @@ const relatedArticles = allLearnEntries
     )}
   </Fragment>
 
-  <Nav />
+  <Nav variant={ctaTargetFunnel} />
 
   <main class="overflow-x-clip">
     <article
@@ -310,6 +319,24 @@ const relatedArticles = allLearnEntries
             )}
           </div>
         </header>
+
+        <aside data-learn-early-cta class="-mt-4 mb-10 flex flex-col gap-3 rounded-xl border border-amber-200/70 bg-amber-50/70 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-[14px] leading-snug text-gray-800">{earlyCtaText}</p>
+          <a
+            href={ctaHref}
+            rel={targetsBuilders ? 'nofollow' : undefined}
+            data-ph-event={ctaEvent}
+            data-ph-prop-location="learn_inline"
+            data-ph-prop-cta-variant="early_inline"
+            data-ph-prop-target-funnel={ctaTargetFunnel}
+            data-ph-prop-article-slug={articleSlug}
+            data-ph-prop-article-category={data.category}
+            data-ph-prop-cta-text={ctaText}
+            class="inline-flex shrink-0 items-center justify-center rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-950 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md"
+          >
+            {ctaText}
+          </a>
+        </aside>
 
         <div class="prose prose-skilly max-w-none">
           <slot />
@@ -419,6 +446,40 @@ const relatedArticles = allLearnEntries
     </article>
   </main>
 
+  <div
+    data-learn-sticky-cta
+    hidden
+    class="fixed inset-x-3 bottom-3 z-40 mx-auto flex [&[hidden]]:hidden max-w-[760px] items-center gap-3 rounded-xl border border-amber-200 bg-white/95 px-4 py-3 shadow-[0_12px_32px_rgba(38,30,22,0.14)] backdrop-blur-md"
+  >
+    <p class="min-w-0 flex-1 text-[13px] leading-snug text-gray-800 sm:text-[14px]">
+      <span class="sm:hidden">{stickyCtaShortText}</span>
+      <span class="hidden sm:inline">{earlyCtaText}</span>
+    </p>
+    <a
+      href={ctaHref}
+      rel={targetsBuilders ? 'nofollow' : undefined}
+      data-ph-event={ctaEvent}
+      data-ph-prop-location="learn_sticky"
+      data-ph-prop-cta-variant="sticky_bar"
+      data-ph-prop-target-funnel={ctaTargetFunnel}
+      data-ph-prop-article-slug={articleSlug}
+      data-ph-prop-article-category={data.category}
+      data-ph-prop-cta-text={ctaText}
+      class="inline-flex shrink-0 items-center rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-950 transition-colors hover:bg-amber-600"
+    >
+      <span class="sm:hidden">Try free</span>
+      <span class="hidden sm:inline">{ctaText}</span>
+    </a>
+    <button
+      type="button"
+      data-learn-sticky-dismiss
+      aria-label="Dismiss"
+      class="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
+    >
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+    </button>
+  </div>
+
   <Footer />
 
   <script is:inline define:vars={{ articleSlug, articleCategory: data.category, ctaTargetFunnel }}>
@@ -439,6 +500,46 @@ const relatedArticles = allLearnEntries
           });
         }, { threshold: 0.5 });
         ctaObserver.observe(articleCta);
+      }
+
+      const stickyCta = document.querySelector('[data-learn-sticky-cta]');
+      const stickyDismissedKey = 'skilly_learn_sticky_dismissed';
+      if (stickyCta && sessionStorage.getItem(stickyDismissedKey) !== '1') {
+        let endCtaVisible = false;
+        let stickyViewTracked = false;
+
+        const updateStickyCta = () => {
+          const bounds = article.getBoundingClientRect();
+          const progress = (window.innerHeight - bounds.top) / Math.max(bounds.height, 1);
+          // Hide while the end-of-article CTA is on screen so the offer never shows twice.
+          const shouldShow = progress >= 0.4 && !endCtaVisible;
+          stickyCta.hidden = !shouldShow;
+          if (shouldShow && !stickyViewTracked) {
+            stickyViewTracked = true;
+            window.skillyTrack?.('web_learn_cta_viewed', {
+              article_slug: articleSlug,
+              article_category: articleCategory,
+              cta_variant: 'sticky_bar',
+              target_funnel: ctaTargetFunnel,
+            });
+          }
+        };
+
+        if (articleCta && 'IntersectionObserver' in window) {
+          new IntersectionObserver((entries) => {
+            endCtaVisible = entries.some((entry) => entry.isIntersecting);
+            updateStickyCta();
+          }).observe(articleCta);
+        }
+
+        stickyCta.querySelector('[data-learn-sticky-dismiss]')?.addEventListener('click', () => {
+          sessionStorage.setItem(stickyDismissedKey, '1');
+          stickyCta.hidden = true;
+          window.removeEventListener('scroll', updateStickyCta);
+        });
+
+        window.addEventListener('scroll', updateStickyCta, { passive: true });
+        updateStickyCta();
       }
 
       let captured = false;
