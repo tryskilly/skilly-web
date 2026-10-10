@@ -9,10 +9,10 @@ describe('marketing navigation architecture', () => {
     const navigation = readFileSync(join(root, 'src/data/siteNavigation.ts'), 'utf8');
 
     expect(navigation).toContain("href: '/'");
-    expect(navigation).toContain("href: '/people/'");
+    expect(navigation).toContain("href: '/builders/'");
     expect(navigation).toContain("href: '/vs/'");
     expect(navigation).toContain("href: '/learn/'");
-    expect(navigation).not.toContain("href: '/builders/'");
+    expect(navigation).not.toContain("href: '/people/'");
     expect(navigation).not.toContain("href: '/mac/'");
   });
 

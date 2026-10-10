@@ -7,13 +7,13 @@ export type NavigationItem = {
 export const productNavigation: NavigationItem[] = [
   {
     href: '/',
-    label: 'For Builders',
-    description: 'Embedded voice onboarding for SaaS products.',
-  },
-  {
-    href: '/people/',
     label: 'For People',
     description: 'Live voice guidance for any app on your Mac.',
+  },
+  {
+    href: '/builders/',
+    label: 'For product teams',
+    description: 'Embedded voice onboarding for SaaS products.',
   },
   {
     href: '/vs/',
@@ -83,6 +83,7 @@ const peopleComparisonPaths = [
 
 export function getMarketingVariant(pathname: string): 'people' | 'builders' {
   const isPeople =
+    pathname === '/' ||
     pathname.startsWith('/people') ||
     pathname.startsWith('/checkout-success') ||
     peopleComparisonPaths.some((path) => pathname.startsWith(path));

@@ -24,7 +24,7 @@ export default defineConfig({
   // ^/builders$ and can never match: /builders 308s to /builders/, which nothing
   // then handles -> 404. That shipped and was live (verified 2026-07-16:
   // /builders and /builders/ both 404'd).
-  // Use a prerender=false endpoint instead (see src/pages/builders.ts, mac.ts,
+  // Use a prerender=false endpoint instead (see src/pages/people.ts, mac.ts,
   // download.ts) — the SSR function is reached at the slashed path and works.
   integrations: [
     tailwind({ applyBaseStyles: false }),

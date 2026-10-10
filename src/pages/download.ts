@@ -1,11 +1,64 @@
 // /download — attribution-aware handoff to the latest macOS release.
 // The release asset is hosted on GitHub, so campaign context would otherwise
 // be lost before the native app records its first trial event.
-import { RELEASE_ASSET_URL } from '../data/config.ts';
+import { POSTHOG_HOST, POSTHOG_KEY, RELEASE_ASSET_URL } from '../data/config.ts';
 
 export const prerender = false;
 
 const TRACKED_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
+const POSTHOG_COOKIE_NAME = `ph_${POSTHOG_KEY}_posthog`;
+const CRAWLER_USER_AGENT = /bot|crawl|spider|slurp|preview|headless/i;
+
+/**
+ * The browser snippet writes its distinct_id to a .tryskilly.app cookie, so
+ * reading it here joins the server-side download to the visitor's pageviews.
+ */
+function readWebDistinctId(request: Request): string | null {
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader) return null;
+  for (const cookie of cookieHeader.split(';')) {
+    const separatorIndex = cookie.indexOf('=');
+    if (separatorIndex === -1 || cookie.slice(0, separatorIndex).trim() !== POSTHOG_COOKIE_NAME) continue;
+    try {
+      const distinctId = JSON.parse(decodeURIComponent(cookie.slice(separatorIndex + 1).trim())).distinct_id;
+      return typeof distinctId === 'string' && distinctId ? distinctId : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * Every download link on the site (hero, nav, Learn, /vs, /dmg) routes through
+ * this endpoint, so capturing here counts downloads that click tracking misses.
+ * Awaited with a short timeout because serverless functions can be frozen once
+ * the response is returned; a PostHog outage must never block the download.
+ */
+async function captureDownloadServed(request: Request, handoff: URLSearchParams, referrerPath: string | null) {
+  if (CRAWLER_USER_AGENT.test(request.headers.get('user-agent') ?? '')) return;
+
+  const attributionId = handoff.get('attribution_id');
+  const properties: Record<string, string> = { $current_url: request.url };
+  for (const [key, value] of handoff) properties[key] = value;
+  if (referrerPath) properties.referrer_path = referrerPath;
+
+  try {
+    await fetch(`${POSTHOG_HOST}/i/v0/e/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: POSTHOG_KEY,
+        event: 'download_served',
+        distinct_id: readWebDistinctId(request) ?? attributionId,
+        properties,
+      }),
+      signal: AbortSignal.timeout(1500),
+    });
+  } catch {
+    // Analytics is best-effort; the visitor still gets the download page.
+  }
+}
 
 function clean(value: string | null): string | null {
   if (!value) return null;
@@ -23,7 +76,7 @@ function escapeHtml(value: string): string {
   })[character] ?? character);
 }
 
-export const GET = ({ request }: { request: Request }): Response => {
+export const GET = async ({ request }: { request: Request }): Promise<Response> => {
   const requestUrl = new URL(request.url);
   const handoff = new URLSearchParams({ attribution_id: crypto.randomUUID() });
 
@@ -32,15 +85,22 @@ export const GET = ({ request }: { request: Request }): Response => {
     if (value) handoff.set(key, value);
   }
 
+  // The referrer path says which page sent the visitor (e.g. a Learn article).
+  // It stays in analytics only; the app deep link carries just the domain.
+  let referrerPath: string | null = null;
   const referrer = request.headers.get('referer');
   if (referrer) {
     try {
-      const hostname = clean(new URL(referrer).hostname);
+      const referrerUrl = new URL(referrer);
+      const hostname = clean(referrerUrl.hostname);
       if (hostname) handoff.set('referrer_domain', hostname);
+      referrerPath = clean(referrerUrl.pathname);
     } catch {
       // Ignore malformed referrers; campaign parameters remain valid.
     }
   }
+
+  await captureDownloadServed(request, handoff, referrerPath);
 
   const deepLink = `skilly://attribution?${handoff.toString()}`;
   const downloadUrl = escapeHtml(RELEASE_ASSET_URL);

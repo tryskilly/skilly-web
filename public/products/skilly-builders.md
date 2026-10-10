@@ -7,7 +7,7 @@
 - Delivery: Embeddable web widget
 - Installation: One script tag
 - Management application: [Skilly Studio](https://studio.tryskilly.app/signup)
-- Product page: https://tryskilly.app/
+- Product page: https://tryskilly.app/builders/
 - Pricing: https://tryskilly.app/pricing.md
 
 ## What it does

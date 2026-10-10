@@ -22,6 +22,14 @@ export const BETA_CAP_REACHED = false;
  */
 export const DOWNLOAD_URL = '/download';
 
+/**
+ * PostHog public project key — same project as the Skilly macOS app.
+ * Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
+ * Shared by the browser snippet (Layout.astro) and server-side capture (download.ts).
+ */
+export const POSTHOG_KEY = 'phc_D46KQXyPXhmRabFDiL3KUZTWJcmjyqhpGJfpH7H48Sso';
+export const POSTHOG_HOST = 'https://us.i.posthog.com';
+
 /** Canonical release asset used only by the handoff endpoint. */
 export const RELEASE_ASSET_URL = 'https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg';
 

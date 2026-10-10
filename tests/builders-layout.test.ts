@@ -6,10 +6,10 @@ const root = join(import.meta.dir, '..');
 
 describe('Builders reference layout', () => {
   test('uses shared chrome and the shared featured badge', () => {
-    const page = readFileSync(join(root, 'src/pages/index.astro'), 'utf8');
+    const page = readFileSync(join(root, 'src/pages/builders/index.astro'), 'utf8');
     const nav = readFileSync(join(root, 'src/components/Nav.astro'), 'utf8');
 
-    expect(page).toContain("import Footer from '../components/Footer.astro'");
+    expect(page).toContain("import Footer from '../../components/Footer.astro'");
     expect(page).toContain('<Footer />');
     expect(page).toContain('variant="featured"');
     expect(page).toContain('md:col-span-2 md:text-[28px]');
@@ -20,7 +20,7 @@ describe('Builders reference layout', () => {
   });
 
   test('locks the 948px impact and pilot grid calibration', () => {
-    const page = readFileSync(join(root, 'src/pages/index.astro'), 'utf8');
+    const page = readFileSync(join(root, 'src/pages/builders/index.astro'), 'utf8');
 
     expect(page).toContain('gap: 46px');
     expect(page).toContain('padding: 25px 54px 25px 34px');
