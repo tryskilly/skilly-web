@@ -34,7 +34,6 @@ export const betaTier: BetaTier = {
   guarantees: [
     '15 minutes free \u2014 no card needed',
     'Cancel anytime, keep access through the period',
-    'Beta price locked in for life \u2014 only 50 spots',
   ],
   finePrint: '15 minutes free on first launch.',
 };

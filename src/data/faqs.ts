@@ -15,7 +15,7 @@ export const faqs: Faq[] = [
   {
     question: 'What happens if I cancel?',
     answer:
-      'You keep using Skilly until the end of your billing month. Then it simply stops \u2014 no extra charges. Resubscribe anytime at the beta price \u2014 we lock that price in for life on your account.',
+      'You keep using Skilly until the end of your billing month. Then it simply stops \u2014 no extra charges.',
   },
   {
     question: 'Is it safe? What data does Skilly send to OpenAI?',
@@ -71,6 +71,6 @@ export const faqs: Faq[] = [
   {
     question: 'Will the price change after beta?',
     answer:
-      'Yes. Beta users keep the $19 price forever \u2014 even after we add more features. New users will see different pricing once the beta ends.',
+      'We may change subscription prices with at least 30 days\u2019 notice. A price change applies from your next billing cycle after the notice period. If you joined before this change, you keep your current price.',
   },
 ];
