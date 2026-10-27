@@ -114,4 +114,6 @@ Before subscribing, run the same test on every candidate:
 6. Verify the answer against the app's current documentation.
 7. End the session and confirm the capture indicator stops.
 
+Want to see what a visible next step looks like before installing anything? Skilly has a [browser demo](/demo/) that needs no signup.
+
 The winner is not the tool with the longest feature list. It is the one that gives the correct, visible next step with the least interruption—and makes its privacy boundary obvious.

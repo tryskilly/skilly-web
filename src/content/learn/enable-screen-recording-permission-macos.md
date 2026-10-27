@@ -1,6 +1,6 @@
 ---
-title: "Allow Screen Recording on Mac (Screen & System Audio Recording)"
-description: "Turn on Screen & System Audio Recording in macOS Tahoe 26 and Sequoia 15: the exact System Settings path, the fix when your app is not listed, and why to reopen it."
+title: "Allow Screen Recording on Mac (Screen & System Audio)"
+description: "Turn on Screen & System Audio Recording in macOS Tahoe 26 and Sequoia 15: the exact settings path, the fix if your app is missing, and why to reopen it."
 pubDate: 2026-04-27
 updatedDate: 2026-08-04
 author: "Mohamed Saleh Zaied"
