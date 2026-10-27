@@ -203,10 +203,24 @@ studioCtaUrl.searchParams.set('utm_source', 'tryskilly-web');
 studioCtaUrl.searchParams.set('utm_medium', 'referral');
 studioCtaUrl.searchParams.set('utm_campaign', 'learn-to-studio');
 studioCtaUrl.searchParams.set('utm_content', articleSlug);
-const ctaHref = targetsBuilders ? studioCtaUrl.toString() : DOWNLOAD_URL;
+// People-funnel CTAs go through /download, which reads utm_* params into its
+// download_served event. Campaign = placement, content = article slug.
+const learnDownloadUrl = (placement: string) => {
+  const params = new URLSearchParams({
+    utm_source: 'tryskilly-web',
+    utm_medium: 'learn',
+    utm_campaign: placement,
+    utm_content: articleSlug,
+  });
+  return `${DOWNLOAD_URL}?${params.toString()}`;
+};
+const ctaHrefFor = (placement: string) =>
+  targetsBuilders ? studioCtaUrl.toString() : learnDownloadUrl(placement);
 const ctaEvent = targetsBuilders ? 'web_builders_studio_clicked' : 'web_cta_download_clicked';
 const ctaTargetFunnel = targetsBuilders ? 'builders' : 'people';
-const ctaText = targetsBuilders ? 'Start free in Studio' : 'Try Skilly free on Mac';
+const ctaText = targetsBuilders ? 'Start free in Studio' : 'Download for Mac';
+// Backed by the 15-minute, no-card trial stated in tiers.ts and the FAQ.
+const ctaSubline = targetsBuilders ? null : '15-minute free trial, no card';
 const secondaryHref = targetsBuilders ? '/builders/' : '/';
 const secondaryText = targetsBuilders ? 'See Skilly for Builders' : 'See how it works';
 // Readers arrive mid-task from search and rarely reach the end-of-article CTA
@@ -320,27 +334,44 @@ const relatedArticles = allLearnEntries
           </div>
         </header>
 
-        <aside data-learn-early-cta class="-mt-4 mb-10 flex flex-col gap-3 rounded-xl border border-amber-200/70 bg-amber-50/70 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <p class="text-[14px] leading-snug text-gray-800">{earlyCtaText}</p>
-          <a
-            href={ctaHref}
-            rel={targetsBuilders ? 'nofollow' : undefined}
-            data-ph-event={ctaEvent}
-            data-ph-prop-location="learn_inline"
-            data-ph-prop-cta-variant="early_inline"
-            data-ph-prop-target-funnel={ctaTargetFunnel}
-            data-ph-prop-article-slug={articleSlug}
-            data-ph-prop-article-category={data.category}
-            data-ph-prop-cta-text={ctaText}
-            class="inline-flex shrink-0 items-center justify-center rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-950 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md"
-          >
-            {ctaText}
-          </a>
+        <aside data-learn-early-cta class="mb-10 flex flex-col gap-4 rounded-xl border border-amber-200/70 bg-amber-50/70 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-[15px] leading-snug text-gray-800 sm:max-w-[420px]">{earlyCtaText}</p>
+          <div class="flex shrink-0 flex-col items-start gap-1.5 sm:items-center">
+            <a
+              href={ctaHrefFor('learn_inline')}
+              rel={targetsBuilders ? 'nofollow' : undefined}
+              data-ph-event={ctaEvent}
+              data-ph-prop-location="learn_inline"
+              data-ph-prop-cta-variant="early_inline"
+              data-ph-prop-target-funnel={ctaTargetFunnel}
+              data-ph-prop-article-slug={articleSlug}
+              data-ph-prop-article-category={data.category}
+              data-ph-prop-cta-text={ctaText}
+              class="inline-flex items-center justify-center gap-1.5 rounded-md bg-amber-500 px-5 py-2.5 text-[15px] font-semibold text-gray-950 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md"
+            >
+              {ctaText}
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 3v9M4 8l4 4 4-4"/>
+              </svg>
+            </a>
+            {ctaSubline && <span class="text-[12px] text-gray-600">{ctaSubline}</span>}
+          </div>
         </aside>
 
-        <div class="prose prose-skilly max-w-none">
+        <div class="prose prose-skilly max-w-none" data-learn-prose>
           <slot />
         </div>
+        <script is:inline>
+          (function () {
+            var cta = document.querySelector('[data-learn-early-cta]');
+            var intro = document.querySelector('[data-learn-prose] > p');
+            if (cta && intro) {
+              cta.classList.remove('mb-10');
+              cta.classList.add('not-prose', 'my-8');
+              intro.after(cta);
+            }
+          })();
+        </script>
 
         <aside data-learn-cta class="mt-12 p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/40 border border-amber-200/60">
           <p class="text-[11px] font-mono tracking-[0.08em] uppercase text-amber-700 mb-3">{ctaEyebrow}</p>
@@ -353,9 +384,9 @@ const relatedArticles = allLearnEntries
           <p class="text-[13px] text-gray-600 leading-relaxed mb-6 max-w-[580px]">
             {privacyNote}
           </p>
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap items-center gap-3">
             <a
-              href={ctaHref}
+              href={ctaHrefFor('learn_article_cta')}
               rel={targetsBuilders ? 'nofollow' : undefined}
               data-ph-event={ctaEvent}
               data-ph-prop-location="learn_article_cta"
@@ -384,6 +415,7 @@ const relatedArticles = allLearnEntries
             >
               {secondaryText}
             </a>
+            {ctaSubline && <span class="text-[13px] text-gray-600">{ctaSubline}</span>}
           </div>
         </aside>
 
@@ -456,7 +488,7 @@ const relatedArticles = allLearnEntries
       <span class="hidden sm:inline">{earlyCtaText}</span>
     </p>
     <a
-      href={ctaHref}
+      href={ctaHrefFor('learn_sticky')}
       rel={targetsBuilders ? 'nofollow' : undefined}
       data-ph-event={ctaEvent}
       data-ph-prop-location="learn_sticky"
