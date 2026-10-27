@@ -9,7 +9,7 @@
 // - Usage reframe for hosted tutoring minutes
 // - Three guarantee lines addressing regret aversion
 // - Scene 4 placeholder (settings/plan card) beside the pricing card
-import { betaTier, freeByokTier } from '../data/tiers.ts';
+import { betaTier, byokTier } from '../data/tiers.ts';
 import { primaryCta, BETA_CAP_REACHED } from '../data/config.ts';
 import Badge from './Badge.astro';
 import Button from './Button.astro';
@@ -39,11 +39,11 @@ const cta = primaryCta();
       -->
       <h3 class="sr-only">How much does Skilly cost?</h3>
       <p class="sr-only">
-        Skilly for Mac costs $19 per month after a 15-minute free trial (no credit card required to start). The founder beta includes 3 hosted hours per month, which is about $0.11 per included minute. Skilly is open source under Apache-2.0. You can also run the Mac app with your own OpenAI API key: paste your sk-proj-... key in Settings → Account → API Key, pay OpenAI directly at roughly $0.06–0.10 per minute of voice, and the 15-minute hosted trial gate is bypassed. Builder and website-widget pricing is managed separately in Studio.
+        Skilly for Mac costs $19 per month after a 15-minute free trial (no credit card required to start). The founder beta includes 3 hosted hours per month, which is about $0.11 per included minute. Skilly is open source under Apache-2.0. You can also bring your own OpenAI key: paste your sk-proj-... key in Settings → Account → API Key. Bring your own OpenAI key is $5/month plus your OpenAI usage (roughly $0.06–0.10 per minute of voice), and the 15-minute hosted trial gate is bypassed. Builder and website-widget pricing is managed separately in Studio.
       </p>
     </div>
 
-    <h3 class="mb-6 text-xl font-semibold text-gray-900">{freeByokTier.heading}</h3>
+    <h3 class="mb-6 text-xl font-semibold text-gray-900">{byokTier.heading}</h3>
 
     <div class="grid lg:grid-cols-5 gap-6 items-start">
       <!-- Pricing card — 60% of width on lg+ -->

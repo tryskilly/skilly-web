@@ -31,7 +31,7 @@ export const faqs: Faq[] = [
   {
     question: 'Can I bring my own OpenAI API key?',
     answer:
-      'Coming soon. We\u2019re adding a BYOK plan at a lower price for users with their own OpenAI Realtime credits \u2014 we\u2019re prioritizing the build based on demand. Email hello@tryskilly.app with subject "BYOK" and we\u2019ll notify you the moment it ships, plus lock in early-access pricing for you.',
+      'Yes. Paste your OpenAI API key in Settings \u2192 Account \u2192 API Key. Bring your own OpenAI key is $5/month plus your OpenAI usage.',
   },
   {
     question: 'What is Skilly, exactly?',
