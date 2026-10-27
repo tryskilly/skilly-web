@@ -1,7 +1,7 @@
 ---
 // src/layouts/Layout.astro
 import '../styles/globals.css';
-import { POSTHOG_HOST, POSTHOG_KEY } from '../data/config.ts';
+import { BROWSER_EXTENSIONS, POSTHOG_HOST, POSTHOG_KEY } from '../data/config.ts';
 
 interface Props {
   title?: string;
@@ -14,6 +14,9 @@ interface Props {
    *  letting Google index an unbounded set of LLM-written pages about third
    *  parties is scaled content abuse under its spam policy. */
   noindex?: boolean;
+  /** Site-relative path to declare as canonical instead of this page's own URL.
+   *  Used to consolidate duplicate-intent pages without deleting them. */
+  canonicalPath?: string;
 }
 
 const {
@@ -23,10 +26,11 @@ const {
   productLine = 'umbrella',
   funnelStage = 'awareness',
   noindex = false,
+  canonicalPath,
 } = Astro.props;
 
 const siteUrl = 'https://tryskilly.app';
-const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = new URL(ogImage, siteUrl).toString();
 const isPrimaryProductPage = Astro.url.pathname === '/'
   || Astro.url.pathname === '/builders/';
@@ -39,7 +43,9 @@ const isPrimaryProductPage = Astro.url.pathname === '/'
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
   name: 'Skilly',
+  alternateName: ['Skilly AI', 'tryskilly'],
   url: siteUrl,
   logo: `${siteUrl}/skilly-mark.png`,
   sameAs: [
@@ -86,7 +92,10 @@ const peopleApplicationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   '@id': `${siteUrl}/#skilly-for-people`,
-  name: 'Skilly for People',
+  name: 'Skilly',
+  alternateName: ['Skilly for Mac', 'Skilly AI'],
+  publisher: { '@id': `${siteUrl}/#organization` },
+  sameAs: BROWSER_EXTENSIONS.map((extension) => extension.href),
   url: `${siteUrl}/`,
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'macOS 14.0+',
