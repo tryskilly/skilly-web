@@ -7,7 +7,7 @@
 **What it does:** On Mac, Skilly lives in the menu bar. You press a shortcut (or enable Live Tutor) and ask out loud — "how do I add a bevel?" — and it screenshots your active app, moves the cursor to the exact UI element, and narrates the answer in your language. For builders, Skilly for Web lets website owners create a Studio project, import site/docs context, preview a website skill, and install a CDN widget so customers can ask questions inside their site.
 **Product category:** Voice-first learning assistant for software and customer education. Adjacent to AI tutors, website onboarding widgets, product copilots, and one-on-one video tutorials.
 **Product type:** Native macOS app plus Studio-managed web widget, subscription/usage SaaS.
-**Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, roughly $0.11 per included minute. 15 min free (no card). Beta capped at 50 users with price locked for life. Builders/Web pricing should be framed separately around Studio projects and usage, not borrowed from Mac hosted minutes.
+**Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, roughly $0.11 per included minute. 15 min free (no card). Beta capped at 50 users. Builders/Web pricing should be framed separately around Studio projects and usage, not borrowed from Mac hosted minutes.
 
 ## Target Audience
 **Target companies:** For People: individual creators and knowledge workers. For Builders: early-stage SaaS teams, indie founders, and small product/support teams with repetitive onboarding questions. Enterprise requirements such as SSO/SOC 2 are not the current target.
@@ -74,7 +74,7 @@
 | "Only 3 hours? I'll blow through that." | Most users don't. We email at 80% and 100%. No surprise charges — it just pauses. |
 | "Only 5 apps?" | Works in *any* app without a skill. Skills add deeper courses and updated knowledge for specific apps. Skill builder shipping so users can create their own. |
 | "Mac only?" | Today yes. Windows in dev, Linux planned, iOS exploring. Waitlist available. |
-| "Will the price go up after beta?" | Yes, but beta users keep $19 forever on their account. Only 50 seats. |
+| "Will the price go up after beta?" | We may change subscription prices with at least 30 days' notice. A change applies from the next billing cycle after the notice period. Subscribers who joined before this change keep their current price. Beta is capped at 50 seats. |
 
 **Anti-persona:** Enterprise buyers needing SSO/SOC2 today. Windows-first users. People who already know their tool cold and don't need tutoring. Teams wanting shared accounts (single-user for now).
 
@@ -104,7 +104,7 @@
 | Skill | An upgrade pack for one specific app (Blender, Figma, etc.) — adds up-to-date instructions + a full learning path |
 | Live Tutor mode | Always-on listening; no hotkey — just start talking |
 | Custom skill | A user-provided SKILL.md file adding app-specific knowledge |
-| Beta | 50-seat founding cohort at $19/mo price-locked for life |
+| Beta | 50-seat founding cohort at $19/mo |
 
 ## Brand Voice
 **Tone:** Warm, confident, direct. Anti-hype. Closer to Linear/Granola than to enterprise SaaS.
@@ -121,7 +121,6 @@
 | "Works in any Mac app" | Demo across Blender, Figma, Excel, Notion, browser |
 | "Speaks your language" | 16 languages / 8 voices, auto-detect |
 | "Moves the cursor" | Hero animation shows it pointing at exact UI |
-| "Price locked for life" | Only 50 beta seats; explicit in pricing card |
 | "Privacy-safe" | OpenAI blocked from training on API traffic; conversation history stays local; message contents are excluded from analytics |
 
 ## Goals

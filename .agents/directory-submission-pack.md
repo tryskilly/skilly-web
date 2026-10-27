@@ -14,7 +14,7 @@
 | One-liner (90 chars) | Voice-first AI tutor for macOS — sees your screen, moves your cursor, teaches any app |
 | Category (primary) | AI / Productivity / Education |
 | Platforms | macOS (Apple Silicon, 14+) |
-| Pricing | Free trial (15 min, no card) · $19/mo beta (50-seat cap, price locked for life) |
+| Pricing | Free trial (15 min, no card) · $19/mo beta (50-seat cap) |
 | Launch status | Beta |
 | Maker | Mohamed Saleh Zaied (@moelabs_dev) |
 | Contact | hello@tryskilly.app |
@@ -43,7 +43,7 @@
 
 > Skilly is a voice-first AI tutor for macOS. You press a shortcut (or enable always-on Live Tutor mode), ask out loud "how do I add a bevel here?", and Skilly screenshots your active app, moves the cursor to the exact UI element, and narrates the answer — in your own language. 16 languages, 8 voices, any Mac app.
 >
-> Built on OpenAI Realtime voice + vision. Privacy-safe: nothing stored after each session. Ships with deeper "skills" for Blender, Figma, After Effects, DaVinci Resolve, Premiere Pro — plus a custom-skill format (SKILL.md) so you can bring your own knowledge. 50-seat founder beta at $19/mo, price locked for life.
+> Built on OpenAI Realtime voice + vision. Privacy-safe: nothing stored after each session. Ships with deeper "skills" for Blender, Figma, After Effects, DaVinci Resolve, Premiere Pro — plus a custom-skill format (SKILL.md) so you can bring your own knowledge. 50-seat founder beta at $19/mo.
 
 ### Long (~ 800 chars — for pages that encourage longer copy)
 
@@ -57,7 +57,7 @@
 >
 > Built on OpenAI Realtime voice + vision. Audio and screenshots stream to OpenAI only while you're talking; nothing is stored after the session ends; OpenAI is contractually blocked from training on Skilly data.
 >
-> Available now: 5 built-in "skills" (Blender, Figma, After Effects, DaVinci, Premiere) that add structured curricula. Custom skills via SKILL.md. 50-seat founder beta at $19/mo — price locked for life.
+> Available now: 5 built-in "skills" (Blender, Figma, After Effects, DaVinci, Premiere) that add structured curricula. Custom skills via SKILL.md. 50-seat founder beta at $19/mo.
 
 ---
 

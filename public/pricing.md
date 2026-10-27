@@ -77,10 +77,8 @@ Only tier available during the beta. Annual billing launches post-beta.
 ### Cancellation and guarantees
 - Cancel anytime from inside the app (Settings → Account → Manage subscription)
 - Keep access through the end of your billing period after canceling
-- **Beta price is locked for life on your account** — when the beta ends and prices change, beta users keep $19/month forever
 
 ### Limits
-- Beta is capped at the first 50 users
 - 3 hours of usage per month (cap resets on the billing period boundary, not a rolling window)
 - 80% warning notification at 2h 24m used
 
@@ -99,4 +97,4 @@ To join the waitlist for non-macOS platforms, visit the [Waitlist section](https
 
 ## Post-beta pricing
 
-When the beta ends, Skilly will ladder up to multiple tiers based on real usage data. Beta users will keep the $19/month rate forever on their existing accounts.
+When the beta ends, Skilly will ladder up to multiple tiers based on real usage data.
