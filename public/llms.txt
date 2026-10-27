@@ -46,7 +46,6 @@ You hold Control+Option and ask a question out loud (or enable Live Tutor for ha
 - 3 hours of live AI teaching per month
 - 15 minutes free trial on first launch — no credit card required
 - Cancel anytime — access continues through end of billing period
-- Beta limited to 50 users, beta price locked for life on beta accounts
 
 ## How Skilly for People works
 

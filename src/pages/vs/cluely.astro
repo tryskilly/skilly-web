@@ -22,7 +22,7 @@ const comparisonRows = [
   { feature: 'Trigger', skilly: 'Voice-gated: screen is captured only when you press push-to-talk or speak in Live Tutor mode', cluely: 'Always-on during a session — continuously listens + reads your screen' },
   { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', cluely: 'macOS + Windows desktop apps' },
   { feature: 'How it guides', skilly: 'Moves your cursor to the exact UI element + live transcript beside it', cluely: 'Shows AI-generated prompts and answers in an overlay window' },
-  { feature: 'Skills / curriculum', skilly: 'Pluggable Markdown curriculum per app — Blender, Figma, Xcode, Photoshop, After Effects, VS Code', cluely: 'No per-app curriculum — general-purpose assistant' },
+  { feature: 'Skills / curriculum', skilly: 'Pluggable Markdown curriculum per app — Blender, Figma, After Effects, Premiere Pro, DaVinci Resolve, Houdini', cluely: 'No per-app curriculum — general-purpose assistant' },
   { feature: 'Language support', skilly: '20+ languages auto-detected via OpenAI Realtime', cluely: 'English-primary with multilingual support' },
   { feature: 'Model layer', skilly: 'Single-call OpenAI Realtime API (voice-to-voice, lower latency)', cluely: 'Multi-model, proprietary pipeline' },
   { feature: 'Privacy posture', skilly: 'Screen capture gated by voice activity. macOS Screen Recording permission required and revokable anytime.', cluely: 'Continuous screen + audio access during an active session' },
@@ -58,7 +58,7 @@ const productSchema = {
   <div class="sr-only">
     <h2>What's the difference between Skilly and Cluely?</h2>
     <p>
-      Skilly and Cluely both see your screen, but solve different problems. Skilly is a voice-first AI tutor for macOS that watches your screen and walks you through any app — Blender, Figma, Xcode, Photoshop — by moving your cursor to the exact UI element and explaining out loud in your language. Cluely is a closed-source assistant marketed as "undetectable" for live calls, sales pitches, and interviews, designed to stay invisible to meeting software. Skilly is open source under Apache-2.0 (forked from Farza Majeed's clicky, 5,332 GitHub stars). Cluely is proprietary. Skilly only captures your screen when you're actively speaking; Cluely runs continuously during a session. Both cost approximately $19-$20 per month. Skilly is Mac-only (macOS 14+); Cluely supports Mac and Windows.
+      Skilly and Cluely both see your screen, but solve different problems. Skilly is a voice-first AI tutor for macOS that watches your screen and walks you through any app — Blender, Figma, Xcode, Photoshop — by moving your cursor to the exact UI element and explaining out loud in your language. Cluely is a closed-source assistant marketed as "undetectable" for live calls, sales pitches, and interviews, designed to stay invisible to meeting software. Skilly is open source under Apache-2.0 (forked from Farza Majeed's clicky). Cluely is proprietary. Skilly only captures your screen when you're actively speaking; Cluely runs continuously during a session. Both cost approximately $19-$20 per month. Skilly is Mac-only (macOS 14+); Cluely supports Mac and Windows.
     </p>
     <h2>Is Skilly a Cluely alternative?</h2>
     <p>
@@ -165,7 +165,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Why is Skilly open source and Cluely isn't?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                Skilly is forked from Farza Majeed's open-source clicky (5,332 GitHub stars, MIT license) and inherits its open-source ethos under Apache-2.0. The full source is at github.com/tryskilly/skilly. You can audit the screen-capture code, the OpenAI Realtime call, and the privacy guarantees yourself. Cluely is proprietary. The "undetectable" positioning is harder to verify without source access.
+                Skilly is forked from Farza Majeed's open-source clicky (MIT license) and inherits its open-source ethos under Apache-2.0. The full source is at github.com/tryskilly/skilly. You can audit the screen-capture code, the OpenAI Realtime call, and the privacy guarantees yourself. Cluely is proprietary. The "undetectable" positioning is harder to verify without source access.
               </p>
             </div>
           </div>

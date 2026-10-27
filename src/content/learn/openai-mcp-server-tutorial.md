@@ -175,7 +175,7 @@ There's no middle ground. If you need per-tool approval ("approve writes, auto-a
 
 Skilly's voice tutor for Mac uses MCP to expose three things to the gpt-realtime-1.5 model during a session:
 
-1. **Skill loader** — fetches a markdown file describing how a specific app (Blender, Figma, Xcode) is structured. Read-only, `require_approval: "never"`.
+1. **Skill loader** — fetches a markdown file describing how a specific app (Blender, Figma) is structured. Read-only, `require_approval: "never"`.
 2. **Screen capture trigger** — model can request a fresh frame mid-conversation if the user changed something. Read-only.
 3. **Cursor coordinate emitter** — model emits target screen coordinates as a tool call; client moves the visible cursor there. Action-but-non-destructive.
 
