@@ -38,7 +38,8 @@ faq:
   - question: "Do I need the paid version of Premiere Pro?"
     answer: "No — everything in this audio and titles lesson works in the standard version of Premiere Pro on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "audio and titles premiere pro"
-relatedArticles: []
+relatedArticles:
+  - how-to-add-text-in-premiere-pro
 ---
 
 Mix audio tracks and add text titles to your sequence. Here's how to do it in **Premiere Pro** on macOS, step by step — part of the free Premiere Pro beginner curriculum.
@@ -55,6 +56,8 @@ Mix audio tracks and add text titles to your sequence. Here's how to do it in **
 - Add a title using the **Type tool** (T): press T, click in the Program Monitor, type your text — a text clip appears in the Timeline on a video track above your footage
 - Open the **Essential Graphics panel** (Window > Essential Graphics): Edit tab shows text properties — Font, Size, Alignment, Appearance (Fill, Stroke, Shadow) — for the selected text clip
 - Browse Motion Graphics Templates in Essential Graphics > Browse tab: drag a MOGRT template from the panel into the Timeline to use a pre-animated title
+
+> **On Premiere Pro 25.0 or later?** Text styling now lives in the Properties panel and templates in the Graphics Templates panel. The full walkthrough, including lower thirds and fade-ins, is in [how to add text in Premiere Pro](/learn/how-to-add-text-in-premiere-pro/).
 
 ## Do it hands-free with Skilly
 
