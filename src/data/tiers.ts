@@ -15,6 +15,10 @@ export interface BetaTier {
   finePrint: string;
 }
 
+export const freeByokTier = {
+  heading: 'Free, $0, bring your own OpenAI key',
+};
+
 export const betaTier: BetaTier = {
   name: 'Skilly Beta',
   price: '$19',
