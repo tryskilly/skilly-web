@@ -7,7 +7,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import { DOWNLOAD_URL } from '../../data/config.ts';
+import NonMacWaitlist from '../../components/NonMacWaitlist.astro';
+import { trackedDownloadUrl } from '../../data/config.ts';
 import { buildersComparisonIndexItems } from '../../data/buildersComparisonPages.ts';
 import { buildersVersusIndexItems } from '../../data/buildersVersusPages.ts';
 
@@ -134,8 +135,14 @@ const schema = {
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try Skilly yourself</h2>
         <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source.</p>
+        <NonMacWaitlist
+          id="get-skilly"
+          location="vs_index"
+          class="mx-auto mb-5 max-w-[560px] rounded-2xl border border-amber-200/70 bg-white px-5 py-4 text-left shadow-sm"
+        />
         <a
-          href={DOWNLOAD_URL}
+          data-mac-download
+          href={trackedDownloadUrl('vs', 'vs_index', 'index')}
           data-ph-event="web_cta_download_clicked"
           data-ph-prop-location="vs_index"
           data-ph-prop-target-funnel="people"

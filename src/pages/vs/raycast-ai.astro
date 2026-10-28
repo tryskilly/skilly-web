@@ -9,7 +9,8 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
-import { DOWNLOAD_URL } from '../../data/config.ts';
+import NonMacWaitlist from '../../components/NonMacWaitlist.astro';
+import { trackedDownloadUrl } from '../../data/config.ts';
 
 const title = 'Skilly vs Raycast AI: Voice Tutor or Command Bar?';
 const description =
@@ -72,8 +73,14 @@ const productSchema = {
           Raycast is the best command bar on Mac. Skilly is voice-first and screen-aware. If you already live in Raycast,
           Skilly fills the gap it does not cover — learning new apps without reading docs or scrubbing tutorials.
         </p>
+        <NonMacWaitlist
+          id="get-skilly"
+          location="vs_raycast_ai_hero"
+          class="mx-auto mb-5 max-w-[560px] rounded-2xl border border-amber-200/70 bg-white px-5 py-4 shadow-sm"
+        />
         <Button
-          href={DOWNLOAD_URL}
+          data-mac-download
+          href={trackedDownloadUrl('vs', 'vs_raycast_ai_hero', 'raycast-ai')}
           variant="builders-accent"
           size="lg"
           data-ph-event="web_cta_download_clicked"
@@ -163,7 +170,8 @@ const productSchema = {
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try Skilly alongside Raycast</h2>
         <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source.</p>
         <Button
-          href={DOWNLOAD_URL}
+          data-mac-download
+          href={trackedDownloadUrl('vs', 'vs_raycast_ai', 'raycast-ai')}
           variant="builders-accent"
           size="xl"
           data-ph-event="web_cta_download_clicked"
@@ -171,6 +179,14 @@ const productSchema = {
           data-ph-prop-target-funnel="people"
         >
           Download Skilly
+        </Button>
+        <Button
+          data-waitlist-jump
+          href="#get-skilly"
+          variant="builders-accent"
+          size="xl"
+        >
+          Join the waitlist
         </Button>
       </div>
     </section>

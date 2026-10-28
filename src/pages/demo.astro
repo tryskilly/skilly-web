@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import NonMacWaitlist from '../components/NonMacWaitlist.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 import {
   ArrowRight,
@@ -22,6 +23,12 @@ import {
 
 const STUDIO_URL = 'https://studio.tryskilly.app/signup';
 const MAC_URL = '/download/';
+const macDownloadHref = `${MAC_URL}?${new URLSearchParams({
+  utm_source: 'tryskilly-web',
+  utm_medium: 'demo',
+  utm_campaign: 'browser_demo_panel',
+  utm_content: 'mac',
+}).toString()}`;
 
 const setupSteps = [
   {
@@ -232,7 +239,7 @@ const suggestedQuestions = [
             </div>
           </div>
 
-          <div class="mt-auto grid gap-2 border-t border-[var(--marketing-border)] pt-5 sm:grid-cols-2 lg:grid-cols-1">
+          <div class="demo-download-row mt-auto grid gap-2 border-t border-[var(--marketing-border)] pt-5 sm:grid-cols-2 lg:grid-cols-1">
             <a
               href={STUDIO_URL}
               data-ph-event="web_cta_builders_signup_clicked"
@@ -242,8 +249,15 @@ const suggestedQuestions = [
             >
               Add Skilly to my product
             </a>
+            <NonMacWaitlist
+              id="get-skilly"
+              location="browser_demo_panel"
+              stacked
+              class="sm:col-span-2 lg:col-span-1"
+            />
             <a
-              href={MAC_URL}
+              data-mac-download
+              href={macDownloadHref}
               data-ph-event="web_cta_download_clicked"
               data-ph-prop-location="browser_demo_panel"
               data-ph-prop-target-funnel="people"
@@ -382,6 +396,12 @@ const suggestedQuestions = [
   </script>
 
   <style is:global>
+    html[data-visitor-os='windows'] .demo-download-row,
+    html[data-visitor-os='linux'] .demo-download-row,
+    html[data-visitor-os='mobile'] .demo-download-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .demo-step.is-complete {
       border-color: #BFD4C3;
       background: #FAFCFA;

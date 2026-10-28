@@ -13,7 +13,8 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
-import { DOWNLOAD_URL } from '../../data/config.ts';
+import NonMacWaitlist from '../../components/NonMacWaitlist.astro';
+import { trackedDownloadUrl } from '../../data/config.ts';
 
 const title = 'Skilly vs Clicky: What Is Different in the Fork?';
 const description =
@@ -100,8 +101,14 @@ const productSchema = {
           Same macOS cursor-buddy DNA. We added a live tutor loop, a single-call Realtime pipeline, a pluggable skills layer,
           and multi-language support on top. This page is the full diff so you can decide which one fits your workflow.
         </p>
+        <NonMacWaitlist
+          id="get-skilly"
+          location="vs_clicky_hero"
+          class="mx-auto mb-5 max-w-[560px] rounded-2xl border border-amber-200/70 bg-white px-5 py-4 shadow-sm"
+        />
         <Button
-          href={DOWNLOAD_URL}
+          data-mac-download
+          href={trackedDownloadUrl('vs', 'vs_clicky_hero', 'clicky')}
           variant="builders-accent"
           size="lg"
           data-ph-event="web_cta_download_clicked"
@@ -207,7 +214,8 @@ const productSchema = {
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try the fork</h2>
         <p class="text-gray-600 mb-6">15 minutes free, no card. Source on <a href="https://github.com/tryskilly/skilly" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">github.com/tryskilly/skilly</a>.</p>
         <Button
-          href={DOWNLOAD_URL}
+          data-mac-download
+          href={trackedDownloadUrl('vs', 'vs_clicky', 'clicky')}
           variant="builders-accent"
           size="xl"
           data-ph-event="web_cta_download_clicked"
@@ -215,6 +223,14 @@ const productSchema = {
           data-ph-prop-target-funnel="people"
         >
           Download Skilly
+        </Button>
+        <Button
+          data-waitlist-jump
+          href="#get-skilly"
+          variant="builders-accent"
+          size="xl"
+        >
+          Join the waitlist
         </Button>
       </div>
     </section>
