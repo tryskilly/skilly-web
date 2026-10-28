@@ -1,0 +1,79 @@
+---
+// src/components/NonMacWaitlist.astro
+// Waitlist block that stands in for a Mac download button when the visitor
+// is on Windows, Linux or a phone/tablet. Hidden by default; globals.css shows
+// it from <html data-visitor-os> (set pre-paint by VisitorOsScript.astro).
+// Mark the download button it replaces with data-mac-download.
+//
+// Posts to the existing /api/waitlist: windows | linux | ios (phones and
+// tablets; the endpoint has no android value). Tracks web_waitlist_submitted
+// through window.skillyTrack, the same event as the /waitlist form.
+interface Props {
+  /** Analytics location, e.g. "learn_inline" or "people_hero". */
+  location: string;
+  /** "light" for cream/white cards, "brand" for the orange pricing card. */
+  tone?: 'light' | 'brand';
+  /** Anchor target for jump links (nav, sticky bar). */
+  id?: string;
+  class?: string;
+}
+
+const { location, tone = 'light', id, class: className = '' } = Astro.props;
+const inputId = `nonmac-waitlist-email-${location.replace(/[^a-z0-9]+/gi, '-')}`;
+const brand = tone === 'brand';
+---
+<div
+  id={id}
+  data-nonmac-waitlist
+  data-waitlist-location={location}
+  class:list={['w-full text-left', className]}
+>
+  <div data-nonmac-waitlist-body>
+    <p class:list={['text-[17px] font-semibold leading-snug', brand ? 'text-white' : 'text-gray-900']}>
+      Not on your Mac right now?
+    </p>
+    <p class:list={['mt-1.5 text-[14px] leading-[1.55]', brand ? 'text-white/85' : 'text-gray-700']}>
+      Skilly runs on Mac today. Leave your email and we'll let you know
+      <span data-wl-os="windows">when Windows is ready.</span><span data-wl-os="linux">when Linux is ready.</span><span data-wl-os="mobile">when Skilly is on your phone.</span>
+    </p>
+    <form data-nonmac-waitlist-form class:list={['mt-3 flex flex-col gap-2', !brand && 'sm:flex-row']} novalidate>
+      <label class="sr-only" for={inputId}>Email address</label>
+      <input
+        id={inputId}
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        placeholder="you@example.com"
+        class:list={[
+          'min-w-0 flex-1 rounded-lg border bg-white px-4 py-2.5 text-[15px] text-gray-900 focus:outline-none focus:ring-2',
+          brand ? 'border-white/60 focus:ring-white/50' : 'border-gray-300 focus:border-amber-500 focus:ring-amber-500/30',
+        ]}
+      />
+      <button
+        type="submit"
+        class:list={[
+          'inline-flex shrink-0 items-center justify-center rounded-lg px-5 py-2.5 text-[15px] font-semibold shadow-sm transition-all disabled:opacity-60',
+          brand ? 'bg-white text-[#ff6f3f] hover:bg-white/90' : 'bg-amber-500 text-gray-950 hover:bg-amber-600 hover:shadow-md',
+        ]}
+      >
+        <span data-wl-os="windows">Join the Windows waitlist</span><span data-wl-os="linux">Join the Linux waitlist</span><span data-wl-os="mobile">Join the mobile waitlist</span>
+      </button>
+    </form>
+    <p
+      data-nonmac-waitlist-status
+      class:list={['mt-2 min-h-[16px] text-[13px]', brand ? 'text-white' : 'text-red-700']}
+      aria-live="polite"
+    ></p>
+  </div>
+  <p
+    data-nonmac-waitlist-success
+    hidden
+    class:list={['text-[15px] font-medium', brand ? 'text-white' : 'text-emerald-700']}
+    aria-live="polite"
+  ></p>
+</div>
+
+<script>
+  import '../scripts/nonmac-waitlist.ts';
+</script>

@@ -1,5 +1,6 @@
 import type { SkillCourse, SkillLesson } from '../lib/skill-builder';
 import { BROWSER_EXTENSIONS } from '../data/config';
+import { readVisitorOs } from '../lib/visitor-os';
 
 export {};
 
@@ -20,9 +21,9 @@ const generationProgress = [
 type ClientPlatform = 'macos' | 'windows' | 'other';
 
 function clientPlatform(): ClientPlatform {
-  const userAgent = navigator.userAgent.toLowerCase();
-  if (userAgent.includes('macintosh') || userAgent.includes('mac os x')) return 'macos';
-  if (userAgent.includes('windows')) return 'windows';
+  const os = readVisitorOs();
+  if (os === 'mac') return 'macos';
+  if (os === 'windows') return 'windows';
   return 'other';
 }
 

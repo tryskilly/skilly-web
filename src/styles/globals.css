@@ -234,3 +234,39 @@ body[data-product-line="builders"] {
   }
   html { scroll-behavior: auto; }
 }
+
+/* Non-Mac waitlist swap. html[data-visitor-os] is set before first paint by
+   VisitorOsScript.astro. Default (no JS, Mac, crawler, unknown OS): download
+   CTAs show and waitlist blocks stay hidden. */
+[data-nonmac-waitlist],
+[data-nonmac-only],
+[data-waitlist-jump] {
+  display: none !important;
+}
+html[data-visitor-os='windows'] [data-nonmac-waitlist],
+html[data-visitor-os='linux'] [data-nonmac-waitlist],
+html[data-visitor-os='mobile'] [data-nonmac-waitlist],
+html[data-visitor-os='windows'] [data-nonmac-only],
+html[data-visitor-os='linux'] [data-nonmac-only],
+html[data-visitor-os='mobile'] [data-nonmac-only] {
+  display: block !important;
+}
+html[data-visitor-os='windows'] [data-waitlist-jump],
+html[data-visitor-os='linux'] [data-waitlist-jump],
+html[data-visitor-os='mobile'] [data-waitlist-jump] {
+  display: inline-flex !important;
+}
+html[data-visitor-os='windows'] [data-mac-download],
+html[data-visitor-os='linux'] [data-mac-download],
+html[data-visitor-os='mobile'] [data-mac-download] {
+  display: none !important;
+}
+/* Per-OS copy inside the waitlist block. */
+[data-wl-os] {
+  display: none;
+}
+html[data-visitor-os='windows'] [data-wl-os='windows'],
+html[data-visitor-os='linux'] [data-wl-os='linux'],
+html[data-visitor-os='mobile'] [data-wl-os='mobile'] {
+  display: inline;
+}

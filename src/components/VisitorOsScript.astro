@@ -1,0 +1,12 @@
+---
+// src/components/VisitorOsScript.astro
+// Pre-paint OS detection, rendered first in <head> by Layout.astro. Sets
+// <html data-visitor-os="mac|windows|linux|mobile|other|bot"> and keeps the
+// legacy "is-mobile-ua" class for phones. globals.css uses the attribute to
+// show the non-Mac waitlist in place of Mac download buttons. Without JS
+// nothing is set, so crawlers and no-JS visitors see the download button.
+import { classifyVisitor } from '../lib/visitor-os';
+
+const script = `(function(){try{var os=(${classifyVisitor.toString()})(navigator.userAgent||'',navigator.maxTouchPoints||0);var d=document.documentElement;d.setAttribute('data-visitor-os',os);if(os==='mobile')d.classList.add('is-mobile-ua');}catch(e){}})();`;
+---
+<script is:inline set:html={script}></script>
