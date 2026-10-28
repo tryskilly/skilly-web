@@ -8,6 +8,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import NonMacWaitlist from '../components/NonMacWaitlist.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
+import { trialTerms } from '../data/trial-terms.ts';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -224,7 +225,7 @@ const ctaText = targetsBuilders ? 'Start free in Studio' : 'Download for Mac';
 // Download CTAs carry data-mac-download so Windows/Linux/mobile visitors get
 // the waitlist instead (see NonMacWaitlist.astro). Studio CTAs work anywhere.
 const macOnly = targetsBuilders ? {} : { 'data-mac-download': '' };
-const ctaSubline = targetsBuilders ? null : '15-minute free trial, no card';
+const ctaSubline = targetsBuilders ? null : trialTerms;
 const secondaryHref = targetsBuilders ? '/builders/' : '/';
 const secondaryText = targetsBuilders ? 'See Skilly for Builders' : 'See how it works';
 // Readers arrive mid-task from search and rarely reach the end-of-article CTA
@@ -359,7 +360,7 @@ const relatedArticles = allLearnEntries
                 <path d="M8 3v9M4 8l4 4 4-4"/>
               </svg>
             </a>
-            {ctaSubline && <span class="text-[12px] text-gray-600">{ctaSubline}</span>}
+            {ctaSubline && <span class="max-w-[260px] text-[12px] leading-snug text-gray-600 sm:text-center">{ctaSubline}</span>}
           </div>
         </aside>
 
@@ -421,7 +422,7 @@ const relatedArticles = allLearnEntries
             >
               {secondaryText}
             </a>
-            {ctaSubline && <span class="text-[13px] text-gray-600">{ctaSubline}</span>}
+            {ctaSubline && <span class="basis-full text-[13px] text-gray-600">{ctaSubline}</span>}
           </div>
         </aside>
 

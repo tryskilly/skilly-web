@@ -116,7 +116,7 @@ Skilly is the category we built. There aren't many direct alternatives because t
 ### Skilly
 
 - **What it does**: You hold Control+Option, ask out loud ("how do I add a bevel to this cube?"), Skilly watches your screen via macOS ScreenCaptureKit, answers out loud, and points the cursor at exactly the button or menu you need. Live transcript streams beside the cursor.
-- **Price**: 15 minutes free trial on first launch, then $19/month beta tier (3 hours of live AI teaching/month). Free and open source on GitHub. *(verified 2026-04-27 at tryskilly.app)*
+- **Price**: 15 minutes free trial on first launch, then $19/month beta tier (3 hours of live AI teaching/month). Open source on GitHub. *(verified 2026-04-27 at tryskilly.app)*
 - **Privacy**: Push-to-talk only — screen and audio are captured ONLY while you're holding the hotkey, not continuously. Frames go to OpenAI Realtime per-question; nothing stored server-side.
 - **Strengths**: Voice-first, screen-aware, teaches step-by-step rather than doing things for you, works in any Mac app, open source
 - **Weaknesses**: Mac-only (Apple Silicon), requires internet for the AI step, beta-stage, $19/mo is more than launchers but less than meeting tools
