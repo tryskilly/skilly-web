@@ -15,10 +15,12 @@ interface Props {
   tone?: 'light' | 'brand';
   /** Anchor target for jump links (nav, sticky bar). */
   id?: string;
+  /** Keep the email field and button stacked. Use in narrow sidebars. */
+  stacked?: boolean;
   class?: string;
 }
 
-const { location, tone = 'light', id, class: className = '' } = Astro.props;
+const { location, tone = 'light', id, stacked = false, class: className = '' } = Astro.props;
 const inputId = `nonmac-waitlist-email-${location.replace(/[^a-z0-9]+/gi, '-')}`;
 const brand = tone === 'brand';
 ---
@@ -36,7 +38,7 @@ const brand = tone === 'brand';
       Skilly runs on Mac today. Leave your email and we'll let you know
       <span data-wl-os="windows">when Windows is ready.</span><span data-wl-os="linux">when Linux is ready.</span><span data-wl-os="mobile">when Skilly is on your phone.</span>
     </p>
-    <form data-nonmac-waitlist-form class:list={['mt-3 flex flex-col gap-2', !brand && 'sm:flex-row']} novalidate>
+    <form data-nonmac-waitlist-form class:list={['mt-3 flex flex-col gap-2', !brand && !stacked && 'sm:flex-row']} novalidate>
       <label class="sr-only" for={inputId}>Email address</label>
       <input
         id={inputId}

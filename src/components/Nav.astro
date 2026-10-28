@@ -2,7 +2,7 @@
 import Logo from './Logo.astro';
 import Wordmark from './Wordmark.astro';
 import Button from './Button.astro';
-import { DOWNLOAD_URL } from '../data/config.ts';
+import { trackedDownloadUrl } from '../data/config.ts';
 import {
   audienceNavigation,
   getMarketingVariant,
@@ -21,6 +21,8 @@ const variant = Astro.props.variant ?? getMarketingVariant(path);
 const isPeople = variant === 'people';
 const isPeopleHome = path === '/';
 const isBuilderHome = path.startsWith('/builders');
+const waitlistHref = isPeopleHome ? '#get-skilly' : '/#get-skilly';
+const navDownloadUrl = (placement: string) => trackedDownloadUrl('nav', placement, 'download');
 ---
 
 <header data-nav-variant={variant} class="sticky top-0 z-50 border-b border-black/[0.04] bg-[#fffefa]/95 shadow-[0_8px_24px_rgba(38,30,22,0.035)] backdrop-blur-md">
@@ -65,7 +67,8 @@ const isBuilderHome = path.startsWith('/builders');
               <a href={isPeopleHome ? '#use-cases' : '/#use-cases'}><span>Use cases</span></a>
               <a href="/learn/"><span>Learn</span></a>
               <a href={isPeopleHome ? '#pricing' : '/#pricing'}><span>Pricing</span></a>
-              <a href={DOWNLOAD_URL}><span>Download</span></a>
+              <a data-mac-download href={navDownloadUrl('nav_mobile')}><span>Download</span></a>
+              <a data-waitlist-jump href={waitlistHref} class="col-span-2"><span>Join the waitlist</span></a>
             </>
           ) : (
             <>
@@ -99,7 +102,8 @@ const isBuilderHome = path.startsWith('/builders');
           <a href={isPeopleHome ? '#use-cases' : '/#use-cases'}>Use cases</a>
           <a href="/learn/">Learn</a>
           <a href={isPeopleHome ? '#pricing' : '/#pricing'}>Pricing</a>
-          <a href={DOWNLOAD_URL}>Download</a>
+          <a data-mac-download href={navDownloadUrl('nav_menu')}>Download</a>
+          <a data-waitlist-jump href={waitlistHref}>Join the waitlist</a>
         </nav>
 
         <div class="flex items-center gap-3">
@@ -112,7 +116,7 @@ const isBuilderHome = path.startsWith('/builders');
           </a>
           <Button
             data-mac-download
-            href={DOWNLOAD_URL}
+            href={navDownloadUrl('nav')}
             variant="people-primary"
             size="sm"
             data-ph-event="web_cta_download_clicked"

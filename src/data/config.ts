@@ -23,6 +23,21 @@ export const BETA_CAP_REACHED = false;
 export const DOWNLOAD_URL = '/download';
 
 /**
+ * People-funnel download link. /download reads utm_* into download_served.
+ * Campaign is the placement; content identifies the page or link.
+ * Same shape as the Learn article download URLs.
+ */
+export function trackedDownloadUrl(medium: string, campaign: string, content: string): string {
+  const params = new URLSearchParams({
+    utm_source: 'tryskilly-web',
+    utm_medium: medium,
+    utm_campaign: campaign,
+    utm_content: content,
+  });
+  return `${DOWNLOAD_URL}?${params.toString()}`;
+}
+
+/**
  * PostHog public project key — same project as the Skilly macOS app.
  * Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
  * Shared by the browser snippet (Layout.astro) and server-side capture (download.ts).
