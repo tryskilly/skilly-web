@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Logo from '../components/Logo.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 import VideoModal from '../components/VideoModal.astro';
+import NonMacWaitlist from '../components/NonMacWaitlist.astro';
 import { BROWSER_EXTENSIONS, DOWNLOAD_URL } from '../data/config.ts';
 import { betaTier, byokTier } from '../data/tiers.ts';
 import {
@@ -239,7 +240,13 @@ const faqSchema = {
           </p>
 
           <div class="people-hero-actions mt-8 flex flex-wrap gap-3">
+            <NonMacWaitlist
+              id="get-skilly"
+              location="people_hero"
+              class="max-w-[470px] rounded-[18px] border border-[#f1e0d7] bg-white/90 px-5 py-4 shadow-[0_8px_24px_rgba(91,57,38,0.05)]"
+            />
             <a
+              data-mac-download
               href={DOWNLOAD_URL}
               data-ph-event="web_cta_download_clicked"
               data-ph-prop-location="people_hero"
@@ -502,6 +509,8 @@ const faqSchema = {
 
         <article class="cta-panel relative overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,#ff8a4d_0%,#ff6f3f_100%)] px-5 py-5 text-white shadow-[0_16px_30px_rgba(255,111,63,0.2)]">
           <Sparkles size={28} strokeWidth={1.8} class="absolute right-4 top-4 opacity-20" aria-hidden="true" />
+          <NonMacWaitlist location="people_pricing_download" tone="brand" class="relative" />
+          <div data-mac-download>
           <div class="text-[20px] font-bold leading-[1.05] tracking-[-0.04em]">
             Download
             <br />
@@ -517,6 +526,7 @@ const faqSchema = {
           >
             Download now
           </a>
+          </div>
         </article>
       </div>
     </section>

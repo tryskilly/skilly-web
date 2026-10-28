@@ -103,7 +103,15 @@ const isBuilderHome = path.startsWith('/builders');
         </nav>
 
         <div class="flex items-center gap-3">
+          <a
+            href={isPeopleHome ? '#get-skilly' : '/#get-skilly'}
+            data-waitlist-jump
+            class="h-11 min-h-10 items-center justify-center whitespace-nowrap rounded-lg bg-[#ff6246] px-4 py-2 text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(255,98,70,0.2)] transition hover:bg-[#f45136]"
+          >
+            Join the waitlist
+          </a>
           <Button
+            data-mac-download
             href={DOWNLOAD_URL}
             variant="people-primary"
             size="sm"

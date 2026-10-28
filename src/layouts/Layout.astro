@@ -1,6 +1,7 @@
 ---
 // src/layouts/Layout.astro
 import '../styles/globals.css';
+import VisitorOsScript from '../components/VisitorOsScript.astro';
 import { BROWSER_EXTENSIONS, POSTHOG_HOST, POSTHOG_KEY } from '../data/config.ts';
 
 interface Props {
@@ -134,6 +135,7 @@ const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-J90EDSX
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <VisitorOsScript />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>

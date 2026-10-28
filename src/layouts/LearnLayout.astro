@@ -6,6 +6,7 @@
 import Layout from './Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import NonMacWaitlist from '../components/NonMacWaitlist.astro';
 import { DOWNLOAD_URL } from '../data/config.ts';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
@@ -220,6 +221,9 @@ const ctaEvent = targetsBuilders ? 'web_builders_studio_clicked' : 'web_cta_down
 const ctaTargetFunnel = targetsBuilders ? 'builders' : 'people';
 const ctaText = targetsBuilders ? 'Start free in Studio' : 'Download for Mac';
 // Backed by the 15-minute, no-card trial stated in tiers.ts and the FAQ.
+// Download CTAs carry data-mac-download so Windows/Linux/mobile visitors get
+// the waitlist instead (see NonMacWaitlist.astro). Studio CTAs work anywhere.
+const macOnly = targetsBuilders ? {} : { 'data-mac-download': '' };
 const ctaSubline = targetsBuilders ? null : '15-minute free trial, no card';
 const secondaryHref = targetsBuilders ? '/builders/' : '/';
 const secondaryText = targetsBuilders ? 'See Skilly for Builders' : 'See how it works';
@@ -335,8 +339,9 @@ const relatedArticles = allLearnEntries
         </header>
 
         <aside data-learn-early-cta class="mb-10 flex flex-col gap-4 rounded-xl border border-amber-200/70 bg-amber-50/70 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <p class="text-[15px] leading-snug text-gray-800 sm:max-w-[420px]">{earlyCtaText}</p>
-          <div class="flex shrink-0 flex-col items-start gap-1.5 sm:items-center">
+          <p {...macOnly} class="text-[15px] leading-snug text-gray-800 sm:max-w-[420px]">{earlyCtaText}</p>
+          {!targetsBuilders && <NonMacWaitlist id="learn-waitlist" location="learn_inline" />}
+          <div {...macOnly} class="flex shrink-0 flex-col items-start gap-1.5 sm:items-center">
             <a
               href={ctaHrefFor('learn_inline')}
               rel={targetsBuilders ? 'nofollow' : undefined}
@@ -384,7 +389,8 @@ const relatedArticles = allLearnEntries
           <p class="text-[13px] text-gray-600 leading-relaxed mb-6 max-w-[580px]">
             {privacyNote}
           </p>
-          <div class="flex flex-wrap items-center gap-3">
+          {!targetsBuilders && <NonMacWaitlist location="learn_article_cta" class="max-w-[580px]" />}
+          <div {...macOnly} class="flex flex-wrap items-center gap-3">
             <a
               href={ctaHrefFor('learn_article_cta')}
               rel={targetsBuilders ? 'nofollow' : undefined}
@@ -483,11 +489,17 @@ const relatedArticles = allLearnEntries
     hidden
     class="fixed inset-x-3 bottom-3 z-40 mx-auto flex [&[hidden]]:hidden max-w-[760px] items-center gap-3 rounded-xl border border-amber-200 bg-white/95 px-4 py-3 shadow-[0_12px_32px_rgba(38,30,22,0.14)] backdrop-blur-md"
   >
-    <p class="min-w-0 flex-1 text-[13px] leading-snug text-gray-800 sm:text-[14px]">
+    {!targetsBuilders && (
+      <p data-nonmac-only class="min-w-0 flex-1 text-[13px] leading-snug text-gray-800 sm:text-[14px]">
+        Not on your Mac right now? Skilly runs on Mac today.
+      </p>
+    )}
+    <p {...macOnly} class="min-w-0 flex-1 text-[13px] leading-snug text-gray-800 sm:text-[14px]">
       <span class="sm:hidden">{stickyCtaShortText}</span>
       <span class="hidden sm:inline">{earlyCtaText}</span>
     </p>
     <a
+      {...macOnly}
       href={ctaHrefFor('learn_sticky')}
       rel={targetsBuilders ? 'nofollow' : undefined}
       data-ph-event={ctaEvent}
@@ -502,6 +514,15 @@ const relatedArticles = allLearnEntries
       <span class="sm:hidden">Try free</span>
       <span class="hidden sm:inline">{ctaText}</span>
     </a>
+    {!targetsBuilders && (
+      <a
+        href="#learn-waitlist"
+        data-waitlist-jump
+        class="shrink-0 items-center rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-950 transition-colors hover:bg-amber-600"
+      >
+        Join the waitlist
+      </a>
+    )}
     <button
       type="button"
       data-learn-sticky-dismiss
