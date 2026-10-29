@@ -39,6 +39,7 @@ describe('download_served server-side capture', () => {
     expect(capturedEvent.properties.referrer_path).toBe('/learn/how-to-add-bevel-modifier-blender/');
     expect(capturedEvent.properties.utm_source).toBe('newsletter');
     expect(capturedEvent.properties.attribution_id).toBeTruthy();
+    expect(capturedEvent.properties.has_web_session).toBe(true);
   });
 
   test('falls back to the attribution id when the visitor has no PostHog cookie', async () => {
@@ -46,6 +47,25 @@ describe('download_served server-side capture', () => {
 
     const capturedEvent = capturedRequests[0].body;
     expect(capturedEvent.distinct_id).toBe(capturedEvent.properties.attribution_id);
+    expect(capturedEvent.properties.has_web_session).toBe(false);
+  });
+
+  test('records the visitor, not the Vercel function, as the source', async () => {
+    const request = new Request('https://localhost/download/?utm_source=x', {
+      headers: {
+        'user-agent': 'Mozilla/5.0 (Macintosh)',
+        'x-forwarded-for': '203.0.113.7, 10.0.0.1',
+        'x-forwarded-host': 'tryskilly.app',
+        'x-forwarded-proto': 'https',
+      },
+    });
+
+    await GET({ request });
+
+    const { properties } = capturedRequests[0].body;
+    expect(properties.$current_url).toBe('https://tryskilly.app/download/?utm_source=x');
+    expect(properties.$ip).toBe('203.0.113.7');
+    expect(properties.$raw_user_agent).toBe('Mozilla/5.0 (Macintosh)');
   });
 
   test('skips crawlers and still serves the page when PostHog is down', async () => {

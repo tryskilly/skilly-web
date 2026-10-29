@@ -30,16 +30,42 @@ function readWebDistinctId(request: Request): string | null {
 }
 
 /**
+ * Behind Vercel the function sees request.url as https://localhost/..., so the
+ * public host comes from the forwarding headers the edge sets.
+ */
+function publicUrl(request: Request): string {
+  const url = new URL(request.url);
+  const forwardedHost = request.headers.get('x-forwarded-host');
+  if (forwardedHost) {
+    url.host = forwardedHost.split(',')[0].trim();
+    url.protocol = `${request.headers.get('x-forwarded-proto')?.split(',')[0].trim() || 'https'}:`;
+  }
+  return url.toString();
+}
+
+/**
  * Every download link on the site (hero, nav, Learn, /vs, /dmg) routes through
  * this endpoint, so capturing here counts downloads that click tracking misses.
  * Awaited with a short timeout because serverless functions can be frozen once
  * the response is returned; a PostHog outage must never block the download.
  */
 async function captureDownloadServed(request: Request, handoff: URLSearchParams, referrerPath: string | null) {
-  if (CRAWLER_USER_AGENT.test(request.headers.get('user-agent') ?? '')) return;
+  const userAgent = request.headers.get('user-agent') ?? '';
+  if (CRAWLER_USER_AGENT.test(userAgent)) return;
 
   const attributionId = handoff.get('attribution_id');
-  const properties: Record<string, string> = { $current_url: request.url };
+  const webDistinctId = readWebDistinctId(request);
+  const properties: Record<string, string | boolean> = {
+    $current_url: publicUrl(request),
+    // Without the visitor's IP and user agent PostHog geolocates and
+    // bot-classifies Vercel's server, so every download read as Ashburn automation.
+    $raw_user_agent: userAgent,
+    // A cookie means the browser ran posthog-js on our pages; crawlers that fake
+    // a browser user agent never have one.
+    has_web_session: webDistinctId !== null,
+  };
+  const visitorIp = request.headers.get('x-forwarded-for')?.split(',')[0].trim();
+  if (visitorIp) properties.$ip = visitorIp;
   for (const [key, value] of handoff) properties[key] = value;
   if (referrerPath) properties.referrer_path = referrerPath;
 
@@ -50,7 +76,7 @@ async function captureDownloadServed(request: Request, handoff: URLSearchParams,
       body: JSON.stringify({
         api_key: POSTHOG_KEY,
         event: 'download_served',
-        distinct_id: readWebDistinctId(request) ?? attributionId,
+        distinct_id: webDistinctId ?? attributionId,
         properties,
       }),
       signal: AbortSignal.timeout(1500),
