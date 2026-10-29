@@ -1,0 +1,71 @@
+keyword,us_volume,kd,intent,target_url,status,notes
+skilly,590,10,navigational,/,live,"Brand query; GSC avg pos ~5.2, 2% CTR (OpenSEO project context, Oct 2026). Saved keyword."
+skilly ai,50,5,navigational,/,live,Saved keyword (OpenSEO).
+skilly app,10,,navigational,/,live,Saved keyword (OpenSEO); KD not returned.
+clicky alternative,,,commercial,/vs/clicky/,live,"MONEY KEYWORD (see context.md). Volume/KD not yet measured; AIO already cites tryskilly.app for 'Clicky alternatives for Mac' (run baf1d653). Disambiguate from clicky.com analytics."
+ai tutor that sees your screen,,,commercial,/learn/ai-tutor-that-sees-your-screen/,live,Runner-up money keyword; volume not measured.
+skilly openai api key setup,,,transactional,/learn/skilly-openai-key-setup/,gap,"Growth priority 1: BYOK setup ($5/mo + OpenAI usage) + 'no credits remaining' fix; Growth reports 83 first-answer failures from this error. Offer hosted $19 as zero-setup option. Support/activation page more than search volume."
+skilly pricing,,,transactional,/pricing/,gap,"Growth priority 2: HTML /pricing/ page using the existing trial line from src/data/trial-terms.ts only. Pricing copy is product-adjacent; reuse existing strings."
+pendo pricing,210,2,commercial,/learn/pendo-pricing/,gap,"Growth priority 3. Cite only public Pendo prices with as-of date; end with Skilly Builders as self-serve option. Slug proposed. US vol from one OpenSEO call (Growth)."
+walkme pricing,50,0,commercial,/learn/walkme-pricing/,gap,"Growth priority 3. Public prices only (WalkMe mostly quote-based: say so if true). Slug proposed."
+digital adoption platform,480,15,commercial,/for/digital-adoption-platform/,gap,"Growth priority 4. CPC $225. Frame as light one-script-tag option for your own web app, not a full DAP. Script-tag embed VERIFIED (sdk/web/README.md; public/products/skilly-builders.md). Slug proposed."
+employee software training,390,13,commercial,/use-cases/employee-software-training/,gap,"Growth priority 5 (L&D). Limit to internal web apps the team controls (embed needs site-owner install). Script-tag embed verified. Slug proposed."
+how to add text in premiere pro,2400,0,informational,/learn/how-to-add-text-in-premiere-pro/,live,Shipped PR #38 (ec31aff) 2026-10-28. Template for single-task how-tos.
+how to add text in davinci resolve,2400,0,informational,/learn/how-to-add-text-in-davinci-resolve/,planned,Publish run Thu 2026-10-29 10:00 Cairo. CPC $0.50.
+premiere pro keyboard shortcuts,1300,0,informational,/learn/premiere-pro-keyboard-shortcuts/,planned,Growth: next after priorities 1-5; use add-text template. Version-stamp every shortcut (Mac keys).
+how to crop video in premiere pro,1600,0,informational,/learn/how-to-crop-video-in-premiere-pro/,planned,CPC $0.24.
+how to speed up video in premiere pro,1300,0,informational,/learn/how-to-speed-up-video-in-premiere-pro/,planned,
+how to add captions in premiere pro,1300,4,informational,/learn/how-to-add-captions-in-premiere-pro/,planned,CPC $0.36.
+how to render in blender,880,3,informational,/learn/how-to-render-in-blender/,planned,Check overlap with /learn/blender-lighting-and-rendering/ first (one page per query).
+how to uv unwrap in blender,880,9,informational,/learn/how-to-uv-unwrap-in-blender/,planned,
+how to separate objects in blender,720,0,informational,/learn/how-to-separate-objects-in-blender/,planned,Pair with join objects via links.
+how to join objects in blender,480,0,informational,/learn/how-to-join-objects-in-blender/,planned,
+how to crop in davinci resolve,390,0,informational,/learn/how-to-crop-in-davinci-resolve/,planned,
+how to apply scale in blender,320,0,informational,,gap,Saved keyword (OpenSEO).
+how to merge vertices in blender,320,0,informational,/learn/blender-core-mesh-editing-tools/,gap,Covered partly by core mesh tools page; standalone how-to possible.
+how to fade out audio in davinci resolve,260,0,informational,/learn/davinci-resolve-audio-and-fairlight/,gap,Saved keyword (OpenSEO).
+how to speed up a clip in davinci resolve,260,0,informational,,gap,Saved keyword (OpenSEO).
+how to export after effects to mp4,260,0,informational,/learn/after-effects-rendering-and-export/,gap,Check whether existing page answers it in first two sentences.
+how to mask in figma,170,0,informational,/learn/how-to-mask-in-figma/,planned,
+how to crop image in figma,170,0,informational,,gap,Saved keyword (OpenSEO).
+how to export from figma,170,4,informational,,gap,Saved keyword (OpenSEO).
+how to precompose in after effects,170,0,informational,,gap,Saved keyword (OpenSEO).
+how to cut clips in davinci resolve,170,2,informational,/learn/davinci-resolve-trimming-and-transitions/,gap,
+how to cut clips in premiere pro,170,0,informational,/learn/premiere-pro-trimming-and-transitions/,gap,
+how to allow screen recording on mac,90,3,informational,/learn/enable-screen-recording-permission-macos/,live,"15,957 impr / 0.2% CTR (GSC Jul-Oct 2026, OpenSEO context). Refresh queued."
+screen recording permission mac,40,0,informational,/learn/enable-screen-recording-permission-macos/,live,Same page as above.
+how to loop animation in after effects,90,0,informational,,gap,Saved keyword (OpenSEO).
+how to group in figma,70,1,informational,,gap,Saved keyword (OpenSEO).
+chatgpt screen share mac,10,,commercial,/learn/chatgpt-screen-sharing-mac/,live,Drives downloads (OpenSEO key pages).
+chatgpt alternative for mac screen help,,,commercial,/vs/chatgpt/,gap,Firsthand comparison; blocked until Mohamed's Mac recordings arrive.
+blender bevel modifier,,,informational,/learn/how-to-add-bevel-modifier-blender/,live,"8,197 impr, pos 7.4 (OpenSEO key pages). Page-2-to-1 candidate."
+blender subdivision surface modifier,,,informational,/learn/how-to-add-subdivision-surface-modifier-blender/,live,
+figma auto layout,,,informational,/learn/figma-auto-layout-tutorial/,live,Duplicate with /learn/figma-auto-layout/ -> issue #35 canonical.
+best voice ai assistant mac,,,commercial,/learn/best-voice-ai-assistant-mac-2026/,live,
+is it safe to let ai see your screen,,,informational,/learn/is-it-safe-to-let-ai-see-your-screen/,live,
+best way to learn blender,,,informational,/learn/best-way-to-learn-blender/,live,
+how to learn figma faster,,,informational,/learn/how-to-learn-figma-faster/,live,
+blender tutorial for beginners,,,informational,/learn/blender-tutorial-for-beginners/,live,Curriculum hub.
+figma tutorial for beginners,,,informational,/learn/figma-tutorial-for-beginners/,live,Curriculum hub.
+after effects tutorial for beginners,,,informational,/learn/after-effects-tutorial-for-beginners/,live,Curriculum hub.
+premiere pro tutorial for beginners,,,informational,/learn/premiere-pro-tutorial-for-beginners/,live,Curriculum hub.
+davinci resolve tutorial for beginners,,,informational,/learn/davinci-resolve-tutorial-for-beginners/,live,Curriculum hub.
+houdini tutorial for beginners,,,informational,/learn/houdini-tutorial-for-beginners/,live,Curriculum hub.
+enable accessibility permission mac,,,informational,/learn/enable-accessibility-permission-macos/,live,
+skilly vs gemini live,,,commercial,/vs/gemini-live/,live,Gemini Live in 4/40 AI answers (baf1d653).
+raycast ai alternative,,,commercial,/vs/raycast-ai/,live,
+cluely alternative,,,commercial,/vs/cluely/,live,
+rewind alternative,,,commercial,/vs/rewind/,live,
+best user onboarding software,,,commercial,/learn/best-user-onboarding-software-2026/,live,Builders.
+walkme alternative,,,commercial,/vs/walkme/,live,Builders.
+pendo alternative,,,commercial,/vs/pendo/,live,Builders.
+appcues alternative,,,commercial,/vs/appcues/,live,Builders.
+whatfix alternative,,,commercial,/vs/whatfix/,live,Builders.
+userpilot alternative,,,commercial,/vs/userpilot/,live,Builders.
+chameleon alternative,,,commercial,/vs/chameleon/,live,Builders.
+command ai alternative,,,commercial,/vs/command-ai/,live,Builders.
+intercom fin alternative,,,commercial,/vs/intercom-fin/,live,Builders.
+storylane alternative,,,commercial,/vs/storylane/,live,Builders.
+arcade alternative,,,commercial,/vs/arcade/,live,Builders.
+navattic alternative,,,commercial,/vs/navattic/,live,Builders.
+openai realtime api tutorial,,,informational,/learn/openai-realtime-api-tutorial/,live,Off-ICP developer traffic.
