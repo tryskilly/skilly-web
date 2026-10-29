@@ -87,7 +87,7 @@ Hosted plan during the beta. Annual billing launches post-beta.
 
 ## Platform
 
-- macOS 14.0 or later
+- macOS 14.2 or later
 - Apple Silicon (M1/M2/M3/M4) supported
 - ~2 MB app size
 

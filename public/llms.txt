@@ -147,7 +147,7 @@ For builders, the same skill format (editable markdown) powers each Studio proje
 ## Platform availability
 
 - Skilly for Builders: any website, SaaS, or web app (script-tag install) — available
-- Skilly for People: macOS 14+ on Apple Silicon and Intel — available
+- Skilly for People: macOS 14.2 or later — available
 - Windows, Linux, iOS/iPad (People app) — on the waitlist, not yet available
 
 ## Built by
