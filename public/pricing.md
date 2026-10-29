@@ -11,7 +11,7 @@ Machine-readable pricing for AI agents and API consumers. See also:
 
 Embeddable voice-and-pointer assistant for websites, SaaS products, and apps. Create a Studio project, teach Skilly from your content, lock it to approved domains, and install it with one script tag.
 
-### Early Access — $0/month
+### Builders $0 Early Access
 
 - **$0 / month** (USD)
 - 30 teaching minutes per month
@@ -48,7 +48,7 @@ Embeddable voice-and-pointer assistant for websites, SaaS products, and apps. Cr
 
 ## Skilly for People Beta — $19/month
 
-Only tier available during the beta. Annual billing launches post-beta.
+Hosted plan during the beta. Annual billing launches post-beta.
 
 ### Price
 - **$19 / month** (USD)
@@ -59,7 +59,7 @@ Only tier available during the beta. Annual billing launches post-beta.
 ### What's included
 - 3 hours of live AI tutoring per month
 - Works with any macOS app on your Mac (no skill required for basic use)
-- All 5 bundled example skills: Blender Fundamentals, After Effects Basics, Premiere Pro Basics, DaVinci Resolve Basics, Figma Basics
+- Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma, with Houdini also available
 - 16 languages with auto-detection
 - 8 AI voices (Alloy, Echo, Fable, Onyx, Nova, Shimmer, Sage, Breeze)
 - Multi-monitor support — works across all connected displays
@@ -74,6 +74,9 @@ Only tier available during the beta. Annual billing launches post-beta.
 - One-shot lifetime trial per user (doesn't reset)
 - No checkout before the trial; download and start using immediately
 
+### Bring your own OpenAI key
+- Bring your own OpenAI key: $5/month plus your OpenAI usage
+
 ### Cancellation and guarantees
 - Cancel anytime from inside the app (Settings → Account → Manage subscription)
 - Keep access through the end of your billing period after canceling
@@ -85,7 +88,7 @@ Only tier available during the beta. Annual billing launches post-beta.
 ## Platform
 
 - macOS 14.0 or later
-- Apple Silicon (M1/M2/M3/M4) and Intel Macs supported
+- Apple Silicon (M1/M2/M3/M4) supported
 - ~2 MB app size
 
 ## Platforms NOT yet supported (waitlist only)
