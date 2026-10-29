@@ -30,6 +30,7 @@ One script tag · domain-locked · usage-billed · open source.
 
 ## Skilly for Builders pricing
 
+- Builders $0 Early Access: $0 / month — 30 teaching minutes
 - Starter: $29 / month — 400 teaching minutes
 - Studio: $99 / month — 1,500 teaching minutes
 - Scale: $299 / month — 5,000 teaching minutes
@@ -45,6 +46,7 @@ You hold Control+Option and ask a question out loud (or enable Live Tutor for ha
 - Beta: $19 / month (monthly billing only during beta)
 - 3 hours of live AI teaching per month
 - 15 minutes free trial on first launch — no credit card required
+- Bring your own OpenAI key: $5/month plus your OpenAI usage
 - Cancel anytime — access continues through end of billing period
 
 ## How Skilly for People works
@@ -53,19 +55,19 @@ You hold Control+Option and ask a question out loud (or enable Live Tutor for ha
 2. Hold Control+Option and ask out loud — or turn on Live Tutor and just start talking
 3. Skilly answers out loud, streams a live transcript beside the cursor, and points at the exact UI element you need
 
-## Skills (bundled as examples)
+## Skills
 
 Skilly works with any macOS app out of the box. Skills are optional expansion packs that add two things:
 
 1. **Fresh knowledge** from the app's official documentation, beyond the AI's training cutoff
 2. **Structured curriculum** with stages, completion signals, and UI vocabulary — so Skilly can coach you through a course, not just answer one-off questions
 
-Six skills ship as examples:
+Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma, with Houdini also available.
 
-- Blender Fundamentals — 6 stages, from navigation to first render
-- After Effects Basics — compositions, layers, keyframes, effects
 - Premiere Pro Basics — timeline editing, transitions, export
 - DaVinci Resolve Basics — Cut, Edit, Color, Fairlight, Deliver pages
+- After Effects Basics — compositions, layers, keyframes, effects
+- Blender Fundamentals — 6 stages, from navigation to first render
 - Figma Basics — frames, components, auto-layout, prototyping
 - Houdini Essentials — VFX simulations (Pyro, FLIP, RBD, Vellum) and Karma rendering for cinematic sequences
 
