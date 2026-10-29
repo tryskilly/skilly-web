@@ -121,5 +121,5 @@ Already linking: footer (`src/components/Footer.astro`, `BuildersFooter.astro`),
 ## Open conflicts (site vs product)
 
 - **Skill count:** `src/data/tiers.ts` ("5 ready-to-use skills"), `src/data/faqs.ts` ("Five skills ship today"), `src/components/Hero.astro` ("5 skills live") and `public/pricing.md` ("All 5 bundled example skills", no Houdini) still say five. `skills/` has six, but the app bundle folder `leanring-buddy/skills/` has five (no Houdini). Confirm with Mohamed before changing pricing-adjacent copy; the `public/pricing.md` fix is in progress (log 2026-10-29).
-- **Intel support:** Resolved. The product repo does not pin a CPU architecture, so the site no longer claims Apple Silicon only or Intel support. Machine-readable files were corrected in PR #47. The FAQ, schema, homepage, and comparison pages were corrected in PR #TBD.
+- **Intel support:** Resolved. The product repo does not pin a CPU architecture, so the site no longer claims Apple Silicon only or Intel support. Machine-readable files were corrected in PR #47. The FAQ, schema, homepage, and comparison pages were corrected in PR #48.
 - **BYOK missing from `public/pricing.md`:** the people section doesn't state the $5/month plus OpenAI usage BYOK line. Fix is in progress (log 2026-10-29).
