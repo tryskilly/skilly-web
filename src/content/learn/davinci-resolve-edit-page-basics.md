@@ -45,7 +45,8 @@ faq:
   - question: "Do I need the paid version of DaVinci Resolve?"
     answer: "No — everything in this edit page basics lesson works in the standard version of DaVinci Resolve on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "edit page basics davinci resolve"
-relatedArticles: []
+relatedArticles:
+  - how-to-add-text-in-davinci-resolve
 ---
 
 Assemble your rough cut on the Edit page using the full-featured editing tools. Here's how to do it in **DaVinci Resolve** on macOS, step by step — part of the free DaVinci Resolve beginner curriculum.

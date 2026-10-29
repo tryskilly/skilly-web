@@ -46,6 +46,7 @@ relatedArticles:
   - premiere-pro-timeline-editing
   - premiere-pro-effects-and-color-grading
   - premiere-pro-tutorial-for-beginners
+  - how-to-add-text-in-davinci-resolve
 ---
 
 To add text in Premiere Pro, pick the **Type tool** (press **T**), click in the **Program Monitor**, and type. Premiere drops a text clip on a video track above your footage, and you style it in the **Properties panel** (Window > Properties). Drag the clip's edges in the Timeline to set how long it stays on screen.
