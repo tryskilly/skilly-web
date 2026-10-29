@@ -66,7 +66,7 @@ export const faqs: Faq[] = [
   {
     question: 'Which operating systems work?',
     answer:
-      'Right now: macOS 14+ on Apple Silicon Macs only. Windows, Linux, and mobile are coming \u2014 join the waitlist below to be notified.',
+      'Right now: macOS 14.2 or later. Windows, Linux, and mobile are coming \u2014 join the waitlist below to be notified.',
   },
   {
     question: 'Will the price change after beta?',
