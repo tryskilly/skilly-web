@@ -11,6 +11,7 @@
 - [Privacy policy](https://tryskilly.app/privacy): data handling, PostHog, OpenAI, WorkOS
 - [Terms](https://tryskilly.app/terms)
 - [Download macOS app (GitHub release)](https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg)
+- [Pricing](https://tryskilly.app/pricing/): plans, the 15-minute trial, bring-your-own OpenAI key, and Builders $0 Early Access
 - [Machine-readable pricing](https://tryskilly.app/pricing.md)
 - [Skilly for Builders — machine-readable product facts](https://tryskilly.app/products/skilly-builders.md)
 - [Skilly for People — machine-readable product facts](https://tryskilly.app/products/skilly-people.md)

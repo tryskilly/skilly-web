@@ -1,0 +1,387 @@
+---
+// /pricing/ — crawlable HTML pricing. Facts are copied from public/pricing.md.
+// That file stays the machine-readable source; this page does not add tiers,
+// discounts, or prices that pricing.md does not state.
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+
+const title = 'Skilly Pricing: Plans and Bring-Your-Own Key';
+const description =
+  'Skilly for People is $19/month (3 hours) after 15 minutes free, no card. Bring your own OpenAI key is $5/month plus your OpenAI usage. Builders $0 Early Access.';
+
+const pageUrl = 'https://tryskilly.app/pricing/';
+
+const builderPlans = [
+  {
+    name: 'Builders $0 Early Access',
+    price: '$0',
+    period: '/ month',
+    amount: '0',
+    points: [
+      '$0 / month (USD)',
+      '30 teaching minutes per month',
+      'For design partners and early builders testing the widget',
+      'Studio project creation, editable skill markdown, allowed domains, and widget configuration',
+    ],
+  },
+  {
+    name: 'Starter',
+    price: '$29',
+    period: '/ month',
+    amount: '29',
+    points: [
+      '$29 / month (USD)',
+      '400 teaching minutes per month',
+      'Best for small products, early SaaS teams, and landing-page onboarding',
+      'Hard-capped during beta to avoid automatic overage surprises',
+    ],
+  },
+  {
+    name: 'Studio',
+    price: '$99',
+    period: '/ month',
+    amount: '99',
+    points: [
+      '$99 / month (USD)',
+      '1,500 teaching minutes per month',
+      'Best for growing SaaS products with active onboarding and support-deflection use cases',
+      'Includes the same Studio project controls, widget install, and editable skill workflow',
+    ],
+  },
+  {
+    name: 'Scale',
+    price: '$299',
+    period: '/ month',
+    amount: '299',
+    points: [
+      '$299 / month (USD)',
+      '5,000 teaching minutes per month',
+      'Best for higher-traffic SaaS products and teams validating voice guidance across multiple surfaces',
+      'Design-partner call recommended for rollout planning',
+    ],
+  },
+];
+
+const peopleIncluded = [
+  '3 hours of live AI tutoring per month',
+  'Works with any macOS app on your Mac (no skill required for basic use)',
+  'Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma, with Houdini also available',
+  '16 languages with auto-detection',
+  '8 AI voices (Alloy, Echo, Fable, Onyx, Nova, Shimmer, Sage, Breeze)',
+  'Multi-monitor support — works across all connected displays',
+  'Live Tutor mode — hands-free voice activation (no hotkey required)',
+  'Push-to-talk via customizable keyboard shortcut (default: Control+Option)',
+  'Custom skills — drop in your own SKILL.md files',
+  'Auto-activates the matching skill when you switch apps',
+  'Auto-updates via Sparkle framework',
+];
+
+const faqs = [
+  {
+    question: 'How much is Skilly for People during beta?',
+    answer:
+      'The hosted plan is $19 / month (USD). Monthly billing only (no annual option during beta). Per-day equivalent: ~$0.63/day. Billed via Polar. It includes 3 hours of live AI tutoring per month.',
+  },
+  {
+    question: 'How does the 15-minute trial work?',
+    answer:
+      '15 minutes free on first launch — no credit card required. One-shot lifetime trial per user (doesn\'t reset). No checkout before the trial; download and start using immediately.',
+  },
+  {
+    question: 'What does bring your own OpenAI key cost?',
+    answer: 'Bring your own OpenAI key: $5/month plus your OpenAI usage.',
+  },
+  {
+    question: 'What are the Skilly for Builders plans?',
+    answer:
+      'Builders $0 Early Access is $0 / month (USD) for 30 teaching minutes per month. Starter is $29 / month for 400 teaching minutes. Studio is $99 / month for 1,500 teaching minutes. Scale is $299 / month for 5,000 teaching minutes. Plans are hard-capped during beta; there are no automatic overage charges.',
+  },
+  {
+    question: 'What are the limits on the People hosted plan?',
+    answer:
+      '3 hours of usage per month. The cap resets on the billing period boundary, not a rolling window. An 80% warning notification appears at 2h 24m used.',
+  },
+  {
+    question: 'Can I cancel the People plan?',
+    answer:
+      'Cancel anytime from inside the app (Settings → Account → Manage subscription). You keep access through the end of your billing period after canceling.',
+  },
+];
+
+const monthlyOffer = (name: string, price: string) => ({
+  '@type': 'Offer',
+  name,
+  price,
+  priceCurrency: 'USD',
+  url: pageUrl,
+  priceSpecification: {
+    '@type': 'UnitPriceSpecification',
+    price,
+    priceCurrency: 'USD',
+    billingDuration: 'P1M',
+    unitText: 'MONTH',
+  },
+});
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: pageUrl,
+  mainEntity: [
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Skilly for People',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'macOS 14.2 or later',
+      offers: [
+        monthlyOffer('Skilly for People Beta', '19'),
+        monthlyOffer('Bring your own OpenAI key', '5'),
+      ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Skilly for Builders',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      offers: builderPlans.map((plan) => monthlyOffer(plan.name, plan.amount)),
+    },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} productLine="umbrella" funnelStage="conversion">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(pageSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+  <Nav />
+
+  <main class="overflow-x-clip bg-[#FEFDFB] text-gray-800">
+    <section class="mx-auto max-w-site px-6 pb-12 pt-28 lg:pt-36">
+      <div class="mx-auto max-w-[760px]">
+        <p class="mb-4 text-[13px] font-semibold uppercase tracking-[1.5px] text-amber-600">Pricing</p>
+        <h1 class="mb-5 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Skilly pricing</h1>
+        <p class="text-[17px] leading-relaxed text-gray-700">
+          Skilly for People is a hosted beta plan at <strong>$19 / month</strong> (USD) for 3 hours of live AI tutoring, after <strong>15 minutes free on first launch</strong> with no credit card required. Bring your own OpenAI key is <strong>$5/month plus your OpenAI usage</strong>. Skilly for Builders includes <strong>Builders $0 Early Access at $0 / month</strong> for 30 teaching minutes, then Starter at $29 / month, Studio at $99 / month, and Scale at $299 / month.
+        </p>
+        <p class="mt-4 text-[17px] leading-relaxed text-gray-700">
+          Skilly points at the exact control, and you use that control yourself. Skilly for Builders is an embeddable voice-and-pointer assistant for websites, SaaS products, and apps: create a Studio project, teach Skilly from your content, lock it to approved domains, and install it with one script tag.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <Button href="/download/" variant="people-primary" size="lg">Download for Mac</Button>
+          <Button href="https://studio.tryskilly.app/signup" variant="secondary" size="lg">Create a Studio project</Button>
+        </div>
+        <p class="mt-3 text-[13px] text-gray-500">
+          15 minutes free on first launch — no credit card required. One-shot lifetime trial per user (doesn't reset). No checkout before the trial.
+        </p>
+        <p class="mt-4 text-sm text-gray-500">
+          Machine-readable copy: <a href="/pricing.md" class="underline underline-offset-2">pricing.md</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-site px-6 pb-16" aria-labelledby="people-pricing">
+      <div class="mx-auto max-w-[960px]">
+        <h2 id="people-pricing" class="text-2xl font-semibold tracking-tight text-gray-900 lg:text-3xl">
+          Skilly for People Beta — $19/month
+        </h2>
+        <p class="mt-3 max-w-[640px] text-[15px] leading-relaxed text-gray-600">
+          Hosted plan during the beta. Annual billing launches post-beta.
+        </p>
+
+        <div class="mt-8 grid gap-6 lg:grid-cols-5">
+          <article class="rounded-[20px] border-2 border-amber-500 bg-white p-8 shadow-lg lg:col-span-3">
+            <h3 class="text-xl font-semibold text-gray-900">Price</h3>
+            <p class="mt-2 text-[15px] font-semibold text-amber-700">15 minutes free on first launch. Then the hosted plan.</p>
+            <p class="mt-4 flex items-baseline gap-1">
+              <span class="text-6xl font-bold tracking-tight text-gray-900">$19</span>
+              <span class="text-lg text-gray-500">/ month</span>
+            </p>
+            <ul class="mt-4 space-y-2 text-[15px] leading-relaxed text-gray-700">
+              <li>$19 / month (USD)</li>
+              <li>Monthly billing only (no annual option during beta)</li>
+              <li>Per-day equivalent: ~$0.63/day</li>
+              <li>Billed via Polar (<a href="https://polar.sh" class="underline underline-offset-2" rel="noopener noreferrer">polar.sh</a>)</li>
+            </ul>
+            <div class="mt-6">
+              <Button href="/download/" variant="people-primary" size="md">Download for Mac</Button>
+            </div>
+          </article>
+
+          <article class="rounded-[20px] border border-gray-200 bg-gray-50 p-8 lg:col-span-2">
+            <h3 class="text-xl font-semibold text-gray-900">Free trial</h3>
+            <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
+              <li>15 minutes free on first launch — no credit card required</li>
+              <li>One-shot lifetime trial per user (doesn't reset)</li>
+              <li>No checkout before the trial; download and start using immediately</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="mt-6 rounded-[20px] border border-gray-200 bg-white p-8">
+          <h3 class="text-xl font-semibold text-gray-900">Bring your own OpenAI key</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-gray-700">
+            Bring your own OpenAI key: $5/month plus your OpenAI usage.
+          </p>
+          <p class="mt-3 text-[15px] leading-relaxed text-gray-700">
+            Setup guide:
+            <a href="/learn/skilly-openai-key-setup/" class="font-medium text-gray-900 underline underline-offset-2">Skilly OpenAI API key setup</a>,
+            including the “no credits remaining” fix.
+          </p>
+        </article>
+
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
+          <article class="rounded-[20px] border border-gray-200 bg-white p-8">
+            <h3 class="text-[13px] font-semibold uppercase tracking-wider text-gray-500">What's included</h3>
+            <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
+              {peopleIncluded.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+          <div class="flex flex-col gap-6">
+            <article class="rounded-[20px] border border-gray-200 bg-white p-8">
+              <h3 class="text-xl font-semibold text-gray-900">Limits</h3>
+              <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
+                <li>3 hours of usage per month (cap resets on the billing period boundary, not a rolling window)</li>
+                <li>80% warning notification at 2h 24m used</li>
+              </ul>
+            </article>
+            <article class="rounded-[20px] border border-gray-200 bg-white p-8">
+              <h3 class="text-xl font-semibold text-gray-900">Cancellation and guarantees</h3>
+              <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
+                <li>Cancel anytime from inside the app (Settings → Account → Manage subscription)</li>
+                <li>Keep access through the end of your billing period after canceling</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-gray-200 bg-white" aria-labelledby="builders-pricing">
+      <div class="mx-auto max-w-site px-6 py-16">
+        <div class="mx-auto max-w-[960px]">
+          <h2 id="builders-pricing" class="text-2xl font-semibold tracking-tight text-gray-900 lg:text-3xl">
+            Skilly for Builders
+          </h2>
+          <p class="mt-3 max-w-[720px] text-[15px] leading-relaxed text-gray-600">
+            Embeddable voice-and-pointer assistant for websites, SaaS products, and apps. Create a Studio project, teach Skilly from your content, lock it to approved domains, and install it with one script tag. The pointer shows the exact control.
+          </p>
+
+          <div class="mt-8 grid gap-4 md:grid-cols-2">
+            {builderPlans.map((plan) => (
+              <article class="rounded-[20px] border border-gray-200 bg-[#FEFDFB] p-7">
+                <h3 class="text-lg font-semibold text-gray-900">{plan.name}</h3>
+                <p class="mt-3 flex items-baseline gap-1">
+                  <span class="text-4xl font-bold tracking-tight text-gray-900">{plan.price}</span>
+                  <span class="text-gray-500">{plan.period}</span>
+                </p>
+                <ul class="mt-4 space-y-2 text-[15px] leading-relaxed text-gray-700">
+                  {plan.points.map((point) => <li>{point}</li>)}
+                </ul>
+                {plan.name === 'Scale' && (
+                  <p class="mt-4 text-[15px] leading-relaxed text-gray-700">
+                    <a href="https://cal.com/moelabs.dev" class="font-medium text-gray-900 underline underline-offset-2" rel="noopener noreferrer">Design-partner call</a>
+                  </p>
+                )}
+              </article>
+            ))}
+          </div>
+
+          <div class="mt-8">
+            <h3 class="text-xl font-semibold text-gray-900">Builders billing notes</h3>
+            <ul class="mt-4 space-y-2 text-[15px] leading-relaxed text-gray-700">
+              <li>Builder sessions draw from the plan's pooled voice-interaction minutes at actual usage</li>
+              <li>Plans are hard-capped during beta; there are no automatic overage charges</li>
+              <li>Billing is managed through Polar where applicable</li>
+              <li>
+                Studio signup:
+                <a href="https://studio.tryskilly.app/signup" class="font-medium text-gray-900 underline underline-offset-2" rel="noopener noreferrer">studio.tryskilly.app/signup</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-site px-6 py-16" aria-labelledby="platform">
+      <div class="mx-auto grid max-w-[960px] gap-6 lg:grid-cols-2">
+        <article>
+          <h2 id="platform" class="text-2xl font-semibold text-gray-900">Platform</h2>
+          <ul class="mt-4 space-y-2 text-[15px] leading-relaxed text-gray-700">
+            <li>macOS 14.2 or later</li>
+            <li>~2 MB app size</li>
+          </ul>
+          <h3 class="mt-8 text-xl font-semibold text-gray-900">Platforms not yet supported (waitlist only)</h3>
+          <ul class="mt-4 space-y-2 text-[15px] leading-relaxed text-gray-700">
+            <li>Windows — in development, no ETA</li>
+            <li>Linux — on the roadmap</li>
+            <li>iOS / iPadOS — exploring</li>
+          </ul>
+          <p class="mt-4 text-[15px] leading-relaxed text-gray-700">
+            To join the waitlist for non-macOS platforms, visit the <a href="/#waitlist" class="font-medium text-gray-900 underline underline-offset-2">Waitlist section</a> on the homepage.
+          </p>
+        </article>
+        <article class="rounded-[20px] border border-gray-200 bg-white p-8">
+          <h2 class="text-2xl font-semibold text-gray-900">Post-beta pricing</h2>
+          <p class="mt-4 text-[15px] leading-relaxed text-gray-700">
+            When the beta ends, Skilly will ladder up to multiple tiers based on real usage data. Annual billing launches post-beta.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-site px-6 pb-16" aria-labelledby="pricing-faq">
+      <div class="mx-auto max-w-[760px]">
+        <h2 id="pricing-faq" class="mb-8 text-center text-2xl font-semibold text-gray-900 lg:text-3xl">Common questions</h2>
+        <div class="space-y-5">
+          {faqs.map((faq) => (
+            <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 text-lg font-semibold text-gray-900">{faq.question}</h3>
+              <p class="text-[15px] leading-relaxed text-gray-700">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-gray-200" aria-labelledby="related-guides">
+      <div class="mx-auto max-w-site px-6 py-16">
+        <div class="mx-auto max-w-[760px]">
+          <h2 id="related-guides" class="text-2xl font-semibold text-gray-900">Related guides</h2>
+          <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
+            <li><a href="/download/" class="font-medium text-gray-900 underline underline-offset-2">Download Skilly for Mac</a></li>
+            <li>
+              <a href="/learn/skilly-openai-key-setup/" class="font-medium text-gray-900 underline underline-offset-2">Skilly OpenAI API key setup</a>
+              {' '}— setup and the “no credits remaining” fix
+            </li>
+            <li>
+              <a href="/learn/enable-screen-recording-permission-macos/" class="font-medium text-gray-900 underline underline-offset-2">Enable Screen Recording permission on macOS</a>
+            </li>
+            <li>
+              <a href="/learn/chatgpt-screen-sharing-mac/" class="font-medium text-gray-900 underline underline-offset-2">ChatGPT screen sharing on Mac</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

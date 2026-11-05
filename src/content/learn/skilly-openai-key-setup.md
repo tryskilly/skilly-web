@@ -55,7 +55,7 @@ relatedArticles:
 
 If Skilly has stopped answering, read the words on screen before you buy anything. **Trial ended** is the trial. **Limit reached** or **Out of time** is the hosted monthly cap. A verified key that still fails is usually an OpenAI account with no prepaid credits.
 
-> Checked November 3, 2026 against [OpenAI's API key help](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key), [prepaid API billing](https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing), and [ChatGPT vs API billing](https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform). Skilly's menus and messages below match the Mac app and this site's [pricing](/#pricing).
+> Checked November 3, 2026 against [OpenAI's API key help](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key), [prepaid API billing](https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing), and [ChatGPT vs API billing](https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform). Skilly's menus and messages below match the Mac app and this site's [pricing](/pricing/).
 
 ## Create the OpenAI key
 
@@ -88,7 +88,7 @@ If OpenAI refuses the key, the line is **OpenAI rejected this key. Double-check 
 
 Under a saved key, **BYOK platform plan** has an **Activate plan** button. That opens checkout in the browser for the **$5/month** app plan. You pay OpenAI on top of that, for the minutes you actually talk. This site's pricing estimate for that voice usage is roughly **$0.06–$0.10 per minute**. If checkout does not open, the message is **Could not open checkout. Make sure you're signed in and try again.** Sign in on the Account tab, then press **Activate plan** again.
 
-Prices for the two Mac options, and nothing else: the hosted plan is **$19/month** for 3 hours, and bring-your-own-key is **$5/month plus your OpenAI usage**. Both are on the [pricing section](/#pricing).
+Prices for the two Mac options, and nothing else: the hosted plan is **$19/month** for 3 hours, and bring-your-own-key is **$5/month plus your OpenAI usage**. Both are on the [pricing page](/pricing/).
 
 ## Make sure it actually answers
 
@@ -159,7 +159,7 @@ Wondering how that compares with ChatGPT on a Mac, where live screen sharing is 
 
 ## Keep going
 
-- [Skilly pricing](/#pricing): the 15-minute trial, the $19/month hosted plan, and bring-your-own-key at $5/month plus your OpenAI usage.
+- [Skilly pricing](/pricing/): the 15-minute trial, the $19/month hosted plan, and bring-your-own-key at $5/month plus your OpenAI usage.
 - [Download Skilly for Mac](/download/): the app these steps assume.
 - [Allow screen recording on Mac](/learn/enable-screen-recording-permission-macos/): the permission Skilly needs before it can see the app you are learning.
 - [Enable Accessibility on macOS](/learn/enable-accessibility-permission-macos/): the permission that lets Skilly point at a control.
