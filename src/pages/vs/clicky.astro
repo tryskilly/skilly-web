@@ -1,58 +1,26 @@
 ---
-// src/pages/vs/clicky.astro
-//
-// Skilly vs Clicky — the parent fork.
-//
-// Tone note: Clicky is the open-source base we forked, not a competitor.
-// This page is a transparent "what we added on top" doc for anyone who
-// has tried Clicky and is deciding whether to switch.
-// Targets queries: "skilly vs clicky", "clicky alternative", "farzaa clicky fork".
+// /vs/clicky/ — Clicky alternative.
+// Skilly claims: public/pricing.md, /privacy-first/ facts, and the tryskilly/skilly LICENSE + README.
+// HeyClicky claims: only https://www.heyclicky.com/ , https://www.heyclicky.com/for-mac ,
+// and https://github.com/farzaa/clicky . Each statement below links its source.
 
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
-import ComparisonTable from '../../components/ComparisonTable.astro';
 import NonMacWaitlist from '../../components/NonMacWaitlist.astro';
 import { trackedDownloadUrl } from '../../data/config.ts';
 
-const title = 'Skilly vs Clicky: What Is Different in the Fork?';
+const title = 'Clicky alternative for creative apps | Skilly';
 const description =
-  'Compare Skilly with Farza Majeed’s Clicky: live voice tutoring, OpenAI Realtime, per-app skills, multilingual support, pricing, and open-source tradeoffs.';
+  'Skilly is Apache-2.0 open source, with bundled creative-app skills and an own-key plan. Sources for each HeyClicky note are linked on this page.';
 
-const additions = [
-  {
-    label: 'Live Tutor mode',
-    body: 'Clicky is push-to-talk only. Skilly adds an always-listening Live Tutor mode where the screen is captured only during voice activity — so you can keep working and just speak when you need help.',
-  },
-  {
-    label: 'Single-call OpenAI Realtime API',
-    body: 'Clicky stacks three providers: TTS + STT + LLM. Skilly swaps that for a single direct voice-to-voice call against OpenAI Realtime. Roughly halves response latency in practice and simplifies the key surface.',
-  },
-  {
-    label: 'Pluggable Skills layer',
-    body: 'Markdown-based per-app curriculum (Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma; Houdini coming soon) that lives outside the model weights. Stays current even when the underlying model training cutoff is stale.',
-  },
-  {
-    label: 'Course-style progress tracking',
-    body: 'Tracks which skills / lessons you have completed per app, so tutoring picks up where you left off instead of starting from scratch every session.',
-  },
-  {
-    label: '20+ language auto-detect',
-    body: 'Realtime model picks the language you spoke in and responds in the same language — no config, no menu. Works across English, Arabic, Japanese, Chinese, Spanish, and more.',
-  },
-];
-
-const comparisonRows = [
-  { feature: 'Voice pipeline', skilly: 'Single-call OpenAI Realtime API (voice-to-voice)', clicky: 'Three-stack: STT → LLM → TTS (cloud providers you configure)' },
-  { feature: 'Always-listening mode', skilly: 'Yes — Live Tutor mode (voice-activity gated)', clicky: 'No — push-to-talk only' },
-  { feature: 'Per-app curriculum', skilly: 'Yes — Skills layer with Markdown SKILL.md per app', clicky: 'No — prompt defines capability, same for every app' },
-  { feature: 'Progress tracking', skilly: 'Yes — course-style progress per skill', clicky: 'No — stateless' },
-  { feature: 'Languages', skilly: '20+ auto-detected via Realtime model', clicky: 'Depends on chosen STT/TTS providers, manual config' },
-  { feature: 'Cursor guidance', skilly: 'Yes — cursor flies to the exact UI element', clicky: 'Yes — core Clicky behavior, inherited' },
-  { feature: 'Platform', skilly: 'macOS 14.2+', clicky: 'macOS (upstream repo)' },
-  { feature: 'License', skilly: 'Apache-2.0', clicky: 'MIT (upstream)' },
-  { feature: 'Pricing', skilly: '15 minutes free, $19/month for 3 hours tutoring', clicky: 'Free, open source — bring your own API keys' },
+const skills = [
+  { name: 'Premiere Pro', href: '/premiere-pro/' },
+  { name: 'DaVinci Resolve', href: '/davinci-resolve/' },
+  { name: 'After Effects', href: '/after-effects/' },
+  { name: 'Blender', href: '/blender/' },
+  { name: 'Figma', href: '/figma/' },
 ];
 
 const productSchema = {
@@ -60,12 +28,14 @@ const productSchema = {
   '@type': 'WebPage',
   name: title,
   description,
-  url: 'https://tryskilly.app/vs/clicky',
+  url: 'https://tryskilly.app/vs/clicky/',
   about: [
-    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.2+' },
-    { '@type': 'SoftwareSourceCode', name: 'Clicky', codeRepository: 'https://github.com/farzaa/clicky' },
+    { '@type': 'SoftwareApplication', name: 'Skilly', applicationCategory: 'EducationalApplication', operatingSystem: 'macOS 14.2 or later' },
+    { '@type': 'SoftwareSourceCode', name: 'Clicky', codeRepository: 'https://github.com/farzaa/clicky', license: 'https://github.com/farzaa/clicky/blob/main/LICENSE' },
   ],
 };
+
+const link = 'font-medium text-gray-900 underline underline-offset-2';
 ---
 <Layout title={title} description={description} productLine="people" funnelStage="consideration">
   <Fragment slot="head">
@@ -73,39 +43,24 @@ const productSchema = {
   </Fragment>
   <Nav />
 
-  <!--
-    Hidden canonical-answer block. Targets queries about the Skilly/clicky
-    relationship — high-affinity audience that's already heard of Farza's
-    project.
-  -->
-  <div class="sr-only">
-    <h2>Is Skilly a fork of clicky?</h2>
-    <p>
-      Yes. Skilly is forked from Farza Majeed's open-source clicky (github.com/farzaa/clicky, MIT-licensed). Skilly is licensed under Apache-2.0 and credits clicky in the README + the LICENSE chain. The fork happened in early 2026 and Skilly was built in 5 days on top of clicky's macOS plumbing. Clicky is a more general-purpose AI cursor companion; Skilly added a single-call OpenAI Realtime pipeline (replacing clicky's TTS+STT+LLM 3-stack), a pluggable Skills layer (Markdown curriculum per app), course-style progress tracking, and 20+ language auto-detect.
-    </p>
-    <h2>Why use Skilly instead of clicky?</h2>
-    <p>
-      Use Skilly if you want sub-second latency (Realtime API is faster than the 3-stack) or the per-app skill curricula (Blender, Figma, AE, DaVinci, Premiere — ~33 hours of free content). Use clicky if you want the original: a more general-purpose, hackable foundation that you can fork yourself for a different use case. Both projects are open source and credit each other.
-    </p>
-  </div>
-
   <main class="overflow-x-clip">
-    <section class="relative max-w-site mx-auto px-6 pt-32 lg:pt-40 pb-8">
-      <div class="max-w-[820px] mx-auto text-center">
-        <p class="text-sm font-medium text-amber-700 tracking-wide uppercase mb-4">Honest fork story</p>
-        <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-gray-900 mb-6">
-          Skilly <span class="text-gray-400">vs</span> Clicky
+    <section class="relative mx-auto max-w-site px-6 pb-8 pt-32 lg:pt-40">
+      <div class="mx-auto max-w-[820px] text-center">
+        <p class="mb-4 text-sm font-medium uppercase tracking-wide text-amber-700">Skilly and HeyClicky</p>
+        <h1 class="mb-6 text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl">
+          Clicky alternative
         </h1>
-        <p class="text-lg lg:text-xl leading-relaxed text-gray-600 mb-8 max-w-[680px] mx-auto">
-          Skilly is an open-source fork of <a href="https://github.com/farzaa/clicky" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">Farza Majeed&apos;s Clicky</a>.
-          Same macOS cursor-buddy DNA. We added a live tutor loop, a single-call Realtime pipeline, a pluggable skills layer,
-          and multi-language support on top. This page is the full diff so you can decide which one fits your workflow.
+        <p class="mx-auto mb-8 max-w-[680px] text-lg leading-relaxed text-gray-600">
+          Skilly is a Mac tutor that points at the control while you do the step.
+          HeyClicky is the app at heyclicky.com, and the open-source project it grew out of is on GitHub.
+          This page only says what those sources say, and links each one.
         </p>
         <NonMacWaitlist
           id="get-skilly"
           location="vs_clicky_hero"
           class="mx-auto mb-5 max-w-[560px] rounded-2xl border border-amber-200/70 bg-white px-5 py-4 shadow-sm"
         />
+        <p class="mb-4 text-[15px] text-gray-700">15-minute trial, no card. macOS 14.2 or later.</p>
         <Button
           data-mac-download
           href={trackedDownloadUrl('vs', 'vs_clicky_hero', 'clicky')}
@@ -114,105 +69,136 @@ const productSchema = {
           data-ph-event="web_cta_download_clicked"
           data-ph-prop-location="vs_clicky_hero"
           data-ph-prop-target-funnel="people"
+          data-ph-prop-cta-text="Download for Mac"
         >
-          Download for Mac — 15 min free
+          Download for Mac
         </Button>
       </div>
     </section>
 
-    <!-- Credit callout -->
-    <section class="max-w-site mx-auto px-6 pb-10">
-      <div class="max-w-[820px] mx-auto bg-amber-50/50 border border-amber-200/60 rounded-xl p-6">
-        <p class="text-gray-700 leading-relaxed text-[15px]">
-          <strong class="text-gray-900">Credit where it is due.</strong> Clicky is the base. Farza shipped it open source (MIT) and it is the reason this whole
-          category exists. Skilly would not be possible without that work. If the additions below are not useful to you, Clicky is the right tool — go use it.
-          Clicky is MIT, Skilly is Apache-2.0, both on GitHub.
-        </p>
-      </div>
-    </section>
-
-    <!-- What Skilly adds -->
-    <section class="max-w-site mx-auto px-6 pb-12">
-      <div class="max-w-[960px] mx-auto">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">What Skilly adds on top of Clicky</h2>
-        <div class="grid md:grid-cols-2 gap-4">
-          {additions.map((a) => (
-            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <p class="font-semibold text-amber-700 mb-2 text-[15px]">{a.label}</p>
-              <p class="text-gray-600 leading-relaxed text-[15px]">{a.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-site mx-auto px-6 pb-12">
-      <div class="max-w-[960px] mx-auto grid md:grid-cols-2 gap-5">
-        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-            <span class="font-semibold text-gray-900">Pick Skilly if</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed text-[15px]">
-            You want the <strong class="text-gray-900">tutor experience</strong> — per-app curriculum, progress tracking, lower-latency voice,
-            and multi-language out of the box. You would rather install one app than configure a three-stack voice pipeline yourself.
+    <section class="mx-auto max-w-site px-6 pb-12">
+      <div class="mx-auto max-w-[760px] space-y-10 text-[15px] leading-relaxed text-gray-700">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Open source</h2>
+          <p class="mt-3">
+            Skilly is Apache-2.0 open source. The license text is the
+            <a class={link} href="https://github.com/tryskilly/skilly/blob/main/LICENSE">LICENSE</a>
+            in tryskilly/skilly.
+          </p>
+          <p class="mt-3">
+            The Skilly README says Skilly is a fork of farzaa/clicky, and that the original Clicky code is MIT.
+            <a class={link} href="https://github.com/tryskilly/skilly/blob/main/README.md">README</a>.
+          </p>
+          <p class="mt-3">
+            <a class={link} href="https://github.com/farzaa/clicky">github.com/farzaa/clicky</a>
+            is the MIT open-source origin. Its README calls it the open-source project HeyClicky grew out of, says the existing codebase remains open source (“It’s an MIT license”), and says newer HeyClicky work is private. The same README says “Download HeyClicky for free” and links the Mac and Windows downloads.
+          </p>
+          <p class="mt-3">
+            The current app is
+            <a class={link} href="https://www.heyclicky.com/">heyclicky.com</a>,
+            “an ai buddy for mac and windows.” The Mac page is
+            <a class={link} href="https://www.heyclicky.com/for-mac">heyclicky.com/for-mac</a>.
           </p>
         </div>
-        <div class="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-400"></span>
-            <span class="font-semibold text-gray-900">Stick with Clicky if</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed text-[15px]">
-            You want to <strong class="text-gray-900">control the entire pipeline</strong> — bring your own STT/LLM/TTS providers,
-            tweak prompts, read every line of code. Clicky is a cleaner base if you plan to fork it yourself rather than use it as-is.
+
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Your own key</h2>
+          <p class="mt-3">
+            Bring your own OpenAI key: $5/month plus your OpenAI usage.
+            The hosted plan is Skilly for People Beta — $19/month, with 3 hours of live AI tutoring per month.
+            15-minute trial, no card.
+            <a class={link} href="/pricing/">Full pricing</a>.
+            Setup is the
+            <a class={link} href="/learn/skilly-openai-key-setup/">Skilly OpenAI API key setup</a>.
+          </p>
+          <p class="mt-3">
+            The open-source Clicky README’s manual setup uses your own Anthropic, AssemblyAI, and ElevenLabs keys, plus a Cloudflare Worker.
+            That paragraph is about the repo, not a description of the HeyClicky app.
+            <a class={link} href="https://github.com/farzaa/clicky#manual-setup">Manual setup</a>.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Creative-app skills</h2>
+          <p class="mt-3">
+            Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon and not bundled in the app yet.
+          </p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <li>
+                <a href={skill.href} class="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[14px] font-medium text-gray-800 hover:border-amber-300">
+                  {skill.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-3">
+            The HeyClicky Mac page says it “works in the apps you use” and names Final Cut Pro, Logic Pro, Xcode, Figma, Excel, DaVinci Resolve, Blender, Safari, and System Settings. It also says: “if it’s on your screen, heyclicky can see it and walk you through it.”
+            <a class={link} href="https://www.heyclicky.com/for-mac">for Mac</a>.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-gray-900">What happens when you ask</h2>
+          <p class="mt-3">
+            On Skilly, the default shortcut is Control+Option. Hold it and ask out loud. Skilly points at the control. It never clicks, and it never moves your cursor. Live Tutor mode is hands-free voice activation (no hotkey required). Skilly requires macOS 14.2 or later.
+          </p>
+          <p class="mt-3">
+            The HeyClicky homepage says: press the hotkey and it sees what you see, so you can ask it anything out loud and it will walk you through whatever you are working on, or say “heyclicky agent” and it will go do the task for you.
+            <a class={link} href="https://www.heyclicky.com/">Homepage FAQ</a>.
+          </p>
+          <p class="mt-3">
+            The Mac page says the same walkthrough, and that you can hand it a task and it will go do it for you. It runs on macOS Sonoma 14.2 or higher, on Apple silicon and Intel. Hold the shortcut, ask out loud, and it helps with whatever is on your screen. It lives in the Mac notch. Setup asks you to allow the microphone, accessibility, and screen recording.
+            <a class={link} href="https://www.heyclicky.com/for-mac">for Mac</a>.
+            The GitHub README also lists a Windows download for Windows 10 and 11.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Privacy</h2>
+          <p class="mt-3">
+            A JPEG of your displays when you ask. Not a continuous recording.
+            <a class={link} href="/privacy-first/">How Skilly handles your screen, voice, and data</a>.
+          </p>
+          <p class="mt-3">
+            HeyClicky’s homepage and Mac page both say: we only see your screen when you press the hotkey, and screenshots are never stored. They do keep basic text summaries so HeyClicky has context. You can delete your account and all its data in settings.
+            <a class={link} href="https://www.heyclicky.com/">Homepage</a>,
+            <a class={link} href="https://www.heyclicky.com/for-mac">for Mac</a>.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="max-w-site mx-auto px-6 pb-16">
-      <div class="max-w-[960px] mx-auto">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-6 text-center">Feature by feature</h2>
-        <ComparisonTable
-          columns={[
-            { key: 'skilly', label: 'Skilly', isSkilly: true },
-            { key: 'clicky', label: 'Clicky' },
-          ]}
-          rows={comparisonRows}
-        />
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="max-w-site mx-auto px-6 pb-16">
-      <div class="max-w-[760px] mx-auto" itemscope itemtype="https://schema.org/FAQPage">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-8 text-center">Common questions</h2>
+    <section class="mx-auto max-w-site px-6 pb-16">
+      <div class="mx-auto max-w-[760px]" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 class="mb-8 text-center text-2xl font-semibold text-gray-900 lg:text-3xl">Common questions</h2>
         <div class="space-y-5">
-          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly a Farza fork?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Yes. Skilly is forked from Farza Majeed's clicky (github.com/farzaa/clicky, MIT) and credits clicky in the README + LICENSE chain. The fork is at github.com/tryskilly/skilly under Apache-2.0. Skilly was built in 5 days on top of clicky's macOS plumbing in early 2026.</p></div>
+          <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="mb-2 text-lg font-semibold text-gray-900" itemprop="name">Is Skilly open source?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-[15px] leading-relaxed text-gray-700" itemprop="text">Yes. The Mac app is Apache-2.0. The license file is at github.com/tryskilly/skilly LICENSE. The README says it is a fork of github.com/farzaa/clicky, which is MIT.</p>
+            </div>
           </div>
-          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">What did Skilly add on top of clicky?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Four things: (1) Single-call OpenAI Realtime pipeline replacing clicky's TTS+STT+LLM 3-stack — sub-second latency vs ~3 sec. (2) Pluggable Skills layer — Markdown curriculum per app (Blender, Figma, AE, DaVinci, Premiere — ~33 hours total, free). (3) Course-style progress tracking with auto-advance signals. (4) 20+ language auto-detect via Realtime model — no settings menu, no model picker.</p></div>
+          <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="mb-2 text-lg font-semibold text-gray-900" itemprop="name">Can I bring my own OpenAI key?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-[15px] leading-relaxed text-gray-700" itemprop="text">Bring your own OpenAI key: $5/month plus your OpenAI usage. The hosted plan is Skilly for People Beta — $19/month, with 3 hours of live AI tutoring per month. 15-minute trial, no card.</p>
+            </div>
           </div>
-          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Does Skilly compete with clicky?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Not really. Clicky is a more general-purpose, hackable foundation aimed at developers who want to fork it themselves. Skilly is opinionated for the "voice tutor for unfamiliar apps" use case. Both projects are open source and credit each other; the relationship is sibling/parent, not competitive. If you're a builder who wants to ship your own voice + screen tool, fork clicky directly. If you want a finished tutor app, install Skilly.</p></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Can I run Skilly without paying $19/month?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Yes — Apache-2.0 source means you can clone github.com/tryskilly/skilly, build locally, and run with your own OpenAI API key (BYOK option, in beta). Bring your own OpenAI key is $5/month plus your OpenAI usage, instead of the $19/month hosted plan. The hosted $19/month tier exists for convenience: no API key management, no per-minute billing surprises.</p></div>
+          <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="mb-2 text-lg font-semibold text-gray-900" itemprop="name">Which creative apps have a bundled skill?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-[15px] leading-relaxed text-gray-700" itemprop="text">Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon and not bundled in the app yet.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="max-w-site mx-auto px-6 pb-16">
-      <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try the fork</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Source on <a href="https://github.com/tryskilly/skilly" class="text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-500">github.com/tryskilly/skilly</a>.</p>
+    <section class="mx-auto max-w-site px-6 pb-16">
+      <div class="mx-auto max-w-[680px] rounded-2xl border border-amber-200/60 bg-gradient-to-br from-amber-50 to-white p-10 text-center">
+        <h2 class="mb-3 text-2xl font-semibold text-gray-900 lg:text-3xl">Try Skilly on your Mac</h2>
+        <p class="mb-6 text-gray-600">15-minute trial, no card. Source on <a href="https://github.com/tryskilly/skilly" class={link}>github.com/tryskilly/skilly</a>.</p>
         <Button
           data-mac-download
           href={trackedDownloadUrl('vs', 'vs_clicky', 'clicky')}
@@ -221,8 +207,9 @@ const productSchema = {
           data-ph-event="web_cta_download_clicked"
           data-ph-prop-location="vs_clicky"
           data-ph-prop-target-funnel="people"
+          data-ph-prop-cta-text="Download for Mac"
         >
-          Download Skilly
+          Download for Mac
         </Button>
         <Button
           data-waitlist-jump
@@ -235,25 +222,25 @@ const productSchema = {
       </div>
     </section>
 
-    <section class="max-w-site mx-auto px-6 pb-20">
-      <div class="max-w-[960px] mx-auto">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">More comparisons</h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <a href="/vs/cluely/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+    <section class="mx-auto max-w-site px-6 pb-20">
+      <div class="mx-auto max-w-[960px]">
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">More comparisons</h2>
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <a href="/vs/cluely/" class="block rounded-lg border border-gray-200 px-5 py-4 transition-colors hover:border-amber-400 hover:bg-amber-50/40">
             <p class="font-medium text-gray-900">Skilly vs Cluely</p>
-            <p class="text-sm text-gray-500 mt-1">Tutor vs meeting coach</p>
+            <p class="mt-1 text-sm text-gray-500">Tutor vs meeting coach</p>
           </a>
-          <a href="/vs/rewind/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/rewind/" class="block rounded-lg border border-gray-200 px-5 py-4 transition-colors hover:border-amber-400 hover:bg-amber-50/40">
             <p class="font-medium text-gray-900">Skilly vs Rewind</p>
-            <p class="text-sm text-gray-500 mt-1">Active tutor vs passive recording</p>
+            <p class="mt-1 text-sm text-gray-500">Active tutor vs passive recording</p>
           </a>
-          <a href="/vs/raycast-ai/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/raycast-ai/" class="block rounded-lg border border-gray-200 px-5 py-4 transition-colors hover:border-amber-400 hover:bg-amber-50/40">
             <p class="font-medium text-gray-900">Skilly vs Raycast AI</p>
-            <p class="text-sm text-gray-500 mt-1">Voice + screen vs command bar</p>
+            <p class="mt-1 text-sm text-gray-500">Voice + screen vs command bar</p>
           </a>
-          <a href="/vs/gemini-live/" class="block border border-gray-200 rounded-lg px-5 py-4 hover:border-amber-400 hover:bg-amber-50/40 transition-colors">
+          <a href="/vs/gemini-live/" class="block rounded-lg border border-gray-200 px-5 py-4 transition-colors hover:border-amber-400 hover:bg-amber-50/40">
             <p class="font-medium text-gray-900">Skilly vs Gemini Live</p>
-            <p class="text-sm text-gray-500 mt-1">Native Mac app vs browser tab</p>
+            <p class="mt-1 text-sm text-gray-500">Native Mac app vs browser tab</p>
           </a>
         </div>
       </div>
