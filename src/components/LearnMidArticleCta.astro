@@ -1,0 +1,40 @@
+---
+// Mid-article download CTA for a learn guide. Placed after the step where
+// the reader is most likely stuck. Skilly points; it does not click.
+import NonMacWaitlist from './NonMacWaitlist.astro';
+import { trackedDownloadUrl } from '../data/config.ts';
+
+interface Props {
+  moment: string;
+  landerHref: string;
+  landerLabel: string;
+  articleSlug: string;
+}
+
+const { moment, landerHref, landerLabel, articleSlug } = Astro.props;
+const downloadHref = trackedDownloadUrl('learn', articleSlug, 'mid_article');
+---
+<aside data-learn-mid-cta class="not-prose my-8 rounded-2xl border border-amber-200/70 bg-amber-50/70 p-6">
+  <p class="text-[11px] font-mono uppercase tracking-[0.08em] text-amber-700">Stuck on this step?</p>
+  <p class="mt-2 text-[15px] leading-relaxed text-gray-800">
+    {moment} It never clicks, and it never moves your cursor.
+  </p>
+  <p class="mt-3 text-[15px] leading-relaxed text-gray-700">
+    <a href={landerHref} class="font-medium text-gray-900 underline underline-offset-2">{landerLabel}</a>
+  </p>
+  <p class="mt-3 text-[13px] leading-snug text-gray-600">15-minute trial, no card.</p>
+  <NonMacWaitlist location="learn_mid_article" class="mt-4" />
+  <div class="mt-4">
+    <a
+      href={downloadHref}
+      data-mac-download
+      data-ph-event="web_cta_download_clicked"
+      data-ph-prop-location="learn_mid_article"
+      data-ph-prop-target-funnel="people"
+      data-ph-prop-cta-text="Download for Mac"
+      class="inline-flex items-center justify-center rounded-md bg-amber-500 px-5 py-2.5 text-[15px] font-semibold text-gray-950 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md"
+    >
+      Download for Mac
+    </a>
+  </div>
+</aside>

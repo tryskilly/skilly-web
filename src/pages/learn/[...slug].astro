@@ -1,8 +1,14 @@
 ---
 // src/pages/learn/[...slug].astro
 // Dynamic route — renders every markdown article in the learn collection.
+// Articles with midCta split on <!-- skilly-mid-cta --> so the CTA is in the
+// static HTML, immediately after the step where the reader is stuck.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { getCollection, render } from 'astro:content';
 import LearnLayout from '../../layouts/LearnLayout.astro';
+import LearnMidArticleCta from '../../components/LearnMidArticleCta.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('learn');
@@ -13,8 +19,40 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const articleSlug = entry.id.replace(/\.md$/, '');
+const midCta = entry.data.midCta;
+const marker = '<!-- skilly-mid-cta -->';
+
+let beforeHtml = '';
+let afterHtml = '';
+
+if (midCta) {
+  const raw = readFileSync(join(process.cwd(), 'src/content/learn', `${articleSlug}.md`), 'utf8');
+  const body = raw.replace(/^---[\s\S]*?---\n?/, '');
+  if (!body.includes(marker)) {
+    throw new Error(`${articleSlug} sets midCta but has no ${marker} marker`);
+  }
+  const [before, after] = body.split(marker);
+  const processor = await createMarkdownProcessor();
+  beforeHtml = (await processor.render(before)).code;
+  afterHtml = (await processor.render(after ?? '')).code;
+}
+
 const { Content } = await render(entry);
 ---
 <LearnLayout entry={entry}>
-  <Content />
+  {midCta ? (
+    <>
+      <div class="contents" set:html={beforeHtml} />
+      <LearnMidArticleCta
+        moment={midCta.moment}
+        landerHref={midCta.landerHref}
+        landerLabel={midCta.landerLabel}
+        articleSlug={articleSlug}
+      />
+      <div class="contents" set:html={afterHtml} />
+    </>
+  ) : (
+    <Content />
+  )}
 </LearnLayout>

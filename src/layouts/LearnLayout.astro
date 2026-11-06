@@ -370,7 +370,7 @@ const relatedArticles = allLearnEntries
         <script is:inline>
           (function () {
             var cta = document.querySelector('[data-learn-early-cta]');
-            var intro = document.querySelector('[data-learn-prose] > p');
+            var intro = document.querySelector('[data-learn-prose] > p, [data-learn-prose] > .contents > p');
             if (cta && intro) {
               cta.classList.remove('mb-10');
               cta.classList.add('not-prose', 'my-8');

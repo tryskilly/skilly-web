@@ -28,6 +28,10 @@ relatedArticles:
   - best-voice-ai-assistant-mac-2026
   - enable-screen-recording-permission-macos
   - swiftui-preview-macro-xcode
+midCta:
+  moment: "When the Share Screen button is missing, hold Control+Option in the Mac app you are using and ask \"where do I click next?\" Skilly points at the control."
+  landerHref: "/#try-asking"
+  landerLabel: "Try asking"
 ---
 
 **Short answer:** OpenAI documents live screen sharing for **Advanced Voice in the iOS and Android apps**. The newer **Live** voice experience initially doesn't support screen sharing, so don't expect the phone's Share Screen button in the ChatGPT Mac app. On a Mac, the dependable options are to upload a screenshot, use Voice in Work and Codex for tasks inside those tools, or use a native Mac tool that asks for Screen & System Audio Recording permission.
@@ -98,6 +102,8 @@ Check these in order:
 5. **Check OpenAI's current help page.** Do not assume a video from months ago still matches the rollout.
 
 If your goal is simply to ask about one screen, uploading a screenshot is faster than troubleshooting a feature rollout.
+
+<!-- skilly-mid-cta -->
 
 ## Privacy checklist before sharing a Mac screen
 

@@ -42,6 +42,10 @@ faq:
 relatedArticles:
   - how-to-add-subdivision-surface-modifier-blender
   - blender-modifiers
+midCta:
+  moment: "Ask \"where's the bevel modifier?\" and Skilly points at Add Modifier > Generate > Bevel."
+  landerHref: "/blender/"
+  landerLabel: "Blender AI assistant"
 ---
 
 If you've added a cube in Blender and the corners look fake — too sharp, no light catching them — you need a bevel. Real-world objects don't have perfect 90° edges. Even the laptop you're reading this on has a tiny chamfer where the lid meets the base.
@@ -68,6 +72,9 @@ Blender has two ways to bevel:
 1. **Select your object** in Object Mode. Press `Tab` if you're in Edit Mode — adding modifiers happens at the object level.
 2. **Open Modifier Properties.** In the Properties editor (right-side panel), click the **wrench icon**. If you can't see the wrench, your Properties panel may be hiding tabs — drag it wider.
 3. **Click "Add Modifier"** → **Generate** → **Bevel**.
+
+<!-- skilly-mid-cta -->
+
 4. **Drag the Width slider** until the bevel size looks right. The default is `0.1` (in Offset width type), which is too small for most cube-sized objects.
 5. **Bump Segments to 3 or 4** if you want a rounded bevel instead of a single flat chamfer. `Segments` controls how many edge loops are added across the bevel face.
 

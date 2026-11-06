@@ -28,6 +28,10 @@ relatedArticles:
   - chatgpt-screen-sharing-mac
   - enable-screen-recording-permission-macos
   - swiftui-preview-macro-xcode
+midCta:
+  moment: "Ask \"where do I change this?\" with the setting on screen. Skilly points at the control."
+  landerHref: "/#try-asking"
+  landerLabel: "Try asking"
 ---
 
 An **AI tutor that sees your screen** is useful for one narrow reason: you should not have to describe a crowded interface before asking for help.
@@ -45,6 +49,8 @@ That does not make every screen-aware tool a tutor. Some tools summarize meeting
 "Open the modifier panel" is still work if you do not know where that panel is. Visual pointing—a cursor movement, highlight, or marker anchored to the actual control—is the clearest difference between a screen-aware chatbot and a teaching tool.
 
 Test this with a question whose answer is spatial: "Where do I change this frame's Auto Layout gap?" A good tutor should identify the correct panel and show you where to look.
+
+<!-- skilly-mid-cta -->
 
 ### 2. Is the conversation truly hands-free?
 

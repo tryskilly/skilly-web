@@ -42,6 +42,10 @@ faq:
 relatedArticles:
   - screencapturekit-lid-close-fix
   - enable-accessibility-permission-macos
+midCta:
+  moment: "Ask \"where is Screen & System Audio Recording?\" and Skilly points at Privacy & Security, then that row. If the app is missing, ask where the plus button is and Skilly points at +."
+  landerHref: "/#try-asking"
+  landerLabel: "Try asking"
 ---
 
 **Quick answer:** open **Apple menu → System Settings → Privacy & Security → Screen & System Audio Recording**, turn on the app, then quit it with `Cmd+Q` and reopen it. The permission only takes effect after that restart. If the app isn't in the list, click **+** below the list and add it from `/Applications`.
@@ -87,6 +91,8 @@ Two ways to fix it:
 **Option 1 (easier):** Launch the app and trigger whatever feature needs screen access. macOS shows a permission dialog. Click "Open System Settings" — the app gets added to the list automatically. Then toggle on, restart the app, you're done.
 
 **Option 2 (if you dismissed the prompt):** In the Screen & System Audio Recording panel, click the **+ (plus) button** below the app list. A file picker opens. Navigate to `/Applications/`, pick the app's `.app` bundle, and macOS adds it. Then toggle the switch on.
+
+<!-- skilly-mid-cta -->
 
 ## The weekly re-permission prompt (Sequoia 15+)
 

@@ -37,6 +37,10 @@ faq:
     answer: "No — everything in this canvas and navigation lesson works in the standard version of Figma on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "canvas and navigation figma"
 relatedArticles: []
+midCta:
+  moment: "Ask \"where's the toolbar?\" and Skilly points at the toolbar along the bottom of the editor."
+  landerHref: "/figma/"
+  landerLabel: "What to ask in Figma"
 ---
 
 Learn to move around the Figma canvas — the foundation for everything that follows. Here's how to do it in **Figma** on macOS, step by step — part of the free Figma beginner curriculum.
@@ -49,6 +53,9 @@ Learn to move around the Figma canvas — the foundation for everything that fol
 - Zoom in and out with `Command +` / `Command -` and scroll
 - Zoom to fit (`Shift 1`), zoom to 100% (`Shift 0`), zoom to selection (`Shift 2`)
 - Find the toolbar at the **bottom** of the editor (UI3)
+
+<!-- skilly-mid-cta -->
+
 - Identify the four main regions: canvas, toolbar, navigation panel (left), properties panel (right)
 - Open the in-app keyboard shortcuts panel (`Control Shift ?`)
 - Open the Actions menu with `Command /` or `Command P`
