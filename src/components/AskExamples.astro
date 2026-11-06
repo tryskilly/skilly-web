@@ -23,17 +23,17 @@ function learnSlug(href: string): string {
       <article class="flex flex-col rounded-[22px] border border-[#f2e6df] bg-white px-5 py-5 shadow-[0_12px_26px_rgba(111,73,48,0.04)]">
         <h3 class="text-[18px] font-semibold text-[#2a2421]">
           <a
-            href={app.guideHref}
+            href={`/${app.slug}/`}
             data-ph-event="web_learn_related_clicked"
             data-ph-prop-location="home_ask_examples"
-            data-ph-prop-target-article={learnSlug(app.guideHref)}
-            class="hover:text-[#c2410c]"
+            data-ph-prop-target-article={app.slug}
+            class="underline decoration-[#f0c3ad] underline-offset-4 hover:text-[#c2410c] hover:decoration-[#c2410c]"
           >
             {app.name}
           </a>
         </h3>
         <ul class="mt-3 flex flex-col gap-2.5">
-          {app.questions.map((example) => (
+          {app.questions.slice(0, 3).map((example) => (
             <li>
               <a
                 href={example.learnHref}

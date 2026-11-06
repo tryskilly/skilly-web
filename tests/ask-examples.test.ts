@@ -15,7 +15,11 @@ describe('homepage ask examples', () => {
     ]);
 
     for (const app of askApps) {
-      expect(app.questions).toHaveLength(3);
+      expect(app.questions.length).toBeGreaterThanOrEqual(8);
+      expect(app.questions.length).toBeLessThanOrEqual(12);
+      expect(app.title.length).toBeLessThanOrEqual(70);
+      expect(app.description.length).toBeGreaterThanOrEqual(50);
+      expect(app.description.length).toBeLessThanOrEqual(170);
       expect(app.skillFile.startsWith('skills/')).toBe(true);
       expect(app.skillFile).not.toMatch(/houdini|xcode|photoshop|vscode/i);
       for (const example of app.questions) {
@@ -32,6 +36,8 @@ describe('homepage ask examples', () => {
     expect(page).toContain('<AskExamples />');
     const component = readFileSync(new URL('src/components/AskExamples.astro', root), 'utf8');
     expect(component).toContain('Try asking...');
+    expect(component).toContain('questions.slice(0, 3)');
+    expect(component).toContain('href={`/${app.slug}/`}');
     expect(component).toContain('It never clicks, and it never moves your cursor.');
   });
 });
