@@ -40,8 +40,16 @@ Custom SKILL.md files import into the Mac application. The browser extensions pr
 - Free trial: 15 minutes on first launch, with no credit card required
 - Billing: Monthly during beta
 - Cancellation: Available at any time; access continues through the current billing period
+- Bring your own OpenAI key: $5/month plus your OpenAI usage
+- Usage warning: in-app notification at 80% (2 hours 24 minutes). The cap pauses tutoring until the billing period resets. There is no usage email at 80% or 100%.
 
 See https://tryskilly.app/pricing.md for the complete machine-readable pricing notes.
+
+## Skills
+
+- Built-in skills: Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma
+- Houdini: coming soon. It is not in the app bundle yet.
+- Custom SKILL.md files can be imported for other apps
 
 ## Capabilities
 
@@ -62,4 +70,4 @@ See https://tryskilly.app/pricing.md for the complete machine-readable pricing n
 - Chrome, Edge, and Firefox: extensions available
 - Windows, Linux, iOS, and iPadOS: not currently released as People applications
 
-Last updated: 2026-08-17
+Last updated: 2026-11-06

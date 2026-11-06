@@ -86,7 +86,7 @@ Skilly stores the key in the app's settings on this Mac. With a key saved, voice
 
 If OpenAI refuses the key, the line is **OpenAI rejected this key. Double-check it on platform.openai.com/api-keys.** Create a new secret and paste that one. The same idea shows up later as **OpenAI rejected your API key (HTTP 401). Open Settings → API Key and paste a valid key from platform.openai.com/api-keys.**
 
-Under a saved key, **BYOK platform plan** has an **Activate plan** button. That opens checkout in the browser for the **$5/month** app plan. You pay OpenAI on top of that, for the minutes you actually talk. This site's pricing estimate for that voice usage is roughly **$0.06–$0.10 per minute**. If checkout does not open, the message is **Could not open checkout. Make sure you're signed in and try again.** Sign in on the Account tab, then press **Activate plan** again.
+Under a saved key, **BYOK platform plan** has an **Activate plan** button. That opens checkout in the browser for the **$5/month** app plan. You pay OpenAI on top of that, for the minutes you actually talk. Bring your own OpenAI key is **$5/month plus your OpenAI usage**. If checkout does not open, the message is **Could not open checkout. Make sure you're signed in and try again.** Sign in on the Account tab, then press **Activate plan** again.
 
 Prices for the two Mac options, and nothing else: the hosted plan is **$19/month** for 3 hours, and bring-your-own-key is **$5/month plus your OpenAI usage**. Both are on the [pricing page](/pricing/).
 
@@ -153,7 +153,7 @@ What you can do:
 
 Once a session connects, you do not have to describe the screen. Hold **Control+Option** and ask, or leave **Live Tutor** on and just talk. Skilly answers in voice and **points** at the control it means. It points. You still do the step yourself.
 
-Built-in skills that ship with the app are **Blender**, **After Effects**, **Premiere Pro**, **DaVinci Resolve**, and **Figma**. **Houdini** is available as a skill. It is not in that bundled set. The matching skill turns on when that app is the one in front. Skilly also works in other Mac apps without a skill file.
+Built-in skills that ship with the app are **Premiere Pro**, **DaVinci Resolve**, **After Effects**, **Blender** and **Figma**. **Houdini** is coming soon. It is not in that bundled set. The matching skill turns on when that app is the one in front. Skilly also works in other Mac apps without a skill file.
 
 Wondering how that compares with ChatGPT on a Mac, where live screen sharing is a different feature? Read [ChatGPT screen sharing on Mac](/learn/chatgpt-screen-sharing-mac/). Before you leave an API key or a private window on screen, read [Is it safe to let AI see your screen?](/learn/is-it-safe-to-let-ai-see-your-screen/).
 

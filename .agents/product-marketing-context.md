@@ -7,7 +7,7 @@
 **What it does:** On Mac, Skilly lives in the menu bar. You press a shortcut (or enable Live Tutor) and ask out loud — "how do I add a bevel?" — and it screenshots your active app, moves the cursor to the exact UI element, and narrates the answer in your language. For builders, Skilly for Web lets website owners create a Studio project, import site/docs context, preview a website skill, and install a CDN widget so customers can ask questions inside their site.
 **Product category:** Voice-first learning assistant for software and customer education. Adjacent to AI tutors, website onboarding widgets, product copilots, and one-on-one video tutorials.
 **Product type:** Native macOS app plus Studio-managed web widget, subscription/usage SaaS.
-**Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, roughly $0.11 per included minute. 15 min free (no card). Beta capped at 50 users. Builders/Web pricing should be framed separately around Studio projects and usage, not borrowed from Mac hosted minutes.
+**Business model:** Mac beta: $19/month for 3 hosted hours of live voice+vision tutoring, about $0.63 per day. 15-minute trial, no card. Bring your own OpenAI key is $5/month plus your OpenAI usage. Builders plans are separate: Builders $0 Early Access, then $29, $99, and $299 per month.
 
 ## Target Audience
 **Target companies:** For People: individual creators and knowledge workers. For Builders: early-stage SaaS teams, indie founders, and small product/support teams with repetitive onboarding questions. Enterprise requirements such as SSO/SOC 2 are not the current target.
@@ -71,10 +71,10 @@
 |-----------|----------|
 | "Privacy — it's watching my screen?" | Audio + screen context go to OpenAI only while you're asking for help. Conversation history and optional replay audio stay locally on the device; message contents never go to analytics. OpenAI can't train on Skilly API traffic. |
 | "$19/mo is steep for an AI tool" | $0.63/day — less than a coffee. One human tutor hour = $50–100; one month of Skilly = 3 live hours. Real-time voice+vision is expensive to run and we're honest about it. |
-| "Only 3 hours? I'll blow through that." | Most users don't. We email at 80% and 100%. No surprise charges — it just pauses. |
-| "Only 5 apps?" | Works in *any* app without a skill. Skills add deeper courses and updated knowledge for specific apps. Skill builder shipping so users can create their own. |
+| "Only 3 hours? I'll blow through that." | The app warns in-app at 80% (2 hours 24 minutes). No surprise charges — it pauses at the cap. It does not email at 80% or 100%. |
+| "Only 5 apps?" | Works in any app without a skill. Bundled skills: Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon. The Skill Builder can make a custom skill. |
 | "Mac only?" | Today yes. Windows in dev, Linux planned, iOS exploring. Waitlist available. |
-| "Will the price go up after beta?" | We may change subscription prices with at least 30 days' notice. A change applies from the next billing cycle after the notice period. Subscribers who joined before this change keep their current price. Beta is capped at 50 seats. |
+| "Will the price go up after beta?" | We may change subscription prices with at least 30 days' notice. A change applies from the next billing cycle after the notice period. Subscribers who joined before this change keep their current price. |
 
 **Anti-persona:** Enterprise buyers needing SSO/SOC2 today. Windows-first users. People who already know their tool cold and don't need tutoring. Teams wanting shared accounts (single-user for now).
 
@@ -112,7 +112,7 @@
 **Personality:** Patient teacher, nerdy-curious, respectful of the user's time, slightly irreverent about overcomplicated tools.
 
 ## Proof Points
-**Metrics:** 5 skills live at beta; 16 languages; 8 voices; 15-min free trial, no card. *(No usage/retention metrics yet — pre-launch.)*
+**Metrics:** Bundled skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma; Houdini coming soon; 16 languages; 8 voices; 15-minute trial, no card. *(No usage/retention metrics yet — pre-launch.)*
 **Customers:** None to cite yet (pre-beta / just opened).
 **Testimonials:** None yet. Collecting from first 50 beta users — plan to pull 2–3 verbatim quotes within the first 30 days for the landing page.
 **Value themes:**

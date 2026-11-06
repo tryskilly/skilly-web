@@ -17,7 +17,7 @@ relatedArticles: []
 
 Learning **DaVinci Resolve** from scratch on a Mac? This is the full beginner curriculum — 7 hands-on lessons (about 7 hours total), in the order that actually makes sense, from the interface to deliver and export.
 
-Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly](/) teaches this exact curriculum live — a voice tutor that watches your DaVinci Resolve window and points your cursor at the right button. Free to start.
+Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly](/) teaches this exact curriculum live — a voice tutor that watches your DaVinci Resolve window and points your cursor at the right button. 15-minute trial, no card.
 
 ## The DaVinci Resolve curriculum
 

@@ -43,7 +43,6 @@ describe('WebMCP facts', () => {
       'After Effects',
       'DaVinci Resolve',
       'Premiere Pro',
-      'Houdini',
     ]);
   });
 

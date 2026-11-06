@@ -220,7 +220,7 @@ const ctaHrefFor = (placement: string) =>
   targetsBuilders ? studioCtaUrl.toString() : learnDownloadUrl(placement);
 const ctaEvent = targetsBuilders ? 'web_builders_studio_clicked' : 'web_cta_download_clicked';
 const ctaTargetFunnel = targetsBuilders ? 'builders' : 'people';
-const ctaText = targetsBuilders ? 'Start free in Studio' : 'Download for Mac';
+const ctaText = targetsBuilders ? 'Start in Studio' : 'Download for Mac';
 // Backed by the 15-minute, no-card trial stated in tiers.ts and the FAQ.
 // Download CTAs carry data-mac-download so Windows/Linux/mobile visitors get
 // the waitlist instead (see NonMacWaitlist.astro). Studio CTAs work anywhere.
@@ -238,7 +238,7 @@ const stickyCtaShortText = targetsBuilders
   ? 'Guide your own users with Skilly.'
   : `Stuck in ${articleApp ?? 'an app'}? Skilly points at the button.`;
 const privacyNote = targetsBuilders
-  ? 'Start free. Import public content first; add private sources only when you are ready.'
+  ? 'Builders $0 Early Access. Import public content first; add private sources only when you are ready.'
   : 'Push-to-talk only. Nothing from your screen is saved after the session.';
 
 const allLearnEntries = await getCollection('learn');

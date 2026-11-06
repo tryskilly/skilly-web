@@ -44,7 +44,7 @@ The assistant is taught from product content, documentation, URLs, or notes. Stu
 
 ## Pricing
 
-- Early Access: $0/month for 30 teaching minutes
+- Builders $0 Early Access: $0/month for 30 teaching minutes
 - Starter: $29/month for 400 teaching minutes
 - Studio: $99/month for 1,500 teaching minutes
 - Scale: $299/month for 5,000 teaching minutes
@@ -64,4 +64,4 @@ See https://tryskilly.app/pricing.md for the complete machine-readable pricing n
 
 Skilly for Builders is available for websites and web applications. Teams can create a Studio account or book a design-partner call at https://cal.com/moelabs.dev.
 
-Last updated: 2026-08-17
+Last updated: 2026-11-06

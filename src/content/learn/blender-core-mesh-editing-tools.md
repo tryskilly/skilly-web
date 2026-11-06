@@ -32,7 +32,7 @@ howTo:
       text: "Use F3 to search for any operation by name if the menu location is unclear"
 faq:
   - question: "What's the fastest way to learn core mesh editing tools in Blender?"
-    answer: "Work through the steps on this page in Blender itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in Blender itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of Blender?"
     answer: "No — everything in this core mesh editing tools lesson works in the standard version of Blender on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "core mesh editing tools blender"
@@ -56,7 +56,7 @@ Build real 3D shapes using the five essential mesh editing operations. Here's ho
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the core panel?" — and it answers while **moving your cursor to the exact button**, watching your actual Blender window. It's the same Blender curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the core panel?" — and it answers while **pointing at the exact button**, watching your actual Blender window. It's the same Blender curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

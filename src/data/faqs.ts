@@ -36,17 +36,17 @@ export const faqs: Faq[] = [
   {
     question: 'What is Skilly, exactly?',
     answer:
-      'A friendly AI tutor that lives in your Mac menu bar. You talk, it sees your screen, moves the cursor to show you what to click, and speaks the answer in your language. Think of it as a patient expert sitting next to you.',
+      'A friendly AI tutor that lives in your Mac menu bar. You talk, it sees your screen, points at the control, and speaks the answer in your language. You still do the step. Think of it as a patient expert sitting next to you.',
   },
   {
     question: 'How long is the free trial?',
     answer:
-      '15 minutes of actual usage, one-time, tied to your email. No credit card required. Most people know inside the first session whether Skilly clicks for them.',
+      '15 minutes of actual usage, one-time, tied to your email. No credit card required. Most people know inside the first session whether Skilly is the right fit.',
   },
   {
     question: 'Which apps does Skilly work with?',
     answer:
-      'Any app on your Mac. Skilly works great even without a skill \u2014 Excel, Notion, your browser, a niche CAD tool, anything. With a skill (like Figma or Blender), it gets smarter: step-by-step courses and up-to-date knowledge beyond the AI\u2019s training data. Five skills ship today, and the free Skill Builder can create a custom learning plan for another app.',
+      'Any app on your Mac. Skilly works great even without a skill \u2014 Excel, Notion, your browser, a niche CAD tool, anything. With a skill, it gets smarter: step-by-step courses and up-to-date knowledge beyond the AI\u2019s training data. Built-in skills ship for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon. The Skill Builder can create a custom learning plan for another app.',
   },
   {
     question: 'What\u2019s a "skill"?',
@@ -56,12 +56,12 @@ export const faqs: Faq[] = [
   {
     question: 'What happens when I hit my 3 hours?',
     answer:
-      'Skilly pauses until your next billing cycle. No surprise charges. We email you at 80% and 100% so you\u2019re never caught off guard.',
+      'Skilly pauses until your next billing cycle. No surprise charges. The app shows an in-app warning at 80% (2 hours 24 minutes) so you\u2019re not caught off guard.',
   },
   {
     question: 'Can I build my own skill?',
     answer:
-      'Yes. Use the free Skill Builder to generate and preview a custom course, then have the complete SKILL.md delivered by email so you can import it into Skilly.',
+      'Yes. Use the Skill Builder to generate and preview a custom course, then have the complete SKILL.md delivered by email so you can import it into Skilly.',
   },
   {
     question: 'Which operating systems work?',

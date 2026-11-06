@@ -32,7 +32,7 @@ howTo:
       text: "Understand that composition resolution (Full/Half/Quarter) in the bottom of the Composition panel only affects preview speed, not render quality"
 faq:
   - question: "What's the fastest way to learn interface and navigation in After Effects?"
-    answer: "Work through the steps on this page in After Effects itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in After Effects itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of After Effects?"
     answer: "No — everything in this interface and navigation lesson works in the standard version of After Effects on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "interface and navigation after effects"
@@ -55,7 +55,7 @@ Get oriented in After Effects and learn to move around the Composition panel and
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **moving your cursor to the exact button**, watching your actual After Effects window. It's the same After Effects curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **pointing at the exact button**, watching your actual After Effects window. It's the same After Effects curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

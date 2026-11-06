@@ -34,7 +34,7 @@ howTo:
       text: "Save the project with Cmd+S"
 faq:
   - question: "What's the fastest way to learn interface and workspace in Premiere Pro?"
-    answer: "Work through the steps on this page in Premiere Pro itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in Premiere Pro itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of Premiere Pro?"
     answer: "No — everything in this interface and workspace lesson works in the standard version of Premiere Pro on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "interface and workspace premiere pro"
@@ -58,7 +58,7 @@ Get oriented in Premiere Pro's panel-based workspace and understand where everyt
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **moving your cursor to the exact button**, watching your actual Premiere Pro window. It's the same Premiere Pro curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **pointing at the exact button**, watching your actual Premiere Pro window. It's the same Premiere Pro curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

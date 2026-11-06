@@ -174,7 +174,7 @@ const faqs = [
   },
   {
     question: 'Which apps does Skilly work with?',
-    answer: 'Skilly works in any app on your Mac. App-specific skills make it better by adding lessons, vocabulary, and current documentation.',
+    answer: 'Skilly works in any app on your Mac. Bundled skills ship for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon. A skill adds lessons, vocabulary, and current documentation.',
   },
   {
     question: 'Can I use Skilly in my browser?',
@@ -190,7 +190,7 @@ const faqs = [
   },
   {
     question: 'What happens when I hit my hosted minutes?',
-    answer: 'Hosted usage pauses until the next cycle. There are no surprise overage charges, and Skilly warns you as you approach the limit.',
+    answer: 'Hosted usage pauses until the next billing cycle. There are no surprise overage charges. The app shows an in-app warning at 80% (2 hours 24 minutes). It does not send a usage email at 80% or 100%.',
   },
 ];
 
@@ -462,6 +462,10 @@ const faqSchema = {
     </section>
 
     <section id="pricing" class="people-pricing mx-auto max-w-[1360px] px-5 pb-6 sm:px-8">
+      <h3 class="sr-only">How much does Skilly cost?</h3>
+      <p class="sr-only">
+        Skilly for Mac costs $19 per month after a 15-minute trial, no card. The hosted plan includes 3 hours per month, about $0.63 per day. Bring your own OpenAI key is $5/month plus your OpenAI usage. A saved key bypasses the 15-minute trial, because those sessions bill your OpenAI account. Bundled skills are Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon. Builders $0 Early Access is the $0 plan.
+      </p>
       <div class="grid gap-4 rounded-[26px] bg-[linear-gradient(180deg,#fff7f1_0%,#fffaf6_100%)] p-4 shadow-[0_14px_34px_rgba(111,73,48,0.04)] md:grid-cols-[1.25fr_0.92fr_0.92fr_1.08fr]">
         <article class="intro-panel rounded-[22px] border border-[#f2e1d7] bg-transparent px-5 py-5">
           <div class="intro-orb flex h-20 w-20 items-center justify-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#ffd9b9_0%,#ffb87c_52%,#ff8a4d_100%)] text-[#2a2421] shadow-[0_18px_30px_rgba(255,111,63,0.18)]">

@@ -17,7 +17,7 @@ relatedArticles:
 
 Learning **Blender** from scratch on a Mac? This is the full beginner curriculum — 7 hands-on lessons (about 8 hours total), in the order that actually makes sense, from the interface to lighting and rendering.
 
-Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly](/) teaches this exact curriculum live — a voice tutor that watches your Blender window and points your cursor at the right button. Free to start.
+Each lesson is a real, do-it-yourself walkthrough. For hands-free help, [Skilly](/) teaches this exact curriculum live — a voice tutor that watches your Blender window and points your cursor at the right button. 15-minute trial, no card.
 
 ## The Blender curriculum
 

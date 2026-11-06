@@ -39,7 +39,7 @@ howTo:
       text: "Use Space to play/stop on any timeline page"
 faq:
   - question: "What's the fastest way to learn interface and pages in DaVinci Resolve?"
-    answer: "Work through the steps on this page in DaVinci Resolve itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in DaVinci Resolve itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of DaVinci Resolve?"
     answer: "No — everything in this interface and pages lesson works in the standard version of DaVinci Resolve on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "interface and pages davinci resolve"
@@ -65,7 +65,7 @@ Understand DaVinci Resolve's unique 7-page architecture — the single most impo
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **moving your cursor to the exact button**, watching your actual DaVinci Resolve window. It's the same DaVinci Resolve curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **pointing at the exact button**, watching your actual DaVinci Resolve window. It's the same DaVinci Resolve curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

@@ -53,8 +53,9 @@ export function pricingFacts() {
   };
 }
 
-// skills.ts is the bundled-skill list. apps.ts is the old hero rotation and
-// does not include Houdini, so it is not the source for this tool.
+// skills.ts is the bundled-skill list. Only status "available" is returned.
+// Houdini stays "coming_soon" until it ships in the app. apps.ts is the old
+// hero rotation and is not the source for this tool.
 export function bundledAppSkills(): string[] {
   return skills.filter((skill) => skill.status === 'available').map((skill) => skill.name);
 }

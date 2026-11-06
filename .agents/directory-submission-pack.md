@@ -43,7 +43,7 @@
 
 > Skilly is a voice-first AI tutor for macOS. You press a shortcut (or enable always-on Live Tutor mode), ask out loud "how do I add a bevel here?", and Skilly screenshots your active app, moves the cursor to the exact UI element, and narrates the answer — in your own language. 16 languages, 8 voices, any Mac app.
 >
-> Built on OpenAI Realtime voice + vision. Privacy-safe: nothing stored after each session. Ships with deeper "skills" for Blender, Figma, After Effects, DaVinci Resolve, Premiere Pro — plus a custom-skill format (SKILL.md) so you can bring your own knowledge. 50-seat founder beta at $19/mo.
+> Built on OpenAI Realtime voice + vision. Privacy-safe: nothing stored after each session. Bundled skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon. Custom skills use SKILL.md. $19/month after a 15-minute trial, no card. Bring your own OpenAI key is $5/month plus your OpenAI usage.
 
 ### Long (~ 800 chars — for pages that encourage longer copy)
 
@@ -57,7 +57,7 @@
 >
 > Built on OpenAI Realtime voice + vision. Audio and screenshots stream to OpenAI only while you're talking; nothing is stored after the session ends; OpenAI is contractually blocked from training on Skilly data.
 >
-> Available now: 5 built-in "skills" (Blender, Figma, After Effects, DaVinci, Premiere) that add structured curricula. Custom skills via SKILL.md. 50-seat founder beta at $19/mo.
+> Bundled skills: Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon. Custom skills via SKILL.md. $19/month after a 15-minute trial, no card.
 
 ---
 

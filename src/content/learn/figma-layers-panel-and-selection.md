@@ -34,7 +34,7 @@ howTo:
       text: "Minimize the whole UI with `Shift \\` to focus on the canvas"
 faq:
   - question: "What's the fastest way to learn layers panel and selection in Figma?"
-    answer: "Work through the steps on this page in Figma itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in Figma itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of Figma?"
     answer: "No — everything in this layers panel and selection lesson works in the standard version of Figma on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "layers panel and selection figma"
@@ -58,7 +58,7 @@ Navigate the hierarchy and develop confident selection habits. Here's how to do 
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the layers panel?" — and it answers while **moving your cursor to the exact button**, watching your actual Figma window. It's the same Figma curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the layers panel?" — and it answers while **pointing at the exact button**, watching your actual Figma window. It's the same Figma curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

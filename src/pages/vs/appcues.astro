@@ -23,7 +23,7 @@ const comparisonRows = [
   { feature: 'How it guides', skilly: 'Voice answer + cursor moved to the exact UI element, in your product’s voice', appcues: 'Visual flows the user clicks through (modals, hotspots, slideouts)' },
   { feature: 'How users trigger it', skilly: 'The user asks a question out loud ("where do I start?")', appcues: 'Flows fire on segments, events, or page load that you pre-configure' },
   { feature: 'Setup', skilly: 'One script tag, then teach it from your own content in Studio', appcues: 'Install the SDK, then build each flow in the no-code editor' },
-  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', appcues: 'Monthly active users + installations, sales-led (no public flat price)' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — Builders $0 Early Access, then $29/mo (400 min), $99, $299', appcues: 'Monthly active users + installations, sales-led (no public flat price)' },
   { feature: 'Analytics & segmentation', skilly: 'Minimal today — focused on the guidance layer', appcues: 'Mature: event targeting, segments, A/B testing, flow analytics' },
   { feature: 'Maturity', skilly: 'New (2026), single founder, fast-moving', appcues: 'A decade in market, enterprise customers, established' },
   { feature: 'Best fit', skilly: 'Builders who want users to ask and be shown, with self-serve transparent pricing', appcues: 'Growth/PLG teams who need polished, segmented, measured onboarding flows' },
@@ -50,7 +50,7 @@ const productSchema = {
   <div class="sr-only">
     <h2>What’s the difference between Skilly and Appcues?</h2>
     <p>
-      Skilly and Appcues both add in-app guidance to your product, but in opposite ways. Appcues is a no-code platform for building visual product tours, tooltips, checklists, and in-app messages that users click through; you design each flow in advance and target it to user segments. Skilly is an embeddable voice guide: a user asks a question out loud ("where do I start?") and Skilly answers in your product’s voice while moving their cursor to the exact button. You add one script tag and teach Skilly from your own content in Studio instead of building flows. Appcues prices on monthly active users plus installations and is sales-led. Skilly prices on voice-interaction minutes, with a free founding tier and a transparent $29/month starter. Appcues has a decade of analytics, segmentation, and A/B testing; Skilly is new and focused on the live-guidance layer.
+      Skilly and Appcues both add in-app guidance to your product, but in opposite ways. Appcues is a no-code platform for building visual product tours, tooltips, checklists, and in-app messages that users click through; you design each flow in advance and target it to user segments. Skilly is an embeddable voice guide: a user asks a question out loud ("where do I start?") and Skilly answers in your product’s voice while pointing at the exact button. You add one script tag and teach Skilly from your own content in Studio instead of building flows. Appcues prices on monthly active users plus installations and is sales-led. Skilly prices on voice-interaction minutes, with Builders $0 Early Access and a transparent $29/month starter. Appcues has a decade of analytics, segmentation, and A/B testing; Skilly is new and focused on the live-guidance layer.
     </p>
     <h2>Is Skilly an Appcues alternative?</h2>
     <p>
@@ -123,7 +123,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly cheaper than Appcues?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                For most early-stage products, yes. Skilly has a free founding tier and a transparent $29/month starter (400 voice-interaction minutes). Appcues publishes no flat price — it is sales-led and billed on monthly active users plus installations, which climbs as your product grows regardless of how much guidance users actually use. Skilly bills on minutes of guidance delivered, so cost tracks usage, not headcount.
+                For most early-stage products, yes. Skilly has Builders $0 Early Access and a transparent $29/month starter (400 voice-interaction minutes). Appcues publishes no flat price — it is sales-led and billed on monthly active users plus installations, which climbs as your product grows regardless of how much guidance users actually use. Skilly bills on minutes of guidance delivered, so cost tracks usage, not headcount.
               </p>
             </div>
           </div>
@@ -158,7 +158,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
-        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Teach it from content you already have.</p>
+        <p class="text-gray-600 mb-6">One script tag. Builders $0 Early Access, then $29/month. Teach it from content you already have.</p>
         <Button
           href={CTA_URL}
           variant="builders-accent"
@@ -169,7 +169,7 @@ const productSchema = {
           data-ph-prop-campaign="vs-appcues"
           data-ph-prop-target-funnel="builders"
         >
-          Start free in Studio
+          Start in Studio
         </Button>
       </div>
     </section>

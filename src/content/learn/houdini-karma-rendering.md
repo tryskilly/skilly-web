@@ -37,7 +37,7 @@ howTo:
       text: "For network rendering, use the **HQueue** or render farm submission tool; for local farms, render in the background with `hrender` from the command line"
 faq:
   - question: "What's the fastest way to learn karma rendering in Houdini?"
-    answer: "Work through the steps on this page in Houdini itself, on your own project. For hands-free help, Skilly is a voice tutor that sees your screen and points at the exact button as you go, so you learn by doing instead of pausing a video. Skilly works in any Mac app; Houdini is available as a skill. 15-minute free trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage."
+    answer: "Work through the steps on this page in Houdini itself, on your own project. For hands-free help, Skilly is a voice tutor that sees your screen and points at the exact button as you go, so you learn by doing instead of pausing a video. Skilly works in any Mac app; Houdini support is coming soon. 15-minute free trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage."
   - question: "Do I need the paid version of Houdini?"
     answer: "No — everything in this karma rendering lesson works in the standard version of Houdini on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "houdini karma tutorial"

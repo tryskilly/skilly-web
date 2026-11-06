@@ -23,7 +23,7 @@ const comparisonRows = [
   { feature: 'Trigger', skilly: 'Voice-gated: screen is captured only when you press push-to-talk or speak in Live Tutor mode', cluely: 'Always-on during a session — continuously listens + reads your screen' },
   { feature: 'Platform', skilly: 'Native macOS menu bar app (14.0+)', cluely: 'macOS + Windows desktop apps' },
   { feature: 'How it guides', skilly: 'Moves your cursor to the exact UI element + live transcript beside it', cluely: 'Shows AI-generated prompts and answers in an overlay window' },
-  { feature: 'Skills / curriculum', skilly: 'Pluggable Markdown curriculum per app — Blender, Figma, After Effects, Premiere Pro, DaVinci Resolve, Houdini', cluely: 'No per-app curriculum — general-purpose assistant' },
+  { feature: 'Skills / curriculum', skilly: 'Pluggable Markdown curriculum per app — Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon', cluely: 'No per-app curriculum — general-purpose assistant' },
   { feature: 'Language support', skilly: '20+ languages auto-detected via OpenAI Realtime', cluely: 'English-primary with multilingual support' },
   { feature: 'Model layer', skilly: 'Single-call OpenAI Realtime API (voice-to-voice, lower latency)', cluely: 'Multi-model, proprietary pipeline' },
   { feature: 'Privacy posture', skilly: 'Screen capture gated by voice activity. macOS Screen Recording permission required and revokable anytime.', cluely: 'Continuous screen + audio access during an active session' },
@@ -180,7 +180,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Does Skilly work on Windows like Cluely?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                Not yet. Skilly is currently macOS-only (requires macOS 14.2 or later) because it's built natively in Swift on the ScreenCaptureKit framework. A Windows port is in development on a separate branch. If you need a screen-aware AI tool today on Windows, Cluely is the better fit. If you can wait or you're on Mac, Skilly is open source and 5 free skill curricula ship with it (Blender, Figma, After Effects, DaVinci Resolve, Premiere Pro).
+                Not yet. Skilly is currently macOS-only (requires macOS 14.2 or later) because it's built natively in Swift on the ScreenCaptureKit framework. A Windows port is in development on a separate branch. If you need a screen-aware AI tool today on Windows, Cluely is the better fit. If you can wait or you're on Mac, Skilly is open source and bundled skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma ship with it. Houdini is coming soon.
               </p>
             </div>
           </div>

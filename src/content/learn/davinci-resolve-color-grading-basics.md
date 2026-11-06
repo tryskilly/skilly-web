@@ -39,7 +39,7 @@ howTo:
       text: "Understand the correct node order: primary correction on Node 1, secondary corrections on Node 2, creative look on the last node"
 faq:
   - question: "What's the fastest way to learn color grading basics in DaVinci Resolve?"
-    answer: "Work through the steps on this page in DaVinci Resolve itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in DaVinci Resolve itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of DaVinci Resolve?"
     answer: "No — everything in this color grading basics lesson works in the standard version of DaVinci Resolve on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "color grading basics davinci resolve"
@@ -65,7 +65,7 @@ Move to the Color page to correct and enhance the look of your footage using DaV
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the color panel?" — and it answers while **moving your cursor to the exact button**, watching your actual DaVinci Resolve window. It's the same DaVinci Resolve curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the color panel?" — and it answers while **pointing at the exact button**, watching your actual DaVinci Resolve window. It's the same DaVinci Resolve curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

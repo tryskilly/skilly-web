@@ -34,7 +34,7 @@ howTo:
       text: "Know which of fill, stroke, effects, constraints, auto layout, and prototyping only work on Frames"
 faq:
   - question: "What's the fastest way to learn shapes and the frame tool in Figma?"
-    answer: "Work through the steps on this page in Figma itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in Figma itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of Figma?"
     answer: "No — everything in this shapes and the frame tool lesson works in the standard version of Figma on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "shapes and the frame tool figma"
@@ -58,7 +58,7 @@ Draw your first shapes and understand why Frames are the foundation of every Fig
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the shapes panel?" — and it answers while **moving your cursor to the exact button**, watching your actual Figma window. It's the same Figma curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the shapes panel?" — and it answers while **pointing at the exact button**, watching your actual Figma window. It's the same Figma curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

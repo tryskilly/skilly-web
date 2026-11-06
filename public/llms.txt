@@ -63,14 +63,14 @@ Skilly works with any macOS app out of the box. Skills are optional expansion pa
 1. **Fresh knowledge** from the app's official documentation, beyond the AI's training cutoff
 2. **Structured curriculum** with stages, completion signals, and UI vocabulary — so Skilly can coach you through a course, not just answer one-off questions
 
-Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma, with Houdini also available.
+Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon.
 
 - Premiere Pro Basics — timeline editing, transitions, export
 - DaVinci Resolve Basics — Cut, Edit, Color, Fairlight, Deliver pages
 - After Effects Basics — compositions, layers, keyframes, effects
 - Blender Fundamentals — 6 stages, from navigation to first render
 - Figma Basics — frames, components, auto-layout, prototyping
-- Houdini Essentials — VFX simulations (Pyro, FLIP, RBD, Vellum) and Karma rendering for cinematic sequences
+- Houdini — coming soon. Not bundled in the app yet.
 
 For builders, the same skill format (editable markdown) powers each Studio project, so any team can author a skill for their own product or workflow.
 

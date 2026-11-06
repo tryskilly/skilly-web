@@ -21,7 +21,7 @@ const comparisonRows = [
   { feature: 'How it guides', skilly: 'Voice answer + cursor moved to the exact UI element', userpilot: 'Pre-built flows the user clicks through (tooltips, modals, checklists)' },
   { feature: 'How users trigger it', skilly: 'The user asks a question out loud', userpilot: 'Flows fire on segments/events you configure' },
   { feature: 'Setup', skilly: 'One script tag, taught from your own content in Studio', userpilot: 'Install, then build flows in the no-code editor' },
-  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', userpilot: 'MAU-based — Starter from $299/mo (annual, up to 2,000 MAU); Growth/Enterprise sales-led' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — Builders $0 Early Access, then $29/mo (400 min), $99, $299', userpilot: 'MAU-based — Starter from $299/mo (annual, up to 2,000 MAU); Growth/Enterprise sales-led' },
   { feature: 'Entry price', skilly: 'Free tier, then $29/mo', userpilot: '$299/mo (Starter, billed annually)' },
   { feature: 'Analytics & segmentation', skilly: 'Minimal today — focused on guidance', userpilot: 'Strong: product analytics, segmentation, surveys, session replay (add-on)' },
   { feature: 'Best fit', skilly: 'Builders who want conversational guidance with a low, transparent entry price', userpilot: 'Growth teams who want measured, segmented flows and can spend $299+/mo' },
@@ -48,11 +48,11 @@ const productSchema = {
   <div class="sr-only">
     <h2>What’s the difference between Skilly and Userpilot?</h2>
     <p>
-      Userpilot is a no-code platform for building onboarding flows, checklists, and surveys, paired with product analytics and segmentation. You design flows and target them to user segments; pricing is MAU-based, starting at $299/month (billed annually, up to 2,000 monthly active users), with Growth and Enterprise tiers sales-led. Skilly is an embeddable voice guide: a user asks out loud and Skilly answers in your product’s voice while moving their cursor to the exact button. You add one script tag and teach it from your own content. Skilly prices on voice-interaction minutes with a free founding tier and a $29/month starter. Userpilot is the stronger choice for measured, segmented flows; Skilly is the more affordable, conversational, voice-first option.
+      Userpilot is a no-code platform for building onboarding flows, checklists, and surveys, paired with product analytics and segmentation. You design flows and target them to user segments; pricing is MAU-based, starting at $299/month (billed annually, up to 2,000 monthly active users), with Growth and Enterprise tiers sales-led. Skilly is an embeddable voice guide: a user asks out loud and Skilly answers in your product’s voice while pointing at the exact button. You add one script tag and teach it from your own content. Skilly prices on voice-interaction minutes with Builders $0 Early Access and a $29/month starter. Userpilot is the stronger choice for measured, segmented flows; Skilly is the more affordable, conversational, voice-first option.
     </p>
     <h2>Is Skilly a Userpilot alternative?</h2>
     <p>
-      Skilly is a lower-cost, voice-first alternative to Userpilot’s guidance layer. Its entry price is a free founding tier then $29/month, versus Userpilot’s $299/month Starter. Skilly does not match Userpilot’s product analytics and segmentation, so choose Skilly for conversational guidance on a small budget and Userpilot for analytics-driven, segmented onboarding. Sign up for Skilly at studio.tryskilly.app/signup.
+      Skilly is a lower-cost, voice-first alternative to Userpilot’s guidance layer. Its entry price is Builders $0 Early Access, then $29/month, versus Userpilot’s $299/month Starter. Skilly does not match Userpilot’s product analytics and segmentation, so choose Skilly for conversational guidance on a small budget and Userpilot for analytics-driven, segmented onboarding. Sign up for Skilly at studio.tryskilly.app/signup.
     </p>
   </div>
 
@@ -119,7 +119,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly cheaper than Userpilot?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                Yes, at the entry level. Userpilot’s Starter is $299/month (billed annually, up to 2,000 MAU). Skilly has a free founding tier and a $29/month starter, billed on voice-interaction minutes rather than monthly active users. For a small or early-stage product, Skilly’s entry cost is an order of magnitude lower. Userpilot’s price buys analytics and segmentation Skilly does not include.
+                Yes, at the entry level. Userpilot’s Starter is $299/month (billed annually, up to 2,000 MAU). Skilly has Builders $0 Early Access and a $29/month starter, billed on voice-interaction minutes rather than monthly active users. For a small or early-stage product, Skilly’s entry cost is an order of magnitude lower. Userpilot’s price buys analytics and segmentation Skilly does not include.
               </p>
             </div>
           </div>
@@ -154,7 +154,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
-        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. Teach it from content you already have.</p>
+        <p class="text-gray-600 mb-6">One script tag. Builders $0 Early Access, then $29/month. Teach it from content you already have.</p>
         <Button
           href={CTA_URL}
           variant="builders-accent"
@@ -165,7 +165,7 @@ const productSchema = {
           data-ph-prop-campaign="vs-userpilot"
           data-ph-prop-target-funnel="builders"
         >
-          Start free in Studio
+          Start in Studio
         </Button>
       </div>
     </section>

@@ -116,10 +116,10 @@ Skilly is the category we built. There aren't many direct alternatives because t
 ### Skilly
 
 - **What it does**: You hold Control+Option, ask out loud ("how do I add a bevel to this cube?"), Skilly watches your screen via macOS ScreenCaptureKit, answers out loud, and points the cursor at exactly the button or menu you need. Live transcript streams beside the cursor.
-- **Price**: 15 minutes free trial on first launch, then $19/month beta tier (3 hours of live AI teaching/month). Open source on GitHub. *(verified 2026-04-27 at tryskilly.app)*
+- **Price**: 15-minute trial, no card, then $19/month for 3 hours of live AI tutoring. Bring your own OpenAI key is $5/month plus your OpenAI usage. Open source on GitHub.
 - **Privacy**: Push-to-talk only — screen and audio are captured ONLY while you're holding the hotkey, not continuously. Frames go to OpenAI Realtime per-question; nothing stored server-side.
 - **Strengths**: Voice-first, screen-aware, teaches step-by-step rather than doing things for you, works in any Mac app, open source
-- **Weaknesses**: Mac-only (Apple Silicon), requires internet for the AI step, beta-stage, $19/mo is more than launchers but less than meeting tools
+- **Weaknesses**: macOS 14.2 or later, requires internet for the AI step, beta-stage, $19/mo is more than launchers but less than meeting tools
 - **Differentiator vs everything else**: it's the only one that combines "watches your screen" + "voice-first" + "teaches you to do the thing yourself rather than doing it for you"
 
 **Best for**: people learning Blender, Figma, Xcode, After Effects, or any complex Mac app where they keep Googling "how do I X in this app?"
@@ -154,6 +154,6 @@ We pulled current pricing and feature lists from each vendor's official site on 
 
 If a fact in this article contradicts what a vendor's site says today, the vendor site wins — please [open an issue](https://github.com/tryskilly/skilly/issues) or tweet us [@tryskilly](https://x.com/tryskilly) and we'll update.
 
-## Try Skilly free
+## Try the 15-minute trial
 
 If "voice tutor that watches your screen" is the category you're in — that's what we built. **15 minutes free, no card.**

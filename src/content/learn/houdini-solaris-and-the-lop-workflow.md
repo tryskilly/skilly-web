@@ -39,7 +39,7 @@ howTo:
       text: "(H21+, optional) **Shot Builder Tools** ship in /stage to scaffold a multi-shot USD layout. Still officially **beta** in H21 — fine for personal/indie work, but the node set and parameters are subject to change. Pair with **Live Rendering** for near real-time scene-update preview"
 faq:
   - question: "What's the fastest way to learn solaris and the lop workflow in Houdini?"
-    answer: "Work through the steps on this page in Houdini itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in Houdini itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of Houdini?"
     answer: "No — everything in this solaris and the lop workflow lesson works in the standard version of Houdini on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "solaris and the lop workflow houdini"
@@ -65,7 +65,7 @@ Move from /obj-context legacy lighting to the modern /stage Solaris USD-based pi
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the solaris panel?" — and it answers while **moving your cursor to the exact button**, watching your actual Houdini window. It's the same Houdini curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the solaris panel?" — and it answers while **pointing at the exact button**, watching your actual Houdini window. It's the same Houdini curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

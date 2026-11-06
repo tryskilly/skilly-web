@@ -21,7 +21,7 @@ const comparisonRows = [
   { feature: 'How it guides', skilly: 'Voice answer + cursor moved to the exact UI element', whatfix: 'Pre-built flows, smart tips, and a self-service help widget tied to your knowledge base' },
   { feature: 'Scope', skilly: 'Your product — one embeddable widget', whatfix: 'Many applications, including third-party/enterprise software, at org scale' },
   { feature: 'Setup & ownership', skilly: 'One script tag, self-serve, taught from your content', whatfix: 'Implementation project, admin team, content authoring' },
-  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — free founding tier, then $29/mo (400 min), $99, $299', whatfix: 'Enterprise, sales-led (no public price — book a demo)' },
+  { feature: 'Pricing model', skilly: 'Voice-interaction minutes — Builders $0 Early Access, then $29/mo (400 min), $99, $299', whatfix: 'Enterprise, sales-led (no public price — book a demo)' },
   { feature: 'Analytics & governance', skilly: 'Minimal today — focused on guidance', whatfix: 'Deep: event tracking, session replays, AI insights, segmentation, SSO/governance' },
   { feature: 'Best fit', skilly: 'Indie/SMB builders who want a fast, affordable voice guide in their own product', whatfix: 'Enterprises onboarding employees/customers across many apps with governance needs' },
 ];
@@ -47,7 +47,7 @@ const productSchema = {
   <div class="sr-only">
     <h2>What’s the difference between Skilly and Whatfix?</h2>
     <p>
-      Whatfix is an enterprise digital adoption platform (DAP). It overlays guidance — flows, smart tips, task lists, and self-service support — across one or many applications, with deep analytics, session replays, AI insights, segmentation, and enterprise governance. It is sold to large organizations, implemented as a project, and priced via sales (no public price). Skilly is a lightweight, self-serve voice guide you embed in a single product with one script tag. A user asks a question out loud and Skilly answers in your product’s voice while moving their cursor to the exact button. Skilly prices on voice-interaction minutes with a free founding tier and a $29/month starter. Whatfix is the enterprise, multi-app, governance-heavy option; Skilly is the fast, affordable, single-product option.
+      Whatfix is an enterprise digital adoption platform (DAP). It overlays guidance — flows, smart tips, task lists, and self-service support — across one or many applications, with deep analytics, session replays, AI insights, segmentation, and enterprise governance. It is sold to large organizations, implemented as a project, and priced via sales (no public price). Skilly is a lightweight, self-serve voice guide you embed in a single product with one script tag. A user asks a question out loud and Skilly answers in your product’s voice while pointing at the exact button. Skilly prices on voice-interaction minutes with Builders $0 Early Access and a $29/month starter. Whatfix is the enterprise, multi-app, governance-heavy option; Skilly is the fast, affordable, single-product option.
     </p>
     <h2>Is Skilly a Whatfix alternative?</h2>
     <p>
@@ -134,7 +134,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">How much does each cost?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                Whatfix is enterprise and sales-led — there is no public price; you book a demo for a quote. Skilly is transparent and self-serve: a free founding tier, then $29/month for 400 voice-interaction minutes ($99 and $299 tiers for more). For most non-enterprise teams, Skilly is dramatically cheaper and faster to start.
+                Whatfix is enterprise and sales-led — there is no public price; you book a demo for a quote. Skilly is transparent and self-serve: Builders $0 Early Access, then $29/month for 400 voice-interaction minutes ($99 and $299 tiers for more). For most non-enterprise teams, Skilly is dramatically cheaper and faster to start.
               </p>
             </div>
           </div>
@@ -153,7 +153,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Add a voice guide to your product</h2>
-        <p class="text-gray-600 mb-6">One script tag. Free founding tier, then $29/month. No implementation project.</p>
+        <p class="text-gray-600 mb-6">One script tag. Builders $0 Early Access, then $29/month. No implementation project.</p>
         <Button
           href={CTA_URL}
           variant="builders-accent"
@@ -164,7 +164,7 @@ const productSchema = {
           data-ph-prop-campaign="vs-whatfix"
           data-ph-prop-target-funnel="builders"
         >
-          Start free in Studio
+          Start in Studio
         </Button>
       </div>
     </section>

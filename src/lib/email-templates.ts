@@ -24,7 +24,7 @@ export function confirmationEmail(opts: { platform: WaitlistPlatform }) {
   const secondaryText = isUpdates || isBetaWaitlist
     ? ``
     : `<p style="margin:0 0 32px;font-size:16px;line-height:1.6;color:#A3A39E;">
-                If you have an Apple Silicon Mac, you can try Skilly today \u2014 it's already shipping on macOS.
+                If your Mac is on macOS 14.2 or later, you can try the 15-minute trial today. No card.
               </p>`;
 
   const html = `<!doctype html>
@@ -71,7 +71,7 @@ export function confirmationEmail(opts: { platform: WaitlistPlatform }) {
     ? `Thanks for subscribing to Skilly product updates. We'll email you when a major release ships — BYOK improvements, new skills, big UX changes — one email per release, no marketing in between.`
     : isBetaWaitlist
     ? `The Skilly beta is currently full. We'll email you the moment a slot opens up — no marketing in between.`
-    : `Thanks for joining the Skilly waitlist for ${platformLabel}. We'll send one email the day Skilly is available on your platform — no marketing in between.\n\nIf you have an Apple Silicon Mac, you can try Skilly today — it's already shipping on macOS.`;
+    : `Thanks for joining the Skilly waitlist for ${platformLabel}. We'll send one email the day Skilly is available on your platform — no marketing in between.\n\nIf your Mac is on macOS 14.2 or later, you can try the 15-minute trial today. No card.`;
 
   const text = `You're on the list.
 

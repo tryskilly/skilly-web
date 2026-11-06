@@ -36,7 +36,7 @@ howTo:
       text: "Animate the Source Text property by enabling its stopwatch — this lets you swap text content over time, useful for countdowns and switching words"
 faq:
   - question: "What's the fastest way to learn text animation in After Effects?"
-    answer: "Work through the steps on this page in After Effects itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and moves your cursor to the exact button as you go — so you learn by doing instead of pausing a video. It's free to start at tryskilly.app."
+    answer: "Work through the steps on this page in After Effects itself, on your own project. For hands-free help, Skilly is a voice guide that watches your screen and points at the exact button as you go — so you learn by doing instead of pausing a video. A 15-minute trial, no card, starts at tryskilly.app."
   - question: "Do I need the paid version of After Effects?"
     answer: "No — everything in this text animation lesson works in the standard version of After Effects on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "text animation after effects"
@@ -61,7 +61,7 @@ Create animated text using After Effects' per-character Text Animator system. He
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the text panel?" — and it answers while **moving your cursor to the exact button**, watching your actual After Effects window. It's the same After Effects curriculum these lessons come from, taught live instead of read. Free to start.
+Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the text panel?" — and it answers while **pointing at the exact button**, watching your actual After Effects window. It's the same After Effects curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

@@ -52,7 +52,7 @@ export const skills: Skill[] = [
   },
   {
     name: 'Houdini',
-    status: 'available',
+    status: 'coming_soon',
     description: 'VFX simulations, Pyro and FLIP fluids, Karma rendering',
   },
   {

@@ -14,29 +14,28 @@ Last verified: 2026-10-29 against skilly-web `main` @ 984ea19 and tryskilly/skil
 - Open source under Apache-2.0. Source: `src/components/Pricing.astro` (line 42); `LICENSE` in github.com/tryskilly/skilly.
 - Skilly is a fork of Farza Majeed's Clicky that adds Live Tutor, a single OpenAI Realtime call, a skills layer and course progress. Source: https://tryskilly.app/vs/clicky/ (`src/pages/vs/clicky.astro`).
 - Privacy: audio and a live screenshot stream to OpenAI only while you're talking; nothing is saved after the session; analytics never log transcripts, screenshots or prompts. Source: `src/data/faqs.ts` ("Is it safe?").
-- Free Skill Builder makes a custom SKILL.md for another app and emails it. Sources: `src/data/faqs.ts` ("Can I build my own skill?"), https://tryskilly.app/tools/skill-builder/.
+- The Skill Builder makes a custom SKILL.md for another app and emails it. Sources: `src/data/faqs.ts` ("Can I build my own skill?"), https://tryskilly.app/tools/skill-builder/.
 - Browser extensions for Chrome, Edge and Firefox give voice-and-pointer help on websites. Source: `src/data/config.ts` (`BROWSER_EXTENSIONS`).
 
 ## Bundled skills
 
-Six skills: **Blender, After Effects, Premiere Pro, DaVinci Resolve, Figma, Houdini.**
-- Product repo `skills/` holds six: `blender-fundamentals`, `after-effects-basics`, `premiere-pro-basics`, `davinci-resolve-basics`, `figma-basics`, `houdini-essentials`. Source: github.com/tryskilly/skilly `skills/`.
-- Site list (all six marked available): `src/data/skills.ts`.
-- **Never claim Xcode, Photoshop or VS Code skills.** None exist in `skills/`.
-- See "Open conflicts" for places that still say five.
+The app bundle (`leanring-buddy/skills/` on github.com/tryskilly/skilly) ships **Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma**.
+- Houdini is coming soon. [tryskilly/skilly#111](https://github.com/tryskilly/skilly/pull/111) is open and not merged, so the site must not call Houdini available.
+- Site list: `src/data/skills.ts` marks those five `available` and Houdini `coming_soon`.
+- **Never claim Xcode, Photoshop or VS Code skills.** None exist in the app bundle.
 
 ## Pricing (people product)
 
 - **Free trial: 15 minutes of actual use, one-time, no credit card.** Sources: `src/data/faqs.ts` ("How long is the free trial?"), `src/data/trial-terms.ts`, `src/data/tiers.ts` (`guarantees`).
   - Canonical trial line for CTAs (reuse it verbatim, don't write new pricing copy): "15-minute free trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage." Source: `src/data/trial-terms.ts`.
-- **Hosted: $19/month, 3 hosted hours a month** (about $0.11 per included minute), monthly billing only. Sources: `src/data/tiers.ts` (`betaTier`), `public/pricing.md`.
-- When you hit 3 hours, Skilly pauses until the next billing cycle; there are no overage charges. Source: `src/data/faqs.ts` ("What happens when I hit my 3 hours?").
-- **BYOK: $5/month plus your OpenAI usage. It is never free.** Sources: `src/data/tiers.ts` (`byokTier.heading`), `src/data/faqs.ts` ("Can I bring my own OpenAI API key?"), `src/components/Pricing.astro`.
+- **Hosted: $19/month, 3 hosted hours a month**, about $0.63 per day, monthly billing only. Do not state a per-minute hosted price. Sources: `public/pricing.md`, `src/data/tiers.ts` (`betaTier`).
+- When you hit 3 hours, Skilly pauses until the next billing cycle; there are no overage charges. The app shows an in-app warning at 80% (2 hours 24 minutes). It does not email at 80% or 100%. Sources: `src/data/faqs.ts` ("What happens when I hit my 3 hours?"), `public/pricing.md`, `leanring-buddy/UsageTracker.swift` and `SkillyNotificationManager.swift` in tryskilly/skilly.
+- **BYOK: $5/month plus your OpenAI usage. It is never free.** Do not state a per-minute OpenAI rate. A saved key bypasses the 15-minute trial. Sources: `public/pricing.md`, `src/data/tiers.ts` (`byokTier.heading`), `leanring-buddy/TrialTracker.swift` (`hasOwnAPIKey`).
 - Cancel anytime and keep access to the end of the period. Source: `src/data/faqs.ts` ("What happens if I cancel?").
 - Price changes come with at least 30 days' notice; people who joined earlier keep their price. Source: `src/data/faqs.ts` ("Will the price change after beta?"), https://tryskilly.app/terms/.
-- **There is no founder or lifetime offer.** The "price lock for life" and "50 seats" lines were removed in PR #37 (fc66e3f). "Founder beta" is the beta's name, not a discount (`src/components/Hero.astro`).
-- **Never call Skilly "free".** The only $0 plan is **Builders Early Access** (Builders product, 30 teaching minutes a month). Source: `public/pricing.md` ("Early Access — $0/month").
-- Builders plans: Early Access $0, Starter $29, Studio $99, Scale $299 per month. Source: `public/pricing.md`.
+- **There is no founder or lifetime offer.** The "price lock for life" and "50 seats" lines were removed in PR #37 (fc66e3f). The hero lists the bundled skills and does not say "Founder beta".
+- **Never call Skilly "free".** The only $0 plan is **Builders $0 Early Access** (30 teaching minutes a month). A 15-minute trial, no card, is fine. Source: `public/pricing.md`.
+- Builders plans: Builders $0 Early Access $0, Starter $29, Studio $99, Scale $299 per month. Source: `public/pricing.md`.
 
 ## Platforms
 
@@ -120,6 +119,6 @@ Already linking: footer (`src/components/Footer.astro`, `BuildersFooter.astro`),
 
 ## Open conflicts (site vs product)
 
-- **Skill count:** `src/data/tiers.ts` ("5 ready-to-use skills"), `src/data/faqs.ts` ("Five skills ship today"), `src/components/Hero.astro` ("5 skills live") and `public/pricing.md` ("All 5 bundled example skills", no Houdini) still say five. `skills/` has six, but the app bundle folder `leanring-buddy/skills/` has five (no Houdini). Confirm with Mohamed before changing pricing-adjacent copy; the `public/pricing.md` fix is in progress (log 2026-10-29).
+- **Skill count:** Resolved. The site names Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon until tryskilly/skilly#111 merges. `public/pricing.md` still says "Houdini also available"; do not edit that file in a copy pass, and do not copy that phrase onto the site while #111 is open.
 - **Intel support:** Resolved. The product repo does not pin a CPU architecture, so the site no longer claims Apple Silicon only or Intel support. Machine-readable files were corrected in PR #47. The FAQ, schema, homepage, and comparison pages were corrected in PR #48.
-- **BYOK missing from `public/pricing.md`:** the people section doesn't state the $5/month plus OpenAI usage BYOK line. Fix is in progress (log 2026-10-29).
+- **BYOK in `public/pricing.md`:** Resolved. The people section states "$5/month plus your OpenAI usage". Do not add a per-minute voice rate.

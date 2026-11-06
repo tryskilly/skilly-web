@@ -46,7 +46,7 @@ export const buildersComparisonPages: BuildersComparisonPage[] = [
       { feature: 'Primary use case', skilly: 'In-product voice onboarding and contextual help for a SaaS or website', competitor: 'Enterprise digital adoption across many applications and employee workflows' },
       { feature: 'Interaction model', skilly: 'User asks out loud; Skilly answers by voice and moves the cursor to the button', competitor: 'Scripted guidance, walkthroughs, automation, and analytics for managed workflows' },
       { feature: 'Setup motion', skilly: 'One script tag, Studio project, editable product skill, allowed domains', competitor: 'Enterprise implementation, governance, and cross-system configuration' },
-      { feature: 'Pricing motion', skilly: 'Free founding tier, then transparent monthly usage plans from $29', competitor: 'Sales-led enterprise pricing' },
+      { feature: 'Pricing motion', skilly: 'Builders $0 Early Access, then transparent monthly usage plans from $29', competitor: 'Sales-led enterprise pricing' },
       { feature: 'Best fit', skilly: 'Startups and SaaS teams that need direct user activation help now', competitor: 'Large organizations with a formal digital adoption program' },
     ],
     faqs: [
@@ -231,7 +231,7 @@ export const buildersComparisonIndexItems = [
   {
     href: '/vs/userpilot/',
     name: 'Skilly vs Userpilot',
-    summary: 'Userpilot is no-code flows + analytics from $299/mo. Skilly is voice-first, starting free.',
+    summary: 'Userpilot is no-code flows + analytics from $299/mo. Skilly is voice-first, with Builders $0 Early Access.',
   },
   {
     href: '/vs/whatfix/',
