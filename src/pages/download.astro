@@ -1,0 +1,21 @@
+---
+// /download — install guide after the download click.
+// Server-side download_served capture stays in src/lib/download-handoff.ts.
+// The page uses Layout so the existing PostHog client can record download_page_viewed.
+export const prerender = false;
+
+import Layout from '../layouts/Layout.astro';
+import DownloadInstallGuide from '../components/DownloadInstallGuide.astro';
+import { prepareDownload } from '../lib/download-handoff.ts';
+
+const handoff = await prepareDownload(Astro.request);
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<Layout
+  title="Install Skilly for Mac"
+  description="Open the download, grant microphone, screen recording, screen content, and accessibility, then hold Control+Option and ask. 15-minute trial, no card. macOS 14.2 or later."
+  productLine="people"
+  funnelStage="conversion"
+>
+  <DownloadInstallGuide downloadUrl={handoff.downloadUrl} deepLink={handoff.deepLink} />
+</Layout>

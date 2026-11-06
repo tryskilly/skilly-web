@@ -1,0 +1,147 @@
+---
+// Install guide shown after a download click. The file link and the
+// skilly://attribution deep link are the same handoff as before.
+import NonMacWaitlist from './NonMacWaitlist.astro';
+import { askApps } from '../data/askExamples.ts';
+
+interface Props {
+  downloadUrl: string;
+  deepLink: string;
+}
+
+const { downloadUrl, deepLink } = Astro.props;
+const bundledApps = askApps.map((app) => ({
+  name: app.name,
+  href: `/${app.slug}/`,
+  questions: app.questions.slice(0, 2),
+}));
+---
+<main class="mx-auto w-full max-w-[760px] px-5 py-12 sm:px-8 sm:py-16">
+  <p class="font-mono text-[12px] font-semibold tracking-[0.16em] text-[#ff6f3f]">INSTALL SKILLY</p>
+  <h1 class="mt-3 text-[40px] font-bold leading-[0.98] tracking-[-0.045em] text-[#2a2421] sm:text-[52px]">
+    Three steps, then ask out loud.
+  </h1>
+  <p class="mt-4 max-w-[540px] text-[17px] leading-[1.6] text-[#5f534d]">
+    Skilly points at the control. It never clicks. macOS 14.2 or later.
+  </p>
+  <p class="mt-3 text-[15px] font-semibold text-[#2a2421]">15-minute trial, no card.</p>
+
+  <div class="mt-6 max-w-[520px]">
+    <NonMacWaitlist id="get-skilly" location="download_page" />
+  </div>
+
+  <ol class="mt-10 flex flex-col gap-4">
+    <li id="install" data-download-step="install" class="rounded-[22px] border border-[#f2e6df] bg-white px-5 py-5 shadow-[0_12px_26px_rgba(111,73,48,0.04)] sm:px-6">
+      <p class="font-mono text-[13px] font-semibold text-[#ff6f3f]">1</p>
+      <h2 class="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-[#2a2421]">Open the download</h2>
+      <p class="mt-2 text-[15.5px] leading-[1.6] text-[#5f534d]">
+        Open the downloaded file and drag Skilly to Applications. Then open it.
+      </p>
+      <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        <a
+          data-mac-download
+          href={downloadUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex h-12 items-center justify-center rounded-[12px] bg-[#ff6f3f] px-5 text-[16px] font-semibold text-white shadow-[0_12px_28px_rgba(255,111,63,0.22)] transition hover:bg-[#ff6735]"
+        >
+          Download for Mac
+        </a>
+        <a
+          href={deepLink}
+          class="inline-flex h-12 items-center justify-center rounded-[12px] border border-[#f1c3b3] bg-white px-5 text-[15px] font-semibold text-[#ff6f3f]"
+        >
+          I installed Skilly — open it
+        </a>
+      </div>
+    </li>
+
+    <li id="permissions" data-download-step="permissions" class="rounded-[22px] border border-[#f2e6df] bg-white px-5 py-5 shadow-[0_12px_26px_rgba(111,73,48,0.04)] sm:px-6">
+      <p class="font-mono text-[13px] font-semibold text-[#ff6f3f]">2</p>
+      <h2 class="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-[#2a2421]">Grant the permissions</h2>
+      <p class="mt-2 text-[15.5px] leading-[1.6] text-[#5f534d]">
+        On first launch Skilly asks for these four, in this order. Each one is a macOS prompt the app opens.
+      </p>
+      <ol class="mt-4 flex flex-col gap-3 text-[15px] leading-[1.55] text-[#43352f]">
+        <li>
+          <strong class="font-semibold text-[#2a2421]">Microphone.</strong>
+          Choose Allow Microphone. Skilly listens only while you hold the talk shortcut or use Live Tutor.
+        </li>
+        <li>
+          <strong class="font-semibold text-[#2a2421]">Screen Recording.</strong>
+          Choose Allow Screen Recording. Skilly captures one screenshot only when you ask.
+          macOS may ask you to quit and reopen Skilly after you approve it.
+          <a class="font-medium text-[#c2410c] underline decoration-[#f0c3ad] underline-offset-2" href="/learn/enable-screen-recording-permission-macos/">How to allow screen recording on a Mac</a>.
+        </li>
+        <li>
+          <strong class="font-semibold text-[#2a2421]">Screen Content.</strong>
+          Choose Confirm Screen Content and confirm the display Skilly may inspect. No continuous recording runs in the background.
+        </li>
+        <li>
+          <strong class="font-semibold text-[#2a2421]">Accessibility.</strong>
+          Choose Allow Accessibility. This enables the global talk shortcut and lets Skilly move its pointer to the control it is explaining. Skilly points. It never clicks.
+        </li>
+      </ol>
+    </li>
+
+    <li id="first-question" data-download-step="first_question" class="rounded-[22px] border border-[#f2e6df] bg-white px-5 py-5 shadow-[0_12px_26px_rgba(111,73,48,0.04)] sm:px-6">
+      <p class="font-mono text-[13px] font-semibold text-[#ff6f3f]">3</p>
+      <h2 class="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-[#2a2421]">Your first question</h2>
+      <p class="mt-2 text-[15.5px] leading-[1.6] text-[#5f534d]">
+        Hold <kbd class="rounded border border-[#f1e0d7] bg-[#fff8f4] px-1.5 py-0.5 font-mono text-[13px] text-[#2a2421]">Control</kbd> + <kbd class="rounded border border-[#f1e0d7] bg-[#fff8f4] px-1.5 py-0.5 font-mono text-[13px] text-[#2a2421]">Option</kbd>.
+        That is the default push-to-talk shortcut (the app labels it ctrl + option). Ask out loud. Skilly points at the control. It never clicks.
+      </p>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        {bundledApps.map((app) => (
+          <article class="rounded-2xl bg-[#fff8f4] px-4 py-4">
+            <h3 class="text-[16px] font-semibold text-[#2a2421]">
+              <a
+                href={app.href}
+                class="underline decoration-[#f0c3ad] underline-offset-4 hover:text-[#c2410c] hover:decoration-[#c2410c]"
+              >
+                {app.name}
+              </a>
+            </h3>
+            <ul class="mt-2 flex flex-col gap-1.5">
+              {app.questions.map((example) => (
+                <li class="text-[14.5px] leading-[1.45] text-[#43352f]">“{example.question}”</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </li>
+  </ol>
+</main>
+
+<script is:inline>
+  // Inline so the SSR handoff page carries the call itself. The PostHog
+  // client is the one Layout already starts; this only calls capture.
+  (function () {
+    function start() {
+      var seen = Object.create(null);
+      function fire(step) {
+        if (seen[step]) return;
+        seen[step] = true;
+        if (window.posthog && typeof window.posthog.capture === 'function') {
+          window.posthog.capture('download_page_viewed', { step: step });
+        }
+      }
+      fire('loaded');
+      var steps = document.querySelectorAll('[data-download-step]');
+      if (!steps.length || typeof IntersectionObserver === 'undefined') return;
+      var observer = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          if (!entry.isIntersecting) continue;
+          var step = entry.target.getAttribute('data-download-step');
+          if (step) fire(step);
+          observer.unobserve(entry.target);
+        }
+      }, { threshold: 0.4 });
+      for (var j = 0; j < steps.length; j++) observer.observe(steps[j]);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
+  })();
+</script>

@@ -40,7 +40,7 @@ export function trackedDownloadUrl(medium: string, campaign: string, content: st
 /**
  * PostHog public project key — same project as the Skilly macOS app.
  * Per PostHog docs, phc_* keys are public-safe and meant to ship in client code.
- * Shared by the browser snippet (Layout.astro) and server-side capture (download.ts).
+ * Shared by the browser snippet (Layout.astro) and server-side capture (download-handoff.ts).
  */
 export const POSTHOG_KEY = 'phc_D46KQXyPXhmRabFDiL3KUZTWJcmjyqhpGJfpH7H48Sso';
 export const POSTHOG_HOST = 'https://us.i.posthog.com';

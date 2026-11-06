@@ -1,13 +1,17 @@
-// /download — attribution-aware handoff to the latest macOS release.
+// Attribution-aware handoff for /download.
 // The release asset is hosted on GitHub, so campaign context would otherwise
 // be lost before the native app records its first trial event.
+// download_served capture is unchanged; the page only changes what the visitor reads.
 import { POSTHOG_HOST, POSTHOG_KEY, RELEASE_ASSET_URL } from '../data/config.ts';
-
-export const prerender = false;
 
 const TRACKED_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 const POSTHOG_COOKIE_NAME = `ph_${POSTHOG_KEY}_posthog`;
 const CRAWLER_USER_AGENT = /bot|crawl|spider|slurp|preview|headless/i;
+
+export type DownloadHandoff = {
+  downloadUrl: string;
+  deepLink: string;
+};
 
 /**
  * The browser snippet writes its distinct_id to a .tryskilly.app cookie, so
@@ -45,7 +49,7 @@ function publicUrl(request: Request): string {
 
 /**
  * Every download link on the site (hero, nav, Learn, /vs, /dmg) routes through
- * this endpoint, so capturing here counts downloads that click tracking misses.
+ * this page, so capturing here counts downloads that click tracking misses.
  * Awaited with a short timeout because serverless functions can be frozen once
  * the response is returned; a PostHog outage must never block the download.
  */
@@ -92,17 +96,7 @@ function clean(value: string | null): string | null {
   return normalized ? normalized.slice(0, 120) : null;
 }
 
-function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, (character) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  })[character] ?? character);
-}
-
-export const GET = async ({ request }: { request: Request }): Promise<Response> => {
+export async function prepareDownload(request: Request): Promise<DownloadHandoff> {
   const requestUrl = new URL(request.url);
   const handoff = new URLSearchParams({ attribution_id: crypto.randomUUID() });
 
@@ -128,42 +122,8 @@ export const GET = async ({ request }: { request: Request }): Promise<Response> 
 
   await captureDownloadServed(request, handoff, referrerPath);
 
-  const deepLink = `skilly://attribution?${handoff.toString()}`;
-  const downloadUrl = escapeHtml(RELEASE_ASSET_URL);
-  const deepLinkUrl = escapeHtml(deepLink);
-
-  return new Response(`<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Download Skilly for Mac</title>
-    <style>
-      :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fafaf8; color: #26231f; }
-      main { width: min(92vw, 560px); padding: 44px 32px; text-align: center; }
-      h1 { margin: 0 0 12px; font-size: clamp(28px, 6vw, 46px); letter-spacing: -0.04em; }
-      p { margin: 0 auto 26px; max-width: 440px; color: #6f675c; line-height: 1.55; }
-      a { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 12px; font-weight: 700; text-decoration: none; }
-      .download { background: #ff6f3f; color: #fff; }
-      .open { margin-top: 12px; color: #ff6f3f; border: 1px solid #f1c3b3; background: #fff; }
-      small { display: block; margin-top: 22px; color: #8c8378; }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Skilly is ready to teach.</h1>
-      <p>Download the Mac app, then open Skilly from this page after installation so we can keep your campaign source attached to the trial.</p>
-      <a class="download" href="${downloadUrl}" target="_blank" rel="noopener">Download for Mac</a>
-      <a class="open" href="${deepLinkUrl}">I installed Skilly — open it</a>
-      <small>15 minutes free · no card required</small>
-    </main>
-  </body>
-</html>`, {
-    status: 200,
-    headers: {
-      'Cache-Control': 'no-store',
-      'Content-Type': 'text/html; charset=utf-8',
-    },
-  });
-};
+  return {
+    downloadUrl: RELEASE_ASSET_URL,
+    deepLink: `skilly://attribution?${handoff.toString()}`,
+  };
+}

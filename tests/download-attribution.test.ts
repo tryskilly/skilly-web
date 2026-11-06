@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test } from 'bun:test';
-import { GET } from '../src/pages/download.ts';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { prepareDownload } from '../src/lib/download-handoff.ts';
 import { GET as GET_DMG } from '../src/pages/dmg.ts';
 
 type CapturedRequest = { url: string; body: Record<string, any> };
@@ -29,7 +31,7 @@ describe('download_served server-side capture', () => {
       },
     });
 
-    await GET({ request });
+    await prepareDownload(request);
 
     expect(capturedRequests).toHaveLength(1);
     const capturedEvent = capturedRequests[0].body;
@@ -43,7 +45,7 @@ describe('download_served server-side capture', () => {
   });
 
   test('falls back to the attribution id when the visitor has no PostHog cookie', async () => {
-    await GET({ request: new Request('https://tryskilly.app/download', { headers: { 'user-agent': 'Mozilla/5.0' } }) });
+    await prepareDownload(new Request('https://tryskilly.app/download', { headers: { 'user-agent': 'Mozilla/5.0' } }));
 
     const capturedEvent = capturedRequests[0].body;
     expect(capturedEvent.distinct_id).toBe(capturedEvent.properties.attribution_id);
@@ -60,7 +62,7 @@ describe('download_served server-side capture', () => {
       },
     });
 
-    await GET({ request });
+    await prepareDownload(request);
 
     const { properties } = capturedRequests[0].body;
     expect(properties.$current_url).toBe('https://tryskilly.app/download/?utm_source=x');
@@ -68,13 +70,14 @@ describe('download_served server-side capture', () => {
     expect(properties.$raw_user_agent).toBe('Mozilla/5.0 (Macintosh)');
   });
 
-  test('skips crawlers and still serves the page when PostHog is down', async () => {
-    await GET({ request: new Request('https://tryskilly.app/download', { headers: { 'user-agent': 'Googlebot/2.1' } }) });
+  test('skips crawlers and still returns the handoff when PostHog is down', async () => {
+    await prepareDownload(new Request('https://tryskilly.app/download', { headers: { 'user-agent': 'Googlebot/2.1' } }));
     expect(capturedRequests).toHaveLength(0);
 
     globalThis.fetch = (async () => { throw new Error('PostHog unreachable'); }) as unknown as typeof fetch;
-    const response = await GET({ request: new Request('https://tryskilly.app/download') });
-    expect(response.status).toBe(200);
+    const handoff = await prepareDownload(new Request('https://tryskilly.app/download'));
+    expect(handoff.downloadUrl).toContain('Skilly.dmg');
+    expect(handoff.deepLink.startsWith('skilly://attribution?')).toBe(true);
   });
 });
 
@@ -85,28 +88,45 @@ describe('download attribution handoff', () => {
       { headers: { referer: 'https://www.tiktok.com/@tryskilly/video/123' } },
     );
 
-    const response = await GET({ request });
-    const body = await response.text();
+    const handoff = await prepareDownload(request);
 
-    expect(response.status).toBe(200);
-    expect(body).toContain('skilly://attribution?');
-    expect(body).toContain('utm_source=tiktok');
-    expect(body).toContain('utm_medium=organic_social');
-    expect(body).toContain('utm_campaign=launch_2026-09');
-    expect(body).toContain('utm_content=live_cursor_pov');
-    expect(body).toContain('referrer_domain=www.tiktok.com');
-    expect(body).toContain('Download for Mac');
+    expect(handoff.deepLink).toContain('skilly://attribution?');
+    expect(handoff.deepLink).toContain('utm_source=tiktok');
+    expect(handoff.deepLink).toContain('utm_medium=organic_social');
+    expect(handoff.deepLink).toContain('utm_campaign=launch_2026-09');
+    expect(handoff.deepLink).toContain('utm_content=live_cursor_pov');
+    expect(handoff.deepLink).toContain('referrer_domain=www.tiktok.com');
+    expect(handoff.downloadUrl).toContain('Skilly.dmg');
   });
 
-  test('escapes untrusted campaign values before placing them in HTML', async () => {
+  test('encodes untrusted campaign values before they reach the page', async () => {
     const request = new Request(
       'https://tryskilly.app/download?utm_source=%3Cscript%3Ealert(1)%3C%2Fscript%3E',
     );
 
-    const body = await (await GET({ request })).text();
+    const handoff = await prepareDownload(request);
 
-    expect(body).not.toContain('<script>alert(1)</script>');
-    expect(body).toContain('utm_source=%3Cscript%3Ealert%281%29%3C%2Fscript%3E');
+    expect(handoff.deepLink).not.toContain('<script>alert(1)</script>');
+    expect(handoff.deepLink).toContain('utm_source=%3Cscript%3Ealert%281%29%3C%2Fscript%3E');
+  });
+
+  test('the install guide keeps the download handoff and the trial line', () => {
+    const root = join(import.meta.dir, '..');
+    const page = readFileSync(join(root, 'src/pages/download.astro'), 'utf8');
+    const guide = readFileSync(join(root, 'src/components/DownloadInstallGuide.astro'), 'utf8');
+
+    expect(page).toContain('prepareDownload');
+    expect(page).toContain("Cache-Control', 'no-store'");
+    expect(guide).toContain('Download for Mac');
+    expect(guide).toContain('href={downloadUrl}');
+    expect(guide).toContain('href={deepLink}');
+    expect(guide).toContain('15-minute trial, no card');
+    expect(guide).not.toContain('15 minutes free');
+    expect(guide).toContain('data-download-step="install"');
+    expect(guide).toContain('data-download-step="permissions"');
+    expect(guide).toContain('data-download-step="first_question"');
+    expect(guide).toContain("window.posthog.capture('download_page_viewed', { step: step })");
+    expect(guide).toContain('NonMacWaitlist');
   });
 
   test('keeps the legacy dmg alias inside the attribution handoff', () => {
