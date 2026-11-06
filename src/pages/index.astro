@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Logo from '../components/Logo.astro';
 import SkillyWebWidget from '../components/SkillyWebWidget.astro';
 import AskExamples from '../components/AskExamples.astro';
+import PrivacySnapshot from '../components/PrivacySnapshot.astro';
 import VideoModal from '../components/VideoModal.astro';
 import NonMacWaitlist from '../components/NonMacWaitlist.astro';
 import { BROWSER_EXTENSIONS, DOWNLOAD_URL } from '../data/config.ts';
@@ -540,6 +541,8 @@ const faqSchema = {
         </article>
       </div>
     </section>
+
+    <PrivacySnapshot />
 
     <section class="people-trust mx-auto max-w-[1360px] px-5 pb-10 sm:px-8">
       <div class="grid gap-4 rounded-[22px] border border-[#f0e0d7] bg-white px-5 py-5 shadow-[0_10px_24px_rgba(111,73,48,0.04)] md:grid-cols-4 md:px-7">
