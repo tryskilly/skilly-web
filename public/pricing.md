@@ -59,7 +59,7 @@ Hosted plan during the beta. Annual billing launches post-beta.
 ### What's included
 - 3 hours of live AI tutoring per month
 - Works with any macOS app on your Mac (no skill required for basic use)
-- Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma, with Houdini also available
+- Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon and not bundled in the app yet.
 - 16 languages with auto-detection
 - 8 AI voices (Alloy, Echo, Fable, Onyx, Nova, Shimmer, Sage, Breeze)
 - Multi-monitor support — works across all connected displays
