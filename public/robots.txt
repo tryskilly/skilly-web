@@ -8,45 +8,57 @@
 
 User-agent: *
 Allow: /
+Disallow: /checkout-success
 
 # OpenAI — ChatGPT with search
 User-agent: GPTBot
 Allow: /
+Disallow: /checkout-success
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /checkout-success
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /checkout-success
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
+Disallow: /checkout-success
 
 # Anthropic — Claude
 User-agent: ClaudeBot
 Allow: /
+Disallow: /checkout-success
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /checkout-success
 
 User-agent: Claude-Web
 Allow: /
+Disallow: /checkout-success
 
 # Google — Gemini and AI Overviews
 User-agent: Google-Extended
 Allow: /
+Disallow: /checkout-success
 
 User-agent: GoogleOther
 Allow: /
+Disallow: /checkout-success
 
 # Microsoft — Bing and Copilot
 User-agent: Bingbot
 Allow: /
+Disallow: /checkout-success
 
 # Apple Intelligence
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /checkout-success
 
 # Common Crawl — used for LLM training, not citation. Block to avoid
 # uncompensated training corpus inclusion while keeping citation-time

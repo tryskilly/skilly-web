@@ -1,11 +1,17 @@
 ---
 // src/pages/checkout-success.astro
+// Polar returns Mac and BYOK payers to /checkout-success?uid=… (no trailing
+// slash). trailingSlash: 'always' 308s that form to /checkout-success/ before
+// any page route runs; both forms still render this page. A per-path 200 would
+// require a Vercel route ahead of that enforcer.
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
+
+const deepLink = 'skilly://checkout-success';
 ---
-<Layout title="Welcome to Skilly Pro" description="Your subscription is active." productLine="people" funnelStage="conversion" noindex>
+<Layout title="You're in — Skilly" description="Your subscription is active. Open Skilly to continue." productLine="people" funnelStage="conversion" noindex>
   <Nav />
   <main class="flex min-h-[70vh] items-center justify-center bg-[#fffefa] px-6">
     <div class="text-center max-w-md">
@@ -14,68 +20,60 @@ import Button from '../components/Button.astro';
       </div>
       <h1 class="mb-3 text-3xl font-bold text-[#24211f]">You're in!</h1>
       <p class="mb-6 text-lg text-[#6f6864]">
-        Skilly Pro is now active. You've got 3 hours of AI tutoring this month — open the app and start learning.
+        Thanks for subscribing. Open Skilly and your plan will refresh on its own.
       </p>
       <Button
-        href="skilly://checkout-success"
+        href={deepLink}
         variant="people-primary"
         size="lg"
         class="mb-4"
+        data-ph-event="checkout_open_app_clicked"
+        data-ph-prop-location="checkout_success"
       >
         Open Skilly
       </Button>
       <p class="text-sm text-[#756e69]">
-        Skilly should refresh your plan automatically. If it doesn't, quit and reopen the app.
+        Skilly didn't open? Make sure it's in Applications and open it from there.
+        <a href="/download/" class="font-medium text-[#24211f] underline underline-offset-2">Download Skilly</a>
+        if it isn't installed yet, then follow the install steps: open the disk image and move Skilly into Applications.
       </p>
     </div>
   </main>
   <Footer />
-  <script>
-    // PostHog identification for the checkout success moment.
-    //
-    // The Cloudflare Worker's /checkout/create builds a Polar success_url
-    // containing ?uid=<workos_user_id>. When Polar redirects the user here
-    // after a successful subscription, we read that uid and call
-    // posthog.identify() with it — using the same distinct_id the macOS app
-    // uses — so this browser-side checkout moment and the app-side events
-    // land on the same PostHog person profile.
-    //
-    // We then strip the uid from the URL via history.replaceState so the
-    // WorkOS user ID never:
-    //   - appears in the browser address bar beyond the first paint,
-    //   - ends up in the browser history,
-    //   - leaks via referrer headers on outbound links.
-    //
-    // Layout.astro now uses persistent first-party PostHog storage, so this
-    // identify call stitches checkout success to prior marketing activity and
-    // to the WorkOS-keyed macOS app profile.
+  <script is:inline define:vars={{ deepLink }}>
+    // uid is the WorkOS id Polar was given so this browser can identify the
+    // same PostHog person as the Mac app. The deep link does not take it:
+    // the app only matches the host checkout-success and refreshes entitlement.
     (() => {
       const params = new URLSearchParams(window.location.search);
       const uid = params.get('uid');
-      if (!uid) return;
-
-      window.posthog?.identify(uid, {
-        source: 'web_checkout',
-        source_surface: 'marketing_site',
-      });
-      window.posthog?.capture('web_checkout_completed', {
+      const props = {
         source: 'web_checkout',
         source_surface: 'marketing_site',
         product_line: 'people',
         funnel_stage: 'conversion',
-      });
-      window.gtag?.('event', 'web_checkout_completed', {
-        source: 'web_checkout',
-        source_surface: 'marketing_site',
-        product_line: 'people',
-        funnel_stage: 'conversion',
-      });
+      };
 
-      params.delete('uid');
-      const cleanedQuery = params.toString();
-      const cleanedUrl =
-        window.location.pathname + (cleanedQuery ? `?${cleanedQuery}` : '') + window.location.hash;
-      window.history.replaceState({}, document.title, cleanedUrl);
+      window.posthog?.capture('checkout_success_viewed', props);
+
+      if (uid) {
+        window.posthog?.identify(uid, {
+          source: 'web_checkout',
+          source_surface: 'marketing_site',
+        });
+        window.posthog?.capture('web_checkout_completed', props);
+        window.gtag?.('event', 'web_checkout_completed', props);
+
+        params.delete('uid');
+        const cleanedQuery = params.toString();
+        const cleanedUrl =
+          window.location.pathname + (cleanedQuery ? `?${cleanedQuery}` : '') + window.location.hash;
+        window.history.replaceState({}, document.title, cleanedUrl);
+      }
+
+      window.setTimeout(() => {
+        window.location.assign(deepLink);
+      }, 300);
     })();
   </script>
 </Layout>
