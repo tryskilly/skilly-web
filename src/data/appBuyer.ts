@@ -161,6 +161,90 @@ export const appBuyerPages: AppBuyerPage[] = [
       },
     ],
   },
+  {
+    slug: 'after-effects',
+    pageTitle: 'AI for After Effects that points at the panel | Skilly',
+    description:
+      'AI for After Effects when a panel hides the control. Ask out loud and Skilly points at it. It never clicks. 15-minute trial, no card. macOS 14.2 or later.',
+    h1: 'AI for After Effects that points at the panel',
+    intro:
+      'AI for After Effects when the panel you need is already on screen. Ask out loud. Skilly points at it. It never clicks, and it never moves your cursor.',
+    tutorHeading: 'An AI assistant for After Effects',
+    tutorParagraphs: [
+      'The bundled skill is After Effects Basics. It is an AI assistant for After Effects: it teaches the current interface and points at the panel on screen instead of describing a menu you cannot see.',
+      'The skill covers the five core panels (Project, Composition, Timeline, Tools, and the right-side column), then layers, keyframes, effects, masks versus shape layers, text animators, and a render through the Render Queue or Adobe Media Encoder.',
+    ],
+    stages: [
+      'Interface and Navigation',
+      'Layers and the Layer Stack',
+      'Keyframing and Animation',
+      'Effects and Effect Controls',
+      'Masks and Shape Layers',
+      'Text Animation',
+      'Rendering and Export',
+    ],
+    skillFileHref: 'https://github.com/tryskilly/skilly/blob/main/skills/after-effects-basics/SKILL.md',
+    skillFileLabel: 'After Effects Basics skill',
+    moment:
+      'Ask “how do I keyframe position so this layer moves?” and Skilly points at the stopwatch icon next to Position in the Timeline.',
+    faqs: [
+      {
+        question: 'What does Skilly do in After Effects?',
+        answer:
+          'The After Effects Basics skill teaches seven stages, from the core panels to the Render Queue. Ask out loud and Skilly points at the control that stage names, such as the Composition panel or the stopwatch next to Position.',
+      },
+      {
+        question: 'Does Skilly click in After Effects?',
+        answer: 'Skilly points at the control. It never clicks, and it never moves your cursor. You press the button.',
+      },
+      {
+        question: 'What does it cost?',
+        answer: priceAnswer,
+      },
+    ],
+  },
+  {
+    slug: 'figma',
+    pageTitle: 'Figma AI assistant for Mac | Skilly',
+    description:
+      'AI for Figma when the toolbar hides the control. Ask out loud and Skilly points at it. It never clicks. 15-minute trial, no card. macOS 14.2 or later.',
+    h1: 'Figma AI assistant that points at the control',
+    intro:
+      'AI for Figma when the toolbar is at the bottom and the control is already on screen. Ask out loud. Skilly points at it. It never clicks, and it never moves your cursor.',
+    tutorHeading: 'A Figma AI assistant',
+    tutorParagraphs: [
+      'The bundled skill is Figma Basics. It teaches the Figma Design interface as of the UI3 redesign, and it is written to point at the control on screen instead of describing a panel you cannot see.',
+      'The skill covers the canvas and the toolbar at the bottom of the editor, frames, auto layout (Hug, Fill, and Fixed), components and instances, variants, and a prototype you start from the Present button.',
+    ],
+    stages: [
+      'Canvas and Navigation',
+      'Shapes and the Frame Tool',
+      'Layers Panel and Selection',
+      'Auto Layout',
+      'Components and Instances',
+      'Variants and Component Properties',
+      'Prototyping Basics',
+    ],
+    skillFileHref: 'https://github.com/tryskilly/skilly/blob/main/skills/figma-basics/SKILL.md',
+    skillFileLabel: 'Figma Basics skill',
+    moment:
+      'Ask “how do I add auto layout to this frame?” and Skilly points at the Add auto layout button in the Design tab.',
+    faqs: [
+      {
+        question: 'What does Skilly do in Figma?',
+        answer:
+          'The Figma Basics skill teaches seven stages, from moving around the canvas to presenting a prototype. Ask out loud and Skilly points at the control that stage names, such as the toolbar at the bottom of the editor or the Add auto layout button in the Design tab.',
+      },
+      {
+        question: 'Does Skilly click in Figma?',
+        answer: 'Skilly points at the control. It never clicks, and it never moves your cursor. You press the button.',
+      },
+      {
+        question: 'What does it cost?',
+        answer: priceAnswer,
+      },
+    ],
+  },
 ];
 
 export function appBuyerBySlug(slug: string): AppBuyerPage | undefined {

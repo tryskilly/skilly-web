@@ -11,6 +11,8 @@ describe('buyer-intent app landers', () => {
       'blender',
       'premiere-pro',
       'davinci-resolve',
+      'after-effects',
+      'figma',
     ]);
 
     for (const page of appBuyerPages) {
@@ -48,6 +50,19 @@ describe('buyer-intent app landers', () => {
     const davinci = appBuyerPages[2];
     expect(davinci.pageTitle.toLowerCase()).toContain('ai for davinci resolve');
     expect(davinci.tutorHeading).toBe('An AI assistant for DaVinci Resolve');
+
+    const afterEffects = appBuyerPages[3];
+    expect(afterEffects.pageTitle.toLowerCase()).toContain('ai for after effects');
+    expect(afterEffects.description.toLowerCase()).toContain('ai for after effects');
+    expect(afterEffects.tutorHeading).toBe('An AI assistant for After Effects');
+    expect(afterEffects.skillFileHref).toContain('skills/after-effects-basics/SKILL.md');
+
+    const figma = appBuyerPages[4];
+    expect(figma.pageTitle.toLowerCase()).toContain('figma ai assistant');
+    expect(figma.h1.toLowerCase()).toContain('figma ai assistant');
+    expect(figma.description.toLowerCase()).toContain('ai for figma');
+    expect(figma.intro.toLowerCase()).toContain('ai for figma');
+    expect(figma.skillFileHref).toContain('skills/figma-basics/SKILL.md');
   });
 });
 
