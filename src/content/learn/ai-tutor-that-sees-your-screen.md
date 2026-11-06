@@ -1,8 +1,8 @@
 ---
-title: "AI Tutors That See Your Screen: 2026 Guide"
-description: "Compare screen-aware AI tutors for Mac and Windows by pointing, voice, privacy, app support, and price—without confusing them with chatbots."
+title: "AI Tutor That Sees Your Screen: 2026 Guide"
+description: "A screen-aware AI assistant, compared with other tutors that see your screen. Pointing, voice, privacy, app support, and price."
 pubDate: 2026-08-04
-updatedDate: 2026-08-04
+updatedDate: 2026-11-06
 author: "Mohamed Saleh Zaied"
 category: comparison
 tags:
@@ -16,11 +16,11 @@ faq:
   - question: "What is an AI tutor that sees your screen?"
     answer: "It is a desktop tool that uses the visible app or a screenshot as context, accepts a spoken or typed question, and explains the next step. The strongest tutoring tools also point at the relevant control instead of only describing it in text."
   - question: "Can ChatGPT see my Mac screen continuously?"
-    answer: "OpenAI's current Voice documentation distinguishes mobile Advanced Voice screen sharing from desktop Voice and Work/Codex controls. Availability depends on the voice mode, plan, app, and workspace. For general cross-app Mac tutoring, verify the exact desktop capability you need instead of assuming mobile screen sharing behaves the same way."
+    answer: "This site's guide, Share your screen with ChatGPT on Mac, cites OpenAI's Voice documentation for what screen sharing covers. Availability depends on the voice mode, plan, app, and workspace. Do not assume the mobile Share Screen control is in the Mac app."
   - question: "Is it safe to let an AI tutor see my screen?"
     answer: "It depends on when capture happens, what is transmitted, whether frames are retained, and whether you can stop capture immediately. Prefer push-to-talk or explicit sessions, close sensitive windows, review the vendor's current privacy policy, and remove macOS Screen & System Audio Recording permission when you no longer use the app."
   - question: "Which screen-aware tutor works on Mac?"
-    answer: "As of August 4, 2026, Skilly and Clacky publicly offer Mac versions. Clicky publicly targets Windows 10 and 11. Platform claims change quickly, so confirm the vendor's download page before choosing."
+    answer: "As of August 4, 2026, the comparison on this page — sourced to each vendor's public site — lists Skilly and Clacky on Mac, and Clicky on Windows 10 and 11. Platform claims change quickly, so confirm the vendor's download page before choosing."
   - question: "What should I test before paying?"
     answer: "Open a real app you struggle with and ask a location-specific question such as 'which control changes the corner radius?' Check whether the tutor identifies the correct version of the app, points at the correct control, waits for follow-up questions, and clearly explains its screen-data policy."
 relatedArticles:
@@ -36,7 +36,7 @@ midCta:
 
 An **AI tutor that sees your screen** is useful for one narrow reason: you should not have to describe a crowded interface before asking for help.
 
-If you are stuck in Blender, Figma, Xcode, DaVinci Resolve, or another complex app, a normal chatbot starts without the most important context. You type the panel name, upload screenshots, explain your app version, and translate its answer back into a button on your screen. A screen-aware tutor can start from what is already visible.
+If you are stuck in Premiere Pro, DaVinci Resolve, After Effects, Blender, Figma, or another Mac app, a normal chatbot starts without the most important context. You type the panel name, upload screenshots, explain your app version, and translate its answer back into a button on your screen. A screen-aware tutor can start from what is already visible.
 
 That does not make every screen-aware tool a tutor. Some tools summarize meetings. Some remember everything you viewed. Some perform tasks for you. A tutor should help you understand the next step and keep you in control.
 
@@ -46,7 +46,7 @@ That does not make every screen-aware tool a tutor. Some tools summarize meeting
 
 ### 1. Does it point, or only answer?
 
-"Open the modifier panel" is still work if you do not know where that panel is. Visual pointing—a cursor movement, highlight, or marker anchored to the actual control—is the clearest difference between a screen-aware chatbot and a teaching tool.
+"Open the modifier panel" is still work if you do not know where that panel is. Visual pointing—a highlight or marker on the actual control—is the clearest difference between a screen-aware chatbot and a teaching tool.
 
 Test this with a question whose answer is spatial: "Where do I change this frame's Auto Layout gap?" A good tutor should identify the correct panel and show you where to look.
 
@@ -88,17 +88,33 @@ Conversation limits, session minutes, bring-your-own-key plans, and unlimited su
 
 | Tool | Public platform | Screen-aware voice tutoring | Visual pointing | Public starting point |
 |---|---|---|---|---|
-| **Skilly** | macOS | Yes; push-to-talk and Live Tutor modes | Moves the cursor to the relevant control | 15 minutes free, then $19/month beta plan |
+| **Skilly** | macOS 14.2 or later | Yes. Push-to-talk (default Control+Option) and Live Tutor mode | Points at the control. It never clicks, and it never moves your cursor. | 15-minute trial, no card, then $19/month |
 | **Clacky** | macOS | Yes; public site says it captures what you are viewing and answers aloud | Public site advertises visual pointing | Free 20 conversations/month; Pro $20/month |
 | **Clicky** | Windows 10/11 | Yes; hotkey or local wake word | Public site advertises pixel-level pointing and highlights | Free and open source |
 
-Sources: [Clacky](https://www.useclacky.com/) and [Clicky](https://clicky.foo/), checked August 4, 2026. We built Skilly, so treat our own row as a product claim and test it during the free trial.
+Sources: [Clacky](https://www.useclacky.com/) and [Clicky](https://clicky.foo/), checked August 4, 2026. We built Skilly, so treat our own row as a product claim and check it on the 15-minute trial, no card.
+
+Skilly for People Beta — $19/month, with 3 hours of live AI tutoring per month. Bring your own OpenAI key: $5/month plus your OpenAI usage. [Full pricing](/pricing/).
+
+How Skilly handles your screen: a JPEG of your displays when you ask. Not a continuous recording. [How Skilly handles your screen, voice, and data](/privacy-first/).
 
 This is not a ranking. Platform fit eliminates most choices immediately. After that, the right answer depends on whether you value guided curricula, local/open-source control, conversation limits, or a hosted service.
 
+## Skilly for your app
+
+Built-in skills cover Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon and not bundled in the app yet. Open the app you are stuck in, ask one of these out loud, and Skilly points at the control. It never clicks, and it never moves your cursor.
+
+- [Premiere Pro](/premiere-pro/) — "Where are the Source Monitor and the Timeline?"
+- [DaVinci Resolve](/davinci-resolve/) — "How do I switch from the Edit page to Color?"
+- [After Effects](/after-effects/) — "How do I keyframe position so this layer moves?"
+- [Blender](/blender/) — "Where do I add a Bevel modifier?"
+- [Figma](/figma/) — "How do I add auto layout to this frame?"
+
+Each question is a task that app's bundled skill teaches.
+
 ## Screen-aware tutor versus a general chatbot
 
-Choose a general chatbot when you want research, writing, brainstorming, or a broad technical explanation. Choose a screen-aware tutor when the obstacle is the interface in front of you.
+Choose a general chatbot when you want research, writing, brainstorming, or a broad technical explanation. Choose a screen-aware tutor when the obstacle is the interface in front of you. What OpenAI documents for screen sharing on a Mac is in [Share your screen with ChatGPT on Mac](/learn/chatgpt-screen-sharing-mac/), which cites OpenAI's Voice documentation.
 
 A useful rule:
 
