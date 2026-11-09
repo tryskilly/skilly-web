@@ -1,8 +1,9 @@
 ---
 // src/pages/learn/[...slug].astro
 // Dynamic route — renders every markdown article in the learn collection.
-// Articles with midCta split on <!-- skilly-mid-cta --> so the CTA is in the
-// static HTML, immediately after the step where the reader is stuck.
+// Articles with CTA markers split so the buttons are in the static HTML:
+// <!-- skilly-top-cta --> after the opening answer, <!-- skilly-mid-cta -->
+// after the step where the reader is stuck.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
@@ -21,37 +22,69 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const articleSlug = entry.id.replace(/\.md$/, '');
 const midCta = entry.data.midCta;
-const marker = '<!-- skilly-mid-cta -->';
+const TOP_MARKER = '<!-- skilly-top-cta -->';
+const MID_MARKER = '<!-- skilly-mid-cta -->';
 
-let beforeHtml = '';
-let afterHtml = '';
+type Segment =
+  | { kind: 'html'; html: string }
+  | { kind: 'top' }
+  | { kind: 'mid' };
 
-if (midCta) {
-  const raw = readFileSync(join(process.cwd(), 'src/content/learn', `${articleSlug}.md`), 'utf8');
-  const body = raw.replace(/^---[\s\S]*?---\n?/, '');
-  if (!body.includes(marker)) {
-    throw new Error(`${articleSlug} sets midCta but has no ${marker} marker`);
-  }
-  const [before, after] = body.split(marker);
+let segments: Segment[] | null = null;
+
+const raw = readFileSync(join(process.cwd(), 'src/content/learn', `${articleSlug}.md`), 'utf8');
+const body = raw.replace(/^---[\s\S]*?---\n?/, '');
+const topCount = body.split(TOP_MARKER).length - 1;
+const midCount = body.split(MID_MARKER).length - 1;
+
+if (topCount > 1) {
+  throw new Error(`${articleSlug} has ${topCount} ${TOP_MARKER} markers`);
+}
+if (midCount > 1) {
+  throw new Error(`${articleSlug} has ${midCount} ${MID_MARKER} markers`);
+}
+if (midCta && midCount !== 1) {
+  throw new Error(`${articleSlug} sets midCta but has no ${MID_MARKER} marker`);
+}
+if (!midCta && midCount > 0) {
+  throw new Error(`${articleSlug} has ${MID_MARKER} but no midCta frontmatter`);
+}
+
+if (topCount > 0 || midCount > 0) {
   const processor = await createMarkdownProcessor();
-  beforeHtml = (await processor.render(before)).code;
-  afterHtml = (await processor.render(after ?? '')).code;
+  const parts = body.split(/<!-- skilly-(top|mid)-cta -->/);
+  segments = [];
+  for (let index = 0; index < parts.length; index += 1) {
+    const part = parts[index] ?? '';
+    if (index % 2 === 0) {
+      if (!part.trim()) continue;
+      segments.push({ kind: 'html', html: (await processor.render(part)).code });
+    } else if (part === 'top') {
+      segments.push({ kind: 'top' });
+    } else {
+      segments.push({ kind: 'mid' });
+    }
+  }
 }
 
 const { Content } = await render(entry);
 ---
 <LearnLayout entry={entry}>
-  {midCta ? (
-    <>
-      <div class="contents" set:html={beforeHtml} />
-      <LearnMidArticleCta
-        moment={midCta.moment}
-        landerHref={midCta.landerHref}
-        landerLabel={midCta.landerLabel}
-        articleSlug={articleSlug}
-      />
-      <div class="contents" set:html={afterHtml} />
-    </>
+  {segments ? (
+    segments.map((segment) => (
+      segment.kind === 'html' ? (
+        <div class="contents" set:html={segment.html} />
+      ) : segment.kind === 'top' ? (
+        <LearnMidArticleCta placement="top" articleSlug={articleSlug} />
+      ) : (
+        <LearnMidArticleCta
+          moment={midCta!.moment}
+          landerHref={midCta!.landerHref}
+          landerLabel={midCta!.landerLabel}
+          articleSlug={articleSlug}
+        />
+      )
+    ))
   ) : (
     <Content />
   )}

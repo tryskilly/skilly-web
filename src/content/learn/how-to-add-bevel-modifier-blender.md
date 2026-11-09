@@ -54,6 +54,8 @@ This guide is the fastest path to a clean bevel in Blender 5.1, plus the paramet
 
 > UI labels and behavior were rechecked August 4, 2026 against the current [official Blender Bevel modifier manual](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html). If a label differs, confirm your installed Blender version under **Help → About Blender** and select that version in the manual.
 
+<!-- skilly-top-cta -->
+
 ## When to use the Bevel modifier (vs the Bevel tool)
 
 Blender has two ways to bevel:

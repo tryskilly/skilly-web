@@ -47,6 +47,8 @@ Learn to move around the Figma canvas — the foundation for everything that fol
 
 > **Lesson 1 of the Figma curriculum.** Next up: [Shapes and the Frame Tool](/learn/figma-shapes-and-the-frame-tool/).
 
+<!-- skilly-top-cta -->
+
 ## What you'll do
 
 - Pan with the Hand tool or by holding Space and dragging

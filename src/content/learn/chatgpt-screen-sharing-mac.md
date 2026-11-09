@@ -38,6 +38,8 @@ midCta:
 
 That's why two people can follow the same "share your screen with ChatGPT" tutorial and see different controls: OpenAI rolls out Voice features by experience, platform, plan, region, and workspace.
 
+<!-- skilly-top-cta -->
+
 > Verified August 4, 2026 against [OpenAI's current ChatGPT Voice documentation](https://help.openai.com/en/articles/8400625-voice-mode-faq) and [Apple's screen-recording permission guide](https://support.apple.com/guide/mac-help/allow-apps-to-use-screen-and-audio-recording-mchl592e5686/mac). OpenAI rolls out Voice features by plan, platform, region, and workspace, so check the live help page for your account.
 
 ## What OpenAI currently documents

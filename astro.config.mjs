@@ -4,11 +4,13 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
-import { loadLearnLastmodMap } from './scripts/seo-sitemap.mjs';
+import { loadContentLastmodMap, loadLearnLastmodMap } from './scripts/seo-sitemap.mjs';
 
+const repoRoot = fileURLToPath(new URL('.', import.meta.url));
 const learnLastmods = await loadLearnLastmodMap(
   fileURLToPath(new URL('./src/content/learn/', import.meta.url)),
 );
+const contentLastmods = loadContentLastmodMap(repoRoot);
 
 export default defineConfig({
   site: 'https://tryskilly.app',
@@ -45,7 +47,8 @@ export default defineConfig({
         return pathname !== '/audit/' && pathname !== '/checkout-success/';
       },
       serialize: (item) => {
-        const lastmod = learnLastmods.get(new URL(item.url).pathname);
+        const pathname = new URL(item.url).pathname;
+        const lastmod = learnLastmods.get(pathname) ?? contentLastmods.get(pathname);
         return lastmod ? { ...item, lastmod } : item;
       },
     }),

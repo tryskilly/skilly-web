@@ -52,6 +52,8 @@ midCta:
 
 The same steps apply to any Mac app that records, mirrors, or analyzes your screen: Zoom, OBS, Loom, CleanShot, Skilly, AnyDesk. The rest of this guide covers the panel names by macOS version, the weekly re-prompt, and what to do when the switch is on but the app still says access is denied.
 
+<!-- skilly-top-cta -->
+
 > Updated 2026-08-04 against Apple's official guide at [support.apple.com/guide/mac-help/control-access-screen-system-audio-recording-mchld6aa7d23/mac](https://support.apple.com/guide/mac-help/control-access-screen-system-audio-recording-mchld6aa7d23/mac). The procedure changed slightly in **Tahoe 26** (the panel is now called *Screen & System Audio Recording*) and gained a weekly re-prompt in **Sequoia 15** (15.0+).
 
 ## How do I allow screen recording on a Mac?

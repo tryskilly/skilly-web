@@ -40,6 +40,8 @@ If you are stuck in Premiere Pro, DaVinci Resolve, After Effects, Blender, Figma
 
 That does not make every screen-aware tool a tutor. Some tools summarize meetings. Some remember everything you viewed. Some perform tasks for you. A tutor should help you understand the next step and keep you in control.
 
+<!-- skilly-top-cta -->
+
 > Product capabilities and prices below were verified on August 4, 2026 against the vendors' public sites. This category changes quickly; the linked vendor page is the final source of truth.
 
 ## The five things that matter
