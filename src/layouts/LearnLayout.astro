@@ -197,8 +197,8 @@ const ctaHeadline = targetsBuilders
 const ctaDescription = targetsBuilders
   ? 'Import your site and docs, preview a voice-first guide, and install it with one script tag.'
   : articleApp
-    ? `Skilly sees your ${articleApp} window, hears your question, and points at the exact control to use. Try it for 15 minutes free — no card.`
-    : 'Skilly sees the Mac app you are using, hears your question, and points at the exact control to use. Try it for 15 minutes free — no card.';
+    ? `Skilly sees your ${articleApp} window, hears your question, and points at the exact control to use. 15-minute trial, no card.`
+    : 'Skilly sees the Mac app you are using, hears your question, and points at the exact control to use. 15-minute trial, no card.';
 const ctaEyebrow = targetsBuilders ? 'Build on what you just learned' : 'Try it on what you are learning';
 const studioCtaUrl = new URL('https://studio.tryskilly.app/signup');
 studioCtaUrl.searchParams.set('utm_source', 'tryskilly-web');
@@ -512,7 +512,7 @@ const relatedArticles = allLearnEntries
       data-ph-prop-cta-text={ctaText}
       class="inline-flex shrink-0 items-center rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-950 transition-colors hover:bg-amber-600"
     >
-      <span class="sm:hidden">Try free</span>
+      <span class="sm:hidden">Download</span>
       <span class="hidden sm:inline">{ctaText}</span>
     </a>
     {!targetsBuilders && (

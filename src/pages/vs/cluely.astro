@@ -16,7 +16,7 @@ import { trackedDownloadUrl } from '../../data/config.ts';
 
 const title = 'Skilly vs Cluely: Which Screen Assistant Fits?';
 const description =
-  'Compare Skilly vs Cluely for screen-aware AI help: tutoring versus meeting assistance, privacy, platforms, pricing, open-source access, and a free trial.';
+  'Compare Skilly vs Cluely for screen-aware AI help: tutoring versus meeting assistance, privacy, platforms, pricing, open-source access, and a 15-minute trial.';
 
 const comparisonRows = [
   { feature: 'Primary use case', skilly: 'Live tutor for any app you are learning (Blender, Figma, Xcode…)', cluely: 'Real-time assistant during live meetings, calls, sales pitches, and interviews — marketed as "undetectable"' },
@@ -28,7 +28,7 @@ const comparisonRows = [
   { feature: 'Model layer', skilly: 'Single-call OpenAI Realtime API (voice-to-voice, lower latency)', cluely: 'Multi-model, proprietary pipeline' },
   { feature: 'Privacy posture', skilly: 'Screen capture gated by voice activity. macOS Screen Recording permission required and revokable anytime.', cluely: 'Continuous screen + audio access during an active session' },
   { feature: 'Open source', skilly: 'Yes — Apache-2.0 (fork of farzaa/clicky, MIT)', cluely: 'No — proprietary' },
-  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', cluely: 'Paid tiers starting around $20/month' },
+  { feature: 'Pricing', skilly: '15-minute trial, no card, then $19/month for 3 hours of tutoring', cluely: 'Paid tiers starting around $20/month' },
 ];
 
 const productSchema = {
@@ -63,7 +63,7 @@ const productSchema = {
     </p>
     <h2>Is Skilly a Cluely alternative?</h2>
     <p>
-      Skilly is an open-source alternative to Cluely if your goal is on-screen help rather than live-call assistance. Skilly costs $19/month after a 15-minute free trial (no credit card). Skilly is built natively in Swift on the macOS ScreenCaptureKit framework with the OpenAI Realtime API. The full source code is at github.com/tryskilly/skilly under Apache-2.0.
+      Skilly is an open-source alternative to Cluely if your goal is on-screen help rather than live-call assistance. Skilly costs $19/month after a 15-minute trial (no credit card). Skilly is built natively in Swift on the macOS ScreenCaptureKit framework with the OpenAI Realtime API. The full source code is at github.com/tryskilly/skilly under Apache-2.0.
     </p>
   </div>
 
@@ -108,7 +108,7 @@ const productSchema = {
           </div>
           <p class="text-gray-600 leading-relaxed text-[15px]">
             You are <strong class="text-gray-900">learning a new app</strong> (Blender, Figma, Xcode, Photoshop) and you want a tutor that answers
-            &ldquo;how do I do this&rdquo; out loud and <strong class="text-gray-900">moves your cursor to the exact spot</strong>.
+            &ldquo;how do I do this&rdquo; out loud and <strong class="text-gray-900">points at the control. It never clicks</strong>.
             You prefer an open-source Mac-native tool that only records when you actually speak.
           </p>
         </div>
@@ -156,7 +156,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly cheaper than Cluely?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                Skilly is $19 per month after a 15-minute free trial (no credit card required). Cluely's paid tiers start around $20 per month. Skilly is also open source under Apache-2.0. Bring your own OpenAI key is $5/month plus your OpenAI usage. Cluely is proprietary with no self-hosted option.
+                Skilly is $19 per month after a 15-minute trial (no credit card required). Cluely's paid tiers start around $20 per month. Skilly is also open source under Apache-2.0. Bring your own OpenAI key is $5/month plus your OpenAI usage. Cluely is proprietary with no self-hosted option.
               </p>
             </div>
           </div>
@@ -188,7 +188,7 @@ const productSchema = {
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">How do I switch from Cluely to Skilly?</h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">
-                Download Skilly from tryskilly.app — it's a single .dmg, ~30MB. Cancel your Cluely subscription separately. There's no data migration because Skilly doesn't store anything from your sessions (audio and screenshots stream live to OpenAI and vanish after each session). The 15-minute free trial gives you enough time to confirm the cursor-pointing + voice tutor flow fits your workflow before committing to $19/month.
+                Download Skilly from tryskilly.app — it's a single .dmg, ~30MB. Cancel your Cluely subscription separately. There's no data migration because Skilly doesn't store anything from your sessions (audio and screenshots stream live to OpenAI and vanish after each session). The 15-minute trial gives you enough time to confirm the cursor-pointing + voice tutor flow fits your workflow before committing to $19/month.
               </p>
             </div>
           </div>
@@ -200,7 +200,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want to try Skilly?</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
+        <p class="text-gray-600 mb-6">15-minute trial, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
         <Button
           data-mac-download
           href={trackedDownloadUrl('vs', 'vs_cluely', 'cluely')}

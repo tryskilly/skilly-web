@@ -37,11 +37,15 @@ howTo:
       text: "For network rendering, use the **HQueue** or render farm submission tool; for local farms, render in the background with `hrender` from the command line"
 faq:
   - question: "What's the fastest way to learn karma rendering in Houdini?"
-    answer: "Work through the steps on this page in Houdini itself, on your own project. For hands-free help, Skilly is a voice tutor that sees your screen and points at the exact button as you go, so you learn by doing instead of pausing a video. Skilly works in any Mac app; Houdini support is coming soon. 15-minute free trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage."
+    answer: "Work through the steps on this page in Houdini itself, on your own project. For hands-free help, Skilly is a voice tutor that sees your screen and points at the exact button as you go, so you learn by doing instead of pausing a video. Skilly works in any Mac app; Houdini support is coming soon. 15-minute trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage."
   - question: "Do I need the paid version of Houdini?"
     answer: "No — everything in this karma rendering lesson works in the standard version of Houdini on macOS. A few advanced features may require a paid tier, which we call out where relevant."
 canonicalKeyword: "houdini karma tutorial"
 relatedArticles: []
+midCta:
+  moment: "When the viewport shows a picture but no file is saved, add a USD Render ROP. The Houdini skill is coming soon. In the Mac app you have open, Skilly points at the control."
+  landerHref: "/#try-asking"
+  landerLabel: "Try asking"
 ---
 
 **Quick answer:** in `/stage`, add a camera and lights, drop a **Karma Render Settings LOP**, preview with the Karma viewport renderer, then connect a **USD Render ROP** and render an EXR sequence.
@@ -101,6 +105,8 @@ $HIP/render/karma/beauty.$F4.exr
 
 `$F4` creates zero-padded frame numbers such as `beauty.0001.exr`. Without a frame token, an animation can overwrite the same file on every frame.
 
+<!-- skilly-mid-cta -->
+
 ### 7. Match and render the frame range
 
 Set the render range to the frames actually cached by your simulation. Render one representative frame first, open the output file, and verify the camera, resolution, color, and AOVs. Then render the full range through the USD Render ROP.
@@ -139,7 +145,7 @@ XPU supports MaterialX, USD Preview Surface, and Karma-specific nodes, while leg
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; finding the right Solaris node while Houdini is open is another. [Skilly](/) is a voice-first tutor for macOS: ask “where do I add the USD Render ROP?” and get guidance against the Houdini window already on your screen. Start free with no card.
+Reading steps is one thing; finding the right Solaris node while Houdini is open is another. [Skilly](/) is a voice-first tutor for macOS: ask “where do I add the USD Render ROP?” and get guidance against the Houdini window already on your screen. 15-minute trial, no card. The Houdini skill is coming soon.
 
 ## Keep going
 

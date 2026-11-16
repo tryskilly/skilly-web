@@ -26,7 +26,7 @@ const comparisonRows = [
   { feature: 'Platform', skilly: 'Native macOS menu bar (14.0+)', raycast: 'Native macOS app, Raycast Pro adds AI' },
   { feature: 'Best learning use', skilly: 'Learning a new app (Blender, Figma, etc.) with zero friction', raycast: 'Quick factual Q&A while keeping your hands on the keyboard' },
   { feature: 'Open source', skilly: 'Yes — Apache-2.0 (fork of farzaa/clicky, MIT)', raycast: 'Extensions are open, core app is proprietary' },
-  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', raycast: 'Free core, Raycast Pro $8/month or $16/month for AI' },
+  { feature: 'Pricing', skilly: '15-minute trial, no card, then $19/month for 3 hours of tutoring', raycast: 'Free core, Raycast Pro $8/month or $16/month for AI' },
 ];
 
 const productSchema = {
@@ -54,7 +54,7 @@ const productSchema = {
   <div class="sr-only">
     <h2>What's the difference between Skilly and Raycast AI?</h2>
     <p>
-      Raycast AI is a text command bar that lives in your menu bar — you press a hotkey, type a prompt, get back text or an action. Skilly is a voice-first tutor that watches your screen and walks you through any Mac app — you press a hotkey, ask a question out loud, and Skilly screenshots the active app, speaks the answer back, and moves your cursor to the exact UI element. Raycast AI is great for quick text tasks (rewriting, summarizing, code snippets). Skilly is built for "I'm stuck in this app, show me how." Both run on macOS. Skilly is open source under Apache-2.0 at github.com/tryskilly/skilly, $19/month after a 15-minute free trial. Raycast AI is paid ($10/month Pro tier) with a free Raycast core.
+      Raycast AI is a text command bar that lives in your menu bar — you press a hotkey, type a prompt, get back text or an action. Skilly is a voice-first tutor that watches your screen and walks you through any Mac app — you press a hotkey, ask a question out loud, and Skilly screenshots the active app, speaks the answer back, and points at the control. It never clicks. Raycast AI is great for quick text tasks (rewriting, summarizing, code snippets). Skilly is built for "I'm stuck in this app, show me how." Both run on macOS. Skilly is open source under Apache-2.0 at github.com/tryskilly/skilly, $19/month after a 15-minute trial. Raycast AI is paid ($10/month Pro tier) with a free Raycast core.
     </p>
     <h2>Is Skilly a Raycast AI alternative?</h2>
     <p>
@@ -151,7 +151,7 @@ const productSchema = {
           </div>
           <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Skilly cheaper than Raycast Pro?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Different price points. Skilly is $19 per month after a 15-minute free trial. Raycast Pro (the AI tier) is $10 per month. Raycast core is free. Skilly is also open source under Apache-2.0. Bring your own OpenAI key is $5/month plus your OpenAI usage. Raycast AI is closed source with no self-hosted option.</p></div>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Different price points. Skilly is $19 per month after a 15-minute trial. Raycast Pro (the AI tier) is $10 per month. Raycast core is free. Skilly is also open source under Apache-2.0. Bring your own OpenAI key is $5/month plus your OpenAI usage. Raycast AI is closed source with no self-hosted option.</p></div>
           </div>
           <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Does Raycast AI move my cursor like Skilly?</h3>
@@ -168,7 +168,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Try Skilly alongside Raycast</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source.</p>
+        <p class="text-gray-600 mb-6">15-minute trial, no card. Apache-2.0 open source.</p>
         <Button
           data-mac-download
           href={trackedDownloadUrl('vs', 'vs_raycast_ai', 'raycast-ai')}

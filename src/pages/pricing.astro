@@ -9,7 +9,7 @@ import Button from '../components/Button.astro';
 
 const title = 'Skilly Pricing: Plans and Bring-Your-Own Key';
 const description =
-  'Skilly for People is $19/month (3 hours) after 15 minutes free, no card. Bring your own OpenAI key is $5/month plus your OpenAI usage. Builders $0 Early Access.';
+  'Skilly for People is $19/month (3 hours) after a 15-minute trial, no card. Bring your own OpenAI key is $5/month plus your OpenAI usage. Builders $0 Early Access.';
 
 const pageUrl = 'https://tryskilly.app/pricing/';
 
@@ -87,7 +87,7 @@ const faqs = [
   {
     question: 'How does the 15-minute trial work?',
     answer:
-      '15 minutes free on first launch — no credit card required. One-shot lifetime trial per user (doesn\'t reset). No checkout before the trial; download and start using immediately.',
+      '15-minute trial on first launch — no card required. The 15-minute trial is one time per person and does not reset. No checkout before the trial; download and start using immediately.',
   },
   {
     question: 'What does bring your own OpenAI key cost?',
@@ -179,17 +179,17 @@ const faqSchema = {
         <p class="mb-4 text-[13px] font-semibold uppercase tracking-[1.5px] text-amber-600">Pricing</p>
         <h1 class="mb-5 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Skilly pricing</h1>
         <p class="text-[17px] leading-relaxed text-gray-700">
-          Skilly for People is a hosted beta plan at <strong>$19 / month</strong> (USD) for 3 hours of live AI tutoring, after <strong>15 minutes free on first launch</strong> with no credit card required. Bring your own OpenAI key is <strong>$5/month plus your OpenAI usage</strong>. Skilly for Builders includes <strong>Builders $0 Early Access at $0 / month</strong> for 30 teaching minutes, then Starter at $29 / month, Studio at $99 / month, and Scale at $299 / month.
+          Skilly for People is a hosted beta plan at <strong>$19 / month</strong> (USD) for 3 hours of live AI tutoring, after <strong>15-minute trial on first launch</strong> with no credit card required. Bring your own OpenAI key is <strong>$5/month plus your OpenAI usage</strong>. Skilly for Builders includes <strong>Builders $0 Early Access at $0 / month</strong> for 30 teaching minutes, then Starter at $29 / month, Studio at $99 / month, and Scale at $299 / month.
         </p>
         <p class="mt-4 text-[17px] leading-relaxed text-gray-700">
           Skilly points at the exact control, and you use that control yourself. Skilly for Builders is an embeddable voice-and-pointer assistant for websites, SaaS products, and apps: create a Studio project, teach Skilly from your content, lock it to approved domains, and install it with one script tag.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-3">
-          <Button href="/download/" variant="people-primary" size="lg">Download for Mac</Button>
+          <Button href="/download/" variant="people-primary" size="lg" data-ph-event="web_cta_download_clicked" data-ph-prop-location="pricing_hero" data-ph-prop-target-funnel="people">Download for Mac</Button>
           <Button href="https://studio.tryskilly.app/signup" variant="secondary" size="lg">Create a Studio project</Button>
         </div>
         <p class="mt-3 text-[13px] text-gray-500">
-          15 minutes free on first launch — no credit card required. One-shot lifetime trial per user (doesn't reset). No checkout before the trial.
+          15-minute trial on first launch — no card required. The 15-minute trial is one time per person and does not reset. No checkout before the trial.
         </p>
         <p class="mt-4 text-sm text-gray-500">
           Machine-readable copy: <a href="/pricing.md" class="underline underline-offset-2">pricing.md</a>
@@ -209,7 +209,7 @@ const faqSchema = {
         <div class="mt-8 grid gap-6 lg:grid-cols-5">
           <article class="rounded-[20px] border-2 border-amber-500 bg-white p-8 shadow-lg lg:col-span-3">
             <h3 class="text-xl font-semibold text-gray-900">Price</h3>
-            <p class="mt-2 text-[15px] font-semibold text-amber-700">15 minutes free on first launch. Then the hosted plan.</p>
+            <p class="mt-2 text-[15px] font-semibold text-amber-700">15-minute trial on first launch. Then the hosted plan.</p>
             <p class="mt-4 flex items-baseline gap-1">
               <span class="text-6xl font-bold tracking-tight text-gray-900">$19</span>
               <span class="text-lg text-gray-500">/ month</span>
@@ -221,15 +221,15 @@ const faqSchema = {
               <li>Billed via Polar (<a href="https://polar.sh" class="underline underline-offset-2" rel="noopener noreferrer">polar.sh</a>)</li>
             </ul>
             <div class="mt-6">
-              <Button href="/download/" variant="people-primary" size="md">Download for Mac</Button>
+              <Button href="/download/" variant="people-primary" size="md" data-ph-event="web_cta_download_clicked" data-ph-prop-location="pricing_people" data-ph-prop-target-funnel="people">Download for Mac</Button>
             </div>
           </article>
 
           <article class="rounded-[20px] border border-gray-200 bg-gray-50 p-8 lg:col-span-2">
-            <h3 class="text-xl font-semibold text-gray-900">Free trial</h3>
+            <h3 class="text-xl font-semibold text-gray-900">15-minute trial</h3>
             <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
-              <li>15 minutes free on first launch — no credit card required</li>
-              <li>One-shot lifetime trial per user (doesn't reset)</li>
+              <li>15-minute trial on first launch — no card required</li>
+              <li>The 15-minute trial is one time per person and does not reset</li>
               <li>No checkout before the trial; download and start using immediately</li>
             </ul>
           </article>

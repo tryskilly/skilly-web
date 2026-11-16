@@ -207,4 +207,4 @@ If you force the model to use a tool but no MCP tools have finished loading, the
 
 ## Run a real MCP-powered voice agent
 
-Skilly is a voice-first AI tutor for Mac built on Realtime + MCP. Hold Control+Option, ask out loud, get a voice answer with a cursor pointing at exactly what to click on your screen — all powered by an MCP server you can read and fork on [GitHub](https://github.com/tryskilly/skilly). **15 minutes free, no card.**
+Skilly is a voice-first AI tutor for Mac built on Realtime + MCP. Hold Control+Option, ask out loud, get a voice answer with a cursor pointing at exactly what to click on your screen — all powered by an MCP server you can read and fork on [GitHub](https://github.com/tryskilly/skilly). **15-minute trial, no card.**

@@ -26,7 +26,7 @@ export const betaTier: BetaTier = {
   perDayEquivalent: '3 hosted hours included, about $0.63 per day.',
   tagline: '3 hosted hours every month for the native Mac tutor.',
   features: [
-    'Instant help that sees your screen and moves your cursor',
+    'Sees your screen and points at the control. It never clicks',
     'Works in any Mac app',
     'Built-in skills for Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon.',
     'Full courses with progress tracking',
@@ -36,8 +36,8 @@ export const betaTier: BetaTier = {
     'Custom skills \u2014 drop in your own SKILL.md',
   ],
   guarantees: [
-    '15 minutes free \u2014 no card needed',
+    '15-minute trial, no card',
     'Cancel anytime, keep access through the period',
   ],
-  finePrint: '15 minutes free on first launch.',
+  finePrint: '15-minute trial on first launch.',
 };

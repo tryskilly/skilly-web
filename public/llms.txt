@@ -46,7 +46,7 @@ You hold Control+Option and ask a question out loud (or enable Live Tutor for ha
 
 - Beta: $19 / month (monthly billing only during beta)
 - 3 hours of live AI teaching per month
-- 15 minutes free trial on first launch — no credit card required
+- 15-minute trial on first launch — no credit card required
 - Bring your own OpenAI key: $5/month plus your OpenAI usage
 - Cancel anytime — access continues through end of billing period
 

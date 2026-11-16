@@ -251,7 +251,7 @@ A few things this pattern doesn't solve:
 
 ## Use Skilly to learn ScreenCaptureKit faster
 
-Skilly is the macOS app that uses this exact pattern in production. Hold Control+Option, ask "how do I do X in Xcode" out loud, and Skilly walks you through whatever code or framework you're learning — voice-first, screen-aware. **15 minutes free, no card.**
+Skilly is the macOS app that uses this exact pattern in production. Hold Control+Option, ask "how do I do X in Xcode" out loud, and Skilly walks you through whatever code or framework you're learning — voice-first, screen-aware. **15-minute trial, no card.**
 
 The full SCStream-with-reconfig-handling implementation is open source on [github.com/tryskilly/skilly](https://github.com/tryskilly/skilly).
 

@@ -232,7 +232,7 @@ export const detailedFeatures: FeatureDetail[] = [
   {
     id: 'free-trial-pricing',
     category: 'platform',
-    headline: '15 minutes free. No credit card.',
+    headline: '15-minute trial. No card.',
     oneLiner: 'Try Skilly for a full 15 minutes without a card. After that, $19/month gets you 3 hours of tutoring.',
     body: 'One-shot 15-minute trial, no card. It does not reset. Subscribe only if the teaching worked for you — and cancel any time, keep your access to the end of the period.',
     technicalProof: 'WorkOS AuthKit for sign-in. Polar for billing. Entitlements synced through a Cloudflare KV store. Cap resets on period boundaries, not rolling windows.',
