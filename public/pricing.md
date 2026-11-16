@@ -69,9 +69,9 @@ Hosted plan during the beta. Annual billing launches post-beta.
 - Auto-activates the matching skill when you switch apps
 - Auto-updates via Sparkle framework
 
-### Free trial
-- **15 minutes free on first launch** — no credit card required
-- One-shot lifetime trial per user (doesn't reset)
+### 15-minute trial
+- **15-minute trial on first launch** — no credit card required
+- The 15-minute trial is one time per person and does not reset
 - No checkout before the trial; download and start using immediately
 
 ### Bring your own OpenAI key

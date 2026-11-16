@@ -127,4 +127,4 @@ The Accessibility grant is required by Apple's API model, but Skilly uses only t
 
 ## Try Skilly
 
-Skilly is the AI tutor that watches your Mac screen and points at exactly what to click while answering you out loud. **15 minutes free, no card.**
+Skilly is the AI tutor that watches your Mac screen and points at exactly what to click while answering you out loud. **15-minute trial, no card.**

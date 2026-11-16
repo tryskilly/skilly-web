@@ -23,7 +23,7 @@ faq:
   - question: "Are any of these open source?"
     answer: "Skilly is open-source on GitHub (forked from Farza's Clicky project, MIT license — github.com/tryskilly/skilly). Natively is also open source (a Cluely-style meeting assistant). The rest — Wispr Flow, Superwhisper, Cluely, Rewind, Raycast AI, Granola — are closed-source commercial apps."
   - question: "Which one should I try first if I'm not sure what I need?"
-    answer: "Start with whichever has a free trial in your category. Most users find that voice AI splits cleanly into 'I want to type by talking' (try Superwhisper free tier or Wispr Flow's 14-day Pro trial), 'I want help during meetings' (try Granola free), 'I want to learn a new app' (try Skilly's 15-minute free trial), or 'I want to remember everything' (try Rewind's free tier). Don't overthink it — these tools have minimal switching cost."
+    answer: "Start with whichever has a free trial in your category. Most users find that voice AI splits cleanly into 'I want to type by talking' (try Superwhisper free tier or Wispr Flow's 14-day Pro trial), 'I want help during meetings' (try Granola free), 'I want to learn a new app' (try Skilly's 15-minute trial), or 'I want to remember everything' (try Rewind's free tier). Don't overthink it — these tools have minimal switching cost."
 relatedArticles: []
 ---
 
@@ -156,4 +156,4 @@ If a fact in this article contradicts what a vendor's site says today, the vendo
 
 ## Try the 15-minute trial
 
-If "voice tutor that watches your screen" is the category you're in — that's what we built. **15 minutes free, no card.**
+If "voice tutor that watches your screen" is the category you're in — that's what we built. **15-minute trial, no card.**

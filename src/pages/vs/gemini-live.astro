@@ -27,7 +27,7 @@ const comparisonRows = [
   { feature: 'Privacy posture', skilly: 'Capture gated by voice activity. Screen Recording permission revokable anytime.', gemini: 'Screen + audio streamed to Google during session. Bound by Google Workspace terms.' },
   { feature: 'Offline', skilly: 'Requires OpenAI API access but the app works without a persistent browser tab', gemini: 'Requires a browser session + Google account' },
   { feature: 'Open source', skilly: 'Yes — Apache-2.0 (fork of farzaa/clicky, MIT)', gemini: 'No — Google proprietary' },
-  { feature: 'Pricing', skilly: '15 minutes free, then $19/month for 3 hours of tutoring', gemini: 'Free tier with rate limits, paid tiers via Google AI Studio / API' },
+  { feature: 'Pricing', skilly: '15-minute trial, no card, then $19/month for 3 hours of tutoring', gemini: 'Free tier with rate limits, paid tiers via Google AI Studio / API' },
 ];
 
 const productSchema = {
@@ -52,7 +52,7 @@ const productSchema = {
   <div class="sr-only">
     <h2>What's the difference between Skilly and Gemini Live?</h2>
     <p>
-      Gemini Live is Google's voice + screen-sharing assistant inside the Gemini app and Chrome browser. It runs in a browser tab or the Gemini iOS/Android app and uses Google's Gemini multimodal model. Skilly is a native macOS menu-bar app — no browser tab, no Google account required — that watches your active Mac app, speaks back in your language, and physically moves your cursor to the exact UI element. Skilly uses the OpenAI Realtime API and runs natively in Swift on macOS 14.2 or later. Gemini Live is free with a Google account; Skilly is $19/month after a 15-minute free trial. Skilly is open source under Apache-2.0 (github.com/tryskilly/skilly); Gemini Live is closed source.
+      Gemini Live is Google's voice + screen-sharing assistant inside the Gemini app and Chrome browser. It runs in a browser tab or the Gemini iOS/Android app and uses Google's Gemini multimodal model. Skilly is a native macOS menu-bar app — no browser tab, no Google account required — that watches your active Mac app, speaks back in your language, and points at the control. It never clicks. Skilly uses the OpenAI Realtime API and runs natively in Swift on macOS 14.2 or later. Gemini Live is free with a Google account; Skilly is $19/month after a 15-minute trial. Skilly is open source under Apache-2.0 (github.com/tryskilly/skilly); Gemini Live is closed source.
     </p>
     <h2>Is Skilly better than Gemini Live for Mac users?</h2>
     <p>
@@ -136,7 +136,7 @@ const productSchema = {
         <div class="space-y-5">
           <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Is Gemini Live free and Skilly paid?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Yes. Gemini Live is free with any Google account. Skilly is $19 per month after a 15-minute free trial (no credit card to start). Skilly is also open source under Apache-2.0 — bring your own OpenAI key is $5/month plus your OpenAI usage — but the hosted convenience tier is paid.</p></div>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p class="text-gray-700 leading-relaxed text-[15px]" itemprop="text">Yes. Gemini Live is free with any Google account. Skilly is $19 per month after a 15-minute trial (no credit card to start). Skilly is also open source under Apache-2.0 — bring your own OpenAI key is $5/month plus your OpenAI usage — but the hosted convenience tier is paid.</p></div>
           </div>
           <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name">Why pay for Skilly when Gemini Live is free?</h3>
@@ -157,7 +157,7 @@ const productSchema = {
     <section class="max-w-site mx-auto px-6 pb-16">
       <div class="max-w-[680px] mx-auto text-center bg-gradient-to-br from-amber-50 to-white border border-amber-200/60 rounded-2xl p-10">
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">Want a Mac-native tutor?</h2>
-        <p class="text-gray-600 mb-6">15 minutes free, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
+        <p class="text-gray-600 mb-6">15-minute trial, no card. Apache-2.0 open source, fork of Farza&apos;s Clicky (MIT).</p>
         <Button
           data-mac-download
           href={trackedDownloadUrl('vs', 'vs_gemini_live', 'gemini-live')}

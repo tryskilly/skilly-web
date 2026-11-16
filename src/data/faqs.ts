@@ -39,7 +39,7 @@ export const faqs: Faq[] = [
       'A friendly AI tutor that lives in your Mac menu bar. You talk, it sees your screen, points at the control, and speaks the answer in your language. You still do the step. Think of it as a patient expert sitting next to you.',
   },
   {
-    question: 'How long is the free trial?',
+    question: 'How long is the 15-minute trial?',
     answer:
       '15 minutes of actual usage, one-time, tied to your email. No credit card required. Most people know inside the first session whether Skilly is the right fit.',
   },

@@ -152,6 +152,6 @@ If you want to add subdivision AND sculpt the resulting surface, use the **Multi
 
 ## Stop Googling Blender shortcuts every five minutes
 
-This whole article exists because there are 50 of these "how do I X in Blender?" moments per day when you're learning. Skilly is a voice-first AI tutor for Mac that watches your Blender window, hears your question, and points at exactly the slider or button you need — answer streaming as text right next to the cursor. **15 minutes free, no card.**
+This whole article exists because there are 50 of these "how do I X in Blender?" moments per day when you're learning. Skilly is a voice-first AI tutor for Mac that watches your Blender window, hears your question, and points at exactly the slider or button you need — answer streaming as text right next to the cursor. **15-minute trial, no card.**
 
 Continue with the complete [Blender modifiers beginner lesson](/learn/blender-modifiers/) or follow the full [Blender beginner curriculum](/learn/blender-tutorial-for-beginners/).

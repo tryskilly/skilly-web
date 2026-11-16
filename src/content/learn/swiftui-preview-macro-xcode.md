@@ -242,4 +242,4 @@ Xcode 26 added a separate `#Playground` macro for executing arbitrary code snipp
 
 ## Tired of looking up Xcode shortcuts every five minutes?
 
-Skilly is a voice-first AI tutor for Mac that watches your Xcode window, hears your question, and points at exactly the menu, button, or panel you need — answer streaming as text right beside the cursor. Same flow for SwiftUI, AppKit, Blender, Figma, anything on Mac. **15 minutes free, no card.**
+Skilly is a voice-first AI tutor for Mac that watches your Xcode window, hears your question, and points at exactly the menu, button, or panel you need — answer streaming as text right beside the cursor. Same flow for SwiftUI, AppKit, Blender, Figma, anything on Mac. **15-minute trial, no card.**

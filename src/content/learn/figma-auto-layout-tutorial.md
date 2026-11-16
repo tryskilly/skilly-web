@@ -40,6 +40,10 @@ faq:
   - question: "What does Wrap do, and when should I enable it?"
     answer: "Wrap is only available on horizontal auto layout. It pushes overflowing children onto a new line, similar to CSS flex-wrap. Use it for tag clouds, chip groups, image galleries with variable item counts, and any horizontal list where you don't know in advance how many items will fit. Without wrap, horizontal auto layout overflows to the right; with wrap, it cleanly breaks into rows."
 relatedArticles: []
+midCta:
+  moment: "When a frame collapses, check Hug and Fill in the Auto layout panel. One axis should fill. The other should hug."
+  landerHref: "/figma/"
+  landerLabel: "What to ask in Figma"
 ---
 
 If you're new to Figma in 2026 and you've heard "just use auto layout for everything" without anyone explaining what that means — this is the guide. Auto Layout is Figma's responsive layout primitive. It's CSS Flexbox with a UI, plus a few Figma-specific features.
@@ -128,6 +132,8 @@ Combine across the two axes:
 | Big nudge for padding/spacing | Hold Shift while dragging |
 
 Practice these for ~30 minutes once. They cut Auto Layout time in half.
+
+<!-- skilly-mid-cta -->
 
 ## Padding, gap, and alignment
 

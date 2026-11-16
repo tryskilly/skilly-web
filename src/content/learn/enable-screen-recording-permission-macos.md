@@ -135,4 +135,4 @@ If you want the technical detail, the macOS API Skilly uses is `ScreenCaptureKit
 
 ## Try Skilly
 
-Skilly is the AI tutor that needs the screen recording permission you just set up. Ask out loud, and it sees your Mac screen, answers out loud, and points at the button or menu to use next. It needs macOS 14.2 or later. 15-minute free trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage. To paste that key, or to tell a finished trial from an empty OpenAI balance, use the [Skilly OpenAI API key setup](/learn/skilly-openai-key-setup/).
+Skilly is the AI tutor that needs the screen recording permission you just set up. Ask out loud, and it sees your Mac screen, answers out loud, and points at the button or menu to use next. It needs macOS 14.2 or later. 15-minute trial, no card. Then $19/month hosted, or $5/month plus your own OpenAI usage. To paste that key, or to tell a finished trial from an empty OpenAI balance, use the [Skilly OpenAI API key setup](/learn/skilly-openai-key-setup/).
