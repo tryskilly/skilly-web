@@ -117,30 +117,49 @@ const bundledApps = askApps.map((app) => ({
 <script is:inline>
   // Inline so the SSR handoff page carries the call itself. The PostHog
   // client is the one Layout already starts; this only calls capture.
+  // `loaded` is the page view. Later steps wait until the visitor scrolls
+  // that section into view — the install and permissions cards already sit
+  // in the first screen, so observing them on load sent 3-4 events at once.
   (function () {
-    function start() {
-      var seen = Object.create(null);
-      function fire(step) {
-        if (seen[step]) return;
-        seen[step] = true;
-        if (window.posthog && typeof window.posthog.capture === 'function') {
-          window.posthog.capture('download_page_viewed', { step: step });
-        }
+    if (window.__skillyDownloadSteps) return;
+    window.__skillyDownloadSteps = true;
+
+    var seen = Object.create(null);
+    function fire(step) {
+      if (!step || seen[step]) return;
+      seen[step] = true;
+      if (window.posthog && typeof window.posthog.capture === 'function') {
+        window.posthog.capture('download_page_viewed', { step: step });
       }
-      fire('loaded');
-      var steps = document.querySelectorAll('[data-download-step]');
-      if (!steps.length || typeof IntersectionObserver === 'undefined') return;
-      var observer = new IntersectionObserver(function (entries) {
-        for (var i = 0; i < entries.length; i++) {
-          var entry = entries[i];
-          if (!entry.isIntersecting) continue;
-          var step = entry.target.getAttribute('data-download-step');
-          if (step) fire(step);
-          observer.unobserve(entry.target);
-        }
-      }, { threshold: 0.4 });
-      for (var j = 0; j < steps.length; j++) observer.observe(steps[j]);
     }
+
+    function reached(el) {
+      var rect = el.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (!vh || rect.height <= 0) return false;
+      var visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      return visible >= 80 && rect.top < vh * 0.72 && rect.bottom > 32;
+    }
+
+    function reachVisibleSteps() {
+      var nodes = document.querySelectorAll('[data-download-step]');
+      for (var i = 0; i < nodes.length; i++) {
+        if (reached(nodes[i])) fire(nodes[i].getAttribute('data-download-step'));
+      }
+    }
+
+    function start() {
+      fire('loaded');
+      var origin = window.pageYOffset || document.documentElement.scrollTop || 0;
+      window.addEventListener('scroll', function () {
+        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (Math.abs(y - origin) < 24) return;
+        reachVisibleSteps();
+      }, { passive: true });
+      window.addEventListener('hashchange', reachVisibleSteps);
+      if (window.location.hash) reachVisibleSteps();
+    }
+
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
     else start();
   })();

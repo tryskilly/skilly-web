@@ -126,6 +126,10 @@ describe('download attribution handoff', () => {
     expect(guide).toContain('data-download-step="permissions"');
     expect(guide).toContain('data-download-step="first_question"');
     expect(guide).toContain("window.posthog.capture('download_page_viewed', { step: step })");
+    expect(guide).toContain("fire('loaded')");
+    expect(guide).toContain("addEventListener('scroll'");
+    expect(guide).toContain('window.__skillyDownloadSteps');
+    expect(guide).not.toContain('IntersectionObserver');
     expect(guide).toContain('NonMacWaitlist');
   });
 
