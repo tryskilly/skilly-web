@@ -59,6 +59,13 @@ const learn = defineCollection({
       landerHref: z.string().min(1),
       landerLabel: z.string().min(1),
     }).optional(),
+    // Stuck-moment download CTA. The body marks it with <!-- skilly-stuck-cta -->.
+    // Same shape as midCta; the location recorded on click is learn_stuck.
+    stuckCta: z.object({
+      moment: z.string().min(20).max(400),
+      landerHref: z.string().min(1),
+      landerLabel: z.string().min(1),
+    }).optional(),
     // Programmatic curriculum pages: `series` = the app a stage lesson belongs to
     // (set on per-stage pages so the /learn index can group them under their hub
     // instead of flooding the flat category lists).

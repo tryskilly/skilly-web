@@ -161,7 +161,7 @@ A Text title will not export as an SRT, and a subtitle will not give you a desig
 
 ## Do it hands-free with Skilly
 
-Reading steps is fine until you are staring at Resolve and the Titles bin is not where the guide said it was. That is where [Skilly](/) helps.
+Reading steps is fine until you are staring at Resolve and the Titles bin is not where the guide said it was. That is where [AI for DaVinci Resolve](/davinci-resolve/) helps.
 
 Skilly is a voice tutor for Mac. Hold **Control+Option** and ask out loud, something like *"where's the Titles panel?"* Skilly looks at your DaVinci Resolve window, answers in voice, and **points at the exact control** on your screen. DaVinci Resolve is one of Skilly's built-in skills, and it switches on when Resolve is the app in front.
 

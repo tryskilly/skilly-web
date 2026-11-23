@@ -138,7 +138,7 @@ The goal is not to collect templates. It is to recognize reusable patterns.
 - Why did my instance override reset?
 - How should this layout behave at mobile width?
 
-Specific questions preserve momentum because they produce steps you can apply immediately.
+Specific questions preserve momentum because they produce steps you can apply immediately. When the question is which control is on the frame in front of you, a [Figma AI assistant](/figma/) points at it. It never clicks, and it never moves your cursor.
 
 ## How to know you are becoming fluent
 

@@ -45,10 +45,11 @@ describe('learn mid-article CTA', () => {
     expect(component).toContain('Download for Mac');
     expect(component).toContain('It never clicks, and it never moves your cursor.');
     expect(component).toContain('data-ph-event="web_cta_download_clicked"');
-    expect(component).toContain('data-ph-prop-location="learn_mid_article"');
-    expect(component).toContain('data-ph-prop-location="learn_top"');
+    expect(component).toContain("placement === 'stuck' ? 'learn_stuck' : 'learn_mid_article'");
+    expect(component).toContain("placement === 'top' ? 'learn_top'");
+    expect(component).toContain('data-ph-prop-location={location}');
     expect(component).toContain('15-minute trial, no card. macOS 14.2 or later.');
-    expect(component).toContain("const utmContent = placement === 'top' ? 'top' : 'mid_article';");
+    expect(component).toContain("const utmContent = placement === 'top' ? 'top' : placement === 'stuck' ? 'stuck' : 'mid_article';");
     expect(component).toContain("trackedDownloadUrl('learn', articleSlug, utmContent)");
     expect(component.toLowerCase()).not.toContain('free');
     expect(trackedDownloadUrl('learn', 'how-to-add-bevel-modifier-blender', 'mid_article')).toBe(
@@ -56,6 +57,9 @@ describe('learn mid-article CTA', () => {
     );
     expect(trackedDownloadUrl('learn', 'how-to-add-bevel-modifier-blender', 'top')).toBe(
       '/download/?utm_source=tryskilly-web&utm_medium=learn&utm_campaign=how-to-add-bevel-modifier-blender&utm_content=top',
+    );
+    expect(trackedDownloadUrl('learn', 'how-to-add-bevel-modifier-blender', 'stuck')).toBe(
+      '/download/?utm_source=tryskilly-web&utm_medium=learn&utm_campaign=how-to-add-bevel-modifier-blender&utm_content=stuck',
     );
   });
 
@@ -72,6 +76,17 @@ describe('learn mid-article CTA', () => {
       expect(source, guide.slug).toContain(guide.moment);
       expect(source, guide.slug).not.toMatch(/Skilly clicks|Skilly moves your cursor/i);
     }
+  });
+
+  test('the bevel guide records the Limit Method stuck moment as learn_stuck', () => {
+    const source = read('src/content/learn/how-to-add-bevel-modifier-blender.md');
+    const page = read('src/pages/learn/[...slug].astro');
+    expect(source.match(/<!-- skilly-stuck-cta -->/g)).toHaveLength(1);
+    expect(source.indexOf('<!-- skilly-mid-cta -->')).toBeLessThan(source.indexOf('<!-- skilly-stuck-cta -->'));
+    expect(source).toContain('Stuck finding the Limit Method dropdown? Ask Skilly out loud and it points at it.');
+    expect(source).toContain('landerHref: "/blender/"');
+    expect(page).toContain('placement="stuck"');
+    expect(page).toContain('<!-- skilly-(top|mid|stuck)-cta -->');
   });
 
   test('the top marker stays off SwiftUI and Xcode guides', () => {

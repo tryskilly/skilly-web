@@ -179,4 +179,4 @@ An ignored object can use constraints relative to its parent, but it no longer g
 
 ## Continue learning
 
-If the rules make sense but applying them still feels slow, use the [project-first Figma learning roadmap](/learn/how-to-learn-figma-faster/) and rebuild one real interface with Auto Layout. The focused [components and instances lesson](/learn/figma-components-and-instances/) is the most useful next step once the spacing system works.
+If the rules make sense but applying them still feels slow, use the [project-first Figma learning roadmap](/learn/how-to-learn-figma-faster/) and rebuild one real interface with Auto Layout. The focused [components and instances lesson](/learn/figma-components-and-instances/) is the most useful next step once the spacing system works. When the resize controls are the part you cannot find, a [Figma AI assistant](/figma/) points at them. It never clicks, and it never moves your cursor.

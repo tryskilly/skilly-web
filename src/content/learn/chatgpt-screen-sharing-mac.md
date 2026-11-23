@@ -133,3 +133,5 @@ A dedicated tutor should reduce three kinds of friction:
 3. no hunting for the control mentioned in the answer.
 
 The practical test is simple. Open the real app, ask a real question, and see whether the tool gives a correct answer tied to the exact interface in front of you. If it cannot do that reliably, the screen access is not creating value.
+
+On a Mac, [a Clicky alternative](/vs/clicky/) is the comparison when the tutorials you found were written for Clicky on Windows. For a timeline question, [AI for Premiere Pro](/premiere-pro/) is the page that matches the app in front of you. Skilly points at the control. It never clicks, and it never moves your cursor.

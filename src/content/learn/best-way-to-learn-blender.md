@@ -80,7 +80,7 @@ Our [core mesh editing tools guide](/learn/blender-core-mesh-editing-tools/) kee
 
 Learn a small modifier stack: Mirror, Bevel, and Subdivision Surface. These teach you to preserve editable geometry instead of committing every change directly to the mesh.
 
-Try the [Bevel modifier walkthrough](/learn/how-to-add-bevel-modifier-blender/) and [Subdivision Surface walkthrough](/learn/how-to-add-subdivision-surface-modifier-blender/) on the same practice object.
+Try the [Bevel modifier walkthrough](/learn/how-to-add-bevel-modifier-blender/) and [Subdivision Surface walkthrough](/learn/how-to-add-subdivision-surface-modifier-blender/) on the same practice object. When the missing piece is a control you cannot find, [an AI assistant for Blender](/blender/) points at it. It never clicks, and it never moves your cursor.
 
 ### 5. Materials, lighting, and one render
 

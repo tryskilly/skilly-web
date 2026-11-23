@@ -61,7 +61,7 @@ Refine your edit by trimming clips precisely and adding transitions between them
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the trimming panel?" — and it answers while **pointing at the exact button**, watching your actual Premiere Pro window. It's the same Premiere Pro curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
+Reading steps is one thing; doing them while the menus are in front of you is another. [AI for Premiere Pro](/premiere-pro/) is a voice-first tutor for macOS: you ask out loud — "where's the trimming panel?" — and it answers while **pointing at the exact button**, watching your actual Premiere Pro window. It's the same Premiere Pro curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

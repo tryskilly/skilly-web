@@ -106,13 +106,13 @@ This is not a ranking. Platform fit eliminates most choices immediately. After t
 
 Built-in skills cover Premiere Pro, DaVinci Resolve, After Effects, Blender and Figma. Houdini is coming soon and not bundled in the app yet. Open the app you are stuck in, ask one of these out loud, and Skilly points at the control. It never clicks, and it never moves your cursor.
 
-- [Premiere Pro](/premiere-pro/) — "Where are the Source Monitor and the Timeline?"
-- [DaVinci Resolve](/davinci-resolve/) — "How do I switch from the Edit page to Color?"
-- [After Effects](/after-effects/) — "How do I keyframe position so this layer moves?"
-- [Blender](/blender/) — "Where do I add a Bevel modifier?"
-- [Figma](/figma/) — "How do I add auto layout to this frame?"
+- [AI for Premiere Pro](/premiere-pro/) — "Where are the Source Monitor and the Timeline?"
+- [AI for DaVinci Resolve](/davinci-resolve/) — "How do I switch from the Edit page to Color?"
+- [AI for After Effects](/after-effects/) — "How do I keyframe position so this layer moves?"
+- [an AI assistant for Blender](/blender/) — "Where do I add a Bevel modifier?"
+- [a Figma AI assistant](/figma/) — "How do I add auto layout to this frame?"
 
-Each question is a task that app's bundled skill teaches.
+Each question is a task that app's bundled skill teaches. If you have used Clicky on Windows, [a Clicky alternative](/vs/clicky/) is the Mac comparison: Skilly points at the control, and it never clicks.
 
 ## Screen-aware tutor versus a general chatbot
 

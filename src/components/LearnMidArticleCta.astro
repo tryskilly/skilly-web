@@ -7,7 +7,7 @@ import { trackedDownloadUrl } from '../data/config.ts';
 
 interface Props {
   articleSlug: string;
-  placement?: 'mid_article' | 'top';
+  placement?: 'mid_article' | 'top' | 'stuck';
   moment?: string;
   landerHref?: string;
   landerLabel?: string;
@@ -20,7 +20,8 @@ const {
   landerHref,
   landerLabel,
 } = Astro.props;
-const utmContent = placement === 'top' ? 'top' : 'mid_article';
+const utmContent = placement === 'top' ? 'top' : placement === 'stuck' ? 'stuck' : 'mid_article';
+const location = placement === 'top' ? 'learn_top' : placement === 'stuck' ? 'learn_stuck' : 'learn_mid_article';
 const downloadHref = trackedDownloadUrl('learn', articleSlug, utmContent);
 ---
 {placement === 'top' ? (
@@ -36,7 +37,7 @@ const downloadHref = trackedDownloadUrl('learn', articleSlug, utmContent);
         href={downloadHref}
         data-mac-download
         data-ph-event="web_cta_download_clicked"
-        data-ph-prop-location="learn_top"
+        data-ph-prop-location={location}
         data-ph-prop-target-funnel="people"
         data-ph-prop-cta-text="Download for Mac"
         class="inline-flex shrink-0 items-center justify-center rounded-md bg-amber-500 px-5 py-2.5 text-[15px] font-semibold text-gray-950 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md"
@@ -44,10 +45,10 @@ const downloadHref = trackedDownloadUrl('learn', articleSlug, utmContent);
         Download for Mac
       </a>
     </div>
-    <NonMacWaitlist location="learn_top" class="mt-3" />
+    <NonMacWaitlist location={location} class="mt-3" />
   </aside>
 ) : (
-  <aside data-learn-mid-cta class="not-prose my-8 rounded-2xl border border-amber-200/70 bg-amber-50/70 p-6">
+  <aside data-learn-mid-cta={placement === 'mid_article' ? true : undefined} data-learn-stuck-cta={placement === 'stuck' ? true : undefined} class="not-prose my-8 rounded-2xl border border-amber-200/70 bg-amber-50/70 p-6">
     <p class="text-[11px] font-mono uppercase tracking-[0.08em] text-amber-700">Stuck on this step?</p>
     <p class="mt-2 text-[15px] leading-relaxed text-gray-800">
       {moment} It never clicks, and it never moves your cursor.
@@ -56,13 +57,13 @@ const downloadHref = trackedDownloadUrl('learn', articleSlug, utmContent);
       <a href={landerHref} class="font-medium text-gray-900 underline underline-offset-2">{landerLabel}</a>
     </p>
     <p class="mt-3 text-[13px] leading-snug text-gray-600">15-minute trial, no card.</p>
-    <NonMacWaitlist location="learn_mid_article" class="mt-4" />
+    <NonMacWaitlist location={location} class="mt-4" />
     <div class="mt-4">
       <a
         href={downloadHref}
         data-mac-download
         data-ph-event="web_cta_download_clicked"
-        data-ph-prop-location="learn_mid_article"
+        data-ph-prop-location={location}
         data-ph-prop-target-funnel="people"
         data-ph-prop-cta-text="Download for Mac"
         class="inline-flex items-center justify-center rounded-md bg-amber-500 px-5 py-2.5 text-[15px] font-semibold text-gray-950 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md"
