@@ -1,6 +1,6 @@
 ---
-title: "Blender Bevel Modifier: How to Add It (4.x)"
-description: "Add the Bevel modifier in Blender 4.x: Width, Segments, Limit Method, and what to fix when the bevel does not show or shades oddly."
+title: "Blender Bevel Modifier: How to Add It (4.x and 5.x)"
+description: "Add the Bevel modifier in Blender 4.x and 5.x: Width, Segments, Limit Method, and what to fix when the bevel does not show or shades oddly."
 pubDate: 2026-04-27
 updatedDate: 2026-11-23
 author: "Mohamed Saleh Zaied"
@@ -14,7 +14,7 @@ canonicalKeyword: "blender bevel modifier"
 howTo:
   totalTime: "PT4M"
   tools:
-    - "Blender 4.2 or later"
+    - "Blender 4.x or 5.x"
   steps:
     - name: "Select your object in Object Mode"
       text: "Click the mesh you want to bevel. Stay in Object Mode. Tab toggles modes, and modifiers are added on the object."
@@ -32,7 +32,7 @@ faq:
   - question: "Why is my Bevel modifier not showing?"
     answer: "Check Limit Method first. Weight with every bevel weight at 0.0 draws nothing. Angle above the edges you care about does the same: a cube's edges are 90 degrees, so an Angle over 90 degrees removes the bevel. Then check the modifier header: the screen icon is Show in Viewport, and the vertices-square icon is Show in Edit Mode. If the bevel is tiny instead of missing, Clamp Overlap may be capping it, or the object scale is unapplied."
   - question: "Tutorials say Amount. Where is that slider?"
-    answer: "In Blender 4.x the size field is labeled Width. The Python API still describes that property as the bevel amount, which is why older guides say Amount. Width Type decides what the number means. Offset, the default, is the distance from the new edge back to the original edge."
+    answer: "In Blender 4.x and 5.x the size field is labeled Width. The Python API still describes that property as the bevel amount, which is why older guides say Amount. Width Type decides what the number means. Offset, the default, is the distance from the new edge back to the original edge."
   - question: "How do I bevel only certain edges?"
     answer: "Set Limit Method to Weight. In Edit Mode, select the edges and use Edge, then Edge Bevel Weight, which writes bevel_weight_edge from 0.0 to 1.0. The Sidebar (N), Item tab, shows the same value as Mean Bevel Weight. A weight of 0.0 does not bevel. Vertex Group is the other limiter: an edge bevels only when both vertices are in the group."
   - question: "Why is the bevel uneven after I scaled the object?"
@@ -54,7 +54,7 @@ stuckCta:
 
 A cube with perfect 90° corners looks like a drawing of an object, not the object. The Bevel modifier is how you chamfer or round those edges without baking the cut into the mesh.
 
-The steps below match the [Blender 4.2 LTS Bevel modifier manual](https://docs.blender.org/manual/en/4.2/modeling/modifiers/generate/bevel.html) and the [current manual](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html). The labels are the same. Two defaults are not, and they are the ones that make a bevel look broken: Clamp Overlap, and (from 4.5 on) which attribute Weight uses. Confirm the version under **Help → About Blender** if a checkbox is not where a video left it.
+The steps below are the same in Blender 4.x and 5.x. Labels were checked against the [Blender 4.2 LTS Bevel modifier manual](https://docs.blender.org/manual/en/4.2/modeling/modifiers/generate/bevel.html) and the [current 5.3 manual](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html). The panel names match. What changes is a default, not the control: **Clamp Overlap starts off in 4.2 and on in 4.5 and 5.x** (the current API default is on). In 5.x, Weight's attribute names default to `bevel_weight_edge` and `bevel_weight_vert`. Confirm the version under **Help → About Blender** if a checkbox is not where a video left it.
 
 <!-- skilly-top-cta -->
 
@@ -71,7 +71,7 @@ Blender has the Edit Mode tool and the modifier. They cut the same profile. They
 
 The tool only bevels an edge that has exactly two adjacent faces. The modifier is the manual's non-destructive alternative to that operation.
 
-One naming trap: older tutorials say **Amount**. In Blender 4.x the field is **Width**. The API still describes `width` as the bevel amount, so both words are in circulation. They are the same slider.
+One naming trap: older tutorials say **Amount**. In Blender 4.x and 5.x the field is **Width**. The API still describes `width` as the bevel amount, so both words are in circulation. They are the same slider.
 
 ## Add the Bevel modifier
 
@@ -88,7 +88,7 @@ Limit Method starts on **Angle**, so you already have a bevel on edges sharper t
 
 ## Bevel only some edges
 
-**Angle** is the default. The 4.2 API calls the number "Angle above which to bevel edges," and the default is 30° (`0.523599` radians). A default cube's edges are 90°, so they bevel. Raise Angle past 90° and they stop, which looks exactly like a modifier that failed to add. The manual states the same control as: an edge bevels only when the angle between the adjacent face normals, plus your Angle, is less than 180°. Smooth surfaces stay put. Sharp corners do not.
+**Angle** is the default in 4.x and 5.x. The 4.2 API and the current 5.x API both call the number "Angle above which to bevel edges," and the default is 30° (`0.523599` radians). A default cube's edges are 90°, so they bevel. Raise Angle past 90° and they stop, which looks exactly like a modifier that failed to add. The manual states the same control as: an edge bevels only when the angle between the adjacent face normals, plus your Angle, is less than 180°. Smooth surfaces stay put. Sharp corners do not.
 
 **Weight** is the one you want when the choice is "these edges, not those."
 
@@ -98,7 +98,7 @@ Limit Method starts on **Angle**, so you already have a bevel on edges sharper t
 
 A weight of `0.0` applies no bevel. Switching to Weight before you set one is the most common way to make a working bevel vanish.
 
-From Blender 4.5 on, Weight can name an attribute instead of always using the built-in bevel weight. The attributes Edit Mode already edits are `bevel_weight_edge` and, for vertex bevels, `bevel_weight_vert`. If the name is empty of values, or every value is `0`, nothing bevels. Blender 4.2 does not have that attribute picker. It uses each edge's bevel weight directly.
+Blender 4.2 has no attribute picker. Weight uses each edge's bevel weight directly. From 4.5, Weight can name an attribute. In 5.x those names default to `bevel_weight_edge` and `bevel_weight_vert` (the current API's defaults; the [5.3 manual](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html) says any mesh attribute can be chosen, and those two are the ones Edit Mode already edits). If every value on the chosen attribute is `0`, nothing bevels.
 
 **Vertex Group** uses vertex weights. An edge bevels only when both of its vertices are in the group, and a weight of `0.0` skips that vertex.
 
@@ -120,13 +120,13 @@ Go in this order. The modifier is usually doing what Limit Method asked.
 
 **Apply scale** when matching edges get different widths. Object Mode, **Object → Apply → Scale**, or `Ctrl+A` then Scale. That sets scale to 1 and keeps the shape on screen. The Apply manual notes that modifiers depend on the object's transform. A non-uniform scale is the usual reason one axis looks fat and the other looks shaved.
 
-**Clamp Overlap** stops a beveled edge from running through neighboring geometry. In Blender 4.2 the checkbox starts **off**. In Blender 4.5 and later it starts **on**. Turn it on when corners intersect and the mesh tangles. If it is already on and Width refuses to grow, the cap is the feature: a nearby edge, or two vertices in the same place, leaves no room. In Edit Mode, select the mesh and use **Mesh → Merge** (`M`) → **By Distance** to weld stacked vertices. The 4.2 manual lists By Distance and leaves the operator notes unfinished, so keep the distance at its default unless you know the doubles are slightly apart.
+**Clamp Overlap** stops a beveled edge from running through neighboring geometry. In Blender 4.2 the checkbox starts **off**. In Blender 4.5 and in 5.x it starts **on** (current API default: on). Turn it on when corners intersect and the mesh tangles. If it is already on and Width refuses to grow, the cap is the feature: a nearby edge, or two vertices in the same place, leaves no room. In Edit Mode, select the mesh and use **Mesh → Merge** (`M`) → **By Distance** to weld stacked vertices. The 4.2 manual lists By Distance and leaves the operator notes unfinished, so keep the distance at its default unless you know the doubles are slightly apart.
 
 More **Segments** only add loops across the bevel face. They do not fix overlap, a Width that is too large, or scale you have not applied.
 
 ### Shading looks bent, or the new faces look faceted
 
-Turn on **Harden Normals**. It matches the bevel faces to the surrounding faces and leaves those surrounding faces flat, which is what you want when a bevel shades as a dark band or a flat side suddenly looks curved. It starts off. In 4.2, enabling it also turns on custom split normals if they were off. In current Blender it creates a `custom_normal` attribute when one is missing.
+Turn on **Harden Normals**. It matches the bevel faces to the surrounding faces and leaves those surrounding faces flat, which is what you want when a bevel shades as a dark band or a flat side suddenly looks curved. It starts off in 4.x and 5.x. In 4.2, enabling it also turns on custom split normals if they were off. In 5.x the [5.3 manual](https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html) says it creates a `custom_normal` attribute when one is missing.
 
 **Mark Sharp** flags edges for shading. It does not round the profile. Use Harden Normals for the shading, Segments for the roundness.
 
@@ -156,7 +156,7 @@ Every modifier header has the same icons, documented on the [modifier introducti
 
 **Miter Outer** and **Miter Inner** are Sharp, Patch, or Arc. Sharp is the default: edges meet at a point. Arc puts a curved join at the corner. Patch is an outer option; on an inner miter it behaves like Arc.
 
-**Loop Slide**, when on, prefers to slide along unbeveled edges into the corner. Off can keep the widths more even and the corners odder. It starts off in 4.2 and on in 4.5. Toggle it only when a corner looks pinched.
+**Loop Slide**, when on, prefers to slide along unbeveled edges into the corner. Off can keep the widths more even and the corners odder. It starts off in 4.2 and on in 4.5 and 5.x. Toggle it only when a corner looks pinched.
 
 ### Shading extras
 
