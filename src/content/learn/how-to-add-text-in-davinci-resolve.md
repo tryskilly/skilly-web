@@ -172,7 +172,7 @@ A few questions worth asking while you work through this guide:
 - "Why can't I see my text?"
 - "How do I make this title stay on screen longer?"
 
-Skilly does not edit your project. It shows you where things are, so the next time you need a title, you will know where to drag it. Want a feel for the voice-and-pointer guidance first? [Try the browser demo](/demo/), no install needed. To ask over your own Resolve window, [download Skilly for Mac](/download/). The trial is 15 minutes, no card.
+Skilly does not edit your project. It shows you where things are, so the next time you need a title, you will know where to drag it. Want a feel for the voice-and-pointer guidance first? [Try the browser demo](/demo/), no install needed. To ask over your own Resolve window, [download Skilly for Mac](/download/?utm_source=tryskilly-web&utm_medium=learn&utm_campaign=how-to-add-text-in-davinci-resolve&utm_content=inline_text). The trial is 15 minutes, no card.
 
 ## Keep going
 

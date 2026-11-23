@@ -270,3 +270,44 @@ html[data-visitor-os='linux'] [data-wl-os='linux'],
 html[data-visitor-os='mobile'] [data-wl-os='mobile'] {
   display: inline;
 }
+
+/* Non-Mac next step. Desktop: browser extension. Phones: /demo/. */
+[data-nonmac-browser],
+[data-nonmac-mobile] {
+  display: none !important;
+}
+html[data-visitor-os='windows'] [data-nonmac-browser],
+html[data-visitor-os='linux'] [data-nonmac-browser],
+html[data-visitor-os='mobile'] [data-nonmac-mobile] {
+  display: block !important;
+}
+/* Unknown browser: heading plus Chrome / Edge / Firefox. Known browser: one link. */
+[data-ext-phrase] {
+  display: none;
+}
+html[data-visitor-browser='chrome'] [data-ext-heading],
+html[data-visitor-browser='edge'] [data-ext-heading],
+html[data-visitor-browser='firefox'] [data-ext-heading],
+html[data-visitor-browser='chrome'] [data-ext-for='edge'],
+html[data-visitor-browser='chrome'] [data-ext-for='firefox'],
+html[data-visitor-browser='edge'] [data-ext-for='chrome'],
+html[data-visitor-browser='edge'] [data-ext-for='firefox'],
+html[data-visitor-browser='firefox'] [data-ext-for='chrome'],
+html[data-visitor-browser='firefox'] [data-ext-for='edge'],
+html[data-visitor-browser='chrome'] [data-ext-for='chrome'] [data-ext-name],
+html[data-visitor-browser='edge'] [data-ext-for='edge'] [data-ext-name],
+html[data-visitor-browser='firefox'] [data-ext-for='firefox'] [data-ext-name] {
+  display: none !important;
+}
+html[data-visitor-browser='chrome'] [data-ext-for='chrome'] [data-ext-phrase],
+html[data-visitor-browser='edge'] [data-ext-for='edge'] [data-ext-phrase],
+html[data-visitor-browser='firefox'] [data-ext-for='firefox'] [data-ext-phrase] {
+  display: inline !important;
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+  html[data-visitor-os='windows'] .people-pricing > div,
+  html[data-visitor-os='linux'] .people-pricing > div,
+  html[data-visitor-os='mobile'] .people-pricing > div {
+    height: auto !important;
+  }
+}

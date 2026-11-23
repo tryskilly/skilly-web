@@ -4,10 +4,11 @@
 // (sets <html data-visitor-os>, so CSS can swap Mac download CTAs for the
 // non-Mac waitlist without a flicker), and imported by client scripts.
 //
-// Keep classifyVisitor self-contained: it is stringified with toString(),
-// so it must not reference anything outside its own body.
+// Keep classifyVisitor and classifyBrowser self-contained: each is stringified
+// with toString(), so neither may reference anything outside its own body.
 
 export type VisitorOs = 'mac' | 'windows' | 'linux' | 'mobile' | 'other' | 'bot';
+export type VisitorBrowser = 'chrome' | 'edge' | 'firefox' | 'other';
 
 export function classifyVisitor(userAgent: string, maxTouchPoints: number): VisitorOs {
   var ua = userAgent || '';
@@ -19,6 +20,15 @@ export function classifyVisitor(userAgent: string, maxTouchPoints: number): Visi
   if (/Windows/i.test(ua)) return 'windows';
   if (/CrOS/i.test(ua)) return 'other';
   if (/Linux|X11/i.test(ua)) return 'linux';
+  return 'other';
+}
+
+/** Store listing to lead with. Edge before Chrome; both strings contain "chrome". */
+export function classifyBrowser(userAgent: string): VisitorBrowser {
+  var ua = (userAgent || '').toLowerCase();
+  if (ua.indexOf('firefox') !== -1 || ua.indexOf('fxios') !== -1) return 'firefox';
+  if (ua.indexOf('edg/') !== -1 || ua.indexOf('edgios') !== -1) return 'edge';
+  if (ua.indexOf('chrome') !== -1 || ua.indexOf('crios') !== -1) return 'chrome';
   return 'other';
 }
 

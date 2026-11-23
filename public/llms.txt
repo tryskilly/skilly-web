@@ -10,7 +10,7 @@
 - [Book a call (design partners)](https://cal.com/moelabs.dev): 15-minute conversation for builders evaluating Skilly for their product
 - [Privacy policy](https://tryskilly.app/privacy): data handling, PostHog, OpenAI, WorkOS
 - [Terms](https://tryskilly.app/terms)
-- [Download macOS app (GitHub release)](https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg)
+- [Download macOS app](https://tryskilly.app/download/?utm_source=llms&utm_medium=referral&utm_campaign=llms_txt)
 - [Pricing](https://tryskilly.app/pricing/): plans, the 15-minute trial, bring-your-own OpenAI key, and Builders $0 Early Access
 - [Machine-readable pricing](https://tryskilly.app/pricing.md)
 - [Skilly for Builders — machine-readable product facts](https://tryskilly.app/products/skilly-builders.md)

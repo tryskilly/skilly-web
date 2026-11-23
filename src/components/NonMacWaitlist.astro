@@ -31,13 +31,15 @@ const brand = tone === 'brand';
   class:list={['w-full text-left', className]}
 >
   <div data-nonmac-waitlist-body>
-    <p class:list={['text-[17px] font-semibold leading-snug', brand ? 'text-white' : 'text-gray-900']}>
-      Not on your Mac right now?
-    </p>
-    <p class:list={['mt-1.5 text-[14px] leading-[1.55]', brand ? 'text-white/85' : 'text-gray-700']}>
-      Skilly runs on Mac today. Leave your email and we'll let you know
-      <span data-wl-os="windows">when Windows is ready.</span><span data-wl-os="linux">when Linux is ready.</span><span data-wl-os="mobile">when Skilly is on your phone.</span>
-    </p>
+    <slot name="intro">
+      <p class:list={['text-[17px] font-semibold leading-snug', brand ? 'text-white' : 'text-gray-900']}>
+        Not on your Mac right now?
+      </p>
+      <p class:list={['mt-1.5 text-[14px] leading-[1.55]', brand ? 'text-white/85' : 'text-gray-700']}>
+        Skilly runs on Mac today. Leave your email and we'll let you know
+        <span data-wl-os="windows">when Windows is ready.</span><span data-wl-os="linux">when Linux is ready.</span><span data-wl-os="mobile">when Skilly is on your phone.</span>
+      </p>
+    </slot>
     <form data-nonmac-waitlist-form class:list={['mt-3 flex flex-col gap-2', !brand && !stacked && 'sm:flex-row']} novalidate>
       <label class="sr-only" for={inputId}>Email address</label>
       <input

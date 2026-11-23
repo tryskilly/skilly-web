@@ -67,7 +67,7 @@ Give a fresh purchase a few minutes. The balance does not always update the inst
 
 ## Paste it into Skilly
 
-Skilly runs from the Mac menu bar and needs macOS 14.2 or later. [Download Skilly for Mac](/download/) if it is not installed yet. The download page is also where the 15-minute trial starts. No card on that trial.
+Skilly runs from the Mac menu bar and needs macOS 14.2 or later. [Download Skilly for Mac](/download/?utm_source=tryskilly-web&utm_medium=learn&utm_campaign=skilly-openai-key-setup&utm_content=inline_text) if it is not installed yet. The download page is also where the 15-minute trial starts. No card on that trial.
 
 1. **Open the menu bar panel.**
 2. **Press the gear button.** Its name is **Settings**.
@@ -160,7 +160,7 @@ Wondering how that compares with ChatGPT on a Mac, where live screen sharing is 
 ## Keep going
 
 - [Skilly pricing](/pricing/): the 15-minute trial, the $19/month hosted plan, and bring-your-own-key at $5/month plus your OpenAI usage.
-- [Download Skilly for Mac](/download/): the app these steps assume.
+- [Download Skilly for Mac](/download/?utm_source=tryskilly-web&utm_medium=learn&utm_campaign=skilly-openai-key-setup&utm_content=inline_text): the app these steps assume.
 - [Allow screen recording on Mac](/learn/enable-screen-recording-permission-macos/): the permission Skilly needs before it can see the app you are learning.
 - [Enable Accessibility on macOS](/learn/enable-accessibility-permission-macos/): the permission that lets Skilly point at a control.
 - [ChatGPT screen sharing on Mac](/learn/chatgpt-screen-sharing-mac/): what ChatGPT can see on a Mac, if you were about to use that instead of an API key.

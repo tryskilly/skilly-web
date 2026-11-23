@@ -5,6 +5,7 @@ import { join } from 'node:path';
 const root = join(import.meta.dir, '..');
 const page = readFileSync(join(root, 'src/pages/index.astro'), 'utf8');
 const short = readFileSync(join(root, 'src/components/HeroShort.astro'), 'utf8');
+const nextStep = readFileSync(join(root, 'src/components/NonMacNextStep.astro'), 'utf8');
 
 describe('homepage hero', () => {
   test('keeps one download CTA above the fold with the trial line and Mac note', () => {
@@ -12,13 +13,21 @@ describe('homepage hero', () => {
 
     expect(hero).toContain('data-ph-event="web_cta_download_clicked"');
     expect(hero).toContain('data-ph-prop-location="people_hero"');
-    expect(hero).toContain('href={DOWNLOAD_URL}');
+    expect(hero).toContain("trackedDownloadUrl('home', 'people_hero', 'download')");
+    expect(hero).not.toContain('href={DOWNLOAD_URL}');
     expect(hero).toContain('Download for Mac');
     expect(hero).toContain('15-minute trial, no card.');
     expect(hero).not.toContain('15-minute free trial');
     expect(hero).toContain('Mac only, macOS 14.2 or later');
     expect(hero).toContain('href="#get-skilly"');
     expect(hero).toContain('id="get-skilly"');
+    expect(hero).toContain('location="people_hero_nonmac"');
+    expect(hero).toContain('Want the full desktop app on Windows? Join the waitlist.');
+    expect(page).toContain("trackedDownloadUrl('home', 'people_pricing_download', 'download')");
+    expect(nextStep).toContain('Use Skilly in your browser now');
+    expect(nextStep).toContain('data-ph-event="web_extension_store_clicked"');
+    expect(nextStep).toContain('href="/demo/"');
+    expect(nextStep).toContain('No signup. No installation.');
     expect(hero).not.toContain('Watch demo');
     expect(hero).not.toContain('Watch the 90-second demo');
   });

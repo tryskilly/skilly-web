@@ -8,8 +8,10 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
+import { trackedDownloadUrl } from '../data/config.ts';
 
 const deepLink = 'skilly://checkout-success';
+const downloadHref = trackedDownloadUrl('checkout_success', 'checkout_success', 'download');
 ---
 <Layout title="You're in — Skilly" description="Your subscription is active. Open Skilly to continue." productLine="people" funnelStage="conversion" noindex>
   <Nav />
@@ -34,7 +36,7 @@ const deepLink = 'skilly://checkout-success';
       </Button>
       <p class="text-sm text-[#756e69]">
         Skilly didn't open? Make sure it's in Applications and open it from there.
-        <a href="/download/" class="font-medium text-[#24211f] underline underline-offset-2">Download Skilly</a>
+        <a href={downloadHref} class="font-medium text-[#24211f] underline underline-offset-2">Download Skilly</a>
         if it isn't installed yet, then follow the install steps: open the disk image and move Skilly into Applications.
       </p>
     </div>
