@@ -5,7 +5,7 @@
 - Product type: Voice-first, screen-aware AI tutor
 - Audience: People learning software and completing unfamiliar workflows
 - macOS requirement: macOS 14.2 or later
-- Mac download: https://github.com/tryskilly/skilly/releases/latest/download/Skilly.dmg
+- Mac download: https://tryskilly.app/download/?utm_source=llms&utm_medium=referral&utm_campaign=people_md
 - Product page: https://tryskilly.app/
 - Pricing: https://tryskilly.app/pricing.md
 

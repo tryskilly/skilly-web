@@ -11,7 +11,9 @@ describe('checkout success page', () => {
     expect(page).not.toContain('skilly://checkout-success?');
     expect(page).toContain('Open Skilly');
     expect(page).toContain("Skilly didn't open? Make sure it's in Applications and open it from there.");
-    expect(page).toContain('href="/download/"');
+    expect(page).toContain("trackedDownloadUrl('checkout_success', 'checkout_success', 'download')");
+    expect(page).toContain('href={downloadHref}');
+    expect(page).not.toContain('href="/download/"');
     expect(page).toContain('install steps');
     expect(page).toContain('noindex');
     expect(page).toContain("capture('checkout_success_viewed'");

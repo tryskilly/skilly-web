@@ -1,0 +1,55 @@
+---
+// Desktop Windows/Linux visitors get the browser extension the site already
+// ships. Phones get the in-browser demo. Hidden unless VisitorOsScript sets
+// data-visitor-os. A known browser shows one store link; otherwise all three.
+import { BROWSER_EXTENSIONS } from '../data/config.ts';
+
+interface Props {
+  /** web_extension_store_clicked location, e.g. "people_hero_nonmac". */
+  location: string;
+  tone?: 'light' | 'brand';
+  class?: string;
+}
+
+const { location, tone = 'light', class: className = '' } = Astro.props;
+const brand = tone === 'brand';
+const linkClass = brand
+  ? 'inline-flex items-center justify-center rounded-[12px] bg-white px-4 py-2.5 text-[14px] font-semibold text-[#ff6f3f] shadow-sm transition hover:bg-white/90'
+  : 'inline-flex items-center justify-center rounded-[12px] bg-[#ff6f3f] px-4 py-2.5 text-[14px] font-semibold text-white shadow-[0_10px_24px_rgba(255,111,63,0.18)] transition hover:bg-[#ff6735]';
+---
+
+<div data-nonmac-browser class:list={['w-full text-left', className]}>
+  <p data-ext-heading class:list={['text-[17px] font-semibold leading-snug', brand ? 'text-white' : 'text-[#2a2421]']}>
+    Use Skilly in your browser now
+  </p>
+  <div class="mt-3 flex flex-wrap gap-2">
+    {BROWSER_EXTENSIONS.map((extension) => (
+      <a
+        href={extension.href}
+        data-ext-for={extension.id}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Use Skilly in your browser now (${extension.shortName})`}
+        data-ph-event="web_extension_store_clicked"
+        data-ph-prop-browser={extension.id}
+        data-ph-prop-location={location}
+        class={linkClass}
+      >
+        <span data-ext-phrase>Use Skilly in your browser now</span>
+        <span data-ext-name>{extension.shortName}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<div data-nonmac-mobile class:list={['w-full text-left', className]}>
+  <a
+    href="/demo/"
+    class:list={[linkClass, 'rounded-[14px] px-5 py-3 text-[16px]']}
+  >
+    Try Skilly in your browser
+  </a>
+  <p class:list={['mt-2 text-[13px] leading-[1.45]', brand ? 'text-white/80' : 'text-[#7c6d67]']}>
+    No signup. No installation.
+  </p>
+</div>

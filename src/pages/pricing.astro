@@ -6,6 +6,12 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
+import NonMacWaitlist from '../components/NonMacWaitlist.astro';
+import { trackedDownloadUrl } from '../data/config.ts';
+
+const pricingHeroDownload = trackedDownloadUrl('pricing', 'pricing_hero', 'download');
+const pricingPeopleDownload = trackedDownloadUrl('pricing', 'pricing_people', 'download');
+const pricingFaqDownload = trackedDownloadUrl('pricing', 'pricing_faq', 'download');
 
 const title = 'Skilly Pricing: Plans and Bring-Your-Own Key';
 const description =
@@ -185,9 +191,12 @@ const faqSchema = {
           Skilly points at the exact control, and you use that control yourself. Skilly for Builders is an embeddable voice-and-pointer assistant for websites, SaaS products, and apps: create a Studio project, teach Skilly from your content, lock it to approved domains, and install it with one script tag.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-3">
-          <Button href="/download/" variant="people-primary" size="lg" data-ph-event="web_cta_download_clicked" data-ph-prop-location="pricing_hero" data-ph-prop-target-funnel="people">Download for Mac</Button>
+          <div data-mac-download>
+            <Button href={pricingHeroDownload} variant="people-primary" size="lg" data-ph-event="web_cta_download_clicked" data-ph-prop-location="pricing_hero" data-ph-prop-target-funnel="people">Download for Mac</Button>
+          </div>
           <Button href="https://studio.tryskilly.app/signup" variant="secondary" size="lg">Create a Studio project</Button>
         </div>
+        <NonMacWaitlist id="get-skilly" location="pricing_hero" class="mt-4 max-w-[480px]" />
         <p class="mt-3 text-[13px] text-gray-500">
           15-minute trial on first launch — no card required. The 15-minute trial is one time per person and does not reset. No checkout before the trial.
         </p>
@@ -221,7 +230,10 @@ const faqSchema = {
               <li>Billed via Polar (<a href="https://polar.sh" class="underline underline-offset-2" rel="noopener noreferrer">polar.sh</a>)</li>
             </ul>
             <div class="mt-6">
-              <Button href="/download/" variant="people-primary" size="md" data-ph-event="web_cta_download_clicked" data-ph-prop-location="pricing_people" data-ph-prop-target-funnel="people">Download for Mac</Button>
+              <div data-mac-download>
+                <Button href={pricingPeopleDownload} variant="people-primary" size="md" data-ph-event="web_cta_download_clicked" data-ph-prop-location="pricing_people" data-ph-prop-target-funnel="people">Download for Mac</Button>
+              </div>
+              <NonMacWaitlist location="pricing_people" class="mt-4 max-w-[420px]" />
             </div>
           </article>
 
@@ -338,7 +350,7 @@ const faqSchema = {
             <li>iOS / iPadOS — exploring</li>
           </ul>
           <p class="mt-4 text-[15px] leading-relaxed text-gray-700">
-            To join the waitlist for non-macOS platforms, visit the <a href="/#waitlist" class="font-medium text-gray-900 underline underline-offset-2">Waitlist section</a> on the homepage.
+            To join the waitlist for non-macOS platforms, visit the <a href="/#get-skilly" class="font-medium text-gray-900 underline underline-offset-2">Waitlist section</a> on the homepage.
           </p>
         </article>
         <article class="rounded-[20px] border border-gray-200 bg-white p-8">
@@ -369,7 +381,10 @@ const faqSchema = {
         <div class="mx-auto max-w-[760px]">
           <h2 id="related-guides" class="text-2xl font-semibold text-gray-900">Related guides</h2>
           <ul class="mt-4 space-y-3 text-[15px] leading-relaxed text-gray-700">
-            <li><a href="/download/" class="font-medium text-gray-900 underline underline-offset-2">Download Skilly for Mac</a></li>
+            <li>
+              <a data-mac-download href={pricingFaqDownload} class="font-medium text-gray-900 underline underline-offset-2">Download Skilly for Mac</a>
+              <a data-waitlist-jump href="#get-skilly" class="font-medium text-gray-900 underline underline-offset-2">Join the waitlist</a>
+            </li>
             <li>
               <a href="/learn/skilly-openai-key-setup/" class="font-medium text-gray-900 underline underline-offset-2">Skilly OpenAI API key setup</a>
               {' '}— setup and the “no credits remaining” fix

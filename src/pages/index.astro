@@ -9,7 +9,8 @@ import PrivacySnapshot from '../components/PrivacySnapshot.astro';
 import VideoModal from '../components/VideoModal.astro';
 import HeroShort from '../components/HeroShort.astro';
 import NonMacWaitlist from '../components/NonMacWaitlist.astro';
-import { BROWSER_EXTENSIONS, DOWNLOAD_URL } from '../data/config.ts';
+import NonMacNextStep from '../components/NonMacNextStep.astro';
+import { BROWSER_EXTENSIONS, trackedDownloadUrl } from '../data/config.ts';
 import { betaTier, byokTier } from '../data/tiers.ts';
 import { trialTerms } from '../data/trial-terms.ts';
 import {
@@ -243,10 +244,10 @@ const faqSchema = {
             Skilly for Mac listens to your question, replies in voice, and guides you through the app you’re using—without forcing you to search tutorials.
           </p>
 
-          <div class="people-hero-actions mt-8 flex flex-wrap gap-3">
+          <div class="people-hero-actions mt-8 flex flex-wrap gap-3" data-mac-download>
             <a
               data-mac-download
-              href={DOWNLOAD_URL}
+              href={trackedDownloadUrl('home', 'people_hero', 'download')}
               data-ph-event="web_cta_download_clicked"
               data-ph-prop-location="people_hero"
               data-ph-prop-target-funnel="people"
@@ -256,15 +257,20 @@ const faqSchema = {
               Download for Mac
             </a>
           </div>
-          <p class="mt-3 max-w-[470px] text-[14px] font-semibold leading-[1.5] text-[#2a2421]">15-minute trial, no card.</p>
-          <p class="mt-1.5 max-w-[470px] text-[13px] leading-[1.5] text-[#7c6d67]">
+          <p data-mac-download class="mt-3 max-w-[470px] text-[14px] font-semibold leading-[1.5] text-[#2a2421]">15-minute trial, no card.</p>
+          <p data-mac-download class="mt-1.5 max-w-[470px] text-[13px] leading-[1.5] text-[#7c6d67]">
             <a href="#get-skilly" class="underline underline-offset-2 decoration-dashed decoration-[#d9c7be] hover:text-[#2a2421]">Mac only, macOS 14.2 or later</a>
           </p>
+          <NonMacNextStep location="people_hero_nonmac" class="mt-8 max-w-[470px]" />
           <NonMacWaitlist
             id="get-skilly"
             location="people_hero"
             class="mt-4 max-w-[470px] rounded-[18px] border border-[#f1e0d7] bg-white/90 px-5 py-4 shadow-[0_8px_24px_rgba(91,57,38,0.05)]"
-          />
+          >
+            <p slot="intro" class="text-[15px] font-semibold leading-snug text-gray-900">
+              <span data-wl-os="windows">Want the full desktop app on Windows? Join the waitlist.</span><span data-wl-os="linux">Want the full desktop app on Linux? Join the waitlist.</span><span data-wl-os="mobile">Want Skilly on your phone? Join the waitlist.</span>
+            </p>
+          </NonMacWaitlist>
           <div class="mt-5">
             <HeroShort />
           </div>
@@ -527,7 +533,12 @@ const faqSchema = {
 
         <article class="cta-panel relative overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,#ff8a4d_0%,#ff6f3f_100%)] px-5 py-5 text-white shadow-[0_16px_30px_rgba(255,111,63,0.2)]">
           <Sparkles size={28} strokeWidth={1.8} class="absolute right-4 top-4 opacity-20" aria-hidden="true" />
-          <NonMacWaitlist location="people_pricing_download" tone="brand" class="relative" />
+          <NonMacNextStep location="people_hero_nonmac" tone="brand" class="relative" />
+          <NonMacWaitlist location="people_pricing_download" tone="brand" class="relative mt-4">
+            <p slot="intro" class="text-[15px] font-semibold leading-snug text-white">
+              <span data-wl-os="windows">Want the full desktop app on Windows? Join the waitlist.</span><span data-wl-os="linux">Want the full desktop app on Linux? Join the waitlist.</span><span data-wl-os="mobile">Want Skilly on your phone? Join the waitlist.</span>
+            </p>
+          </NonMacWaitlist>
           <div data-mac-download>
           <div class="text-[20px] font-bold leading-[1.05] tracking-[-0.04em]">
             Download
@@ -536,7 +547,7 @@ const faqSchema = {
           </div>
           <p class="mt-2 text-[13px] text-white/80">macOS 14.2+</p>
           <a
-            href={DOWNLOAD_URL}
+            href={trackedDownloadUrl('home', 'people_pricing_download', 'download')}
             data-ph-event="web_cta_download_clicked"
             data-ph-prop-location="people_pricing_download"
             data-ph-prop-target-funnel="people"
@@ -1305,7 +1316,40 @@ const faqSchema = {
       }
     }
 
+    @media (min-width: 1024px) and (max-height: 820px) {
+      .people-hero-copy > h1 {
+        margin-top: 12px;
+        font-size: 52px;
+      }
+
+      .people-hero-copy > h1 + p {
+        margin-top: 12px;
+      }
+
+      .people-hero-actions {
+        margin-top: 16px;
+      }
+    }
+
     @media (max-width: 767px) {
+      .people-hero-inner {
+        padding-top: 1.25rem;
+      }
+
+      .people-hero-copy > h1 {
+        margin-top: 12px;
+        font-size: 40px;
+      }
+
+      .people-hero-copy > h1 + p {
+        margin-top: 12px;
+        font-size: 16px;
+      }
+
+      .people-hero-actions {
+        margin-top: 16px;
+      }
+
       .people-hero-scene {
         height: 340px;
         overflow: hidden;

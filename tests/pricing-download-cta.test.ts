@@ -11,6 +11,13 @@ describe('pricing page download tracking', () => {
     expect(page).toContain('data-ph-prop-location="pricing_hero"');
     expect(page).toContain('data-ph-prop-location="pricing_people"');
     expect(page).toContain('data-ph-prop-target-funnel="people"');
+    expect(page).toContain("trackedDownloadUrl('pricing', 'pricing_hero', 'download')");
+    expect(page).toContain("trackedDownloadUrl('pricing', 'pricing_people', 'download')");
+    expect(page).toContain("trackedDownloadUrl('pricing', 'pricing_faq', 'download')");
+    expect(page).toContain('data-mac-download');
+    expect(page).toContain('<NonMacWaitlist');
+    expect(page).toContain('href="/#get-skilly"');
+    expect(page).not.toContain('href="/#waitlist"');
     expect(page).not.toMatch(/15 minutes free|15-minute free trial|lifetime trial|Try free|Start free/i);
   });
 });
