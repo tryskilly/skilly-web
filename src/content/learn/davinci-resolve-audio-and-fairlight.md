@@ -65,7 +65,7 @@ Move to the Fairlight page for professional audio mixing, EQ, and loudness monit
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the audio panel?" — and it answers while **pointing at the exact button**, watching your actual DaVinci Resolve window. It's the same DaVinci Resolve curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
+Reading steps is one thing; doing them while the menus are in front of you is another. [AI for DaVinci Resolve](/davinci-resolve/) is a voice-first tutor for macOS: you ask out loud — "where's the audio panel?" — and it answers while **pointing at the exact button**, watching your actual DaVinci Resolve window. It's the same DaVinci Resolve curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

@@ -55,7 +55,7 @@ Get oriented in After Effects and learn to move around the Composition panel and
 
 ## Do it hands-free with Skilly
 
-Reading steps is one thing; doing them while the menus are in front of you is another. [Skilly](/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **pointing at the exact button**, watching your actual After Effects window. It's the same After Effects curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
+Reading steps is one thing; doing them while the menus are in front of you is another. [AI for After Effects](/after-effects/) is a voice-first tutor for macOS: you ask out loud — "where's the interface panel?" — and it answers while **pointing at the exact button**, watching your actual After Effects window. It's the same After Effects curriculum these lessons come from, taught live instead of read. 15-minute trial, no card.
 
 ## Keep going
 

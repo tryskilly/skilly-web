@@ -125,7 +125,7 @@ Captions deserve their own walkthrough, and we'll cover them in a separate guide
 
 ## Do it hands-free with Skilly
 
-Reading steps is fine until you're staring at Premiere and can't find the panel the guide is talking about. That's where [Skilly](/) helps.
+Reading steps is fine until you're staring at Premiere and can't find the panel the guide is talking about. That's where [AI for Premiere Pro](/premiere-pro/) helps.
 
 Skilly is a voice tutor for Mac. Hold **Control+Option** and ask out loud, something like *"where do I change the font on this text?"* Skilly looks at your Premiere Pro window, answers in voice, and **points at the exact control** on your screen. Premiere Pro is one of Skilly's built-in skills, and it switches on when Premiere is the app in front.
 
