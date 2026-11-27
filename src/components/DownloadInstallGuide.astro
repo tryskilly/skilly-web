@@ -1,6 +1,7 @@
 ---
 // Install guide shown after a download click. The file link and the
 // skilly://attribution deep link are the same handoff as before.
+import NonMacNextStep from './NonMacNextStep.astro';
 import NonMacWaitlist from './NonMacWaitlist.astro';
 import { askApps } from '../data/askExamples.ts';
 
@@ -27,10 +28,14 @@ const bundledApps = askApps.map((app) => ({
   <p class="mt-3 text-[15px] font-semibold text-[#2a2421]">15-minute trial, no card.</p>
 
   <div class="mt-6 max-w-[520px]">
-    <NonMacWaitlist id="get-skilly" location="download_page" />
+    <p data-nonmac-browser class="text-[15px] leading-[1.6] text-[#5f534d]">
+      Skilly runs in your browser on Windows and Linux.
+    </p>
+    <NonMacNextStep location="download_nonmac" class="mt-3" />
+    <NonMacWaitlist id="get-skilly" location="download_page" class="mt-4" />
   </div>
 
-  <ol class="mt-10 flex flex-col gap-4">
+  <ol data-mac-only class="mt-10 flex flex-col gap-4">
     <li id="install" data-download-step="install" class="rounded-[22px] border border-[#f2e6df] bg-white px-5 py-5 shadow-[0_12px_26px_rgba(111,73,48,0.04)] sm:px-6">
       <p class="font-mono text-[13px] font-semibold text-[#ff6f3f]">1</p>
       <h2 class="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-[#2a2421]">Open the download</h2>
@@ -48,6 +53,7 @@ const bundledApps = askApps.map((app) => ({
           Download for Mac
         </a>
         <a
+          data-mac-only
           href={deepLink}
           class="inline-flex h-12 items-center justify-center rounded-[12px] border border-[#f1c3b3] bg-white px-5 text-[15px] font-semibold text-[#ff6f3f]"
         >
@@ -141,9 +147,19 @@ const bundledApps = askApps.map((app) => ({
       return visible >= 80 && rect.top < vh * 0.72 && rect.bottom > 32;
     }
 
+    // Install, permissions, and first_question describe the Mac app. Windows,
+    // Linux, and phones never see that block, so a scroll or #install hash
+    // must not record those steps. `loaded` still fires for every visitor.
+    function macStepShown(el) {
+      var os = document.documentElement.getAttribute('data-visitor-os');
+      if (os === 'windows' || os === 'linux' || os === 'mobile') return false;
+      return el.getClientRects().length > 0;
+    }
+
     function reachVisibleSteps() {
       var nodes = document.querySelectorAll('[data-download-step]');
       for (var i = 0; i < nodes.length; i++) {
+        if (!macStepShown(nodes[i])) continue;
         if (reached(nodes[i])) fire(nodes[i].getAttribute('data-download-step'));
       }
     }

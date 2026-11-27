@@ -258,7 +258,10 @@ html[data-visitor-os='mobile'] [data-waitlist-jump] {
 }
 html[data-visitor-os='windows'] [data-mac-download],
 html[data-visitor-os='linux'] [data-mac-download],
-html[data-visitor-os='mobile'] [data-mac-download] {
+html[data-visitor-os='mobile'] [data-mac-download],
+html[data-visitor-os='windows'] [data-mac-only],
+html[data-visitor-os='linux'] [data-mac-only],
+html[data-visitor-os='mobile'] [data-mac-only] {
   display: none !important;
 }
 /* Per-OS copy inside the waitlist block. */

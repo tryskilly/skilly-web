@@ -131,6 +131,21 @@ describe('download attribution handoff', () => {
     expect(guide).toContain('window.__skillyDownloadSteps');
     expect(guide).not.toContain('IntersectionObserver');
     expect(guide).toContain('NonMacWaitlist');
+    expect(guide).toContain('NonMacNextStep');
+    expect(guide).toContain('location="download_nonmac"');
+    expect(guide).toContain('Skilly runs in your browser on Windows and Linux.');
+    expect(guide).toContain('<ol data-mac-only');
+    expect(guide).toContain('data-mac-only');
+    expect(guide).toContain("os === 'windows' || os === 'linux' || os === 'mobile'");
+    expect(guide).toContain('el.getClientRects().length > 0');
+    expect(page).toContain('title="Install Skilly for Mac"');
+    expect(page).toContain('macOS 14.2 or later');
+    expect(page).toContain('15-minute trial, no card');
+
+    const css = readFileSync(join(root, 'src/styles/globals.css'), 'utf8');
+    expect(css).toContain("html[data-visitor-os='windows'] [data-mac-only]");
+    expect(css).toContain("html[data-visitor-os='linux'] [data-mac-only]");
+    expect(css).toContain("html[data-visitor-os='mobile'] [data-mac-only]");
   });
 
   test('keeps the legacy dmg alias inside the attribution handoff', () => {
