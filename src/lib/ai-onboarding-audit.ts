@@ -422,9 +422,9 @@ async function llmReport(input: AuditInput, pages: CrawledPage[], fallback: Audi
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: (typeof process !== 'undefined' ? process.env?.OPENAI_AUDIT_MODEL : undefined) ?? import.meta.env.OPENAI_AUDIT_MODEL ?? 'gpt-4o-mini',
+        model: (typeof process !== 'undefined' ? process.env?.OPENAI_AUDIT_MODEL : undefined) ?? import.meta.env.OPENAI_AUDIT_MODEL ?? 'gpt-6-luna',
         input: prompt,
-        max_output_tokens: 2200,
+        max_output_tokens: 8000,
       }),
     });
     if (!response.ok) {
